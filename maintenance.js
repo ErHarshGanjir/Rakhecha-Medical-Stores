@@ -7,7 +7,7 @@ true  = Maintenance ON
 false = Website LIVE
 */
 
-var MAINTENANCE_MODE = true;
+var MAINTENANCE_MODE = false;
 
 (function () {
     try {
