@@ -7,7 +7,7 @@ true  = Maintenance ON (site locked)
 false = Website LIVE
 */
 
-var MAINTENANCE_MODE = true;
+var MAINTENANCE_MODE = false;  // true = ON | false = OFF
 
 (function () {
     try {
