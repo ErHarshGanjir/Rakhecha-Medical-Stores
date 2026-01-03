@@ -1,30 +1,37 @@
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Service Unavailable</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+/* =====================================
+   GLOBAL MAINTENANCE CONTROLLER (FIXED)
+   ===================================== */
 
-<script src="/maintenance.js"></script>
-<script>
-(function(){
-    if (window.__MAINTENANCE_MODE__ !== true) {
-        // Decoy content only (no redirect)
-        document.documentElement.innerHTML = "";
+/*
+true  = Maintenance ON
+false = Website LIVE
+*/
+
+var MAINTENANCE_MODE = false;
+
+(function () {
+    try {
+        var path = window.location.pathname;
+        var lowerPath = path.toLowerCase();
+
+        // Detect base path (repo-safe)
+        var basePath = path.split("/").slice(0, -1).join("/") || "/";
+
+        // MAINTENANCE ON → force redirect
+        if (MAINTENANCE_MODE === true) {
+            if (!lowerPath.endsWith("/maintenance.html")) {
+                window.location.replace(basePath + "/maintenance.html");
+            }
+        }
+
+        // MAINTENANCE OFF → block maintenance page
+        if (MAINTENANCE_MODE === false) {
+            if (lowerPath.endsWith("/maintenance.html")) {
+                window.location.replace(basePath + "/index.html");
+            }
+        }
+
+    } catch (e) {
+        // silent fail (intentional)
     }
 })();
-</script>
-
-<style>
-body{
-    font-family: Consolas, monospace;
-    padding:40px;
-}
-</style>
-</head>
-
-<body>
-<h1>503 Service Unavailable</h1>
-<p>The server is temporarily unable to handle the request.</p>
-</body>
-</html>
