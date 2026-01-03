@@ -3,23 +3,31 @@
    ============================== */
 
 /*
-true  = Maintenance ON (site locked)
+true  = Maintenance ON
 false = Website LIVE
 */
 
-var MAINTENANCE_MODE = false;  // true = ON | false = OFF
+var MAINTENANCE_MODE = false;
 
 (function () {
     try {
-        if (MAINTENANCE_MODE === true) {
-            var path = window.location.pathname.toLowerCase();
+        var path = window.location.pathname.toLowerCase();
 
-            // allow maintenance page itself
+        // CASE 1: Maintenance ON → force everyone to maintenance page
+        if (MAINTENANCE_MODE === true) {
             if (!path.endsWith("/maintenance.html")) {
                 window.location.replace("/maintenance.html");
             }
         }
+
+        // CASE 2: Maintenance OFF → block maintenance page access
+        if (MAINTENANCE_MODE === false) {
+            if (path.endsWith("/maintenance.html")) {
+                window.location.replace("/");
+            }
+        }
+
     } catch (e) {
-        // silent fail (looks more real)
+        // silent fail (no console noise)
     }
 })();
