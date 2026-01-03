@@ -27,7 +27,7 @@ var MAINTENANCE_MODE = false;
         // MAINTENANCE OFF → block maintenance page
         if (MAINTENANCE_MODE === false) {
             if (lowerPath.endsWith("/maintenance.html")) {
-                window.location.replace(basePath + "/index.html");
+                window.location.replace(basePath + "https://rakhechamedical.in/");
             }
         }
 
