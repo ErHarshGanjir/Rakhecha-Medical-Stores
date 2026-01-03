@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>503 Service Unavailable</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+body{
+    margin:0;
+    padding:0;
+    background:#ffffff;
+    font-family: Consolas, Monaco, monospace;
+    color:#000;
+}
+.container{
+    max-width:900px;
+    margin:60px auto;
+    padding:20px;
+}
+h1{
+    font-size:22px;
+    margin-bottom:15px;
+}
+.error{
+    color:#b00020;
+    font-weight:bold;
+    margin-bottom:15px;
+}
+pre{
+    background:#f5f5f5;
+    padding:15px;
+    border-left:4px solid #b00020;
+    overflow:auto;
+    font-size:13px;
+}
+.footer{
+    margin-top:40px;
+    font-size:12px;
+    color:#666;
+}
+</style>
+</head>
+
+<body>
+<div class="container">
+
+<h1>503 Service Unavailable</h1>
+
+<div class="error">
+Fatal error: Database connection failed
+</div>
+
+<pre>
+Timestamp        : 2026-01-03 09:30:41 UTC
+Server Status    : RUNNING
+Database Status  : NOT RESPONDING
+Configuration    : FAILED
+Auth Module      : DISABLED
+
+Error Code:
+[DB-CONN-503]
+
+Stack Trace:
+Unable to connect to database host.
+Access temporarily restricted by system policy.
+</pre>
+
+<p>
+The service is temporarily unavailable due to a server configuration issue.
+Please try again later.
+</p>
+
+<div class="footer">
+Reference ID: SRV-503-LOCK<br>
+This page will resolve automatically once services are restored.
+</div>
+
+</div>
+</body>
+</html>
