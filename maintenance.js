@@ -1,6 +1,6 @@
-/* ==============================
-   GLOBAL MAINTENANCE CONTROLLER
-   ============================== */
+/* =====================================
+   GLOBAL MAINTENANCE CONTROLLER (FIXED)
+   ===================================== */
 
 /*
 true  = Maintenance ON
@@ -11,23 +11,27 @@ var MAINTENANCE_MODE = false;
 
 (function () {
     try {
-        var path = window.location.pathname.toLowerCase();
+        var path = window.location.pathname;
+        var lowerPath = path.toLowerCase();
 
-        // CASE 1: Maintenance ON → force everyone to maintenance page
+        // Detect base path (repo-safe)
+        var basePath = path.split("/").slice(0, -1).join("/") || "/";
+
+        // MAINTENANCE ON → force redirect
         if (MAINTENANCE_MODE === true) {
-            if (!path.endsWith("/maintenance.html")) {
-                window.location.replace("/maintenance.html");
+            if (!lowerPath.endsWith("/maintenance.html")) {
+                window.location.replace(basePath + "/maintenance.html");
             }
         }
 
-        // CASE 2: Maintenance OFF → block maintenance page access
+        // MAINTENANCE OFF → block maintenance page
         if (MAINTENANCE_MODE === false) {
-            if (path.endsWith("/maintenance.html")) {
-                window.location.replace("/");
+            if (lowerPath.endsWith("/maintenance.html")) {
+                window.location.replace(basePath + "/index.html");
             }
         }
 
     } catch (e) {
-        // silent fail (no console noise)
+        // silent fail (intentional)
     }
 })();
