@@ -20,7 +20,7 @@ var MAINTENANCE_MODE = true;
         // MAINTENANCE ON → force redirect
         if (MAINTENANCE_MODE === true) {
             if (!lowerPath.endsWith("/maintenance.html")) {
-                window.location.replace(basePath + "/maintenance.html");
+                window.location.replace(basePath + "https://rakhechamedical.in/maintenance.html");
             }
         }
 
