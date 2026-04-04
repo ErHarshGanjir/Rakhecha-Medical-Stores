@@ -3,35 +3,32 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Secure Access</title>
+<title>Secure DocBox</title>
 
 <style>
 body {
     margin: 0;
     font-family: 'Segoe UI', sans-serif;
-    background: radial-gradient(circle at top, #0f172a, #020617);
+    background: radial-gradient(circle, #0f172a, #020617);
     color: white;
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
-    overflow: hidden;
 }
 
-/* Container */
+/* Lock Box */
 .lock-container {
     text-align: center;
     padding: 30px;
     border-radius: 20px;
     background: rgba(255,255,255,0.05);
     backdrop-filter: blur(15px);
-    box-shadow: 0 0 40px rgba(0,0,0,0.6);
 }
 
-/* Lock Icon */
+/* Lock */
 .lock {
     font-size: 80px;
-    transition: 0.5s;
     animation: glow 2s infinite alternate;
 }
 
@@ -47,57 +44,46 @@ input {
     border: none;
     margin-top: 20px;
     font-size: 16px;
-    width: 220px;
-    outline: none;
 }
 
 /* Button */
 button {
-    padding: 12px 25px;
-    margin-top: 12px;
-    border: none;
+    padding: 10px 20px;
+    margin-top: 10px;
     border-radius: 10px;
-    background: linear-gradient(45deg, #22c55e, #16a34a);
+    border: none;
+    background: #22c55e;
     color: white;
-    font-size: 16px;
     cursor: pointer;
-    transition: 0.3s;
-}
-button:hover {
-    transform: scale(1.05);
 }
 
-/* Error Animation */
+/* Error */
 .error {
-    animation: shake 0.4s;
+    animation: shake 0.3s;
     color: red;
-    text-shadow: 0 0 10px red;
 }
-
 @keyframes shake {
-    25% { transform: translateX(-6px); }
-    50% { transform: translateX(6px); }
-    75% { transform: translateX(-4px); }
+    25% { transform: translateX(-5px); }
+    50% { transform: translateX(5px); }
 }
 
-/* Unlock Animation */
+/* Unlock */
 .unlock {
-    animation: unlockAnim 1s forwards;
+    transform: rotate(-20deg) scale(1.2);
+    color: #22c55e;
 }
 
-@keyframes unlockAnim {
-    0% { transform: scale(1) rotate(0); }
-    50% { transform: scale(1.3) rotate(-20deg); }
-    100% { transform: scale(1.2) rotate(-15deg); color: #22c55e; }
+/* Hide */
+.hidden {
+    display: none;
 }
 
-/* Fade out */
-.fadeOut {
-    animation: fade 1s forwards;
-}
-
-@keyframes fade {
-    to { opacity: 0; transform: scale(1.2); }
+/* iframe */
+iframe {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border: none;
 }
 </style>
 </head>
@@ -108,16 +94,20 @@ button:hover {
     <div id="lockIcon" class="lock">🔒</div>
     <h2>Enter Password</h2>
 
-    <input type="password" id="password" placeholder="Password">
+    <input type="password" id="password">
     <br>
     <button onclick="checkPassword()">Unlock</button>
 
     <p id="message"></p>
 </div>
 
+<iframe id="frame" class="hidden"></iframe>
+
 <script>
-const redirectURL = "https://script.google.com/macros/s/AKfycbzvHYXILPi2nBQWdrOW1T1uWIKxu2-5Cmi0LDBY2tp-Uw7mTbFq5EB_IeOM2jFWMhH9/exec";
 const correctPassword = "JD@12348765";
+
+// 👉 Use ONLY working iframe URL here
+const iframeURL = "https://script.google.com/macros/s/AKfycbwPnb5ieuhrpKAMQURDMjEFrhTZyYdoM5kafGuVD61-O5q1pP90mc4SyaT0BSDuFsBA/exec";
 
 function checkPassword() {
     const input = document.getElementById("password").value;
@@ -126,35 +116,31 @@ function checkPassword() {
 
     if (input === correctPassword) {
 
-        msg.style.color = "#22c55e";
         msg.innerText = "Access Granted 🔓";
+        msg.style.color = "#22c55e";
 
         lock.classList.add("unlock");
 
         setTimeout(() => {
-            document.getElementById("lockScreen").classList.add("fadeOut");
-        }, 700);
+            document.getElementById("lockScreen").classList.add("hidden");
 
-        setTimeout(() => {
-            window.location.href = redirectURL;
-        }, 1300);
+            const frame = document.getElementById("frame");
+            frame.src = iframeURL;
+            frame.classList.remove("hidden");
+
+        }, 1000);
 
     } else {
-
         msg.innerText = "Wrong Password ❌";
         msg.classList.add("error");
 
-        setTimeout(() => {
-            msg.classList.remove("error");
-        }, 400);
+        setTimeout(() => msg.classList.remove("error"), 300);
     }
 }
 
-/* ENTER key support */
-document.getElementById("password").addEventListener("keypress", function(e) {
-    if (e.key === "Enter") {
-        checkPassword();
-    }
+/* Enter key */
+document.getElementById("password").addEventListener("keypress", function(e){
+    if(e.key === "Enter") checkPassword();
 });
 </script>
 
