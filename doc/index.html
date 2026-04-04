@@ -1,148 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Secure DocBox</title>
-
-<style>
-body {
-    margin: 0;
-    font-family: 'Segoe UI', sans-serif;
-    background: radial-gradient(circle, #0f172a, #020617);
-    color: white;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-}
-
-/* Lock Box */
-.lock-container {
-    text-align: center;
-    padding: 30px;
-    border-radius: 20px;
-    background: rgba(255,255,255,0.05);
-    backdrop-filter: blur(15px);
-}
-
-/* Lock */
-.lock {
-    font-size: 80px;
-    animation: glow 2s infinite alternate;
-}
-
-@keyframes glow {
-    from { text-shadow: 0 0 5px #22c55e; }
-    to { text-shadow: 0 0 25px #22c55e; }
-}
-
-/* Input */
-input {
-    padding: 12px;
-    border-radius: 10px;
-    border: none;
-    margin-top: 20px;
-    font-size: 16px;
-}
-
-/* Button */
-button {
-    padding: 10px 20px;
-    margin-top: 10px;
-    border-radius: 10px;
-    border: none;
-    background: #22c55e;
-    color: white;
-    cursor: pointer;
-}
-
-/* Error */
-.error {
-    animation: shake 0.3s;
-    color: red;
-}
-@keyframes shake {
-    25% { transform: translateX(-5px); }
-    50% { transform: translateX(5px); }
-}
-
-/* Unlock */
-.unlock {
-    transform: rotate(-20deg) scale(1.2);
-    color: #22c55e;
-}
-
-/* Hide */
-.hidden {
-    display: none;
-}
-
-/* iframe */
-iframe {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    border: none;
-}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="/maintenance.js"></script>
+    <title>DocBox</title>
+    <!-- Replace 'favicon.ico' with your actual icon URL later -->
+    <link rel="icon" type="image/x-icon" href="favicon.png">
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            width: 100%;
+            overflow: hidden; /* Prevents double scrollbars */
+        }
+        iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+    </style>
 </head>
-
 <body>
-
-<div class="lock-container" id="lockScreen">
-    <div id="lockIcon" class="lock">🔒</div>
-    <h2>Enter Password</h2>
-
-    <input type="password" id="password">
-    <br>
-    <button onclick="checkPassword()">Unlock</button>
-
-    <p id="message"></p>
-</div>
-
-<iframe id="frame" class="hidden"></iframe>
-
-<script>
-const correctPassword = "JD@12348765";
-
-// 👉 Use ONLY working iframe URL here
-const iframeURL = "https://script.google.com/macros/s/AKfycbwPnb5ieuhrpKAMQURDMjEFrhTZyYdoM5kafGuVD61-O5q1pP90mc4SyaT0BSDuFsBA/exec";
-
-function checkPassword() {
-    const input = document.getElementById("password").value;
-    const lock = document.getElementById("lockIcon");
-    const msg = document.getElementById("message");
-
-    if (input === correctPassword) {
-
-        msg.innerText = "Access Granted 🔓";
-        msg.style.color = "#22c55e";
-
-        lock.classList.add("unlock");
-
-        setTimeout(() => {
-            document.getElementById("lockScreen").classList.add("hidden");
-
-            const frame = document.getElementById("frame");
-            frame.src = iframeURL;
-            frame.classList.remove("hidden");
-
-        }, 1000);
-
-    } else {
-        msg.innerText = "Wrong Password ❌";
-        msg.classList.add("error");
-
-        setTimeout(() => msg.classList.remove("error"), 300);
-    }
-}
-
-/* Enter key */
-document.getElementById("password").addEventListener("keypress", function(e){
-    if(e.key === "Enter") checkPassword();
-});
-</script>
-
+    <iframe 
+        src="https://script.google.com/macros/s/AKfycbwPnb5ieuhrpKAMQURDMjEFrhTZyYdoM5kafGuVD61-O5q1pP90mc4SyaT0BSDuFsBA/exec" 
+        allow="downloads; advertisements; forms; geolocation; modem; publickey-credentials-get; registrations; storage-access; camera; microphone; clipboard-read; clipboard-write" 
+        sandbox="allow-forms allow-modals allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts allow-downloads" 
+        title="DocBox Content">
+    </iframe>
 </body>
 </html>
