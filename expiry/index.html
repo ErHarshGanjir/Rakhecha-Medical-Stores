@@ -8,77 +8,96 @@
 <style>
 body {
     margin: 0;
-    font-family: Arial, sans-serif;
-    background: #0f172a;
+    font-family: 'Segoe UI', sans-serif;
+    background: radial-gradient(circle at top, #0f172a, #020617);
     color: white;
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
+    overflow: hidden;
 }
 
 /* Container */
 .lock-container {
     text-align: center;
+    padding: 30px;
+    border-radius: 20px;
+    background: rgba(255,255,255,0.05);
+    backdrop-filter: blur(15px);
+    box-shadow: 0 0 40px rgba(0,0,0,0.6);
 }
 
 /* Lock Icon */
 .lock {
     font-size: 80px;
     transition: 0.5s;
+    animation: glow 2s infinite alternate;
+}
+
+@keyframes glow {
+    from { text-shadow: 0 0 5px #22c55e; }
+    to { text-shadow: 0 0 25px #22c55e; }
 }
 
 /* Input */
 input {
-    padding: 10px;
-    border-radius: 8px;
+    padding: 12px;
+    border-radius: 10px;
     border: none;
     margin-top: 20px;
     font-size: 16px;
+    width: 220px;
+    outline: none;
 }
 
 /* Button */
 button {
-    padding: 10px 20px;
-    margin-top: 10px;
+    padding: 12px 25px;
+    margin-top: 12px;
     border: none;
-    border-radius: 8px;
-    background: #22c55e;
+    border-radius: 10px;
+    background: linear-gradient(45deg, #22c55e, #16a34a);
     color: white;
     font-size: 16px;
     cursor: pointer;
+    transition: 0.3s;
+}
+button:hover {
+    transform: scale(1.05);
 }
 
 /* Error Animation */
 .error {
-    animation: shake 0.3s;
+    animation: shake 0.4s;
     color: red;
+    text-shadow: 0 0 10px red;
 }
 
 @keyframes shake {
-    0% { transform: translateX(0); }
-    25% { transform: translateX(-5px); }
-    50% { transform: translateX(5px); }
-    75% { transform: translateX(-5px); }
-    100% { transform: translateX(0); }
+    25% { transform: translateX(-6px); }
+    50% { transform: translateX(6px); }
+    75% { transform: translateX(-4px); }
 }
 
 /* Unlock Animation */
 .unlock {
-    transform: rotate(-20deg) scale(1.2);
-    color: #22c55e;
+    animation: unlockAnim 1s forwards;
 }
 
-/* Hide lock screen */
-.hidden {
-    display: none;
+@keyframes unlockAnim {
+    0% { transform: scale(1) rotate(0); }
+    50% { transform: scale(1.3) rotate(-20deg); }
+    100% { transform: scale(1.2) rotate(-15deg); color: #22c55e; }
 }
 
-/* Iframe full screen */
-iframe {
-    width: 100%;
-    height: 100vh;
-    border: none;
+/* Fade out */
+.fadeOut {
+    animation: fade 1s forwards;
+}
+
+@keyframes fade {
+    to { opacity: 0; transform: scale(1.2); }
 }
 </style>
 </head>
@@ -88,43 +107,55 @@ iframe {
 <div class="lock-container" id="lockScreen">
     <div id="lockIcon" class="lock">🔒</div>
     <h2>Enter Password</h2>
+
     <input type="password" id="password" placeholder="Password">
     <br>
     <button onclick="checkPassword()">Unlock</button>
+
     <p id="message"></p>
 </div>
 
-<iframe id="mainFrame" class="hidden"></iframe>
-
 <script>
+const redirectURL = "https://script.google.com/macros/s/AKfycbzvHYXILPi2nBQWdrOW1T1uWIKxu2-5Cmi0LDBY2tp-Uw7mTbFq5EB_IeOM2jFWMhH9/exec";
+const correctPassword = "JD@12348765";
+
 function checkPassword() {
     const input = document.getElementById("password").value;
     const lock = document.getElementById("lockIcon");
     const msg = document.getElementById("message");
 
-    if (input === "JD@12348765") {
-        // Correct animation
-        lock.classList.add("unlock");
-        msg.style.color = "lightgreen";
+    if (input === correctPassword) {
+
+        msg.style.color = "#22c55e";
         msg.innerText = "Access Granted 🔓";
 
+        lock.classList.add("unlock");
+
         setTimeout(() => {
-            document.getElementById("lockScreen").classList.add("hidden");
-            const frame = document.getElementById("mainFrame");
-            frame.src = "https://script.google.com/macros/s/AKfycbzvHYXILPi2nBQWdrOW1T1uWIKxu2-5Cmi0LDBY2tp-Uw7mTbFq5EB_IeOM2jFWMhH9/exec";
-            frame.classList.remove("hidden");
-        }, 1200);
+            document.getElementById("lockScreen").classList.add("fadeOut");
+        }, 700);
+
+        setTimeout(() => {
+            window.location.href = redirectURL;
+        }, 1300);
 
     } else {
-        // Wrong animation
+
         msg.innerText = "Wrong Password ❌";
         msg.classList.add("error");
 
         setTimeout(() => {
             msg.classList.remove("error");
-        }, 300);
+        }, 400);
     }
 }
+
+/* ENTER key support */
+document.getElementById("password").addEventListener("keypress", function(e) {
+    if (e.key === "Enter") {
+        checkPassword();
+    }
+});
 </script>
 
 </body>
