@@ -1,148 +1,91 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Secure Exp data</title>
+    <title>Exp data</title>
+    <script src="/maintenance.js"></script>
 
-<style>
-body {
-    margin: 0;
-    font-family: 'Segoe UI', sans-serif;
-    background: radial-gradient(circle, #0f172a, #020617);
-    color: white;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-}
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
 
-/* Lock Box */
-.lock-container {
-    text-align: center;
-    padding: 30px;
-    border-radius: 20px;
-    background: rgba(255,255,255,0.05);
-    backdrop-filter: blur(15px);
-}
+    <!-- App icon -->
+    <link rel="icon" type="image/png" href="ChequeBook favicon.png">
+    
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#0f172a">
 
-/* Lock */
-.lock {
-    font-size: 80px;
-    animation: glow 2s infinite alternate;
-}
-
-@keyframes glow {
-    from { text-shadow: 0 0 5px #22c55e; }
-    to { text-shadow: 0 0 25px #22c55e; }
-}
-
-/* Input */
-input {
-    padding: 12px;
-    border-radius: 10px;
-    border: none;
-    margin-top: 20px;
-    font-size: 16px;
-}
-
-/* Button */
-button {
-    padding: 10px 20px;
-    margin-top: 10px;
-    border-radius: 10px;
-    border: none;
-    background: #22c55e;
-    color: white;
-    cursor: pointer;
-}
-
-/* Error */
-.error {
-    animation: shake 0.3s;
-    color: red;
-}
-@keyframes shake {
-    25% { transform: translateX(-5px); }
-    50% { transform: translateX(5px); }
-}
-
-/* Unlock */
-.unlock {
-    transform: rotate(-20deg) scale(1.2);
-    color: #22c55e;
-}
-
-/* Hide */
-.hidden {
-    display: none;
-}
-
-/* iframe */
-iframe {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    border: none;
-}
-</style>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            width: 100%;
+            overflow: hidden;
+            box-sizing: border-box;
+            background: #fff;
+        }
+        
+        #content-frame {
+            display: block;
+            width: 100%;
+            height: 100%;
+            border: none;
+            position: absolute;
+            top: 0;
+            left: 0;
+            overflow-y: scroll; 
+            -webkit-overflow-scrolling: touch;
+        }
+    </style>
 </head>
 
 <body>
+    <iframe
+        id="content-frame"
+        allow="clipboard-read; clipboard-write"
+        src="https://script.google.com/macros/s/AKfycbzubrewBfmuAHfluIDtso5YSv33jQZmnE6hP71RWKeEs_qy01uG8AoSGWYGGBlJWvNX/exec">
+    </iframe>
 
-<div class="lock-container" id="lockScreen">
-    <div id="lockIcon" class="lock">🔒</div>
-    <h2>Enter Password</h2>
+    <button id="installBtn" style="
+  position: fixed;
+  top: 15px;
+  right: 15px;
+  padding: 10px 16px;
+  background: #0f172a;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 14px;
+  cursor: pointer;
+  z-index: 999999;
+  display: none;">
+  ⬇ Install App
+</button>
 
-    <input type="password" id="password">
-    <br>
-    <button onclick="checkPassword()">Unlock</button>
 
-    <p id="message"></p>
-</div>
-
-<iframe id="frame" class="hidden"></iframe>
-
+    <!-- Service worker registration -->
 <script>
-const correctPassword = "JD@12348765";
+let deferredPrompt;
+const installBtn = document.getElementById("installBtn");
 
-// 👉 Use ONLY working iframe URL here
-const iframeURL = "https://script.google.com/macros/s/AKfycbzubrewBfmuAHfluIDtso5YSv33jQZmnE6hP71RWKeEs_qy01uG8AoSGWYGGBlJWvNX/exec";
+window.addEventListener('beforeinstallprompt', (e) => {
+  e.preventDefault();
+  deferredPrompt = e;
+  installBtn.style.display = 'block';
 
-function checkPassword() {
-    const input = document.getElementById("password").value;
-    const lock = document.getElementById("lockIcon");
-    const msg = document.getElementById("message");
+  installBtn.addEventListener('click', () => {
+    installBtn.style.display = 'none';
+    deferredPrompt.prompt();
 
-    if (input === correctPassword) {
-
-        msg.innerText = "Access Granted 🔓";
-        msg.style.color = "#22c55e";
-
-        lock.classList.add("unlock");
-
-        setTimeout(() => {
-            document.getElementById("lockScreen").classList.add("hidden");
-
-            const frame = document.getElementById("frame");
-            frame.src = iframeURL;
-            frame.classList.remove("hidden");
-
-        }, 1000);
-
-    } else {
-        msg.innerText = "Wrong Password ❌";
-        msg.classList.add("error");
-
-        setTimeout(() => msg.classList.remove("error"), 300);
-    }
-}
-
-/* Enter key */
-document.getElementById("password").addEventListener("keypress", function(e){
-    if(e.key === "Enter") checkPassword();
+    deferredPrompt.userChoice.then((choiceResult) => {
+      if (choiceResult.outcome === 'accepted') {
+        console.log('User accepted the install prompt');
+      }
+      deferredPrompt = null;
+    });
+  });
 });
 </script>
+
 
 </body>
 </html>
