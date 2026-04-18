@@ -3,26 +3,28 @@
 <head>
     <title>Exp data</title>
 
-    <!-- KEEP THIS (important for your system) -->
     <script src="/maintenance.js"></script>
 
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link rel="icon" type="image/png" href="favicon.png">
+    <link rel="icon" href="favicon.png">
     <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#0f172a">
 
     <style>
-        body, html {
-            margin: 0;
-            padding: 0;
-            height: 100%;
-            overflow: hidden;
-            font-family: 'Segoe UI', sans-serif;
-            background: radial-gradient(circle at center, #0f172a, #020617);
+        * {
+            box-sizing: border-box;
         }
 
-        /* LOCK SCREEN */
+        body, html {
+            margin: 0;
+            height: 100%;
+            font-family: 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #020617, #0f172a, #020617);
+            overflow: hidden;
+        }
+
+        /* CENTER */
         #lockScreen {
             position: fixed;
             inset: 0;
@@ -34,78 +36,106 @@
 
         /* CARD */
         .card {
-            background: rgba(255,255,255,0.06);
-            backdrop-filter: blur(18px);
-            border-radius: 18px;
-            padding: 45px 35px;
+            width: 340px;
+            padding: 40px 30px;
+            border-radius: 20px;
+            background: rgba(255,255,255,0.05);
+            backdrop-filter: blur(20px);
+            box-shadow: 0 20px 80px rgba(0,0,0,0.6);
             text-align: center;
-            width: 320px;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.5);
-            animation: fadeIn 0.5s ease;
+            animation: fadeIn 0.6s ease;
         }
 
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(25px); }
-            to { opacity: 1; transform: translateY(0); }
+            from { opacity: 0; transform: translateY(30px) scale(0.95); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
         }
 
         .lock-icon {
-            font-size: 48px;
-            margin-bottom: 18px;
-            transition: 0.4s;
+            font-size: 50px;
+            margin-bottom: 15px;
+            transition: 0.5s;
         }
 
         .unlock {
-            transform: scale(1.25) rotateY(180deg);
+            transform: scale(1.3) rotateY(180deg);
         }
 
         h2 {
             color: #e2e8f0;
-            margin-bottom: 22px;
             font-weight: 500;
+            margin-bottom: 25px;
         }
 
-        /* INPUT */
+        /* FLOATING INPUT */
+        .input-group {
+            position: relative;
+            margin-bottom: 15px;
+        }
+
         input {
             width: 100%;
             padding: 14px;
             border-radius: 10px;
             border: none;
             outline: none;
-            font-size: 15px;
-            text-align: center;
-            background: rgba(255,255,255,0.15);
+            background: rgba(255,255,255,0.08);
             color: white;
-            transition: 0.25s;
+            font-size: 14px;
         }
 
-        input:focus {
-            background: rgba(255,255,255,0.25);
-            box-shadow: 0 0 0 2px #22c55e;
+        label {
+            position: absolute;
+            left: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #94a3b8;
+            font-size: 13px;
+            pointer-events: none;
+            transition: 0.3s;
+        }
+
+        input:focus + label,
+        input:not(:placeholder-shown) + label {
+            top: -8px;
+            font-size: 11px;
+            color: #22c55e;
+        }
+
+        /* SHOW PASSWORD */
+        .toggle {
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            font-size: 14px;
+            color: #94a3b8;
         }
 
         /* BUTTON */
         button {
             width: 100%;
-            margin-top: 18px;
             padding: 13px;
-            background: linear-gradient(135deg, #22c55e, #16a34a);
+            margin-top: 10px;
             border: none;
             border-radius: 10px;
+            background: linear-gradient(135deg, #22c55e, #16a34a);
             color: white;
-            font-size: 15px;
+            font-size: 14px;
             cursor: pointer;
-            transition: 0.25s;
+            transition: 0.3s;
         }
 
         button:hover {
             transform: translateY(-1px);
+            box-shadow: 0 5px 20px rgba(34,197,94,0.4);
         }
 
         #hint {
             font-size: 12px;
+            color: #64748b;
             margin-top: 6px;
-            color: #94a3b8;
             display: none;
         }
 
@@ -113,7 +143,7 @@
             color: #ef4444;
             font-size: 13px;
             margin-top: 10px;
-            min-height: 16px;
+            min-height: 18px;
         }
 
         /* IFRAME */
@@ -140,19 +170,17 @@
 
 <body>
 
-<!-- LOCK SCREEN -->
 <div id="lockScreen">
     <div class="card">
         <div id="lockIcon" class="lock-icon">🔒</div>
         <h2>Secure Access</h2>
 
-        <input 
-            type="password" 
-            id="password" 
-            placeholder="Enter Password"
-            onfocus="showHint()" 
-            onblur="hideHint()"
-        >
+        <div class="input-group">
+            <input type="password" id="password" required placeholder=" " 
+                   onfocus="showHint()" onblur="hideHint()">
+            <label>Password</label>
+            <span class="toggle" onclick="togglePassword()">👁</span>
+        </div>
 
         <div id="hint">password was same as RMS pc</div>
 
@@ -162,7 +190,6 @@
     </div>
 </div>
 
-<!-- IFRAME (loads normally for compatibility) -->
 <iframe
     id="content-frame"
     class="hidden-frame"
@@ -174,44 +201,44 @@
 const validPasswords = ["JD@12348765", "MArj@2191", "harsh@2001"];
 const input = document.getElementById("password");
 
-/* 🔥 Strong autofocus */
+/* Autofocus */
 window.addEventListener("DOMContentLoaded", () => {
-    setTimeout(() => {
-        input.focus();
-    }, 100);
+    setTimeout(() => input.focus(), 100);
 });
 
-/* ⌨️ Enter key support */
-input.addEventListener("keydown", function(e) {
-    if (e.key === "Enter") {
-        checkPassword();
-    }
+/* Enter key */
+input.addEventListener("keydown", e => {
+    if (e.key === "Enter") checkPassword();
 });
 
+/* Toggle password */
+function togglePassword() {
+    input.type = input.type === "password" ? "text" : "password";
+}
+
+/* Check password */
 function checkPassword() {
-    const value = input.value;
+    const val = input.value;
     const error = document.getElementById("error");
-    const lockIcon = document.getElementById("lockIcon");
+    const lock = document.getElementById("lockIcon");
 
-    if (validPasswords.includes(value)) {
+    if (validPasswords.includes(val)) {
         error.innerText = "";
-
-        lockIcon.innerText = "🔓";
-        lockIcon.classList.add("unlock");
+        lock.innerText = "🔓";
+        lock.classList.add("unlock");
 
         setTimeout(() => {
             document.getElementById("lockScreen").style.opacity = "0";
-
+            document.getElementById("lockScreen").style.transform = "scale(1.1)";
+            
             setTimeout(() => {
                 document.getElementById("lockScreen").style.display = "none";
                 document.getElementById("content-frame").classList.remove("hidden-frame");
             }, 300);
-
         }, 500);
 
     } else {
         error.innerText = "Incorrect password";
-
         input.style.animation = "shake 0.3s";
         setTimeout(() => input.style.animation = "", 300);
     }
