@@ -389,22 +389,22 @@
             .brand-text b { font-size: 1.1rem; }
             
             .hero { padding: 90px 0 50px; }
-            .hero-flex { text-align: center; justify-content: center; gap: 30px; }
-            .hero-content, .hero-image, .details-text { min-width: 0 !important; width: 100%; }
-            .hero-content h1 { font-size: 2.2rem; overflow-wrap: break-word; }
+            .hero-flex { flex-direction: column; text-align: center; justify-content: center; gap: 30px; }
+            .hero-content, .hero-image, .details-text { min-width: 0 !important; width: 100%; flex: none; }
+            .hero-content h1 { font-size: clamp(1.8rem, 8vw, 2.2rem); overflow-wrap: normal; word-break: keep-all; }
             .hero-content p { font-size: 1rem; margin: 0 auto 30px; }
             .hero-btns { justify-content: center; flex-direction: column; width: 100%; gap: 15px; }
             .btn-primary, .btn-secondary { width: 100%; padding: 14px 20px; }
             
             .hero-image.float-el { animation: none !important; }
-            .hero-image img { transform: none !important; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1); }
+            .hero-image img { transform: none !important; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1); width: 100%; max-width: 450px; margin: 0 auto; display: block; }
             
             .action-section { margin-top: -20px; padding-bottom: 50px; grid-template-columns: 1fr; gap: 20px; }
             .action-card { padding: 35px 25px; transform: none !important; animation: none !important; }
             
-            .details-section { text-align: center; gap: 40px; padding: 40px 0 60px; }
+            .details-section { flex-direction: column; text-align: center; gap: 40px; padding: 40px 0 60px; }
             .details-text h2 { font-size: 2rem; }
-            .info-grid { gap: 15px; }
+            .info-grid { gap: 15px; width: 100%; }
             .info-item { flex-direction: column; align-items: center; text-align: center; padding: 25px 20px; }
             
             footer { padding: 50px 0 30px; }
