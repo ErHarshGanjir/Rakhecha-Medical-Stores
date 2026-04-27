@@ -26,7 +26,19 @@
             box-sizing: border-box;
             margin: 0;
             padding: 0;
-            cursor: none; /* Hide default cursor for PC */
+        }
+
+        /* Dynamically hide system cursor and show custom cursor only on real mouse move */
+        body.custom-cursor-active,
+        body.custom-cursor-active * {
+            cursor: none !important;
+        }
+        .cursor-dot, .cursor-outline {
+            opacity: 0;
+        }
+        body.custom-cursor-active .cursor-dot,
+        body.custom-cursor-active .cursor-outline {
+            opacity: 1;
         }
 
         html, body {
@@ -578,11 +590,22 @@
         const blobs = document.querySelectorAll('.ambient-blob');
         const heroImg = document.getElementById('heroImg');
 
-        // Check if device supports hover
-        if (window.matchMedia("(hover: hover)").matches) {
-            window.addEventListener('mousemove', function (e) {
-                const posX = e.clientX;
-                const posY = e.clientY;
+        // Enable custom cursor dynamically on actual mouse movement
+        let cursorInitialized = false;
+        
+        window.addEventListener('touchstart', () => {
+            document.body.classList.remove('custom-cursor-active');
+            cursorInitialized = false;
+        });
+
+        window.addEventListener('mousemove', function (e) {
+            if (!cursorInitialized) {
+                document.body.classList.add('custom-cursor-active');
+                cursorInitialized = true;
+            }
+            
+            const posX = e.clientX;
+            const posY = e.clientY;
 
                 // Move cursor
                 if(cursorDot && cursorOutline) {
@@ -649,7 +672,6 @@
                     card.style.animationPlayState = 'running'; // resume float
                 });
             });
-        }
     </script>
 </body>
 </html>
