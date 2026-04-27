@@ -147,9 +147,9 @@
         /* --- Floating Contact (Mobile Focus) --- */
         .floating-contact {
             position: fixed;
-            bottom: 25px;
-            right: 25px;
-            z-index: 1000;
+            bottom: max(25px, env(safe-area-inset-bottom));
+            right: max(25px, env(safe-area-inset-right));
+            z-index: 99999; /* Highest possible layer to prevent it from missing on any device */
             display: flex;
             flex-direction: column;
             gap: 15px;
@@ -381,16 +381,39 @@
         /* --- Mobile Responsiveness --- */
         @media (max-width: 768px) {
             .nav-links { display: none; }
-            .hero-flex { text-align: center; justify-content: center; }
-            .hero-btns { justify-content: center; flex-direction: column; width: 100%; }
-            .btn-primary, .btn-secondary { width: 100%; }
-            .hero-content p { margin: 0 auto 40px; }
-            .action-section { margin-top: -40px; padding-bottom: 60px; }
-            .details-section { text-align: center; gap: 40px; }
-            .info-item { text-align: left; }
+            nav { height: 70px; }
+            .brand-text b { font-size: 1.1rem; }
+            
+            .hero { padding: 90px 0 50px; }
+            .hero-flex { text-align: center; justify-content: center; gap: 30px; }
+            .hero-content h1 { font-size: 2.2rem; }
+            .hero-content p { font-size: 1rem; margin: 0 auto 30px; }
+            .hero-btns { justify-content: center; flex-direction: column; width: 100%; gap: 15px; }
+            .btn-primary, .btn-secondary { width: 100%; padding: 14px 20px; }
+            
+            .hero-image.float-el { animation: none !important; }
+            .hero-image img { transform: none !important; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1); }
+            
+            .action-section { margin-top: -20px; padding-bottom: 50px; grid-template-columns: 1fr; gap: 20px; }
+            .action-card { padding: 35px 25px; transform: none !important; animation: none !important; }
+            
+            .details-section { text-align: center; gap: 40px; padding: 40px 0 60px; }
+            .details-text h2 { font-size: 2rem; }
+            .info-grid { gap: 15px; }
+            .info-item { flex-direction: column; align-items: center; text-align: center; padding: 25px 20px; }
+            
+            footer { padding: 50px 0 30px; }
+            
             * { cursor: auto !important; } /* Reset cursor for mobile */
             .cursor-dot, .cursor-outline { display: none !important; }
-            .action-card { transform: none !important; } /* Disable 3D on mobile */
+            
+            /* Ensure FAB is fully visible, well-positioned, and scaled for mobile */
+            .floating-contact {
+                bottom: max(20px, env(safe-area-inset-bottom));
+                right: max(15px, env(safe-area-inset-right));
+                transform: scale(0.85);
+                transform-origin: bottom right;
+            }
         }
     </style>
 </head>
