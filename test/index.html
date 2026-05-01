@@ -1,23 +1,30 @@
-
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Rakhecha Medical Stores | Premium Pharma Distribution</title>
     <script src="/maintenance.js"></script>
-    
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap" rel="stylesheet">
+
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
+
     <style>
         :root {
-            --brand-cyan: #06b6d4; /* Premium Teal */
-            --brand-blue: #3b82f6; /* Premium Blue */
-            --medical-green: #059669; /* Emerald Green */
-            --bg-dark: #f8fafc; /* Slate 50 for pure light background */
-            --text-main: #0f172a; /* Slate 900 for high contrast text */
-            --text-muted: #475569; /* Slate 600 for secondary text */
+            --brand-cyan: #06b6d4;
+            /* Premium Teal */
+            --brand-blue: #3b82f6;
+            /* Premium Blue */
+            --medical-green: #059669;
+            /* Emerald Green */
+            --bg-dark: #f8fafc;
+            /* Slate 50 for pure light background */
+            --text-main: #0f172a;
+            /* Slate 900 for high contrast text */
+            --text-muted: #475569;
+            /* Slate 600 for secondary text */
             --glass-dark: rgba(255, 255, 255, 0.8);
             --glass-border: rgba(0, 0, 0, 0.06);
             --neon-glow: 0 10px 30px rgba(6, 182, 212, 0.15);
@@ -27,7 +34,8 @@
             box-sizing: border-box;
             margin: 0;
             padding: 0;
-            cursor: none; /* Hide default cursor for PC */
+            cursor: none;
+            /* Hide default cursor for PC */
         }
 
         body {
@@ -42,8 +50,11 @@
         /* --- HIGH-TECH BACKGROUND --- */
         .grid-bg {
             position: fixed;
-            top: 0; left: 0; width: 100vw; height: 100vh;
-            background-image: 
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-image:
                 linear-gradient(rgba(0, 0, 0, 0.03) 1px, transparent 1px),
                 linear-gradient(90deg, rgba(0, 0, 0, 0.03) 1px, transparent 1px);
             background-size: 50px 50px;
@@ -60,27 +71,36 @@
             z-index: -1;
             pointer-events: none;
             transition: transform 0.2s ease-out;
-            mix-blend-mode: multiply; /* Better for light mode */
+            mix-blend-mode: multiply;
+            /* Better for light mode */
         }
+
         .blob-1 {
-            width: 600px; height: 600px;
+            width: 600px;
+            height: 600px;
             background: rgba(59, 130, 246, 0.15);
-            top: -100px; left: -200px;
+            top: -100px;
+            left: -200px;
         }
+
         .blob-2 {
-            width: 500px; height: 500px;
+            width: 500px;
+            height: 500px;
             background: rgba(5, 150, 105, 0.1);
-            bottom: 100px; right: -150px;
+            bottom: 100px;
+            right: -150px;
         }
 
         /* --- CUSTOM CURSOR (Neon Medical) --- */
         .cursor-dot {
-            width: 6px; height: 6px;
+            width: 6px;
+            height: 6px;
             background-color: var(--brand-cyan);
             box-shadow: 0 0 10px var(--brand-cyan);
             border-radius: 50%;
             position: fixed;
-            top: 0; left: 0;
+            top: 0;
+            left: 0;
             transform: translate(-50%, -50%);
             pointer-events: none;
             z-index: 9999;
@@ -88,43 +108,70 @@
         }
 
         .cursor-outline {
-            width: 40px; height: 40px;
+            width: 40px;
+            height: 40px;
             border: 1px solid rgba(6, 182, 212, 0.4);
             background-color: rgba(6, 182, 212, 0.05);
             border-radius: 50%;
             position: fixed;
-            top: 0; left: 0;
+            top: 0;
+            left: 0;
             transform: translate(-50%, -50%);
             pointer-events: none;
             z-index: 9998;
             transition: width 0.2s, height 0.2s, border-color 0.2s;
         }
-        
+
         .cursor-hover .cursor-dot {
-            width: 10px; height: 10px;
+            width: 10px;
+            height: 10px;
             background-color: var(--medical-green);
             box-shadow: 0 0 15px var(--medical-green);
         }
+
         .cursor-hover .cursor-outline {
-            width: 60px; height: 60px;
+            width: 60px;
+            height: 60px;
             background-color: rgba(5, 150, 105, 0.1);
             border-color: var(--medical-green);
         }
 
         /* --- ANTIGRAVITY ANIMATIONS --- */
         @keyframes float {
-            0% { transform: translateY(0px); }
-            50% { transform: translateY(-12px); }
-            100% { transform: translateY(0px); }
-        }
-        @keyframes float-delayed {
-            0% { transform: translateY(0px); }
-            50% { transform: translateY(-18px); }
-            100% { transform: translateY(0px); }
+            0% {
+                transform: translateY(0px);
+            }
+
+            50% {
+                transform: translateY(-12px);
+            }
+
+            100% {
+                transform: translateY(0px);
+            }
         }
 
-        .float-el { animation: float 6s ease-in-out infinite; }
-        .float-el-delayed { animation: float-delayed 8s ease-in-out infinite 1s; }
+        @keyframes float-delayed {
+            0% {
+                transform: translateY(0px);
+            }
+
+            50% {
+                transform: translateY(-18px);
+            }
+
+            100% {
+                transform: translateY(0px);
+            }
+        }
+
+        .float-el {
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .float-el-delayed {
+            animation: float-delayed 8s ease-in-out infinite 1s;
+        }
 
         .scroll-reveal {
             opacity: 0;
@@ -132,6 +179,7 @@
             transition: all 1s cubic-bezier(0.16, 1, 0.3, 1);
             visibility: hidden;
         }
+
         .scroll-reveal.is-visible {
             opacity: 1;
             transform: translateY(0) scale(1);
@@ -150,7 +198,8 @@
             position: fixed;
             bottom: max(25px, env(safe-area-inset-bottom));
             right: max(25px, env(safe-area-inset-right));
-            z-index: 99999; /* Highest possible layer to prevent it from missing on any device */
+            z-index: 99999;
+            /* Highest possible layer to prevent it from missing on any device */
             display: flex;
             flex-direction: column;
             gap: 15px;
@@ -170,30 +219,60 @@
             transition: 0.4s cubic-bezier(0.16, 1, 0.3, 1);
             position: relative;
         }
+
         .float-btn::before {
             content: '';
             position: absolute;
-            width: 100%; height: 100%;
+            width: 100%;
+            height: 100%;
             border-radius: 50%;
             border: 1px solid currentColor;
             z-index: -1;
             animation: pulse 2s infinite;
         }
+
         @keyframes pulse {
-            0% { transform: scale(1); opacity: 1; }
-            100% { transform: scale(1.6); opacity: 0; }
+            0% {
+                transform: scale(1);
+                opacity: 1;
+            }
+
+            100% {
+                transform: scale(1.6);
+                opacity: 0;
+            }
         }
+
         .float-btn:hover {
             transform: translateY(-5px) scale(1.05);
             background: var(--text-main);
             color: white;
             box-shadow: 0 15px 35px rgba(15, 23, 42, 0.2);
         }
-        .float-phone { background: var(--brand-cyan); color: white; }
-        .float-phone::before { border-color: var(--brand-cyan); }
-        .float-map { background: #ea4335; color: white; box-shadow: 0 10px 25px rgba(234, 67, 53, 0.3); }
-        .float-map::before { border-color: #ea4335; }
-        .float-map:hover { background: var(--text-main); color: white; }
+
+        .float-phone {
+            background: var(--brand-cyan);
+            color: white;
+        }
+
+        .float-phone::before {
+            border-color: var(--brand-cyan);
+        }
+
+        .float-map {
+            background: #ea4335;
+            color: white;
+            box-shadow: 0 10px 25px rgba(234, 67, 53, 0.3);
+        }
+
+        .float-map::before {
+            border-color: #ea4335;
+        }
+
+        .float-map:hover {
+            background: var(--text-main);
+            color: white;
+        }
 
         /* --- Navigation --- */
         nav {
@@ -223,14 +302,48 @@
             width: 100%;
         }
 
-        .logo-area { display: flex; align-items: center; gap: 15px; }
-        .logo-img { height: 45px; width: auto; filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.05)); }
-        .brand-text b { color: var(--text-main); font-size: 1.2rem; display: block; line-height: 1.1; letter-spacing: 1px; }
-        .brand-text span { font-size: 0.7rem; letter-spacing: 2px; text-transform: uppercase; color: var(--brand-cyan); font-weight: 700; }
+        .logo-area {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
 
-        .nav-links a { text-decoration: none; color: var(--text-muted); font-weight: 600; margin-left: 35px; font-size: 0.9rem; letter-spacing: 1px; transition: color 0.3s; }
-        .nav-links a:not(.nav-cta):hover { color: var(--brand-cyan); }
-        
+        .logo-img {
+            height: 45px;
+            width: auto;
+            filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.05));
+        }
+
+        .brand-text b {
+            color: var(--text-main);
+            font-size: 1.2rem;
+            display: block;
+            line-height: 1.1;
+            letter-spacing: 1px;
+        }
+
+        .brand-text span {
+            font-size: 0.7rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--brand-cyan);
+            font-weight: 700;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-muted);
+            font-weight: 600;
+            margin-left: 35px;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:not(.nav-cta):hover {
+            color: var(--brand-cyan);
+        }
+
         .nav-cta {
             background: transparent;
             color: var(--brand-cyan) !important;
@@ -241,6 +354,7 @@
             display: inline-block;
             font-weight: 700;
         }
+
         .nav-cta:hover {
             background: var(--brand-cyan);
             color: white !important;
@@ -249,165 +363,480 @@
         }
 
         /* --- Hero Section --- */
-        .hero { padding: 140px 0 100px; position: relative; }
-        .hero-flex { display: flex; align-items: center; gap: 60px; flex-wrap: wrap; }
-        .hero-content { flex: 1; min-width: 320px; position: relative; z-index: 2; }
-        .badge { 
-            display: inline-block; padding: 8px 20px; 
-            background: rgba(5, 150, 105, 0.1); color: var(--medical-green); 
-            border: 1px solid rgba(5, 150, 105, 0.2); border-radius: 50px; 
-            font-size: 0.75rem; font-weight: 800; margin-bottom: 25px; 
-            letter-spacing: 2px; text-transform: uppercase; 
-            box-shadow: 0 4px 10px rgba(5, 150, 105, 0.05); 
-        }
-        .hero-content h1 { 
-            font-size: clamp(2.5rem, 5vw, 4.2rem); line-height: 1.1; margin-bottom: 25px; 
-            letter-spacing: -1px; color: var(--text-main); text-shadow: 0 10px 30px rgba(0, 0, 0, 0.05); 
-        }
-        .hero-content h1 span { color: transparent; -webkit-text-stroke: 1.5px var(--brand-cyan); text-shadow: none; }
-        .hero-content p { font-size: 1.15rem; color: var(--text-muted); margin-bottom: 40px; max-width: 550px; font-weight: 400; }
-        
-        .hero-btns { display: flex; gap: 20px; flex-wrap: wrap; }
-        .btn-primary { 
-            background: var(--text-main); color: white; 
-            padding: 16px 36px; border-radius: 50px; text-decoration: none; 
-            font-weight: 700; box-shadow: 0 10px 20px rgba(15, 23, 42, 0.15); 
-            transition: 0.4s cubic-bezier(0.16, 1, 0.3, 1); 
-            display: inline-flex; align-items: center; justify-content: center;
-        }
-        .btn-secondary { 
-            background: white; border: 1px solid var(--glass-border); 
-            color: var(--text-main); padding: 16px 36px; border-radius: 50px; 
-            text-decoration: none; font-weight: 700; transition: 0.4s; 
-            display: inline-flex; align-items: center; justify-content: center;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
-        }
-        .btn-primary:hover { 
-            transform: translateY(-5px); background: var(--brand-cyan); 
-            box-shadow: 0 15px 30px rgba(6, 182, 212, 0.3); color: white;
-        }
-        .btn-secondary:hover { 
-            transform: translateY(-5px); border-color: var(--brand-cyan); 
-            color: var(--brand-cyan); box-shadow: 0 10px 25px rgba(6, 182, 212, 0.1);
+        .hero {
+            padding: 140px 0 100px;
+            position: relative;
         }
 
-        .hero-image { flex: 1; min-width: 350px; position: relative; z-index: 2; perspective: 1500px; }
-        .hero-image::after {
-            content: ''; position: absolute; top: 50%; left: 50%; width: 100%; height: 100%;
-            transform: translate(-50%, -50%); background: radial-gradient(circle, rgba(6, 182, 212, 0.1) 0%, transparent 60%);
-            z-index: -1; pointer-events: none;
+        .hero-flex {
+            display: flex;
+            align-items: center;
+            gap: 60px;
+            flex-wrap: wrap;
         }
-        .hero-image img { 
-            width: 100%; border-radius: 20px; 
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.1), 0 0 0 1px var(--glass-border); 
-            transform: rotateY(-10deg) rotateX(5deg); 
+
+        .hero-content {
+            flex: 1;
+            min-width: 320px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 8px 20px;
+            background: rgba(5, 150, 105, 0.1);
+            color: var(--medical-green);
+            border: 1px solid rgba(5, 150, 105, 0.2);
+            border-radius: 50px;
+            font-size: 0.75rem;
+            font-weight: 800;
+            margin-bottom: 25px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            box-shadow: 0 4px 10px rgba(5, 150, 105, 0.05);
+        }
+
+        .hero-content h1 {
+            font-size: clamp(2.5rem, 5vw, 4.2rem);
+            line-height: 1.1;
+            margin-bottom: 25px;
+            letter-spacing: -1px;
+            color: var(--text-main);
+            text-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+        }
+
+        .hero-content h1 span {
+            color: transparent;
+            -webkit-text-stroke: 1.5px var(--brand-cyan);
+            text-shadow: none;
+        }
+
+        .hero-content p {
+            font-size: 1.15rem;
+            color: var(--text-muted);
+            margin-bottom: 40px;
+            max-width: 550px;
+            font-weight: 400;
+        }
+
+        .hero-btns {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .btn-primary {
+            background: var(--text-main);
+            color: white;
+            padding: 16px 36px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            box-shadow: 0 10px 20px rgba(15, 23, 42, 0.15);
+            transition: 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .btn-secondary {
+            background: white;
+            border: 1px solid var(--glass-border);
+            color: var(--text-main);
+            padding: 16px 36px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            transition: 0.4s;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-5px);
+            background: var(--brand-cyan);
+            box-shadow: 0 15px 30px rgba(6, 182, 212, 0.3);
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            transform: translateY(-5px);
+            border-color: var(--brand-cyan);
+            color: var(--brand-cyan);
+            box-shadow: 0 10px 25px rgba(6, 182, 212, 0.1);
+        }
+
+        .hero-image {
+            flex: 1;
+            min-width: 350px;
+            position: relative;
+            z-index: 2;
+            perspective: 1500px;
+        }
+
+        .hero-image::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 100%;
+            height: 100%;
+            transform: translate(-50%, -50%);
+            background: radial-gradient(circle, rgba(6, 182, 212, 0.1) 0%, transparent 60%);
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        .hero-image img {
+            width: 100%;
+            border-radius: 20px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.1), 0 0 0 1px var(--glass-border);
+            transform: rotateY(-10deg) rotateX(5deg);
             transition: transform 0.1s ease-out;
         }
 
         /* --- Action Cards --- */
-        .action-section { 
-            margin-top: -60px; display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); 
-            gap: 30px; padding-bottom: 100px; position: relative; z-index: 10; 
+        .action-section {
+            margin-top: -60px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            padding-bottom: 100px;
+            position: relative;
+            z-index: 10;
         }
-        .action-card { 
-            background: rgba(255, 255, 255, 0.7); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
-            padding: 50px 35px; border-radius: 24px; text-align: center; 
-            border: 1px solid rgba(255, 255, 255, 0.8); box-shadow: 0 15px 35px rgba(0, 0, 0, 0.04); 
-            transform-style: preserve-3d; transition: border-color 0.4s, background 0.4s, box-shadow 0.4s; 
-            position: relative; overflow: hidden;
+
+        .action-card {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            padding: 50px 35px;
+            border-radius: 24px;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.04);
+            transform-style: preserve-3d;
+            transition: border-color 0.4s, background 0.4s, box-shadow 0.4s;
+            position: relative;
+            overflow: hidden;
         }
+
         .action-card::before {
-            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
             background: radial-gradient(800px circle at var(--mouse-x) var(--mouse-y), rgba(6, 182, 212, 0.04), transparent 40%);
-            z-index: 0; pointer-events: none; opacity: 0; transition: opacity 0.5s;
+            z-index: 0;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.5s;
         }
-        .action-card:hover::before { opacity: 1; }
-        .action-card:hover { border-color: rgba(6, 182, 212, 0.3); box-shadow: 0 25px 50px rgba(0, 0, 0, 0.08); background: white; }
-        
-        .card-content { position: relative; z-index: 1; transform: translateZ(30px); }
-        .action-card i { font-size: 3rem; margin-bottom: 25px; display: inline-block; }
-        .icon-blue { color: var(--brand-cyan); }
-        .icon-red { color: #ea4335; }
-        .icon-green { color: var(--medical-green); }
-        
-        .action-card h3 { margin-bottom: 15px; color: var(--text-main); font-weight: 700; letter-spacing: 0.5px; }
-        .action-card p { color: var(--text-muted); font-size: 0.95rem; margin-bottom: 20px; }
-        
-        .card-link { 
-            display: inline-block; padding: 12px 28px; background: white; 
-            color: var(--text-main); text-decoration: none; border-radius: 50px; 
-            font-weight: 600; font-size: 0.9rem; transition: 0.3s; border: 1px solid var(--glass-border); 
-            box-shadow: 0 4px 10px rgba(0,0,0,0.02);
+
+        .action-card:hover::before {
+            opacity: 1;
         }
-        .card-link:hover { background: var(--brand-cyan); color: white; box-shadow: 0 10px 20px rgba(6, 182, 212, 0.2); border-color: var(--brand-cyan); }
+
+        .action-card:hover {
+            border-color: rgba(6, 182, 212, 0.3);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.08);
+            background: white;
+        }
+
+        .card-content {
+            position: relative;
+            z-index: 1;
+            transform: translateZ(30px);
+        }
+
+        .action-card i {
+            font-size: 3rem;
+            margin-bottom: 25px;
+            display: inline-block;
+        }
+
+        .icon-blue {
+            color: var(--brand-cyan);
+        }
+
+        .icon-red {
+            color: #ea4335;
+        }
+
+        .icon-green {
+            color: var(--medical-green);
+        }
+
+        .action-card h3 {
+            margin-bottom: 15px;
+            color: var(--text-main);
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+
+        .action-card p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            margin-bottom: 20px;
+        }
+
+        .card-link {
+            display: inline-block;
+            padding: 12px 28px;
+            background: white;
+            color: var(--text-main);
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: 0.3s;
+            border: 1px solid var(--glass-border);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.02);
+        }
+
+        .card-link:hover {
+            background: var(--brand-cyan);
+            color: white;
+            box-shadow: 0 10px 20px rgba(6, 182, 212, 0.2);
+            border-color: var(--brand-cyan);
+        }
 
         /* --- Details/Stats --- */
-        .details-section { padding: 60px 0 120px; display: flex; gap: 80px; flex-wrap: wrap; align-items: center; position: relative; }
-        .details-text { flex: 1.2; min-width: 320px; position: relative; z-index: 2; }
-        .details-text h2 { font-size: clamp(2.2rem, 4vw, 2.8rem); margin-bottom: 20px; color: var(--text-main); font-weight: 800; line-height: 1.2; }
-        .details-text p { color: var(--text-muted); font-size: 1.1rem; max-width: 90%; }
-        .text-blue { color: var(--brand-cyan); }
-        
-        .info-grid { flex: 1; display: grid; gap: 25px; position: relative; z-index: 2; }
-        .info-item { 
-            display: flex; gap: 25px; background: white; 
-            padding: 30px; border-radius: 20px; border: 1px solid var(--glass-border); 
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03);
-            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.4s, box-shadow 0.4s; 
+        .details-section {
+            padding: 60px 0 120px;
+            display: flex;
+            gap: 80px;
+            flex-wrap: wrap;
+            align-items: center;
+            position: relative;
         }
-        .info-item:hover { transform: translateX(10px); border-color: var(--brand-cyan); box-shadow: 0 15px 40px rgba(6, 182, 212, 0.1); }
-        .info-item i { color: var(--medical-green); font-size: 2.2rem; }
-        .info-item h4 { font-size: 1.1rem; margin-bottom: 5px; color: var(--text-main); font-weight: 700; }
-        .info-item p { font-size: 0.95rem; color: var(--text-muted); }
+
+        .details-text {
+            flex: 1.2;
+            min-width: 320px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .details-text h2 {
+            font-size: clamp(2.2rem, 4vw, 2.8rem);
+            margin-bottom: 20px;
+            color: var(--text-main);
+            font-weight: 800;
+            line-height: 1.2;
+        }
+
+        .details-text p {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            max-width: 90%;
+        }
+
+        .text-blue {
+            color: var(--brand-cyan);
+        }
+
+        .info-grid {
+            flex: 1;
+            display: grid;
+            gap: 25px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .info-item {
+            display: flex;
+            gap: 25px;
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            border: 1px solid var(--glass-border);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03);
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.4s, box-shadow 0.4s;
+        }
+
+        .info-item:hover {
+            transform: translateX(10px);
+            border-color: var(--brand-cyan);
+            box-shadow: 0 15px 40px rgba(6, 182, 212, 0.1);
+        }
+
+        .info-item i {
+            color: var(--medical-green);
+            font-size: 2.2rem;
+        }
+
+        .info-item h4 {
+            font-size: 1.1rem;
+            margin-bottom: 5px;
+            color: var(--text-main);
+            font-weight: 700;
+        }
+
+        .info-item p {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+        }
 
         /* --- Footer --- */
-        footer { 
-            background: white; color: var(--text-muted); padding: 80px 0 40px; 
-            text-align: center; position: relative; border-top: 1px solid var(--glass-border); 
+        footer {
+            background: white;
+            color: var(--text-muted);
+            padding: 80px 0 40px;
+            text-align: center;
+            position: relative;
+            border-top: 1px solid var(--glass-border);
         }
+
         footer::before {
-            content: ''; position: absolute; top: 0; left: 50%; width: 100%; height: 2px;
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            width: 100%;
+            height: 2px;
             background: linear-gradient(90deg, transparent, rgba(6, 182, 212, 0.3), transparent);
             transform: translateX(-50%);
         }
-        .footer-logo { height: 65px; margin-bottom: 25px; filter: grayscale(1) opacity(0.5); transition: 0.3s; }
-        .footer-logo:hover { filter: none; }
-        footer h3 { color: var(--text-main); margin-bottom: 10px; font-weight: 700; letter-spacing: 0.5px; }
-        footer p { margin-bottom: 5px; }
-        .footer-bottom { 
-            margin-top: 50px; padding-top: 25px; border-top: 1px solid rgba(0,0,0,0.05); 
-            font-size: 0.85rem; letter-spacing: 0.5px; 
+
+        .footer-logo {
+            height: 65px;
+            margin-bottom: 25px;
+            filter: grayscale(1) opacity(0.5);
+            transition: 0.3s;
+        }
+
+        .footer-logo:hover {
+            filter: none;
+        }
+
+        footer h3 {
+            color: var(--text-main);
+            margin-bottom: 10px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+
+        footer p {
+            margin-bottom: 5px;
+        }
+
+        .footer-bottom {
+            margin-top: 50px;
+            padding-top: 25px;
+            border-top: 1px solid rgba(0, 0, 0, 0.05);
+            font-size: 0.85rem;
+            letter-spacing: 0.5px;
         }
 
         /* --- Mobile Responsiveness --- */
         @media (max-width: 768px) {
-            .nav-links { display: none; }
-            nav { height: 70px; }
-            .brand-text b { font-size: 1.1rem; }
-            
-            .hero { padding: 90px 0 50px; }
-            .hero-flex { text-align: center; justify-content: center; gap: 30px; }
-            .hero-content h1 { font-size: 2.2rem; }
-            .hero-content p { font-size: 1rem; margin: 0 auto 30px; }
-            .hero-btns { justify-content: center; flex-direction: column; width: 100%; gap: 15px; }
-            .btn-primary, .btn-secondary { width: 100%; padding: 14px 20px; }
-            
-            .hero-image.float-el { animation: none !important; }
-            .hero-image img { transform: none !important; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1); }
-            
-            .action-section { margin-top: -20px; padding-bottom: 50px; grid-template-columns: 1fr; gap: 20px; }
-            .action-card { padding: 35px 25px; transform: none !important; animation: none !important; }
-            
-            .details-section { text-align: center; gap: 40px; padding: 40px 0 60px; }
-            .details-text h2 { font-size: 2rem; }
-            .info-grid { gap: 15px; }
-            .info-item { flex-direction: column; align-items: center; text-align: center; padding: 25px 20px; }
-            
-            footer { padding: 50px 0 30px; }
-            
-            * { cursor: auto !important; } /* Reset cursor for mobile */
-            .cursor-dot, .cursor-outline { display: none !important; }
-            
+            .nav-links {
+                display: none;
+            }
+
+            nav {
+                height: 70px;
+            }
+
+            .brand-text b {
+                font-size: 1.1rem;
+            }
+
+            .hero {
+                padding: 90px 0 50px;
+            }
+
+            .hero-flex {
+                text-align: center;
+                justify-content: center;
+                gap: 30px;
+            }
+
+            .hero-content h1 {
+                font-size: 2.2rem;
+            }
+
+            .hero-content p {
+                font-size: 1rem;
+                margin: 0 auto 30px;
+            }
+
+            .hero-btns {
+                justify-content: center;
+                flex-direction: column;
+                width: 100%;
+                gap: 15px;
+            }
+
+            .btn-primary,
+            .btn-secondary {
+                width: 100%;
+                padding: 14px 20px;
+            }
+
+            .hero-image.float-el {
+                animation: none !important;
+            }
+
+            .hero-image img {
+                transform: none !important;
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            }
+
+            .action-section {
+                margin-top: -20px;
+                padding-bottom: 50px;
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .action-card {
+                padding: 35px 25px;
+                transform: none !important;
+                animation: none !important;
+            }
+
+            .details-section {
+                text-align: center;
+                gap: 40px;
+                padding: 40px 0 60px;
+            }
+
+            .details-text h2 {
+                font-size: 2rem;
+            }
+
+            .info-grid {
+                gap: 15px;
+            }
+
+            .info-item {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+                padding: 25px 20px;
+            }
+
+            footer {
+                padding: 50px 0 30px;
+            }
+
+            * {
+                cursor: auto !important;
+            }
+
+            /* Reset cursor for mobile */
+            .cursor-dot,
+            .cursor-outline {
+                display: none !important;
+            }
+
             /* Ensure FAB is fully visible, well-positioned, and scaled for mobile */
             .floating-contact {
                 bottom: max(20px, env(safe-area-inset-bottom));
@@ -418,6 +847,7 @@
         }
     </style>
 </head>
+
 <body>
 
     <!-- Grid Background -->
@@ -431,7 +861,8 @@
         <a href="tel:7489574895" class="float-btn float-phone interaction-target" title="Call Us">
             <i class="fas fa-phone"></i>
         </a>
-        <a href="https://www.google.com/maps/search/Rakhecha+Medical+Stores+Dhamtari" target="_blank" class="float-btn float-map interaction-target" title="Directions">
+        <a href="https://www.google.com/maps/search/Rakhecha+Medical+Stores+Dhamtari" target="_blank"
+            class="float-btn float-map interaction-target" title="Directions">
             <i class="fas fa-location-arrow"></i>
         </a>
     </div>
@@ -462,14 +893,16 @@
             <div class="hero-content scroll-reveal">
                 <div class="badge">Trusted Since 1990</div>
                 <h1>Smart Pharma <br><span>Distribution.</span></h1>
-                <p>Leading wholesale distribution for premium medicines and medical supplies in Chhattisgarh. Speed, care, and quality assured.</p>
+                <p>Leading wholesale distribution for premium medicines and medical supplies in Chhattisgarh. Speed,
+                    care, and quality assured.</p>
                 <div class="hero-btns">
                     <a href="#explore" class="btn-primary interaction-target">Our Services</a>
                     <a href="mailto:rakhechamedical@gmail.com" class="btn-secondary interaction-target">Send Email</a>
                 </div>
             </div>
             <div class="hero-image float-el scroll-reveal">
-                <img src="https://images.unsplash.com/photo-1585435557343-3b092031a831?auto=format&fit=crop&q=80&w=1200" alt="Medicine Logistics" class="interaction-target" id="heroImg">
+                <img src="https://images.unsplash.com/photo-1585435557343-3b092031a831?auto=format&fit=crop&q=80&w=1200"
+                    alt="Medicine Logistics" class="interaction-target" id="heroImg">
             </div>
         </div>
     </header>
@@ -480,7 +913,8 @@
                 <i class="fas fa-map-marked-alt icon-red"></i>
                 <h3>Visit Our Store</h3>
                 <p>Sihawa Chowk, Dhamtari. Open 7 days a week for pharmaceutical supplies.</p>
-                <a href="https://www.google.com/maps/search/Rakhecha+Medical+Stores+Dhamtari" target="_blank" class="card-link interaction-target">Get Directions</a>
+                <a href="https://www.google.com/maps/search/Rakhecha+Medical+Stores+Dhamtari" target="_blank"
+                    class="card-link interaction-target">Get Directions</a>
             </div>
         </div>
 
@@ -489,7 +923,8 @@
                 <i class="fas fa-box-open icon-blue"></i>
                 <h3>Digital Inventory</h3>
                 <p>Access our live web-based product catalog and explore our healthcare portfolio.</p>
-                <a href="https://rakhechamedical.in/product/" target="_blank" class="card-link interaction-target">View Website</a>
+                <a href="https://rakhechamedical.in/product/" target="_blank" class="card-link interaction-target">View
+                    Website</a>
             </div>
         </div>
 
@@ -498,19 +933,22 @@
                 <i class="fas fa-file-pdf icon-green"></i>
                 <h3>Price List PDF</h3>
                 <p>Download our complete stock list for offline procurement and bulk orders.</p>
-                <a href="https://drive.google.com/file/d/1Kg3TzJdnIHn2B4MQx4DpjVfLof-BAbNW/view?usp=sharing" target="_blank" class="card-link interaction-target">Download Stock List</a>
+                <a href="https://drive.google.com/file/d/1Kg3TzJdnIHn2B4MQx4DpjVfLof-BAbNW/view?usp=sharing"
+                    target="_blank" class="card-link interaction-target">Download Stock List</a>
             </div>
         </div>
     </main>
 
     <section class="container details-section">
-        <div class="ambient-blob blob-1" style="background: rgba(59, 130, 246, 0.1); top: 20%; left: 80%; width: 400px; height:400px;"></div>
-        
+        <div class="ambient-blob blob-1"
+            style="background: rgba(59, 130, 246, 0.1); top: 20%; left: 80%; width: 400px; height:400px;"></div>
+
         <div class="details-text scroll-reveal">
             <h2>Modernizing <br><span class="text-blue">Bulk Medicine</span></h2>
-            <p>We combine 30+ years of legacy with modern logistics. Our facility manages mass distribution with strict quality controls for branded and generic pharma solutions.</p>
+            <p>We combine 30+ years of legacy with modern logistics. Our facility manages mass distribution with strict
+                quality controls for branded and generic pharma solutions.</p>
         </div>
-        
+
         <div class="info-grid">
             <div class="info-item scroll-reveal interaction-target">
                 <i class="fas fa-clock"></i>
@@ -535,7 +973,7 @@
             <h3>Rakhecha Medical Stores</h3>
             <p>Near Mahavar Dharam Shala, Sihawa Chowk, Dhamtari, CG - 493773</p>
             <p style="margin-top: 10px; font-weight: 600; color: var(--brand-cyan);">Contact: 74895 74895</p>
-            
+
             <div class="footer-bottom">
                 <p>© 2026 Rakhecha Medical Stores. All Rights Reserved.</p>
                 <p style="margin-top: 10px; font-size: 0.75rem;">Authorized Wholesale Medical Distributor</p>
@@ -581,7 +1019,7 @@
                 const posY = e.clientY;
 
                 // Move cursor
-                if(cursorDot && cursorOutline) {
+                if (cursorDot && cursorOutline) {
                     cursorDot.style.left = `${posX}px`;
                     cursorDot.style.top = `${posY}px`;
 
@@ -600,13 +1038,13 @@
                 });
 
                 // Hero Image Advanced 3D Parallax
-                if(heroImg) {
+                if (heroImg) {
                     const rect = heroImg.getBoundingClientRect();
                     const centerX = rect.left + rect.width / 2;
                     const centerY = rect.top + rect.height / 2;
-                    const rotateY = ((posX - centerX) / (window.innerWidth/2)) * 15;
-                    const rotateX = ((posY - centerY) / (window.innerHeight/2)) * -15;
-                    
+                    const rotateY = ((posX - centerX) / (window.innerWidth / 2)) * 15;
+                    const rotateX = ((posY - centerY) / (window.innerHeight / 2)) * -15;
+
                     heroImg.style.transform = `rotateY(${rotateY - 10}deg) rotateX(${rotateX + 5}deg)`;
                 }
             });
@@ -623,23 +1061,23 @@
             cards.forEach(card => {
                 card.addEventListener('mousemove', e => {
                     const rect = card.getBoundingClientRect();
-                    const x = e.clientX - rect.left; 
-                    const y = e.clientY - rect.top;  
-                    
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
+
                     // Update CSS variables for the dynamic glow effect
                     card.style.setProperty('--mouse-x', `${x}px`);
                     card.style.setProperty('--mouse-y', `${y}px`);
 
                     const centerX = rect.width / 2;
                     const centerY = rect.height / 2;
-                    
-                    const rotateX = ((y - centerY) / centerY) * -20; 
+
+                    const rotateX = ((y - centerY) / centerY) * -20;
                     const rotateY = ((x - centerX) / centerX) * 20;
-                    
+
                     card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.05, 1.05, 1.05)`;
                     card.style.animationPlayState = 'paused'; // pause float while hovering
                 });
-                
+
                 card.addEventListener('mouseleave', () => {
                     card.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)`;
                     card.style.animationPlayState = 'running'; // resume float
@@ -648,4 +1086,5 @@
         }
     </script>
 </body>
+
 </html>
