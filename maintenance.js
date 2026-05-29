@@ -6,7 +6,6 @@
 true  = Maintenance ON
 false = Website LIVE
 */
-
 var MAINTENANCE_MODE = true;
 
 (function () {
@@ -14,24 +13,21 @@ var MAINTENANCE_MODE = true;
         var path = window.location.pathname;
         var lowerPath = path.toLowerCase();
 
-        // Detect base path (repo-safe)
-        var basePath = path.split("/").slice(0, -1).join("/") || "/";
-
         // MAINTENANCE ON → force redirect
         if (MAINTENANCE_MODE === true) {
             if (!lowerPath.endsWith("/maintenance.html")) {
-                window.location.replace(basePath + "404");
+                window.location.replace("/404");
             }
         }
 
         // MAINTENANCE OFF → block maintenance page
         if (MAINTENANCE_MODE === false) {
             if (lowerPath.endsWith("/maintenance.html")) {
-                window.location.replace(basePath + "");
+                window.location.replace("/");
             }
         }
 
     } catch (e) {
-        // silent fail (intentional)
+        // silent fail
     }
 })();
