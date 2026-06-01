@@ -13,9 +13,9 @@ var MAINTENANCE_MODE = false;
         var path = window.location.pathname;
         var lowerPath = path.toLowerCase();
 
-        // MAINTENANCE ON → force redirect
+        // MAINTENANCE ON → force redirect     /AKfycbyDRpgfFrWror9r1_6cmooMD_UXri4a6nHm6KWlyTTDkVlVuRfvcIFRFg8j912hFJpT-Q.html   and    maintenance.html
         if (MAINTENANCE_MODE === true) {
-            if (!lowerPath.endsWith("/maintenance.html")) {
+            if (!lowerPath.endsWith("//AKfycbyDRpgfFrWror9r1_6cmooMD_UXri4a6nHm6KWlyTTDkVlVuRfvcIFRFg8j912hFJpT-Q.html")) {
                 window.location.replace("/404");
             }
         }
