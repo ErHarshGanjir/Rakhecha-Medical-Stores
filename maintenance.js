@@ -15,8 +15,8 @@ var MAINTENANCE_MODE = true;
 
         // MAINTENANCE ON → force redirect     /AKfycbyDRpgfFrWror9r1_6cmooMD_UXri4a6nHm6KWlyTTDkVlVuRfvcIFRFg8j912hFJpT-Q.html   and    maintenance.html
         if (MAINTENANCE_MODE === true) {
-            if (!lowerPath.endsWith("//AKfycbyDRpgfFrWror9r1_6cmooMD_UXri4a6nHm6KWlyTTDkVlVuRfvcIFRFg8j912hFJpT-Q.html")) {
-                window.location.replace("/404");
+            if (!lowerPath.endsWith("/maintenance.html")) {
+                window.location.replace("/AKfycbyDRpgfFrWror9r1_6cmooMD_UXri4a6nHm6KWlyTTDkVlVuRfvcIFRFg8j912hFJpT-Q.html");
             }
         }
 
