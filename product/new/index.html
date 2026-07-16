@@ -15,7 +15,7 @@
         body, html {
             height: 100%;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #0f172a; /* Sleek dark background for album feel */
+            background-color: #0f172a; 
             color: #ffffff;
             overflow: hidden;
         }
@@ -27,8 +27,14 @@
             left: 0;
             width: 100%;
             z-index: 10;
-            background: linear-gradient(to bottom, rgba(0,0,0,0.7), rgba(0,0,0,0));
+            background: linear-gradient(to bottom, rgba(0,0,0,0.8), rgba(0,0,0,0));
             padding: 20px 40px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between; /* Spaces out logo and fullscreen button */
+        }
+
+        .logo-area {
             display: flex;
             align-items: center;
             gap: 20px;
@@ -44,6 +50,28 @@
             font-weight: 600;
             letter-spacing: 0.5px;
             text-shadow: 0 2px 4px rgba(0,0,0,0.6);
+        }
+
+        /* Fullscreen Button */
+        .fullscreen-btn {
+            background: rgba(255, 255, 255, 0.15);
+            border: 1px solid rgba(255,255,255,0.3);
+            color: white;
+            padding: 10px 20px;
+            font-size: 1rem;
+            font-weight: bold;
+            border-radius: 8px;
+            cursor: pointer;
+            backdrop-filter: blur(5px);
+            transition: background 0.3s, transform 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .fullscreen-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: scale(1.05);
         }
 
         /* Full Screen Album Container */
@@ -65,7 +93,7 @@
             height: 100%;
             opacity: 0;
             visibility: hidden;
-            transition: opacity 0.8s ease-in-out, visibility 0.8s ease-in-out;
+            transition: opacity 1s ease-in-out, visibility 1s ease-in-out;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -76,7 +104,7 @@
             visibility: visible;
         }
 
-        /* Full Screen Background Blur Effect */
+        /* Background Blur Effect */
         .bg-blur {
             position: absolute;
             top: 0;
@@ -85,12 +113,12 @@
             height: 100%;
             background-size: cover;
             background-position: center;
-            filter: blur(20px) brightness(0.4);
+            filter: blur(25px) brightness(0.35);
             z-index: 1;
-            transform: scale(1.1); /* Prevents white edges from blur */
+            transform: scale(1.15); 
         }
 
-        /* Foreground Main Product Image */
+        /* Foreground Product Image with Zoom Animation */
         .product-img {
             position: relative;
             z-index: 2;
@@ -98,30 +126,45 @@
             max-height: 70%;
             object-fit: contain;
             border-radius: 12px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.6);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.8);
+            transform: scale(0.8);
+            transition: transform 1.5s cubic-bezier(0.25, 1, 0.5, 1); /* Smooth springy zoom */
         }
 
-        /* Product Details Overlay */
+        .slide.active .product-img {
+            transform: scale(1);
+        }
+
+        /* Product Details Overlay with Slide-Up Animation */
         .product-details {
             position: absolute;
             bottom: 60px;
             left: 50%;
-            transform: translateX(-50%);
+            transform: translate(-50%, 50px); /* Start slightly lower */
+            opacity: 0;
             z-index: 3;
             text-align: center;
-            background: rgba(0, 0, 0, 0.6);
-            padding: 15px 35px;
+            background: rgba(0, 0, 0, 0.65);
+            padding: 15px 40px;
             border-radius: 30px;
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255,255,255,0.1);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255,255,255,0.15);
             max-width: 80%;
+            transition: transform 1s ease-out 0.3s, opacity 1s ease-out 0.3s; /* Delayed slide up */
+        }
+
+        .slide.active .product-details {
+            transform: translate(-50%, 0); /* Move to final position */
+            opacity: 1;
         }
 
         .product-details h2 {
-            font-size: 1.8rem;
+            font-size: 2rem;
             margin: 0;
             text-transform: capitalize;
-            letter-spacing: 1px;
+            letter-spacing: 1.5px;
+            color: #ffffff;
+            text-shadow: 0 2px 5px rgba(0,0,0,0.8);
         }
 
         /* Navigation Arrows */
@@ -143,30 +186,46 @@
         }
 
         .nav-btn:hover {
-            background: rgba(255, 255, 255, 0.25);
-            transform: translateY(-50%) scale(1.05);
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-50%) scale(1.1);
         }
 
         .prev { left: 30px; }
         .next { right: 30px; }
+        
+        /* Hide buttons when mouse is still for a clean fullscreen look (Optional) */
+        .hide-ui .nav-btn, .hide-ui header {
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.5s;
+        }
     </style>
 </head>
 <body>
 
-    <header>
-        <img src="https://i.ibb.co/HfxTSLb6/RMS-icon-1.png" alt="Rakhecha Medical Stores Logo">
-        <h1>Rakhecha Medical Stores</h1>
+    <!-- Header Area -->
+    <header id="headerBar">
+        <div class="logo-area">
+            <img src="https://i.ibb.co/HfxTSLb6/RMS-icon-1.png" alt="Rakhecha Medical Stores Logo">
+            <h1>Rakhecha Medical Stores</h1>
+        </div>
+        <button class="fullscreen-btn" onclick="toggleFullScreen()">
+            ⛶ Fullscreen
+        </button>
     </header>
 
+    <!-- Album Showcase Area -->
     <div class="album-container" id="albumContainer">
-        </div>
+        <!-- Slides generated by JavaScript -->
+    </div>
 
-    <button class="nav-btn prev" onclick="changeSlide(-1)">&#10094;</button>
-    <button class="nav-btn next" onclick="changeSlide(1)">&#10095;</button>
+    <!-- Navigation Buttons -->
+    <button class="nav-btn prev" id="prevBtn">&#10094;</button>
+    <button class="nav-btn next" id="nextBtn">&#10095;</button>
 
     <script>
         // ==========================================
-        // ADD OR EDIT YOUR PRODUCTS HERE EASY 
+        // ADD OR EDIT YOUR PRODUCTS HERE 
         // ==========================================
         const products = [
             {
@@ -181,8 +240,6 @@
                 image: "https://via.placeholder.com/800x600?text=Product+3+Sample+Image",
                 title: "upcoming distribution batch"
             }
-            // You can easily add more items here following the same pattern:
-            // { image: "URL", title: "YOUR TITLE" }
         ];
 
         let currentSlideIndex = 0;
@@ -190,7 +247,7 @@
         // Function to build the showcase from the data array
         function buildAlbum() {
             const container = document.getElementById('albumContainer');
-            container.innerHTML = ''; // Clear existing contents
+            container.innerHTML = ''; 
 
             products.forEach((product, index) => {
                 const slideDiv = document.createElement('div');
@@ -207,39 +264,55 @@
             });
         }
 
-        // Function to handle moving slides forward/backward in a loop
+        // Function to handle moving slides
         function changeSlide(direction) {
             const slides = document.querySelectorAll('.slide');
             if (slides.length === 0) return;
 
-            // Remove active class from current slide
             slides[currentSlideIndex].classList.remove('active');
-
-            // Calculate new index with continuous looping logic
             currentSlideIndex = (currentSlideIndex + direction + slides.length) % slides.length;
-
-            // Add active class to new slide
             slides[currentSlideIndex].classList.add('active');
         }
 
-        // Automatically move to the next slide every 5 seconds for a continuous loop display
-        let autoSlideInterval = setInterval(() => {
-            changeSlide(1);
-        }, 5000);
+        // Auto-slide timer
+        let autoSlideInterval = setInterval(() => { changeSlide(1); }, 6000);
 
-        // Reset the auto-slide timer whenever a user manually clicks an arrow button
         function resetAutoSlideTimer() {
             clearInterval(autoSlideInterval);
-            autoSlideInterval = setInterval(() => {
-                changeSlide(1);
-            }, 5000);
+            autoSlideInterval = setInterval(() => { changeSlide(1); }, 6000);
         }
 
-        // Overriding the inline onclick functions to ensure timer resets cleanly
-        document.querySelector('.prev').addEventListener('click', () => { changeSlide(-1); resetAutoSlideTimer(); });
-        document.querySelector('.next').addEventListener('click', () => { changeSlide(1); resetAutoSlideTimer(); });
+        document.getElementById('prevBtn').addEventListener('click', () => { changeSlide(-1); resetAutoSlideTimer(); });
+        document.getElementById('nextBtn').addEventListener('click', () => { changeSlide(1); resetAutoSlideTimer(); });
 
-        // Initialize the app on page load
+        // ==========================================
+        // FULLSCREEN LOGIC
+        // ==========================================
+        function toggleFullScreen() {
+            if (!document.fullscreenElement) {
+                // Enter fullscreen
+                document.documentElement.requestFullscreen().catch((err) => {
+                    console.log(`Error attempting to enable fullscreen: ${err.message}`);
+                });
+            } else {
+                // Exit fullscreen
+                if (document.exitFullscreen) {
+                    document.exitFullscreen();
+                }
+            }
+        }
+
+        // Change button text based on fullscreen state
+        document.addEventListener("fullscreenchange", function() {
+            const btn = document.querySelector('.fullscreen-btn');
+            if (document.fullscreenElement) {
+                btn.innerHTML = "✖ Exit Fullscreen";
+            } else {
+                btn.innerHTML = "⛶ Fullscreen";
+            }
+        });
+
+        // Initialize
         buildAlbum();
     </script>
 </body>
