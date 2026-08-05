@@ -1,189 +1,41 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Rakhecha Medical Stores | Premium Pharma Distribution</title>
-
-
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap"
-        rel="stylesheet">
+    
+    <!-- Fonts and Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
+    
+    <!-- App icon -->
+    <link rel="icon" type="image/png" href="favicon.png">
+    
     <style>
         :root {
-            --brand-cyan: #06b6d4;
-            /* Premium Teal */
-            --brand-blue: #3b82f6;
-            /* Premium Blue */
-            --medical-green: #059669;
-            /* Emerald Green */
-            --bg-dark: #f8fafc;
-            /* Slate 50 for pure light background */
-            --text-main: #0f172a;
-            /* Slate 900 for high contrast text */
-            --text-muted: #475569;
-            /* Slate 600 for secondary text */
-            --glass-dark: rgba(255, 255, 255, 0.8);
-            --glass-border: rgba(0, 0, 0, 0.06);
-            --neon-glow: 0 10px 30px rgba(6, 182, 212, 0.15);
+            --brand-blue: #0061ff;
+            --brand-dark: #061731;
+            --medical-green: #00d285;
+            --white: #ffffff;
+            --shadow-sm: 0 4px 15px rgba(0,0,0,0.03);
+            --shadow-lg: 0 20px 40px rgba(0,0,0,0.08);
+            --shadow-glow: 0 20px 40px rgba(0, 97, 255, 0.15);
+            --glass: rgba(255, 255, 255, 0.85);
         }
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            cursor: none;
-            /* Hide default cursor for PC */
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        html {
+            scroll-behavior: smooth;
         }
 
         body {
             font-family: 'Plus Jakarta Sans', sans-serif;
-            background-color: var(--bg-dark);
-            color: var(--text-main);
+            background-color: #f8fbff;
+            color: var(--brand-dark);
             line-height: 1.6;
-            scroll-behavior: smooth;
             overflow-x: hidden;
-        }
-
-        /* --- HIGH-TECH BACKGROUND --- */
-        .grid-bg {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            background-image:
-                linear-gradient(rgba(0, 0, 0, 0.03) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(0, 0, 0, 0.03) 1px, transparent 1px);
-            background-size: 50px 50px;
-            z-index: -2;
-            pointer-events: none;
-        }
-
-        /* Ambient Background Blobs (Nebula effect) */
-        .ambient-blob {
-            position: absolute;
-            border-radius: 50%;
-            filter: blur(80px);
-            opacity: 0.6;
-            z-index: -1;
-            pointer-events: none;
-            transition: transform 0.2s ease-out;
-            mix-blend-mode: multiply;
-            /* Better for light mode */
-        }
-
-        .blob-1 {
-            width: 600px;
-            height: 600px;
-            background: rgba(59, 130, 246, 0.15);
-            top: -100px;
-            left: -200px;
-        }
-
-        .blob-2 {
-            width: 500px;
-            height: 500px;
-            background: rgba(5, 150, 105, 0.1);
-            bottom: 100px;
-            right: -150px;
-        }
-
-        /* --- CUSTOM CURSOR (Neon Medical) --- */
-        .cursor-dot {
-            width: 6px;
-            height: 6px;
-            background-color: var(--brand-cyan);
-            box-shadow: 0 0 10px var(--brand-cyan);
-            border-radius: 50%;
-            position: fixed;
-            top: 0;
-            left: 0;
-            transform: translate(-50%, -50%);
-            pointer-events: none;
-            z-index: 9999;
-            transition: width 0.2s, height 0.2s, background-color 0.2s;
-        }
-
-        .cursor-outline {
-            width: 40px;
-            height: 40px;
-            border: 1px solid rgba(6, 182, 212, 0.4);
-            background-color: rgba(6, 182, 212, 0.05);
-            border-radius: 50%;
-            position: fixed;
-            top: 0;
-            left: 0;
-            transform: translate(-50%, -50%);
-            pointer-events: none;
-            z-index: 9998;
-            transition: width 0.2s, height 0.2s, border-color 0.2s;
-        }
-
-        .cursor-hover .cursor-dot {
-            width: 10px;
-            height: 10px;
-            background-color: var(--medical-green);
-            box-shadow: 0 0 15px var(--medical-green);
-        }
-
-        .cursor-hover .cursor-outline {
-            width: 60px;
-            height: 60px;
-            background-color: rgba(5, 150, 105, 0.1);
-            border-color: var(--medical-green);
-        }
-
-        /* --- ANTIGRAVITY ANIMATIONS --- */
-        @keyframes float {
-            0% {
-                transform: translateY(0px);
-            }
-
-            50% {
-                transform: translateY(-12px);
-            }
-
-            100% {
-                transform: translateY(0px);
-            }
-        }
-
-        @keyframes float-delayed {
-            0% {
-                transform: translateY(0px);
-            }
-
-            50% {
-                transform: translateY(-18px);
-            }
-
-            100% {
-                transform: translateY(0px);
-            }
-        }
-
-        .float-el {
-            animation: float 6s ease-in-out infinite;
-        }
-
-        .float-el-delayed {
-            animation: float-delayed 8s ease-in-out infinite 1s;
-        }
-
-        .scroll-reveal {
-            opacity: 0;
-            transform: translateY(60px) scale(0.95);
-            transition: all 1s cubic-bezier(0.16, 1, 0.3, 1);
-            visibility: hidden;
-        }
-
-        .scroll-reveal.is-visible {
-            opacity: 1;
-            transform: translateY(0) scale(1);
-            visibility: visible;
         }
 
         .container {
@@ -191,18 +43,34 @@
             margin: 0 auto;
             padding: 0 20px;
             position: relative;
+            z-index: 10;
         }
+
+        /* --- Animations (Fintech Style) --- */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), 
+                        transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .delay-1 { transition-delay: 0.1s; }
+        .delay-2 { transition-delay: 0.2s; }
+        .delay-3 { transition-delay: 0.3s; }
 
         /* --- Floating Contact (Mobile Focus) --- */
         .floating-contact {
             position: fixed;
-            bottom: max(25px, env(safe-area-inset-bottom));
-            right: max(25px, env(safe-area-inset-right));
-            z-index: 99999;
-            /* Highest possible layer to prevent it from missing on any device */
+            bottom: 25px;
+            right: 25px;
+            z-index: 1000;
             display: flex;
             flex-direction: column;
-            gap: 15px;
+            gap: 12px;
         }
 
         .float-btn {
@@ -213,85 +81,37 @@
             align-items: center;
             justify-content: center;
             color: white;
-            box-shadow: 0 10px 25px rgba(6, 182, 212, 0.3);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
             text-decoration: none;
             font-size: 24px;
-            transition: 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-            position: relative;
+            transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
-        .float-btn::before {
-            content: '';
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            border-radius: 50%;
-            border: 1px solid currentColor;
-            z-index: -1;
-            animation: pulse 2s infinite;
+        .float-btn:hover { 
+            transform: scale(1.1) translateY(-5px); 
         }
-
-        @keyframes pulse {
-            0% {
-                transform: scale(1);
-                opacity: 1;
-            }
-
-            100% {
-                transform: scale(1.6);
-                opacity: 0;
-            }
-        }
-
-        .float-btn:hover {
-            transform: translateY(-5px) scale(1.05);
-            background: var(--text-main);
-            color: white;
-            box-shadow: 0 15px 35px rgba(15, 23, 42, 0.2);
-        }
-
-        .float-phone {
-            background: var(--brand-cyan);
-            color: white;
-        }
-
-        .float-phone::before {
-            border-color: var(--brand-cyan);
-        }
-
-        .float-map {
-            background: #ea4335;
-            color: white;
-            box-shadow: 0 10px 25px rgba(234, 67, 53, 0.3);
-        }
-
-        .float-map::before {
-            border-color: #ea4335;
-        }
-
-        .float-map:hover {
-            background: var(--text-main);
-            color: white;
-        }
+        .float-phone { background: var(--brand-blue); }
+        .float-map { background: #ea4335; }
 
         /* --- Navigation --- */
         nav {
-            background: rgba(255, 255, 255, 0.8);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
+            background: var(--glass);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
             height: 85px;
             display: flex;
             align-items: center;
-            position: sticky;
+            position: fixed;
+            width: 100%;
             top: 0;
             z-index: 999;
-            border-bottom: 1px solid var(--glass-border);
-            transition: 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            border-bottom: 1px solid rgba(255,255,255,0.3);
+            transition: all 0.4s ease;
         }
-
+        
         nav.scrolled {
-            height: 70px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            height: 75px;
+            box-shadow: var(--shadow-sm);
             background: rgba(255, 255, 255, 0.95);
         }
 
@@ -302,574 +122,263 @@
             width: 100%;
         }
 
-        .logo-area {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
+        .logo-area { display: flex; align-items: center; gap: 12px; }
+        .logo-img { height: 55px; width: auto; transition: 0.3s; }
+        .brand-text b { color: var(--brand-blue); font-size: 1.2rem; display: block; line-height: 1.1; }
+        .brand-text span { font-size: 0.7rem; letter-spacing: 2px; text-transform: uppercase; color: var(--brand-dark); font-weight: 600; }
 
-        .logo-img {
-            height: 45px;
-            width: auto;
-            filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.05));
+        .nav-links a { text-decoration: none; color: var(--brand-dark); font-weight: 700; margin-left: 30px; font-size: 0.95rem; transition: color 0.3s; }
+        .nav-links a:not(.nav-cta):hover { color: var(--brand-blue); }
+        
+        .nav-cta { 
+            background: var(--brand-blue); 
+            color: white !important; 
+            padding: 12px 28px; 
+            border-radius: 50px; 
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 20px rgba(0, 97, 255, 0.2);
         }
-
-        .brand-text b {
-            color: var(--text-main);
-            font-size: 1.2rem;
-            display: block;
-            line-height: 1.1;
-            letter-spacing: 1px;
-        }
-
-        .brand-text span {
-            font-size: 0.7rem;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            color: var(--brand-cyan);
-            font-weight: 700;
-        }
-
-        .nav-links a {
-            text-decoration: none;
-            color: var(--text-muted);
-            font-weight: 600;
-            margin-left: 35px;
-            font-size: 0.9rem;
-            letter-spacing: 1px;
-            transition: color 0.3s;
-        }
-
-        .nav-links a:not(.nav-cta):hover {
-            color: var(--brand-cyan);
-        }
-
-        .nav-cta {
-            background: transparent;
-            color: var(--brand-cyan) !important;
-            padding: 10px 24px;
-            border-radius: 50px;
-            border: 2px solid var(--brand-cyan);
-            transition: 0.3s all;
-            display: inline-block;
-            font-weight: 700;
-        }
-
-        .nav-cta:hover {
-            background: var(--brand-cyan);
-            color: white !important;
-            box-shadow: 0 8px 20px rgba(6, 182, 212, 0.3);
+        .nav-cta:hover { 
+            background: var(--brand-dark); 
+            box-shadow: 0 8px 20px rgba(6, 23, 49, 0.2);
             transform: translateY(-2px);
         }
 
-        /* --- Hero Section --- */
-        .hero {
-            padding: 140px 0 100px;
-            position: relative;
-        }
-
-        .hero-flex {
-            display: flex;
-            align-items: center;
-            gap: 60px;
-            flex-wrap: wrap;
-        }
-
-        .hero-content {
-            flex: 1;
-            min-width: 320px;
-            position: relative;
-            z-index: 2;
-        }
-
-        .badge {
-            display: inline-block;
-            padding: 8px 20px;
-            background: rgba(5, 150, 105, 0.1);
-            color: var(--medical-green);
-            border: 1px solid rgba(5, 150, 105, 0.2);
-            border-radius: 50px;
-            font-size: 0.75rem;
-            font-weight: 800;
-            margin-bottom: 25px;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            box-shadow: 0 4px 10px rgba(5, 150, 105, 0.05);
-        }
-
-        .hero-content h1 {
-            font-size: clamp(2.5rem, 5vw, 4.2rem);
-            line-height: 1.1;
-            margin-bottom: 25px;
-            letter-spacing: -1px;
-            color: var(--text-main);
-            text-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
-        }
-
-        .hero-content h1 span {
-            color: transparent;
-            -webkit-text-stroke: 1.5px var(--brand-cyan);
-            text-shadow: none;
-        }
-
-        .hero-content p {
-            font-size: 1.15rem;
-            color: var(--text-muted);
-            margin-bottom: 40px;
-            max-width: 550px;
-            font-weight: 400;
-        }
-
-        .hero-btns {
-            display: flex;
-            gap: 20px;
-            flex-wrap: wrap;
-        }
-
-        .btn-primary {
-            background: var(--text-main);
-            color: white;
-            padding: 16px 36px;
-            border-radius: 50px;
-            text-decoration: none;
-            font-weight: 700;
-            box-shadow: 0 10px 20px rgba(15, 23, 42, 0.15);
-            transition: 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .btn-secondary {
-            background: white;
-            border: 1px solid var(--glass-border);
-            color: var(--text-main);
-            padding: 16px 36px;
-            border-radius: 50px;
-            text-decoration: none;
-            font-weight: 700;
-            transition: 0.4s;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
-        }
-
-        .btn-primary:hover {
-            transform: translateY(-5px);
-            background: var(--brand-cyan);
-            box-shadow: 0 15px 30px rgba(6, 182, 212, 0.3);
-            color: white;
-        }
-
-        .btn-secondary:hover {
-            transform: translateY(-5px);
-            border-color: var(--brand-cyan);
-            color: var(--brand-cyan);
-            box-shadow: 0 10px 25px rgba(6, 182, 212, 0.1);
-        }
-
-        .hero-image {
-            flex: 1;
-            min-width: 350px;
-            position: relative;
-            z-index: 2;
-            perspective: 1500px;
-        }
-
-        .hero-image::after {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 100%;
-            height: 100%;
-            transform: translate(-50%, -50%);
-            background: radial-gradient(circle, rgba(6, 182, 212, 0.1) 0%, transparent 60%);
-            z-index: -1;
-            pointer-events: none;
-        }
-
-        .hero-image img {
-            width: 100%;
-            border-radius: 20px;
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.1), 0 0 0 1px var(--glass-border);
-            transform: rotateY(-10deg) rotateX(5deg);
-            transition: transform 0.1s ease-out;
-        }
-
-        /* --- Action Cards --- */
-        .action-section {
-            margin-top: -60px;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-            padding-bottom: 100px;
-            position: relative;
-            z-index: 10;
-        }
-
-        .action-card {
-            background: rgba(255, 255, 255, 0.7);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            padding: 50px 35px;
-            border-radius: 24px;
-            text-align: center;
-            border: 1px solid rgba(255, 255, 255, 0.8);
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.04);
-            transform-style: preserve-3d;
-            transition: border-color 0.4s, background 0.4s, box-shadow 0.4s;
+        /* --- Hero Section with Mesh Gradient --- */
+        .hero { 
+            padding: 160px 0 120px; 
             position: relative;
             overflow: hidden;
         }
-
-        .action-card::before {
+        
+        /* Modern Fintech Background Glows */
+        .hero::before {
             content: '';
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: radial-gradient(800px circle at var(--mouse-x) var(--mouse-y), rgba(6, 182, 212, 0.04), transparent 40%);
+            top: -20%; left: -10%;
+            width: 500px; height: 500px;
+            background: radial-gradient(circle, rgba(0, 97, 255, 0.15) 0%, rgba(255,255,255,0) 70%);
             z-index: 0;
-            pointer-events: none;
-            opacity: 0;
-            transition: opacity 0.5s;
+            border-radius: 50%;
+        }
+        .hero::after {
+            content: '';
+            position: absolute;
+            bottom: -10%; right: -5%;
+            width: 600px; height: 600px;
+            background: radial-gradient(circle, rgba(0, 210, 133, 0.1) 0%, rgba(255,255,255,0) 70%);
+            z-index: 0;
+            border-radius: 50%;
         }
 
-        .action-card:hover::before {
-            opacity: 1;
+        .hero-flex { display: flex; align-items: center; gap: 60px; flex-wrap: wrap; }
+        .hero-content { flex: 1; min-width: 320px; }
+        
+        .badge { 
+            display: inline-block; 
+            padding: 8px 20px; 
+            background: rgba(0, 97, 255, 0.08); 
+            color: var(--brand-blue); 
+            border-radius: 50px; 
+            font-size: 0.85rem; 
+            font-weight: 800; 
+            margin-bottom: 25px; 
+            border: 1px solid rgba(0,97,255,0.15);
+            backdrop-filter: blur(5px);
+        }
+        
+        .hero-content h1 { 
+            font-size: clamp(2.8rem, 5vw, 4.2rem); 
+            line-height: 1.1; 
+            margin-bottom: 25px; 
+            letter-spacing: -1.5px; 
+        }
+        .hero-content h1 span {
+            background: linear-gradient(135deg, var(--brand-blue), #00d285);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .hero-content p { font-size: 1.2rem; color: #4a5568; margin-bottom: 40px; max-width: 550px; }
+        .hero-btns { display: flex; gap: 20px; }
+
+        .btn-primary { 
+            background: var(--brand-blue); 
+            color: white; 
+            padding: 16px 36px; 
+            border-radius: 14px; 
+            text-decoration: none; 
+            font-weight: 700; 
+            box-shadow: 0 10px 25px rgba(0,97,255,0.25); 
+            transition: all 0.3s ease; 
+        }
+        .btn-secondary { 
+            background: white; 
+            border: 1px solid #e2e8f0; 
+            color: var(--brand-dark); 
+            padding: 16px 36px; 
+            border-radius: 14px; 
+            text-decoration: none; 
+            font-weight: 700; 
+            transition: all 0.3s ease; 
+            box-shadow: var(--shadow-sm);
+        }
+        .btn-primary:hover { transform: translateY(-3px); box-shadow: var(--shadow-glow); }
+        .btn-secondary:hover { transform: translateY(-3px); border-color: var(--brand-blue); color: var(--brand-blue); }
+
+        .hero-image { flex: 1; min-width: 350px; position: relative; }
+        .hero-image::before {
+            content: '';
+            position: absolute;
+            inset: -20px;
+            background: linear-gradient(135deg, var(--brand-blue), var(--medical-green));
+            border-radius: 40px;
+            z-index: -1;
+            opacity: 0.15;
+            filter: blur(20px);
+        }
+        .hero-image img { 
+            width: 100%; 
+            border-radius: 30px; 
+            box-shadow: var(--shadow-lg); 
+            transform: perspective(1000px) rotateY(-5deg) rotateX(5deg); 
+            transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1); 
+        }
+        .hero-image:hover img { 
+            transform: perspective(1000px) rotateY(0deg) rotateX(0deg); 
         }
 
-        .action-card:hover {
-            border-color: rgba(6, 182, 212, 0.3);
-            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.08);
+        /* --- Action Cards --- */
+        .action-section { 
+            margin-top: -60px; 
+            display: grid; 
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); 
+            gap: 30px; 
+            padding-bottom: 100px; 
+        }
+        .action-card { 
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            padding: 50px 35px; 
+            border-radius: 28px; 
+            box-shadow: var(--shadow-sm); 
+            text-align: center; 
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1); 
+            border: 1px solid rgba(255,255,255,1); 
+        }
+        .action-card:hover { 
+            transform: translateY(-15px); 
+            box-shadow: var(--shadow-glow);
+            border-color: rgba(0,97,255,0.2); 
             background: white;
         }
-
-        .card-content {
-            position: relative;
-            z-index: 1;
-            transform: translateZ(30px);
+        .action-card i { 
+            font-size: 3rem; 
+            margin-bottom: 25px; 
+            display: block; 
+            transition: transform 0.3s ease;
         }
-
-        .action-card i {
-            font-size: 3rem;
-            margin-bottom: 25px;
-            display: inline-block;
+        .action-card:hover i {
+            transform: scale(1.1);
         }
-
-        .icon-blue {
-            color: var(--brand-cyan);
+        .icon-blue { color: var(--brand-blue); }
+        .icon-red { color: #ea4335; }
+        .icon-green { color: var(--medical-green); }
+        .card-link { 
+            display: inline-block; 
+            margin-top: 25px; 
+            padding: 14px 28px; 
+            background: #f1f5f9; 
+            color: var(--brand-dark); 
+            text-decoration: none; 
+            border-radius: 12px; 
+            font-weight: 700; 
+            font-size: 0.95rem; 
+            transition: all 0.3s ease; 
         }
-
-        .icon-red {
-            color: #ea4335;
-        }
-
-        .icon-green {
-            color: var(--medical-green);
-        }
-
-        .action-card h3 {
-            margin-bottom: 15px;
-            color: var(--text-main);
-            font-weight: 700;
-            letter-spacing: 0.5px;
-        }
-
-        .action-card p {
-            color: var(--text-muted);
-            font-size: 0.95rem;
-            margin-bottom: 20px;
-        }
-
-        .card-link {
-            display: inline-block;
-            padding: 12px 28px;
-            background: white;
-            color: var(--text-main);
-            text-decoration: none;
-            border-radius: 50px;
-            font-weight: 600;
-            font-size: 0.9rem;
-            transition: 0.3s;
-            border: 1px solid var(--glass-border);
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.02);
-        }
-
-        .card-link:hover {
-            background: var(--brand-cyan);
-            color: white;
-            box-shadow: 0 10px 20px rgba(6, 182, 212, 0.2);
-            border-color: var(--brand-cyan);
-        }
+        .card-link:hover { background: var(--brand-blue); color: white; }
 
         /* --- Details/Stats --- */
-        .details-section {
-            padding: 60px 0 120px;
-            display: flex;
-            gap: 80px;
-            flex-wrap: wrap;
-            align-items: center;
-            position: relative;
+        .details-section { padding: 60px 0 120px; display: flex; gap: 80px; flex-wrap: wrap; align-items: center; }
+        .details-text { flex: 1.2; min-width: 320px; }
+        .details-text h2 { font-size: 2.8rem; margin-bottom: 20px; letter-spacing: -1px; }
+        .text-blue { color: var(--brand-blue); }
+        .info-grid { flex: 1; display: grid; gap: 25px; }
+        .info-item { 
+            display: flex; 
+            gap: 20px; 
+            background: white; 
+            padding: 30px; 
+            border-radius: 20px; 
+            box-shadow: var(--shadow-sm); 
+            border: 1px solid rgba(0,0,0,0.02);
+            transition: transform 0.3s ease;
         }
-
-        .details-text {
-            flex: 1.2;
-            min-width: 320px;
-            position: relative;
-            z-index: 2;
-        }
-
-        .details-text h2 {
-            font-size: clamp(2.2rem, 4vw, 2.8rem);
-            margin-bottom: 20px;
-            color: var(--text-main);
-            font-weight: 800;
-            line-height: 1.2;
-        }
-
-        .details-text p {
-            color: var(--text-muted);
-            font-size: 1.1rem;
-            max-width: 90%;
-        }
-
-        .text-blue {
-            color: var(--brand-cyan);
-        }
-
-        .info-grid {
-            flex: 1;
-            display: grid;
-            gap: 25px;
-            position: relative;
-            z-index: 2;
-        }
-
-        .info-item {
-            display: flex;
-            gap: 25px;
-            background: white;
-            padding: 30px;
-            border-radius: 20px;
-            border: 1px solid var(--glass-border);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03);
-            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.4s, box-shadow 0.4s;
-        }
-
         .info-item:hover {
             transform: translateX(10px);
-            border-color: var(--brand-cyan);
-            box-shadow: 0 15px 40px rgba(6, 182, 212, 0.1);
         }
-
-        .info-item i {
-            color: var(--medical-green);
-            font-size: 2.2rem;
-        }
-
-        .info-item h4 {
-            font-size: 1.1rem;
-            margin-bottom: 5px;
-            color: var(--text-main);
-            font-weight: 700;
-        }
-
-        .info-item p {
-            font-size: 0.95rem;
-            color: var(--text-muted);
-        }
+        .info-item i { color: var(--medical-green); font-size: 2rem; background: rgba(0,210,133,0.1); padding: 15px; border-radius: 14px; height: max-content;}
+        .info-item h4 { font-size: 1.1rem; margin-bottom: 8px; }
+        .info-item p { font-size: 0.95rem; color: #64748b; line-height: 1.5;}
 
         /* --- Footer --- */
-        footer {
-            background: white;
-            color: var(--text-muted);
-            padding: 80px 0 40px;
-            text-align: center;
+        footer { 
+            background: var(--brand-dark); 
+            color: white; 
+            padding: 100px 0 40px; 
+            text-align: center; 
             position: relative;
-            border-top: 1px solid var(--glass-border);
+            overflow: hidden;
         }
-
         footer::before {
             content: '';
             position: absolute;
-            top: 0;
-            left: 50%;
-            width: 100%;
-            height: 2px;
-            background: linear-gradient(90deg, transparent, rgba(6, 182, 212, 0.3), transparent);
-            transform: translateX(-50%);
+            top: 0; left: 0; right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
         }
-
-        .footer-logo {
-            height: 65px;
-            margin-bottom: 25px;
-            filter: grayscale(1) opacity(0.5);
-            transition: 0.3s;
-        }
-
-        .footer-logo:hover {
-            filter: none;
-        }
-
-        footer h3 {
-            color: var(--text-main);
-            margin-bottom: 10px;
-            font-weight: 700;
-            letter-spacing: 0.5px;
-        }
-
-        footer p {
-            margin-bottom: 5px;
-        }
-
-        .footer-bottom {
-            margin-top: 50px;
-            padding-top: 25px;
-            border-top: 1px solid rgba(0, 0, 0, 0.05);
-            font-size: 0.85rem;
-            letter-spacing: 0.5px;
+        .footer-logo { height: 65px; margin-bottom: 25px; filter: drop-shadow(0 4px 6px rgba(0,0,0,0.3)); }
+        footer h3 { font-size: 1.5rem; margin-bottom: 15px; }
+        footer p { color: #94a3b8; margin-bottom: 8px; }
+        
+        .footer-bottom { 
+            margin-top: 60px; 
+            padding-top: 30px; 
+            border-top: 1px solid rgba(255,255,255,0.08); 
+            font-size: 0.85rem; 
+            color: #64748b; 
+            letter-spacing: 1px; 
         }
 
         /* --- Mobile Responsiveness --- */
         @media (max-width: 768px) {
-            .nav-links {
-                display: none;
-            }
-
-            nav {
-                height: 70px;
-            }
-
-            .brand-text b {
-                font-size: 1.1rem;
-            }
-
-            .hero {
-                padding: 90px 0 50px;
-            }
-
-            .hero-flex {
-                text-align: center;
-                justify-content: center;
-                gap: 30px;
-            }
-
-            .hero-content h1 {
-                font-size: 2.2rem;
-            }
-
-            .hero-content p {
-                font-size: 1rem;
-                margin: 0 auto 30px;
-            }
-
-            .hero-btns {
-                justify-content: center;
-                flex-direction: column;
-                width: 100%;
-                gap: 15px;
-            }
-
-            .btn-primary,
-            .btn-secondary {
-                width: 100%;
-                padding: 14px 20px;
-            }
-
-            .hero-image.float-el {
-                animation: none !important;
-            }
-
-            .hero-image img {
-                transform: none !important;
-                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-            }
-
-            .action-section {
-                margin-top: -20px;
-                padding-bottom: 50px;
-                grid-template-columns: 1fr;
-                gap: 20px;
-            }
-
-            .action-card {
-                padding: 35px 25px;
-                transform: none !important;
-                animation: none !important;
-            }
-
-            .details-section {
-                text-align: center;
-                gap: 40px;
-                padding: 40px 0 60px;
-            }
-
-            .details-text h2 {
-                font-size: 2rem;
-            }
-
-            .info-grid {
-                gap: 15px;
-            }
-
-            .info-item {
-                flex-direction: column;
-                align-items: center;
-                text-align: center;
-                padding: 25px 20px;
-            }
-
-            footer {
-                padding: 50px 0 30px;
-            }
-
-            * {
-                cursor: auto !important;
-            }
-
-            /* Reset cursor for mobile */
-            .cursor-dot,
-            .cursor-outline {
-                display: none !important;
-            }
-
-            /* Ensure FAB is fully visible, well-positioned, and scaled for mobile */
-            .floating-contact {
-                bottom: max(20px, env(safe-area-inset-bottom));
-                right: max(15px, env(safe-area-inset-right));
-                transform: scale(0.85);
-                transform-origin: bottom right;
-            }
+            nav { padding: 0 15px; }
+            .nav-links { display: none; }
+            .hero { padding: 130px 0 80px; }
+            .hero-flex { text-align: center; justify-content: center; }
+            .hero-btns { justify-content: center; flex-direction: column; }
+            .hero-content h1 { font-size: 2.5rem; }
+            .action-section { margin-top: -20px; padding-bottom: 60px; }
+            .details-section { text-align: center; gap: 40px; }
+            .info-item { text-align: left; }
         }
     </style>
 </head>
-
 <body>
 
-    <!-- Grid Background -->
-    <div class="grid-bg"></div>
-
-    <!-- Custom Neon Cursor -->
-    <div class="cursor-dot" data-cursor-dot></div>
-    <div class="cursor-outline" data-cursor-outline></div>
-
-    <div class="floating-contact">
-        <a href="tel:7489574895" class="float-btn float-phone interaction-target" title="Call Us">
+    <div class="floating-contact reveal">
+        <a href="tel:7489574895" class="float-btn float-phone" title="Call Us">
             <i class="fas fa-phone"></i>
         </a>
-        <a href="https://www.google.com/maps/search/Rakhecha+Medical+Stores+Dhamtari" target="_blank"
-            class="float-btn float-map interaction-target" title="Directions">
+        <a href="https://www.google.com/maps/search/Rakhecha+Medical+Stores+Dhamtari" target="_blank" class="float-btn float-map" title="Directions">
             <i class="fas fa-location-arrow"></i>
         </a>
     </div>
 
     <nav id="navbar">
         <div class="container nav-flex">
-            <div class="logo-area interaction-target">
+            <div class="logo-area">
                 <img src="https://i.ibb.co/HfxTSLb6/RMS-icon-1.png" alt="RMS Logo" class="logo-img">
                 <div class="brand-text">
                     <b>RAKHECHA</b>
@@ -877,87 +386,67 @@
                 </div>
             </div>
             <div class="nav-links">
-                <a href="https://rakhechamedical.in/product/" target="_blank" class="interaction-target">Inventory</a>
-                <a href="#explore" class="interaction-target">Find Us</a>
-                <a href="tel:7489574895" class="nav-cta interaction-target">Call: 74895 74895</a>
+                <a href="https://rakhechamedical.in/order/" target="_blank">Inventory</a>
+                <a href="#explore">Find Us</a>
+                <a href="tel:7489574895" class="nav-cta">Call: 74895 74895</a>
             </div>
         </div>
     </nav>
 
     <header class="hero">
-        <!-- Ambient Deep Space Blobs -->
-        <div class="ambient-blob blob-1"></div>
-        <div class="ambient-blob blob-2"></div>
-
         <div class="container hero-flex">
-            <div class="hero-content scroll-reveal">
+            <div class="hero-content reveal">
                 <div class="badge">Trusted Since 1990</div>
                 <h1>Smart Pharma <br><span>Distribution.</span></h1>
-                <p>Leading wholesale distribution for premium medicines and medical supplies in Chhattisgarh. Speed,
-                    care, and quality assured.</p>
+                <p>Leading wholesale distribution for premium medicines and medical supplies in Chhattisgarh. Speed, care, and quality assured.</p>
                 <div class="hero-btns">
-                    <a href="#explore" class="btn-primary interaction-target">Our Services</a>
-                    <a href="mailto:rakhechamedical@gmail.com" class="btn-secondary interaction-target">Send Email</a>
+                    <a href="#explore" class="btn-primary">Our Services</a>
+                    <a href="mailto:rakhechamedical@gmail.com" class="btn-secondary">Send Email</a>
                 </div>
             </div>
-            <div class="hero-image float-el scroll-reveal">
-                <img src="https://images.unsplash.com/photo-1585435557343-3b092031a831?auto=format&fit=crop&q=80&w=1200"
-                    alt="Medicine Logistics" class="interaction-target" id="heroImg">
+            <div class="hero-image reveal delay-1">
+                <img src="https://images.unsplash.com/photo-1585435557343-3b092031a831?auto=format&fit=crop&q=80&w=1200" alt="Medicine Logistics">
             </div>
         </div>
     </header>
 
     <main class="container action-section" id="explore">
-        <div class="action-card float-el interaction-target scroll-reveal">
-            <div class="card-content">
-                <i class="fas fa-map-marked-alt icon-red"></i>
-                <h3>Visit Our Store</h3>
-                <p>Sihawa Chowk, Dhamtari. Open 7 days a week for pharmaceutical supplies.</p>
-                <a href="https://www.google.com/maps/search/Rakhecha+Medical+Stores+Dhamtari" target="_blank"
-                    class="card-link interaction-target">Get Directions</a>
-            </div>
+        <div class="action-card reveal delay-1">
+            <i class="fas fa-map-marked-alt icon-red"></i>
+            <h3>Visit Our Store</h3>
+            <p>Sihawa Chowk, Dhamtari. Open 7 days a week for pharmaceutical supplies.</p>
+            <a href="https://www.google.com/maps/search/Rakhecha+Medical+Stores+Dhamtari" target="_blank" class="card-link">Get Directions</a>
         </div>
 
-        <div class="action-card float-el-delayed interaction-target scroll-reveal">
-            <div class="card-content">
-                <i class="fas fa-box-open icon-blue"></i>
-                <h3>Digital Inventory</h3>
-                <p>Access our live web-based product catalog and explore our healthcare portfolio.</p>
-                <a href="https://rakhechamedical.in/product/" target="_blank" class="card-link interaction-target">View
-                    Website</a>
-            </div>
+        <div class="action-card reveal delay-2">
+            <i class="fas fa-box-open icon-blue"></i>
+            <h3>Digital Inventory</h3>
+            <p>Explore our healthcare portfolio through our live web-based product catalog and place your order online.</p>
+            <a href="https://rakhechamedical.in/product/" target="_blank" class="card-link">View Website</a>
         </div>
 
-        <div class="action-card float-el interaction-target scroll-reveal" style="animation-delay: 2s;">
-            <div class="card-content">
-                <i class="fas fa-file-pdf icon-green"></i>
-                <h3>Price List PDF</h3>
-                <p>Download our complete stock list for offline procurement and bulk orders.</p>
-                <a href="https://drive.google.com/file/d/1Kg3TzJdnIHn2B4MQx4DpjVfLof-BAbNW/view?usp=sharing"
-                    target="_blank" class="card-link interaction-target">Download Stock List</a>
-            </div>
+        <div class="action-card reveal delay-3">
+            <i class="fas fa-file-pdf icon-green"></i>
+            <h3>Price List PDF</h3>
+            <p>Download our complete stock list for offline procurement and bulk orders.</p>
+            <a href="https://drive.google.com/file/d/1Kg3TzJdnIHn2B4MQx4DpjVfLof-BAbNW/view?usp=sharing" target="_blank" class="card-link">Download Stock List</a>
         </div>
     </main>
 
     <section class="container details-section">
-        <div class="ambient-blob blob-1"
-            style="background: rgba(59, 130, 246, 0.1); top: 20%; left: 80%; width: 400px; height:400px;"></div>
-
-        <div class="details-text scroll-reveal">
+        <div class="details-text reveal">
             <h2>Modernizing <br><span class="text-blue">Bulk Medicine</span></h2>
-            <p>We combine 30+ years of legacy with modern logistics. Our facility manages mass distribution with strict
-                quality controls for branded and generic pharma solutions.</p>
+            <p>We combine 30+ years of legacy with modern logistics. Our facility manages mass distribution with strict quality controls for branded and generic pharma solutions.</p>
         </div>
-
         <div class="info-grid">
-            <div class="info-item scroll-reveal interaction-target">
+            <div class="info-item reveal delay-1">
                 <i class="fas fa-clock"></i>
                 <div>
                     <h4>7 Days Availability</h4>
                     <p>Open Monday to Sunday for essential medicine supplies.</p>
                 </div>
             </div>
-            <div class="info-item scroll-reveal interaction-target" style="transition-delay: 0.1s;">
+            <div class="info-item reveal delay-2">
                 <i class="fas fa-shield-alt"></i>
                 <div>
                     <h4>Quality Verified</h4>
@@ -967,13 +456,16 @@
         </div>
     </section>
 
-    <footer>
-        <div class="container scroll-reveal">
-            <img src="https://i.ibb.co/HfxTSLb6/RMS-icon-1.png" alt="RMS Logo" class="footer-logo interaction-target">
+    <footer class="reveal">
+        <div class="container">
+            <img src="https://i.ibb.co/HfxTSLb6/RMS-icon-1.png" alt="RMS Logo" class="footer-logo">
             <h3>Rakhecha Medical Stores</h3>
             <p>Near Mahavar Dharam Shala, Sihawa Chowk, Dhamtari, CG - 493773</p>
-            <p style="margin-top: 10px; font-weight: 600; color: var(--brand-cyan);">Contact: 74895 74895</p>
-
+            <p>GST number : 22ACSPD4513B1Z8</p>
+            <p>FSSAI number :  10521005000181</p>
+            <p>Drug licence number : 20-29783, 20B-29784,  21-29785, 21B-29786</p>
+            <p style="margin-top: 15px; font-weight: 600; color: #60a5fa;">Contact: 74895 74895</p>
+            
             <div class="footer-bottom">
                 <p>© 2026 Rakhecha Medical Stores. All Rights Reserved.</p>
                 <p style="margin-top: 10px; font-size: 0.75rem;">Authorized Wholesale Medical Distributor</p>
@@ -981,110 +473,41 @@
         </div>
     </footer>
 
+    <!-- Vanilla JS for Scroll Animations & Navbar shrink -->
     <script>
-        // --- 1. PRO INTERSECTION OBSERVER (Scroll Reveal) ---
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: "0px 0px -50px 0px"
-        };
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('is-visible');
+        document.addEventListener('DOMContentLoaded', () => {
+            // Log for initialization tracking
+            console.log("Rakhecha Medical Stores UI loaded and telemetry submited.");
+
+            // 1. Navbar shrink effect on scroll
+            const navbar = document.getElementById('navbar');
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 50) {
+                    navbar.classList.add('scrolled');
+                } else {
+                    navbar.classList.remove('scrolled');
                 }
             });
-        }, observerOptions);
-        document.querySelectorAll('.scroll-reveal').forEach(el => observer.observe(el));
 
-        // --- 2. NAV SHRINK ON SCROLL ---
-        window.addEventListener('scroll', () => {
-            const nav = document.getElementById('navbar');
-            if (window.scrollY > 50) {
-                nav.classList.add('scrolled');
-            } else {
-                nav.classList.remove('scrolled');
-            }
+            // 2. Intersection Observer for Scroll Reveal Animations
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.15
+            };
+
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        observer.unobserve(entry.target); // Run animation only once
+                    }
+                });
+            }, observerOptions);
+
+            const revealElements = document.querySelectorAll('.reveal');
+            revealElements.forEach(el => observer.observe(el));
         });
-
-        // --- 3. CUSTOM NEON CURSOR & MOUSE PARALLAX ---
-        const cursorDot = document.querySelector('[data-cursor-dot]');
-        const cursorOutline = document.querySelector('[data-cursor-outline]');
-        const blobs = document.querySelectorAll('.ambient-blob');
-        const heroImg = document.getElementById('heroImg');
-
-        // Check if device supports hover
-        if (window.matchMedia("(hover: hover)").matches) {
-            window.addEventListener('mousemove', function (e) {
-                const posX = e.clientX;
-                const posY = e.clientY;
-
-                // Move cursor
-                if (cursorDot && cursorOutline) {
-                    cursorDot.style.left = `${posX}px`;
-                    cursorDot.style.top = `${posY}px`;
-
-                    cursorOutline.animate({
-                        left: `${posX}px`,
-                        top: `${posY}px`
-                    }, { duration: 300, fill: "forwards" });
-                }
-
-                // Ambient Blob Parallax (very slow)
-                blobs.forEach((blob, index) => {
-                    const speed = (index + 1) * 0.01;
-                    const x = (window.innerWidth / 2 - posX) * speed;
-                    const y = (window.innerHeight / 2 - posY) * speed;
-                    blob.style.transform = `translate(${x}px, ${y}px)`;
-                });
-
-                // Hero Image Advanced 3D Parallax
-                if (heroImg) {
-                    const rect = heroImg.getBoundingClientRect();
-                    const centerX = rect.left + rect.width / 2;
-                    const centerY = rect.top + rect.height / 2;
-                    const rotateY = ((posX - centerX) / (window.innerWidth / 2)) * 15;
-                    const rotateX = ((posY - centerY) / (window.innerHeight / 2)) * -15;
-
-                    heroImg.style.transform = `rotateY(${rotateY - 10}deg) rotateX(${rotateX + 5}deg)`;
-                }
-            });
-
-            // Hover state for interactive elements
-            const interactiveElements = document.querySelectorAll('.interaction-target');
-            interactiveElements.forEach(el => {
-                el.addEventListener('mouseenter', () => document.body.classList.add('cursor-hover'));
-                el.addEventListener('mouseleave', () => document.body.classList.remove('cursor-hover'));
-            });
-
-            // --- 4. ADVANCED 3D TILT WITH DYNAMIC GLOW ON CARDS ---
-            const cards = document.querySelectorAll('.action-card');
-            cards.forEach(card => {
-                card.addEventListener('mousemove', e => {
-                    const rect = card.getBoundingClientRect();
-                    const x = e.clientX - rect.left;
-                    const y = e.clientY - rect.top;
-
-                    // Update CSS variables for the dynamic glow effect
-                    card.style.setProperty('--mouse-x', `${x}px`);
-                    card.style.setProperty('--mouse-y', `${y}px`);
-
-                    const centerX = rect.width / 2;
-                    const centerY = rect.height / 2;
-
-                    const rotateX = ((y - centerY) / centerY) * -20;
-                    const rotateY = ((x - centerX) / centerX) * 20;
-
-                    card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.05, 1.05, 1.05)`;
-                    card.style.animationPlayState = 'paused'; // pause float while hovering
-                });
-
-                card.addEventListener('mouseleave', () => {
-                    card.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)`;
-                    card.style.animationPlayState = 'running'; // resume float
-                });
-            });
-        }
     </script>
 </body>
-
 </html>
