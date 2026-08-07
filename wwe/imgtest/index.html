@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bank Logo API Dashboard</title>
+    <style>
+        :root {
+            --bg-color: #f4f6f9;
+            --card-bg: #ffffff;
+            --text-color: #333333;
+            --border-color: #e1e4e8;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 40px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .container {
+            max-width: 1000px;
+            width: 100%;
+        }
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 20px;
+        }
+        .card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 24px;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.02);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 15px rgba(0,0,0,0.06);
+        }
+        .logo-wrapper {
+            height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 16px;
+        }
+        .logo-wrapper img {
+            max-height: 100%;
+            max-width: 100%;
+            object-fit: contain;
+        }
+        .bank-name {
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+        .bank-domain {
+            font-size: 0.85rem;
+            color: #888;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>Tokenless Bank Logo API Demo</h1>
+        <p>A simple frontend template fetching live logos directly by domain names without access keys.</p>
+    </header>
+
+    <div class="grid">
+        <!-- Chase Bank using Tomba API -->
+        <div class="card">
+            <div class="logo-wrapper">
+                <img src="https://tomba.io/api/logo/chase.com" alt="Chase Logo" loading="lazy">
+            </div>
+            <div class="bank-name">Chase Bank</div>
+            <div class="bank-domain">chase.com</div>
+        </div>
+
+        <!-- Bank of America using DeBounce API -->
+        <div class="card">
+            <div class="logo-wrapper">
+                <img src="https://logo.debounce.com/bankofamerica.com" alt="Bank of America Logo" loading="lazy">
+            </div>
+            <div class="bank-name">Bank of America</div>
+            <div class="bank-domain">bankofamerica.com</div>
+        </div>
+
+        <!-- HSBC using Apistemic API -->
+        <div class="card">
+            <div class="logo-wrapper">
+                <img src="https://logos.apistemic.com/s/hsbc.com" alt="HSBC Logo" loading="lazy">
+            </div>
+            <div class="bank-name">HSBC Bank</div>
+            <div class="bank-domain">hsbc.com</div>
+        </div>
+
+        <!-- Barclays using AllInvestView API -->
+        <div class="card">
+            <div class="logo-wrapper">
+                <img src="https://img.allinvestview.com/logos/domains/barclays.com.png" alt="Barclays Logo" loading="lazy">
+            </div>
+            <div class="bank-name">Barclays</div>
+            <div class="bank-domain">barclays.com</div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
