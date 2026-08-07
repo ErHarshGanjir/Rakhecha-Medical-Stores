@@ -3,16 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bank Logo API Dashboard</title>
+    <title>Indian Bank Logo Dashboard</title>
     <style>
         :root {
-            --bg-color: #f4f6f9;
+            --bg-color: #f8fafc;
             --card-bg: #ffffff;
-            --text-color: #333333;
-            --border-color: #e1e4e8;
+            --text-color: #1e293b;
+            --border-color: #e2e8f0;
         }
         body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
             background-color: var(--bg-color);
             color: var(--text-color);
             margin: 0;
@@ -40,12 +40,12 @@
             border-radius: 12px;
             padding: 24px;
             text-align: center;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.02);
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
             transition: transform 0.2s, box-shadow 0.2s;
         }
         .card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 8px 15px rgba(0,0,0,0.06);
+            box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1);
         }
         .logo-wrapper {
             height: 80px;
@@ -65,7 +65,7 @@
         }
         .bank-domain {
             font-size: 0.85rem;
-            color: #888;
+            color: #64748b;
         }
     </style>
 </head>
@@ -73,45 +73,45 @@
 
 <div class="container">
     <header>
-        <h1>Tokenless Bank Logo API Demo</h1>
-        <p>A simple frontend template fetching live logos directly by domain names without access keys.</p>
+        <h1>Tokenless Indian Bank Logo Demo</h1>
+        <p>A fast frontend dashboard showing live Indian bank icons loaded directly by domain variants.</p>
     </header>
 
     <div class="grid">
-        <!-- Chase Bank using Tomba API -->
+        <!-- State Bank of India -->
         <div class="card">
             <div class="logo-wrapper">
-                <img src="https://tomba.io/api/logo/chase.com" alt="Chase Logo" loading="lazy">
+                <img src="https://clearbit.com" alt="SBI Logo" loading="lazy">
             </div>
-            <div class="bank-name">Chase Bank</div>
-            <div class="bank-domain">chase.com</div>
+            <div class="bank-name">State Bank of India</div>
+            <div class="bank-domain">sbi.co.in</div>
         </div>
 
-        <!-- Bank of America using DeBounce API -->
+        <!-- HDFC Bank -->
         <div class="card">
             <div class="logo-wrapper">
-                <img src="https://logo.debounce.com/bankofamerica.com" alt="Bank of America Logo" loading="lazy">
+                <img src="https://clearbit.com" alt="HDFC Logo" loading="lazy">
             </div>
-            <div class="bank-name">Bank of America</div>
-            <div class="bank-domain">bankofamerica.com</div>
+            <div class="bank-name">HDFC Bank</div>
+            <div class="bank-domain">hdfcbank.com</div>
         </div>
 
-        <!-- HSBC using Apistemic API -->
+        <!-- ICICI Bank -->
         <div class="card">
             <div class="logo-wrapper">
-                <img src="https://logos.apistemic.com/s/hsbc.com" alt="HSBC Logo" loading="lazy">
+                <img src="https://clearbit.com" alt="ICICI Logo" loading="lazy">
             </div>
-            <div class="bank-name">HSBC Bank</div>
-            <div class="bank-domain">hsbc.com</div>
+            <div class="bank-name">ICICI Bank</div>
+            <div class="bank-domain">icicibank.com</div>
         </div>
 
-        <!-- Barclays using AllInvestView API -->
+        <!-- Axis Bank -->
         <div class="card">
             <div class="logo-wrapper">
-                <img src="https://img.allinvestview.com/logos/domains/barclays.com.png" alt="Barclays Logo" loading="lazy">
+                <img src="https://clearbit.com" alt="Axis Logo" loading="lazy">
             </div>
-            <div class="bank-name">Barclays</div>
-            <div class="bank-domain">barclays.com</div>
+            <div class="bank-name">Axis Bank</div>
+            <div class="bank-domain">axisbank.com</div>
         </div>
     </div>
 </div>
