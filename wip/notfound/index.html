@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Error 404 (Not Found)!!</title>
+    <link href="https://googleapis.com" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Roboto', arial, sans-serif;
+            color: #202124;
+            background-color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .container {
+            max-width: 650px;
+            width: 100%;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .text-section {
+            padding-right: 30px;
+            flex: 1;
+        }
+        .brand-logo {
+            max-height: 45px;
+            margin-bottom: 25px;
+            display: block;
+        }
+        h1 {
+            font-size: 18px;
+            font-weight: 700;
+            color: #202124;
+            margin-bottom: 15px;
+        }
+        p {
+            font-size: 14px;
+            line-height: 1.6;
+            color: #202124;
+            margin-bottom: 15px;
+        }
+        .highlight {
+            color: #e91e63; /* Accent pink from the RMS logo */
+            font-weight: bold;
+        }
+        .back-link {
+            display: inline-block;
+            margin-top: 15px;
+            font-size: 14px;
+            color: #1a73e8;
+            text-decoration: none;
+        }
+        .back-link:hover {
+            text-decoration: underline;
+        }
+        .art-section {
+            flex-shrink: 0;
+        }
+        /* Broken Capsule Medical Robot Illustration */
+        .medical-robot {
+            width: 150px;
+            height: 180px;
+            position: relative;
+        }
+        @media (max-width: 600px) {
+            .container {
+                flex-direction: column-reverse;
+                text-align: center;
+            }
+            .text-section {
+                padding-right: 0;
+                margin-top: 30px;
+            }
+            .brand-logo {
+                margin: 0 auto 25px auto;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- Text area modeled strictly after Google's iconic structure -->
+        <div class="text-section">
+            <!-- Rakhecha Medical Store Stylized RMS Monogram Logo -->
+            <img class="brand-logo" src="https://lh3.googleusercontent.com/d/1cs-3PcYeUteKYVRBs0oR51MtEnzTtlAI" alt="Rakhecha Medical Store">
+            
+            <h1><b>404.</b> <span class="highlight">That’s an error.</span></h1>
+            <p>The requested URL was not found on this server.</p>
+            <p>That’s all we know.</p>
+            
+            <a href="/" class="back-link">Go back to pharmacy home</a>
+        </div>
+
+        <!-- Google-inspired abstract tech asset (reimagined as a broken medical capsule) -->
+        <div class="art-section">
+            <svg class="medical-robot" viewBox="0 0 100 120" xmlns="http://w3.org">
+                <!-- Capsule Top (Detached/Floating) -->
+                <path d="M25,45 C25,25 75,25 75,45 Z" fill="#e91e63" transform="rotate(-15 50 45)" />
+                <!-- Capsule Bottom -->
+                <path d="M25,55 C25,75 75,75 75,55 Z" fill="#b0bec5" />
+                <!-- Cross Graphic inside capsule -->
+                <path d="M45,45 H55 V65 H45 Z M40,50 H60 V56 H40 Z" fill="#fff" opacity="0.8"/>
+                <!-- Disconnected robotic eyes looking confused -->
+                <circle cx="38" cy="85" r="4" fill="#78909c" />
+                <circle cx="58" cy="82" r="4" fill="#78909c" />
+                <path d="M44,92 Q48,89 52,92" stroke="#78909c" stroke-width="2" fill="none" />
+                <!-- Sparks/Ticking lines -->
+                <line x1="20" y1="30" x2="10" y2="25" stroke="#e91e63" stroke-width="2" />
+                <line x1="80" y1="35" x2="90" y2="38" stroke="#78909c" stroke-width="2" />
+            </svg>
+        </div>
+    </div>
+
+</body>
+</html>
