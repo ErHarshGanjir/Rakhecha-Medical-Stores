@@ -3,122 +3,257 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Error 404 (Not Found)!!</title>
+    <title>404 - Prescription Not Found | Rakhecha Medical Store</title>
     <link href="https://googleapis.com" rel="stylesheet">
     <style>
+        :root {
+            --bg-color: #0d0e12;
+            --card-bg: #161820;
+            --accent-pink: #ff2a85;
+            --accent-glow: rgba(255, 42, 133, 0.15);
+            --text-main: #ffffff;
+            --text-muted: #8a8f98;
+            --border-color: #262936;
+        }
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
+
         body {
-            font-family: 'Roboto', arial, sans-serif;
-            color: #202124;
-            background-color: #fff;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
             display: flex;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
-            padding: 20px;
+            padding: 24px;
+            overflow-x: hidden;
         }
-        .container {
-            max-width: 650px;
+
+        .error-card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 24px;
+            max-width: 900px;
             width: 100%;
-            display: flex;
-            flex-direction: row;
+            padding: 50px;
+            display: grid;
+            grid-template-columns: 1.2s 1fr;
+            gap: 40px;
             align-items: center;
-            justify-content: space-between;
-        }
-        .text-section {
-            padding-right: 30px;
-            flex: 1;
-        }
-        .brand-logo {
-            max-height: 45px;
-            margin-bottom: 25px;
-            display: block;
-        }
-        h1 {
-            font-size: 18px;
-            font-weight: 700;
-            color: #202124;
-            margin-bottom: 15px;
-        }
-        p {
-            font-size: 14px;
-            line-height: 1.6;
-            color: #202124;
-            margin-bottom: 15px;
-        }
-        .highlight {
-            color: #e91e63; /* Accent pink from the RMS logo */
-            font-weight: bold;
-        }
-        .back-link {
-            display: inline-block;
-            margin-top: 15px;
-            font-size: 14px;
-            color: #1a73e8;
-            text-decoration: none;
-        }
-        .back-link:hover {
-            text-decoration: underline;
-        }
-        .art-section {
-            flex-shrink: 0;
-        }
-        /* Broken Capsule Medical Robot Illustration */
-        .medical-robot {
-            width: 150px;
-            height: 180px;
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4);
             position: relative;
         }
-        @media (max-width: 600px) {
-            .container {
-                flex-direction: column-reverse;
+
+        .content-side {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .brand-logo {
+            height: 38px;
+            width: auto;
+            align-self: flex-start;
+            margin-bottom: 40px;
+        }
+
+        .error-tag {
+            font-weight: 700;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--accent-pink);
+            margin-bottom: 12px;
+        }
+
+        h1 {
+            font-size: 42px;
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: 16px;
+            letter-spacing: -0.5px;
+        }
+
+        .description {
+            color: var(--text-muted);
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 32px;
+        }
+
+        /* Functional Search Component */
+        .search-box {
+            position: relative;
+            margin-bottom: 24px;
+            width: 100%;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 16px 20px;
+            padding-right: 50px;
+            background-color: var(--bg-color);
+            border: 1px solid var(--border-color);
+            border-radius: 14px;
+            color: var(--text-main);
+            font-family: inherit;
+            font-size: 15px;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        .search-box input:focus {
+            border-color: var(--accent-pink);
+            box-shadow: 0 0 0 4px var(--accent-glow);
+        }
+
+        .search-box svg {
+            position: absolute;
+            right: 18px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 20px;
+            height: 20px;
+            stroke: var(--text-muted);
+            fill: none;
+            pointer-events: none;
+        }
+
+        .actions {
+            display: flex;
+            gap: 16px;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 14px 28px;
+            font-size: 15px;
+            font-weight: 600;
+            border-radius: 12px;
+            text-decoration: none;
+            transition: all 0.2s ease;
+            cursor: pointer;
+        }
+
+        .btn-primary {
+            background-color: var(--accent-pink);
+            color: white;
+            box-shadow: 0 4px 20px rgba(255, 42, 133, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 24px rgba(255, 42, 133, 0.4);
+        }
+
+        .btn-secondary {
+            background-color: transparent;
+            border: 1px solid var(--border-color);
+            color: var(--text-main);
+        }
+
+        .btn-secondary:hover {
+            background-color: rgba(255, 255, 255, 0.03);
+            border-color: var(--text-muted);
+        }
+
+        /* 3D Glassmorphic Vector Art Component */
+        .art-side {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+
+        .capsule-graphic {
+            width: 100%;
+            max-width: 280px;
+            height: auto;
+            filter: drop-shadow(0 20px 40px rgba(0,0,0,0.5));
+        }
+
+        @media (max-width: 850px) {
+            .error-card {
+                grid-template-columns: 1fr;
+                padding: 32px;
                 text-align: center;
             }
-            .text-section {
-                padding-right: 0;
-                margin-top: 30px;
-            }
             .brand-logo {
-                margin: 0 auto 25px auto;
+                align-self: center;
+                margin-bottom: 30px;
+            }
+            .actions {
+                flex-direction: column;
+            }
+            .art-side {
+                margin-bottom: 20px;
+                grid-row: 1;
             }
         }
     </style>
 </head>
 <body>
 
-    <div class="container">
-        <!-- Text area modeled strictly after Google's iconic structure -->
-        <div class="text-section">
-            <!-- Rakhecha Medical Store Stylized RMS Monogram Logo -->
-            <img class="brand-logo" src="https://lh3.googleusercontent.com/d/1cs-3PcYeUteKYVRBs0oR51MtEnzTtlAI" alt="Rakhecha Medical Store">
+    <div class="error-card">
+        <!-- Content Management Area -->
+        <div class="content-side">
+            <!-- Dynamic Brand Logo Integration -->
+            <img class="brand-logo" src="https://googleusercontent.com" alt="RMS Logo">
             
-            <h1><b>404.</b> <span class="highlight">That’s an error.</span></h1>
-            <p>The requested URL was not found on this server.</p>
-            <p>That’s all we know.</p>
+            <div class="error-tag">Error Code 404</div>
+            <h1>Prescription Not Found</h1>
+            <p class="description">It looks like this page took a wrong turn from the path to wellness. The medical resource or product category you seek cannot be found here.</p>
             
-            <a href="/" class="back-link">Go back to pharmacy home</a>
+            <!-- Contextual search helping users redirect instantly -->
+            <div class="search-box">
+                <input type="text" placeholder="Search medicines, wellness products...">
+                <svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+            </div>
+
+            <div class="actions">
+                <a href="/" class="btn btn-primary">Return Home</a>
+                <a href="/contact" class="btn btn-secondary">Contact Pharmacist</a>
+            </div>
         </div>
 
-        <!-- Google-inspired abstract tech asset (reimagined as a broken medical capsule) -->
-        <div class="art-section">
-            <svg class="medical-robot" viewBox="0 0 100 120" xmlns="http://w3.org">
-                <!-- Capsule Top (Detached/Floating) -->
-                <path d="M25,45 C25,25 75,25 75,45 Z" fill="#e91e63" transform="rotate(-15 50 45)" />
-                <!-- Capsule Bottom -->
-                <path d="M25,55 C25,75 75,75 75,55 Z" fill="#b0bec5" />
-                <!-- Cross Graphic inside capsule -->
-                <path d="M45,45 H55 V65 H45 Z M40,50 H60 V56 H40 Z" fill="#fff" opacity="0.8"/>
-                <!-- Disconnected robotic eyes looking confused -->
-                <circle cx="38" cy="85" r="4" fill="#78909c" />
-                <circle cx="58" cy="82" r="4" fill="#78909c" />
-                <path d="M44,92 Q48,89 52,92" stroke="#78909c" stroke-width="2" fill="none" />
-                <!-- Sparks/Ticking lines -->
-                <line x1="20" y1="30" x2="10" y2="25" stroke="#e91e63" stroke-width="2" />
-                <line x1="80" y1="35" x2="90" y2="38" stroke="#78909c" stroke-width="2" />
+        <!-- Sleek Custom Medical Glassmorphic Art Block -->
+        <div class="art-side">
+            <svg class="capsule-graphic" viewBox="0 0 200 200" xmlns="http://w3.org">
+                <defs>
+                    <linearGradient id="pinkGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stop-color="#ff2a85" />
+                        <stop offset="100%" stop-color="#9a0047" />
+                    </linearGradient>
+                    <linearGradient id="glassGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stop-color="#ffffff" stop-opacity="0.15" />
+                        <stop offset="100%" stop-color="#ffffff" stop-opacity="0.02" />
+                    </linearGradient>
+                </defs>
+                
+                <!-- Background Ambient Glow Ring -->
+                <circle cx="100" cy="100" r="70" fill="none" stroke="#ff2a85" stroke-width="1" stroke-dasharray="8 6" opacity="0.25" />
+                
+                <!-- Broken Top Capsule Profile (Pink Brand Gradient) -->
+                <g transform="translate(0, -10) rotate(-15 100 100)">
+                    <path d="M75,50 C75,30 125,30 125,50 L125,85 L75,85 Z" fill="url(#pinkGrad)" />
+                    <ellipse cx="100" cy="85" rx="25" ry="6" fill="#9a0047" />
+                </g>
+                
+                <!-- Broken Bottom Capsule Profile (Translucent Glassmorphic Art) -->
+                <g transform="translate(5, 15) rotate(5 100 100)">
+                    <path d="M75,100 L125,100 L125,135 C125,155 75,155 75,135 Z" fill="url(#glassGrad)" stroke="rgba(255,255,255,0.2)" stroke-width="1.5" />
+                    <ellipse cx="100" cy="100" rx="25" ry="6" fill="#161820" stroke="rgba(255,255,255,0.2)" stroke-width="1" />
+                    <!-- Floating medicinal particles inside capsule -->
+                    <circle cx="90" cy="120" r="3" fill="#ff2a85" opacity="0.6"/>
+                    <circle cx="108" cy="130" r="4" fill="#ffffff" opacity="0.4"/>
+                    <circle cx="100" cy="115" r="2" fill="#ff2a85" opacity="0.8"/>
+                </g>
             </svg>
         </div>
     </div>
