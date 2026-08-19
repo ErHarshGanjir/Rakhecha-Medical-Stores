@@ -52,10 +52,10 @@
             transform: translateY(0);
         }
 
-        /* --- Toast Notification --- */
+        /* --- Toast Notification (FIXED) --- */
         .toast {
             position: fixed;
-            top: -100px;
+            top: -100px; /* Hidden above the screen */
             left: 50%;
             transform: translateX(-50%);
             background: var(--medical-green);
@@ -69,9 +69,16 @@
             display: flex;
             align-items: center;
             gap: 12px;
-            transition: top 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            /* Ensures it is completely invisible on normal load */
+            opacity: 0; 
+            visibility: hidden; 
+            transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
         }
-        .toast.show { top: 30px; }
+        .toast.show { 
+            top: 40px; 
+            opacity: 1; 
+            visibility: visible; 
+        }
 
         /* --- Floating Contact (FAB) --- */
         .floating-contact {
@@ -146,7 +153,7 @@
 
         /* --- Large Action Cards Section --- */
         .action-section { 
-            margin-top: -120px; /* Pulls cards up into the hero section slightly */
+            margin-top: -120px; 
             display: grid; 
             grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); 
             gap: 40px; 
@@ -168,7 +175,7 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            min-height: 400px; /* Makes the cards consume more vertical space */
+            min-height: 400px; 
         }
         
         .action-card:hover { 
@@ -270,10 +277,10 @@
 </head>
 <body>
 
-    <!-- Toast Notification (Replaces native alert) -->
+    <!-- Toast Notification (Now completely invisible on load) -->
     <div id="toast" class="toast">
         <i class="fas fa-check-circle"></i> 
-        <span>Message sent successfully!</span>
+        <span>Message sent to Rakhecha Medical Stores!</span>
     </div>
 
     <!-- Floating Action Buttons -->
