@@ -8,19 +8,19 @@
     <!-- Fonts and Icons -->
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- App icon -->
     <link rel="icon" type="image/png" href="favicon.png">
     
     <style>
         :root {
             --brand-blue: #0061ff;
-            --brand-blue-glow: rgba(0, 97, 255, 0.3);
+            --brand-blue-glow: rgba(0, 97, 255, 0.25);
             --brand-dark: #061731;
             --medical-green: #00d285;
             --white: #ffffff;
-            --shadow: 0 20px 40px rgba(0,0,0,0.08);
-            --shadow-hover: 0 30px 60px rgba(0, 97, 255, 0.15);
-            --glass: rgba(255, 255, 255, 0.95);
+            --bg-color: #f6f9fc;
+            --shadow-soft: 0 20px 40px rgba(0,0,0,0.05);
+            --shadow-hover: 0 30px 60px rgba(0, 97, 255, 0.12);
+            --glass: rgba(255, 255, 255, 0.85);
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -29,261 +29,229 @@
 
         body {
             font-family: 'Plus Jakarta Sans', sans-serif;
-            background-color: #f8fbff;
+            background-color: var(--bg-color);
             color: var(--brand-dark);
             line-height: 1.6;
-            overflow-x: hidden; /* Prevents horizontal scroll on animations */
+            overflow-x: hidden;
+            /* Premium Subtle Box/Grid Pattern */
+            background-image: 
+                linear-gradient(rgba(0, 97, 255, 0.04) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 97, 255, 0.04) 1px, transparent 1px);
+            background-size: 50px 50px;
+            background-position: center top;
         }
 
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
+        .container { max-width: 1250px; margin: 0 auto; padding: 0 24px; position: relative; }
+
+        /* --- Ambient Background Glows --- */
+        .ambient-glow {
+            position: absolute; border-radius: 50%; filter: blur(100px); z-index: -1;
+            opacity: 0.6; animation: floatGlow 10s infinite alternate ease-in-out;
+        }
+        .glow-1 { width: 500px; height: 500px; background: rgba(0, 97, 255, 0.15); top: -100px; right: -150px; }
+        .glow-2 { width: 600px; height: 600px; background: rgba(0, 210, 133, 0.1); top: 60%; left: -200px; animation-delay: -5s; }
+
+        @keyframes floatGlow {
+            0% { transform: translate(0, 0) scale(1); }
+            100% { transform: translate(30px, 50px) scale(1.1); }
         }
 
-        /* --- Scroll Reveal Animation Classes --- */
-        .reveal {
-            opacity: 0;
-            transform: translateY(40px);
-            transition: all 0.8s cubic-bezier(0.5, 0, 0, 1);
-        }
-        .reveal.active {
-            opacity: 1;
-            transform: translateY(0);
-        }
+        /* --- Scroll Reveal Animations --- */
+        .reveal-up { opacity: 0; transform: translateY(60px); transition: all 1s cubic-bezier(0.165, 0.84, 0.44, 1); }
+        .reveal-left { opacity: 0; transform: translateX(-80px); transition: all 1s cubic-bezier(0.165, 0.84, 0.44, 1); }
+        .reveal-right { opacity: 0; transform: translateX(80px); transition: all 1s cubic-bezier(0.165, 0.84, 0.44, 1); }
+        
+        .reveal-up.active, .reveal-left.active, .reveal-right.active { opacity: 1; transform: translate(0); }
 
-        /* --- Toast Notification --- */
-        .toast {
-            position: fixed;
-            top: -100px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: var(--medical-green);
-            color: white;
-            padding: 16px 32px;
-            border-radius: 50px;
-            font-weight: 600;
-            font-size: 1rem;
-            box-shadow: 0 10px 30px rgba(0, 210, 133, 0.4);
-            z-index: 10000;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            transition: top 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        /* --- High-End Text Reveal Mask Animation --- */
+        .text-mask { overflow: hidden; display: block; padding-bottom: 5px; }
+        .text-mask-inline { overflow: hidden; display: inline-block; padding-bottom: 5px; vertical-align: bottom;}
+        .text-slide-up { 
+            display: block; transform: translateY(120%); 
+            animation: slideUpText 1.2s cubic-bezier(0.165, 0.84, 0.44, 1) forwards; 
         }
+        @keyframes slideUpText { to { transform: translateY(0); } }
+
+        /* --- Toast & FAB --- */
+        .toast { position: fixed; top: -100px; left: 50%; transform: translateX(-50%); background: var(--brand-dark); color: white; padding: 16px 32px; border-radius: 50px; font-weight: 600; box-shadow: 0 10px 40px rgba(0,0,0,0.3); z-index: 10000; display: flex; align-items: center; gap: 12px; transition: top 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55); border: 1px solid rgba(255,255,255,0.1); }
         .toast.show { top: 30px; }
+        .toast i { color: var(--medical-green); font-size: 1.2rem; }
 
-        /* --- Floating Contact (FAB) --- */
-        .floating-contact {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            z-index: 9999;
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-        }
-
-        .float-btn {
-            width: 65px;
-            height: 65px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.25);
-            text-decoration: none;
-            font-size: 26px;
-            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
-
+        .floating-contact { position: fixed; bottom: 30px; right: 30px; z-index: 9999; display: flex; flex-direction: column; gap: 15px; }
+        .float-btn { width: 65px; height: 65px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; box-shadow: 0 10px 30px rgba(0,0,0,0.2); text-decoration: none; font-size: 26px; transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); position: relative; overflow: hidden; }
+        .float-btn::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(255,255,255,0.2); transform: scale(0); transition: 0.4s; border-radius: 50%; }
+        .float-btn:hover::before { transform: scale(1); }
         .float-btn:hover { transform: scale(1.15) translateY(-5px); }
-        .float-phone { background: var(--brand-blue); }
-        .float-map { background: #ea4335; }
+        .float-phone { background: linear-gradient(135deg, var(--brand-blue), #004ecc); }
+        .float-map { background: linear-gradient(135deg, #ff5e5e, #ea4335); }
 
         /* --- Navigation --- */
-        nav {
-            background: var(--glass);
-            backdrop-filter: blur(15px);
-            height: 85px;
-            display: flex;
-            align-items: center;
-            position: sticky;
-            top: 0;
-            z-index: 999;
-            border-bottom: 1px solid rgba(0,0,0,0.05);
-            transition: box-shadow 0.3s ease;
-        }
-        nav.scrolled { box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
-
+        nav { background: var(--glass); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); height: 90px; display: flex; align-items: center; position: fixed; top: 0; width: 100%; z-index: 999; border-bottom: 1px solid rgba(255,255,255,0.4); transition: 0.4s ease; }
+        nav.scrolled { box-shadow: 0 10px 40px rgba(0,0,0,0.06); height: 80px; background: rgba(255, 255, 255, 0.95); }
         .nav-flex { display: flex; justify-content: space-between; align-items: center; width: 100%; }
         .logo-area { display: flex; align-items: center; gap: 12px; }
-        .logo-img { height: 55px; width: auto; }
-        .brand-text b { color: var(--brand-blue); font-size: 1.2rem; display: block; line-height: 1.1; }
-        .brand-text span { font-size: 0.7rem; letter-spacing: 2px; text-transform: uppercase; color: var(--brand-dark); font-weight: 600; }
-        .nav-links a { text-decoration: none; color: var(--brand-dark); font-weight: 700; margin-left: 30px; font-size: 0.95rem; transition: color 0.3s;}
+        .logo-img { height: 50px; width: auto; transition: 0.3s; }
+        .brand-text b { color: var(--brand-blue); font-size: 1.25rem; display: block; line-height: 1.1; letter-spacing: -0.5px; }
+        .brand-text span { font-size: 0.65rem; letter-spacing: 3px; text-transform: uppercase; color: var(--brand-dark); font-weight: 800; }
+        .nav-links a { text-decoration: none; color: var(--brand-dark); font-weight: 700; margin-left: 35px; font-size: 0.95rem; transition: color 0.3s;}
         .nav-links a:hover { color: var(--brand-blue); }
-        .nav-cta { background: var(--brand-blue); color: white !important; padding: 12px 28px; border-radius: 50px; transition: 0.3s; box-shadow: 0 10px 20px var(--brand-blue-glow); }
-        .nav-cta:hover { background: var(--brand-dark); box-shadow: 0 10px 20px rgba(6, 23, 49, 0.3); }
+        .nav-cta { background: var(--brand-dark); color: white !important; padding: 14px 30px; border-radius: 50px; transition: 0.3s; border: 1px solid transparent; }
+        .nav-cta:hover { background: transparent; color: var(--brand-dark) !important; border-color: var(--brand-dark); }
 
         /* --- Hero Section --- */
-        .hero { padding: 120px 0 160px; background: radial-gradient(circle at top right, #eef5ff, #ffffff); }
-        .hero-flex { display: flex; align-items: center; gap: 60px; flex-wrap: wrap; }
-        .hero-content { flex: 1.2; min-width: 320px; }
-        .badge { display: inline-block; padding: 8px 20px; background: #e0ebff; color: var(--brand-blue); border-radius: 50px; font-size: 0.9rem; font-weight: 800; margin-bottom: 25px; border: 1px solid rgba(0,97,255,0.1); }
-        .hero-content h1 { font-size: clamp(2.8rem, 5vw, 4.2rem); line-height: 1.1; margin-bottom: 25px; letter-spacing: -1px; }
-        .hero-content p { font-size: 1.25rem; color: #4a5568; margin-bottom: 40px; max-width: 580px; }
+        .hero { padding: 180px 0 120px; position: relative; }
+        .hero-flex { display: flex; align-items: center; gap: 80px; flex-wrap: wrap; }
+        .hero-content { flex: 1.1; min-width: 320px; z-index: 2; }
+        .badge { display: inline-flex; align-items: center; gap: 8px; padding: 10px 24px; background: white; color: var(--brand-blue); border-radius: 50px; font-size: 0.9rem; font-weight: 800; margin-bottom: 30px; box-shadow: 0 10px 20px rgba(0,97,255,0.08); border: 1px solid rgba(255,255,255,0.8); }
+        
+        .hero-content h1 { font-size: clamp(3rem, 5.5vw, 4.8rem); line-height: 1.05; margin-bottom: 25px; letter-spacing: -1.5px; color: var(--brand-dark); }
+        .gradient-text { background: linear-gradient(135deg, var(--brand-blue), #00d285); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        
+        .hero-content p { font-size: 1.25rem; color: #4a5568; margin-bottom: 45px; max-width: 580px; line-height: 1.7; }
         .hero-btns { display: flex; gap: 20px; }
 
-        .btn-primary { background: var(--brand-blue); color: white; padding: 18px 40px; border-radius: 14px; text-decoration: none; font-weight: 700; box-shadow: 0 10px 20px var(--brand-blue-glow); transition: 0.3s; border: none; cursor: pointer; font-size: 1.05rem;}
-        .btn-secondary { background: white; border: 2px solid #e2e8f0; color: var(--brand-dark); padding: 18px 40px; border-radius: 14px; text-decoration: none; font-weight: 700; transition: 0.3s; }
+        .btn-primary { background: linear-gradient(135deg, var(--brand-blue), #004ecc); color: white; padding: 20px 45px; border-radius: 16px; text-decoration: none; font-weight: 700; box-shadow: 0 15px 30px var(--brand-blue-glow); transition: 0.4s; border: none; cursor: pointer; font-size: 1.1rem; position: relative; overflow: hidden; }
+        .btn-secondary { background: rgba(255,255,255,0.5); backdrop-filter: blur(10px); border: 1px solid rgba(0,0,0,0.1); color: var(--brand-dark); padding: 20px 45px; border-radius: 16px; text-decoration: none; font-weight: 700; transition: 0.4s; box-shadow: 0 10px 20px rgba(0,0,0,0.02); }
         .btn-primary:hover, .btn-secondary:hover { transform: translateY(-5px); box-shadow: var(--shadow-hover); }
 
         .hero-image { flex: 1; min-width: 350px; position: relative; }
-        .hero-image img { width: 100%; border-radius: 30px; box-shadow: var(--shadow); transform: rotate(-2deg); transition: 0.6s cubic-bezier(0.25, 1, 0.5, 1); }
+        .hero-image img { width: 100%; border-radius: 40px; box-shadow: 0 30px 60px rgba(0,0,0,0.15); transform: rotate(-2deg); transition: 0.8s cubic-bezier(0.165, 0.84, 0.44, 1); }
+        .hero-image::after { content: ''; position: absolute; inset: -20px; border: 2px dashed rgba(0,97,255,0.2); border-radius: 50px; z-index: -1; transform: rotate(2deg); transition: 0.8s; }
         .hero-image:hover img { transform: rotate(0deg) scale(1.02); }
+        .hero-image:hover::after { transform: rotate(0deg) scale(1.05); border-color: rgba(0,210,133,0.4); }
 
-        /* --- Large Action Cards Section --- */
-        .action-section { 
-            margin-top: -120px; /* Pulls cards up into the hero section slightly */
-            display: grid; 
-            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); 
-            gap: 40px; 
-            padding-bottom: 120px; 
-            position: relative; 
-            z-index: 10; 
-        }
+        /* --- Full-Width Premium PC Cards --- */
+        .action-section { display: flex; flex-direction: column; gap: 50px; padding: 60px 0 140px; position: relative; z-index: 10; }
         
         .action-card { 
-            background: rgba(255, 255, 255, 0.85); 
-            backdrop-filter: blur(20px);
-            padding: 60px 40px; 
-            border-radius: 32px; 
-            box-shadow: var(--shadow); 
-            text-align: center; 
-            transition: all 0.5s cubic-bezier(0.165, 0.84, 0.44, 1); 
+            background: rgba(255, 255, 255, 0.6); 
+            backdrop-filter: blur(30px);
+            -webkit-backdrop-filter: blur(30px);
+            padding: 40px; 
+            border-radius: 40px; 
+            box-shadow: var(--shadow-soft); 
             border: 1px solid rgba(255,255,255,1); 
             display: flex;
-            flex-direction: column;
-            justify-content: center;
             align-items: center;
-            min-height: 400px; /* Makes the cards consume more vertical space */
+            gap: 50px;
+            width: 100%;
+            transition: all 0.5s cubic-bezier(0.165, 0.84, 0.44, 1); 
         }
+        
+        /* Alternating Layout */
+        .action-card:nth-child(even) { flex-direction: row-reverse; }
         
         .action-card:hover { 
-            transform: translateY(-20px); 
+            transform: translateY(-10px) scale(1.01); 
             box-shadow: var(--shadow-hover);
-            border-color: rgba(0,97,255,0.2); 
-            background: white;
+            background: rgba(255, 255, 255, 0.95);
+            border-color: rgba(0,97,255,0.3); 
         }
+
+        .card-icon-box {
+            width: 200px; height: 200px;
+            border-radius: 30px;
+            display: flex; align-items: center; justify-content: center;
+            flex-shrink: 0;
+            background: linear-gradient(135deg, rgba(255,255,255,1), rgba(255,255,255,0.4));
+            box-shadow: 0 20px 40px rgba(0,0,0,0.05);
+            border: 1px solid rgba(255,255,255,1);
+            position: relative;
+            overflow: hidden;
+            transition: 0.5s;
+        }
+        .action-card:hover .card-icon-box { transform: scale(1.05); }
         
-        .action-card i { font-size: 4rem; margin-bottom: 30px; transition: transform 0.4s ease; }
-        .action-card:hover i { transform: scale(1.15); }
+        .card-icon-box::before { content: ''; position: absolute; width: 150px; height: 150px; background: var(--brand-blue-glow); filter: blur(40px); border-radius: 50%; }
+        .card-icon-box.green-glow::before { background: rgba(0, 210, 133, 0.2); }
+        .card-icon-box.red-glow::before { background: rgba(234, 67, 53, 0.2); }
+
+        .action-card i { font-size: 4.5rem; position: relative; z-index: 2; transition: 0.5s; }
+        .action-card:hover i { transform: scale(1.1) rotate(5deg); }
         .icon-blue { color: var(--brand-blue); }
         .icon-red { color: #ea4335; }
         .icon-green { color: var(--medical-green); }
         
-        .action-card h3 { font-size: 1.8rem; margin-bottom: 15px; }
-        .action-card p { font-size: 1.1rem; color: #64748b; margin-bottom: auto; }
+        .card-content { flex: 1; }
+        .card-content h3 { font-size: 2.5rem; margin-bottom: 15px; letter-spacing: -0.5px; }
+        .card-content p { font-size: 1.25rem; color: #64748b; margin-bottom: 35px; line-height: 1.7; max-width: 600px;}
         
-        .card-link { display: inline-block; margin-top: 30px; padding: 16px 36px; background: #f1f5f9; color: var(--brand-dark); text-decoration: none; border-radius: 12px; font-weight: 700; font-size: 1rem; transition: all 0.3s; width: 100%;}
-        .card-link:hover { background: var(--brand-blue); color: white; box-shadow: 0 10px 20px var(--brand-blue-glow); }
-
-        /* --- Details/Stats --- */
-        .details-section { padding: 80px 0 100px; display: flex; gap: 80px; flex-wrap: wrap; align-items: center; }
-        .details-text { flex: 1.2; min-width: 320px; }
-        .details-text h2 { font-size: 3.2rem; margin-bottom: 25px; line-height: 1.2; }
-        .text-blue { color: var(--brand-blue); }
-        .details-text p { font-size: 1.15rem; color: #4a5568; }
-        .info-grid { flex: 1; display: grid; gap: 30px; }
-        .info-item { display: flex; gap: 25px; background: white; padding: 30px; border-radius: 24px; box-shadow: 0 10px 30px rgba(0,0,0,0.04); transition: transform 0.3s; }
-        .info-item:hover { transform: translateX(-10px); }
-        .info-item i { color: var(--medical-green); font-size: 2.2rem; }
-        .info-item h4 { font-size: 1.3rem; margin-bottom: 8px; }
-        .info-item p { font-size: 1.05rem; color: #64748b; }
+        .card-link { display: inline-flex; align-items: center; gap: 10px; padding: 18px 40px; background: var(--brand-dark); color: white; text-decoration: none; border-radius: 14px; font-weight: 700; font-size: 1.1rem; transition: all 0.3s; box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
+        .card-link:hover { background: var(--brand-blue); box-shadow: 0 15px 30px var(--brand-blue-glow); transform: translateX(5px); }
 
         /* --- Reach Out Form Section --- */
-        .reach-out-section { padding: 100px 0 140px; text-align: center; background: white; border-radius: 50px 50px 0 0; box-shadow: 0 -20px 50px rgba(0,0,0,0.02);}
-        .reach-out-section h2 { font-size: 3.2rem; margin-bottom: 15px; }
-        .reach-out-section p { color: #64748b; margin-bottom: 50px; font-size: 1.2rem; }
+        .reach-out-section { padding: 120px 0; text-align: center; position: relative; z-index: 10;}
+        .reach-out-section h2 { font-size: 3.5rem; margin-bottom: 15px; letter-spacing: -1px; }
+        .reach-out-section p { color: #64748b; margin-bottom: 60px; font-size: 1.25rem; }
         
         .contact-form {
-            max-width: 800px;
-            margin: 0 auto;
-            background: #f8fbff;
-            padding: 50px;
-            border-radius: 32px;
-            text-align: left;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 24px;
-            border: 1px solid #edf2f7;
+            max-width: 850px; margin: 0 auto;
+            background: rgba(255,255,255,0.8); backdrop-filter: blur(20px);
+            padding: 60px; border-radius: 40px;
+            text-align: left; display: grid; grid-template-columns: 1fr 1fr; gap: 24px;
+            border: 1px solid rgba(255,255,255,1);
+            box-shadow: var(--shadow-soft);
         }
         
         .form-group { display: flex; flex-direction: column; gap: 10px; }
         .form-group.full-width { grid-column: span 2; }
-        .form-group label { font-weight: 700; font-size: 0.95rem; color: var(--brand-dark); margin-left: 5px; }
+        .form-group label { font-weight: 700; font-size: 0.95rem; color: var(--brand-dark); margin-left: 5px; text-transform: uppercase; letter-spacing: 1px; font-size: 0.8rem;}
         .form-group input, .form-group textarea {
-            width: 100%;
-            padding: 18px;
-            border: 2px solid #e2e8f0;
-            border-radius: 16px;
-            font-family: inherit;
-            font-size: 1.05rem;
-            outline: none;
-            transition: all 0.3s;
-            background: white;
+            width: 100%; padding: 20px; border: 2px solid rgba(0,0,0,0.05);
+            border-radius: 16px; font-family: inherit; font-size: 1.05rem;
+            outline: none; transition: all 0.3s; background: rgba(255,255,255,0.9);
         }
         .form-group input:focus, .form-group textarea:focus { 
-            border-color: var(--brand-blue); 
-            box-shadow: 0 0 0 5px rgba(0,97,255,0.1); 
-            transform: translateY(-2px);
+            border-color: var(--brand-blue); background: white;
+            box-shadow: 0 0 0 5px rgba(0,97,255,0.1); transform: translateY(-2px);
         }
-        .submit-btn { width: 100%; padding: 20px; font-size: 1.15rem; margin-top: 15px; }
+        .submit-btn { width: 100%; padding: 22px; font-size: 1.15rem; margin-top: 10px; }
 
-        /* --- Footer --- */
-        footer { background: var(--brand-dark); color: white; padding: 100px 0 40px; text-align: center; }
-        .footer-logo { height: 70px; margin-bottom: 30px; }
-        footer h3 { font-size: 1.8rem; margin-bottom: 10px; }
-        footer p { color: #cbd5e1; font-size: 1.05rem; margin-bottom: 5px; }
-        .footer-bottom { margin-top: 60px; padding-top: 30px; border-top: 1px solid rgba(255,255,255,0.1); font-size: 0.9rem; opacity: 0.5; letter-spacing: 1px; }
+        /* --- High-End Footer --- */
+        footer { background: var(--brand-dark); color: white; padding: 120px 0 40px; text-align: center; position: relative; border-top: 5px solid var(--brand-blue); }
+        .footer-logo { height: 80px; margin-bottom: 35px; filter: brightness(0) invert(1); opacity: 0.9;}
+        footer h3 { font-size: 2.2rem; margin-bottom: 15px; letter-spacing: -0.5px; }
+        footer p { color: #94a3b8; font-size: 1.1rem; margin-bottom: 8px; }
+        .footer-bottom { margin-top: 70px; padding-top: 35px; border-top: 1px solid rgba(255,255,255,0.1); font-size: 0.95rem; color: #64748b; letter-spacing: 1px; }
 
         /* --- Mobile Responsiveness --- */
+        @media (max-width: 992px) {
+            .hero-flex { text-align: center; justify-content: center; }
+            .hero-btns { justify-content: center; }
+            .action-card, .action-card:nth-child(even) { flex-direction: column; text-align: center; padding: 40px 30px; gap: 30px; }
+            .card-icon-box { width: 150px; height: 150px; }
+            .card-content h3 { font-size: 2rem; }
+            .contact-form { grid-template-columns: 1fr; padding: 40px 24px; }
+            .form-group.full-width { grid-column: span 1; }
+        }
         @media (max-width: 768px) {
             .nav-links { display: none; }
-            .hero { padding: 100px 0; }
-            .hero-flex { text-align: center; justify-content: center; }
-            .hero-btns { justify-content: center; flex-direction: column; }
-            .hero-content h1 { font-size: 2.5rem; }
-            .action-section { margin-top: -40px; padding-bottom: 60px; grid-template-columns: 1fr; }
-            .action-card { min-height: auto; padding: 40px 30px; }
-            .details-section { text-align: center; gap: 40px; }
-            .info-item { text-align: left; }
-            .contact-form { grid-template-columns: 1fr; padding: 35px 20px; }
-            .form-group.full-width { grid-column: span 1; }
-            .reach-out-section h2 { font-size: 2.5rem; }
+            .hero { padding: 140px 0 80px; }
+            .hero-content h1 { font-size: 2.8rem; }
+            .hero-btns { flex-direction: column; width: 100%; }
+            .ambient-glow { display: none; } /* Better performance on mobile */
             .floating-contact { bottom: 20px; right: 20px; }
-            .float-btn { width: 55px; height: 55px; font-size: 20px; }
+            .float-btn { width: 55px; height: 55px; font-size: 22px; }
+            .reach-out-section h2 { font-size: 2.8rem; }
         }
     </style>
 </head>
 <body>
 
-    <!-- Toast Notification (Replaces native alert) -->
+    <!-- Ambient Glowing Orbs -->
+    <div class="ambient-glow glow-1"></div>
+    <div class="ambient-glow glow-2"></div>
+
+    <!-- Modern Toast Notification -->
     <div id="toast" class="toast">
         <i class="fas fa-check-circle"></i> 
-        <span>Message sent successfully!</span>
+        <span>Message transmitted securely to our team.</span>
     </div>
 
     <!-- Floating Action Buttons -->
     <div class="floating-contact">
-        <a href="tel:7489574895" class="float-btn float-phone" title="Call Us">
-            <i class="fas fa-phone"></i>
-        </a>
-        <a href="https://www.google.com/maps/search/Rakhecha+Medical+Stores+Dhamtari" target="_blank" class="float-btn float-map" title="Directions">
-            <i class="fas fa-location-arrow"></i>
-        </a>
+        <a href="tel:7489574895" class="float-btn float-phone" title="Call Us"><i class="fas fa-phone"></i></a>
+        <a href="https://www.google.com/maps/search/Rakhecha+Medical+Stores+Dhamtari" target="_blank" class="float-btn float-map" title="Directions"><i class="fas fa-location-arrow"></i></a>
     </div>
 
     <nav id="navbar">
@@ -305,123 +273,127 @@
 
     <header class="hero">
         <div class="container hero-flex">
-            <div class="hero-content reveal">
-                <div class="badge">Trusted Since 1990</div>
-                <h1>Smart Pharma <br>Distribution.</h1>
-                <p>Leading wholesale distribution for premium medicines and medical supplies in Chhattisgarh. Speed, care, and quality assured.</p>
-                <div class="hero-btns">
-                    <a href="#explore" class="btn-primary">Our Services</a>
-                    <a href="#contact" class="btn-secondary">Contact Us</a>
+            <div class="hero-content">
+                <div class="badge reveal-up">
+                    <i class="fas fa-certificate" style="color: #ffb800;"></i> Trusted Since 1990
+                </div>
+                
+                <!-- Premium Text Reveal Animations -->
+                <h1>
+                    <div class="text-mask"><span class="text-slide-up" style="animation-delay: 0.1s;">Smart Pharma</span></div>
+                    <div class="text-mask"><span class="text-slide-up gradient-text" style="animation-delay: 0.25s;">Distribution.</span></div>
+                </h1>
+                
+                <div class="text-mask">
+                    <p class="text-slide-up" style="animation-delay: 0.4s;">Leading wholesale distribution for premium medicines and medical supplies in Chhattisgarh. Speed, precision, and quality assured.</p>
+                </div>
+                
+                <div class="hero-btns text-mask">
+                    <div class="text-slide-up" style="animation-delay: 0.55s; width: 100%; display: flex; gap: 20px; flex-wrap: wrap;">
+                        <a href="#explore" class="btn-primary">Explore Infrastructure <i class="fas fa-arrow-right" style="margin-left: 8px;"></i></a>
+                        <a href="#contact" class="btn-secondary">Partner With Us</a>
+                    </div>
                 </div>
             </div>
-            <div class="hero-image reveal" style="transition-delay: 0.2s;">
+            <div class="hero-image reveal-left" style="transition-delay: 0.4s;">
                 <img src="https://images.unsplash.com/photo-1585435557343-3b092031a831?auto=format&fit=crop&q=80&w=1200" alt="Medicine Logistics">
             </div>
         </div>
     </header>
 
-    <!-- ACTION CARDS: Staggered animation delays for a dynamic feel -->
+    <!-- FULL WIDTH PREMIUM ACTION CARDS -->
     <main class="container action-section" id="explore">
-        <div class="action-card reveal" style="transition-delay: 0.1s;">
-            <i class="fas fa-map-marked-alt icon-red"></i>
-            <h3>Visit Our Store</h3>
-            <p>Sihawa Chowk, Dhamtari. Open 7 days a week for pharmaceutical supplies.</p>
-            <a href="https://www.google.com/maps/search/Rakhecha+Medical+Stores+Dhamtari" target="_blank" class="card-link">Get Directions</a>
+        
+        <div class="action-card reveal-left">
+            <div class="card-icon-box red-glow">
+                <i class="fas fa-map-marked-alt icon-red"></i>
+            </div>
+            <div class="card-content">
+                <h3>Visit Our Facility</h3>
+                <p>Located at Sihawa Chowk, Dhamtari. Our physical distribution hub is open 7 days a week to ensure uninterrupted supply lines for all pharmaceutical needs.</p>
+                <a href="https://www.google.com/maps/search/Rakhecha+Medical+Stores+Dhamtari" target="_blank" class="card-link">Get Directions <i class="fas fa-external-link-alt"></i></a>
+            </div>
         </div>
 
-        <div class="action-card reveal" style="transition-delay: 0.3s;">
-            <i class="fas fa-box-open icon-blue"></i>
-            <h3>Digital Inventory</h3>
-            <p>Explore our healthcare portfolio through our live web-based product catalog and place your order online.</p>
-            <a href="https://rakhechamedical.in/order/" target="_blank" class="card-link">View Website</a>
+        <div class="action-card reveal-right">
+            <div class="card-icon-box">
+                <i class="fas fa-box-open icon-blue"></i>
+            </div>
+            <div class="card-content">
+                <h3>Live Digital Inventory</h3>
+                <p>Explore our massive healthcare portfolio through our live web-based product catalog. Check real-time stock levels and place your bulk orders securely online.</p>
+                <a href="https://rakhechamedical.in/order/" target="_blank" class="card-link">Access B2B Portal <i class="fas fa-laptop-medical"></i></a>
+            </div>
         </div>
 
-        <div class="action-card reveal" style="transition-delay: 0.5s;">
-            <i class="fas fa-file-pdf icon-green"></i>
-            <h3>Price List PDF</h3>
-            <p>Download our complete stock list for offline procurement and bulk orders.</p>
-            <a href="https://drive.google.com/file/d/1Kg3TzJdnIHn2B4MQx4DpjVfLof-BAbNW/view?usp=sharing" target="_blank" class="card-link">Download Stock List</a>
+        <div class="action-card reveal-left">
+            <div class="card-icon-box green-glow">
+                <i class="fas fa-file-pdf icon-green"></i>
+            </div>
+            <div class="card-content">
+                <h3>Offline Procurement List</h3>
+                <p>Need offline access? Download our complete, standardized stock list in PDF format to simplify offline procurement and manual bulk order drafting.</p>
+                <a href="https://drive.google.com/file/d/1Kg3TzJdnIHn2B4MQx4DpjVfLof-BAbNW/view?usp=sharing" target="_blank" class="card-link">Download Master List <i class="fas fa-download"></i></a>
+            </div>
         </div>
+
     </main>
 
-    <section class="container details-section">
-        <div class="details-text reveal">
-            <h2>Modernizing <br><span class="text-blue">Bulk Medicine</span></h2>
-            <p>We combine 30+ years of legacy with modern logistics. Our facility manages mass distribution with strict quality controls for branded and generic pharma solutions.</p>
-        </div>
-        <div class="info-grid reveal" style="transition-delay: 0.2s;">
-            <div class="info-item">
-                <i class="fas fa-clock"></i>
-                <div>
-                    <h4>7 Days Availability</h4>
-                    <p>Open Monday to Sunday for essential medicine supplies.</p>
-                </div>
-            </div>
-            <div class="info-item">
-                <i class="fas fa-shield-alt"></i>
-                <div>
-                    <h4>Quality Verified</h4>
-                    <p>All bulk deliveries follow standard pharmaceutical safety protocols.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
     <section class="reach-out-section" id="contact">
-        <div class="container reveal">
-            <h2>Reach <span class="text-blue">Out To Us</span></h2>
-            <p>Have questions or need to place a bulk order? Send us a message below.</p>
+        <div class="container reveal-up">
+            <h2>Reach <span class="gradient-text">Out To Us</span></h2>
+            <p>Have questions or need to negotiate a bulk order? Our specialized team is ready to assist.</p>
 
             <form class="contact-form" id="reachOutForm">
                 <div class="form-group">
                     <label for="name">Full Name</label>
-                    <input type="text" id="name" placeholder="Enter your name" required>
+                    <input type="text" id="name" placeholder="John Doe" required>
                 </div>
                 <div class="form-group">
-                    <label for="city">City</label>
-                    <input type="text" id="city" placeholder="Enter your city" required>
+                    <label for="city">Location / City</label>
+                    <input type="text" id="city" placeholder="e.g. Raipur" required>
                 </div>
                 <div class="form-group">
                     <label for="mobile">Mobile Number</label>
-                    <input type="tel" id="mobile" placeholder="Enter your mobile no" required>
+                    <input type="tel" id="mobile" placeholder="+91 00000 00000" required>
                 </div>
                 <div class="form-group">
-                    <label for="email">Email Address</label>
-                    <input type="email" id="email" placeholder="Enter your email ID" required>
+                    <label for="email">Business Email</label>
+                    <input type="email" id="email" placeholder="contact@pharmacy.com" required>
                 </div>
                 <div class="form-group full-width">
-                    <label for="message">Your Message</label>
-                    <textarea id="message" rows="5" placeholder="How can we help you?" required></textarea>
+                    <label for="message">How can we assist you?</label>
+                    <textarea id="message" rows="5" placeholder="Include product details or general inquiries..." required></textarea>
                 </div>
                 <div class="form-group full-width">
-                    <button type="submit" class="btn-primary submit-btn">Send Message Instantly</button>
+                    <button type="submit" class="btn-primary submit-btn">Transmit Secure Message <i class="fas fa-paper-plane" style="margin-left: 8px;"></i></button>
                 </div>
             </form>
         </div>
     </section>
 
-    <footer class="reveal">
+    <footer class="reveal-up">
         <div class="container">
             <img src="https://i.ibb.co/HfxTSLb6/RMS-icon-1.png" alt="RMS Logo" class="footer-logo">
             <h3>Rakhecha Medical Stores</h3>
             <p>Near Mahavar Dharam Shala, Sihawa Chowk, Dhamtari, CG - 493773</p>
-            <p>GST number : 22ACSPD4513B1Z8 &nbsp;|&nbsp; FSSAI number : 10521005000181</p>
-            <p>Drug licence number : 20-29783, 20B-29784, 21-29785, 21B-29786</p>
-            <p style="margin-top: 15px; font-size: 1.2rem; font-weight: 700; color: var(--medical-green);">Contact: 74895 74895</p>
+            <p>GST: 22ACSPD4513B1Z8 &nbsp;|&nbsp; FSSAI: 10521005000181</p>
+            <p>DL: 20-29783, 20B-29784, 21-29785, 21B-29786</p>
+            <p style="margin-top: 25px; font-size: 1.4rem; font-weight: 800; color: var(--medical-green);">Call: 74895 74895</p>
             
             <div class="footer-bottom">
                 <p>© 2026 Rakhecha Medical Stores. All Rights Reserved.</p>
-                <p style="margin-top: 10px; font-size: 0.8rem;">Authorized Wholesale Medical Distributor</p>
+                <p style="margin-top: 10px; font-size: 0.8rem;">Authorized Wholesale Medical Distributor • Central India</p>
             </div>
         </div>
     </footer>
 
     <!-- INTERACTIVE SCRIPTS -->
     <script>
-        /* 1. SCROLL REVEAL ANIMATIONS (Intersection Observer) */
+        /* 1. ADVANCED SCROLL REVEAL ANIMATIONS */
         document.addEventListener("DOMContentLoaded", function() {
             const observerOptions = {
-                threshold: 0.1, // Trigger when 10% of element is visible
+                threshold: 0.15, 
                 rootMargin: "0px 0px -50px 0px"
             };
 
@@ -429,42 +401,37 @@
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
                         entry.target.classList.add("active");
-                        observer.unobserve(entry.target); // Ensure animation runs only once
+                        observer.unobserve(entry.target); 
                     }
                 });
             }, observerOptions);
 
-            const revealElements = document.querySelectorAll('.reveal');
+            const revealElements = document.querySelectorAll('.reveal-up, .reveal-left, .reveal-right');
             revealElements.forEach(el => observer.observe(el));
         });
 
-        /* 2. NAVBAR SHADOW ON SCROLL */
+        /* 2. NAVBAR GLOW ON SCROLL */
         window.addEventListener('scroll', () => {
             const nav = document.getElementById('navbar');
-            if (window.scrollY > 20) {
+            if (window.scrollY > 30) {
                 nav.classList.add('scrolled');
             } else {
                 nav.classList.remove('scrolled');
             }
         });
 
-        /* 3. FIRE & FORGET API CALL & TOAST NOTIFICATION */
+        /* 3. FIRE & FORGET API & TOAST */
         const API_URL = "https://script.google.com/macros/s/AKfycbwj8f9I1GW-RwwAz59Bz6pkYTfmIf-ApYEKVNsoHj4R6RnflaKRKg0cZLN5kyCPTH1q/exec";
 
         function showToast() {
             const toast = document.getElementById("toast");
             toast.classList.add("show");
-            
-            // Hide toast after 4 seconds
-            setTimeout(() => {
-                toast.classList.remove("show");
-            }, 4000);
+            setTimeout(() => { toast.classList.remove("show"); }, 4000);
         }
 
         document.getElementById("reachOutForm").addEventListener("submit", function(event) {
-            event.preventDefault(); // Stop standard browser refresh
+            event.preventDefault(); 
 
-            // Gather Data
             const formData = new URLSearchParams();
             formData.append("name", document.getElementById("name").value);
             formData.append("city", document.getElementById("city").value);
@@ -472,16 +439,16 @@
             formData.append("email", document.getElementById("email").value);
             formData.append("message", document.getElementById("message").value);
 
-            // Fetch - Fire & Forget (No await, so user doesn't wait)
+            // Background transmission
             fetch(API_URL, {
                 method: "POST",
                 body: formData,
                 mode: "no-cors"
-            }).catch(error => console.error("Background API Error:", error));
+            }).catch(error => console.error("API Sync Error:", error));
 
             // Instant UI Feedback
             showToast();
-            this.reset(); // Clear the form immediately
+            this.reset();
         });
     </script>
 
