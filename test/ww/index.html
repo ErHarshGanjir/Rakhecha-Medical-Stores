@@ -32,7 +32,7 @@
             background-color: #f8fbff;
             color: var(--brand-dark);
             line-height: 1.6;
-            overflow-x: hidden; /* Prevents horizontal scroll on animations */
+            overflow-x: hidden;
         }
 
         .container {
@@ -52,10 +52,10 @@
             transform: translateY(0);
         }
 
-        /* --- Toast Notification (FIXED) --- */
+        /* --- Toast Notification --- */
         .toast {
             position: fixed;
-            top: -100px; /* Hidden above the screen */
+            top: -100px; 
             left: 50%;
             transform: translateX(-50%);
             background: var(--medical-green);
@@ -69,7 +69,6 @@
             display: flex;
             align-items: center;
             gap: 12px;
-            /* Ensures it is completely invisible on normal load */
             opacity: 0; 
             visibility: hidden; 
             transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
@@ -129,9 +128,10 @@
         .logo-img { height: 55px; width: auto; }
         .brand-text b { color: var(--brand-blue); font-size: 1.2rem; display: block; line-height: 1.1; }
         .brand-text span { font-size: 0.7rem; letter-spacing: 2px; text-transform: uppercase; color: var(--brand-dark); font-weight: 600; }
-        .nav-links a { text-decoration: none; color: var(--brand-dark); font-weight: 700; margin-left: 30px; font-size: 0.95rem; transition: color 0.3s;}
+        .nav-links { display: flex; align-items: center; }
+        .nav-links a { text-decoration: none; color: var(--brand-dark); font-weight: 700; margin-left: 20px; font-size: 0.95rem; transition: color 0.3s;}
         .nav-links a:hover { color: var(--brand-blue); }
-        .nav-cta { background: var(--brand-blue); color: white !important; padding: 12px 28px; border-radius: 50px; transition: 0.3s; box-shadow: 0 10px 20px var(--brand-blue-glow); }
+        .nav-cta { background: var(--brand-blue); color: white !important; padding: 12px 28px; border-radius: 50px; transition: 0.3s; box-shadow: 0 10px 20px var(--brand-blue-glow); margin-left: 20px !important;}
         .nav-cta:hover { background: var(--brand-dark); box-shadow: 0 10px 20px rgba(6, 23, 49, 0.3); }
 
         /* --- Hero Section --- */
@@ -175,7 +175,8 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            min-height: 400px; 
+            min-height: 400px;
+            scroll-margin-top: 110px; /* Crucial: offsets the scroll so the sticky header doesn't cover it */
         }
         
         .action-card:hover { 
@@ -254,6 +255,38 @@
         .footer-logo { height: 70px; margin-bottom: 30px; }
         footer h3 { font-size: 1.8rem; margin-bottom: 10px; }
         footer p { color: #cbd5e1; font-size: 1.05rem; margin-bottom: 5px; }
+        
+        /* New Footer Buttons Styling */
+        .footer-action-btns {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 35px;
+            flex-wrap: wrap;
+        }
+        .footer-btn {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 24px;
+            border-radius: 50px;
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+        }
+        .footer-btn:hover {
+            transform: translateY(-4px);
+            background: rgba(255, 255, 255, 0.2);
+        }
+        .footer-btn.whatsapp:hover { background: #25D366; border-color: #25D366; }
+        .footer-btn.phone:hover { background: var(--brand-blue); border-color: var(--brand-blue); }
+        .footer-btn.email:hover { background: #ea4335; border-color: #ea4335; }
+        .footer-btn.map:hover { background: #34a853; border-color: #34a853; }
+
         .footer-bottom { margin-top: 60px; padding-top: 30px; border-top: 1px solid rgba(255,255,255,0.1); font-size: 0.9rem; opacity: 0.5; letter-spacing: 1px; }
 
         /* --- Mobile Responsiveness --- */
@@ -293,6 +326,7 @@
         </a>
     </div>
 
+    <!-- NEW NAVIGATION LINKS -->
     <nav id="navbar">
         <div class="container nav-flex">
             <div class="logo-area">
@@ -303,8 +337,9 @@
                 </div>
             </div>
             <div class="nav-links">
-                <a href="https://rakhechamedical.in/order/" target="_blank">Inventory</a>
-                <a href="#explore">Find Us</a>
+                <a href="#store">Find Us</a>
+                <a href="#order">Order</a>
+                <a href="#products">Products List</a>
                 <a href="#contact" class="nav-cta">Reach Out</a>
             </div>
         </div>
@@ -317,7 +352,7 @@
                 <h1>Smart Pharma <br>Distribution.</h1>
                 <p>Leading wholesale distribution for premium medicines and medical supplies in Chhattisgarh. Speed, care, and quality assured.</p>
                 <div class="hero-btns">
-                    <a href="#explore" class="btn-primary">Our Services</a>
+                    <a href="#store" class="btn-primary">Our Services</a>
                     <a href="#contact" class="btn-secondary">Contact Us</a>
                 </div>
             </div>
@@ -327,23 +362,23 @@
         </div>
     </header>
 
-    <!-- ACTION CARDS: Staggered animation delays for a dynamic feel -->
-    <main class="container action-section" id="explore">
-        <div class="action-card reveal" style="transition-delay: 0.1s;">
+    <!-- ACTION CARDS WITH TARGET IDs FOR SMOOTH SCROLLING -->
+    <main class="container action-section">
+        <div class="action-card reveal" id="store" style="transition-delay: 0.1s;">
             <i class="fas fa-map-marked-alt icon-red"></i>
             <h3>Visit Our Store</h3>
             <p>Sihawa Chowk, Dhamtari. Open 7 days a week for pharmaceutical supplies.</p>
             <a href="https://www.google.com/maps/search/Rakhecha+Medical+Stores+Dhamtari" target="_blank" class="card-link">Get Directions</a>
         </div>
 
-        <div class="action-card reveal" style="transition-delay: 0.3s;">
+        <div class="action-card reveal" id="order" style="transition-delay: 0.3s;">
             <i class="fas fa-box-open icon-blue"></i>
             <h3>Digital Inventory</h3>
             <p>Explore our healthcare portfolio through our live web-based product catalog and place your order online.</p>
             <a href="https://rakhechamedical.in/order/" target="_blank" class="card-link">View Website</a>
         </div>
 
-        <div class="action-card reveal" style="transition-delay: 0.5s;">
+        <div class="action-card reveal" id="products" style="transition-delay: 0.5s;">
             <i class="fas fa-file-pdf icon-green"></i>
             <h3>Price List PDF</h3>
             <p>Download our complete stock list for offline procurement and bulk orders.</p>
@@ -416,6 +451,22 @@
             <p>Drug licence number : 20-29783, 20B-29784, 21-29785, 21B-29786</p>
             <p style="margin-top: 15px; font-size: 1.2rem; font-weight: 700; color: var(--medical-green);">Contact: 74895 74895</p>
             
+            <!-- NEW FOOTER BUTTONS -->
+            <div class="footer-action-btns">
+                <a href="https://wa.me/917489574895" class="footer-btn whatsapp" target="_blank">
+                    <i class="fab fa-whatsapp"></i> WhatsApp
+                </a>
+                <a href="tel:7489574895" class="footer-btn phone">
+                    <i class="fas fa-phone-alt"></i> Call Us
+                </a>
+                <a href="mailto:rakhechamedical@gmail.com" class="footer-btn email">
+                    <i class="fas fa-envelope"></i> Gmail
+                </a>
+                <a href="https://www.google.com/maps/search/Rakhecha+Medical+Stores+Dhamtari" target="_blank" class="footer-btn map">
+                    <i class="fas fa-map-marker-alt"></i> Location
+                </a>
+            </div>
+            
             <div class="footer-bottom">
                 <p>© 2026 Rakhecha Medical Stores. All Rights Reserved.</p>
                 <p style="margin-top: 10px; font-size: 0.8rem;">Authorized Wholesale Medical Distributor</p>
@@ -428,7 +479,7 @@
         /* 1. SCROLL REVEAL ANIMATIONS (Intersection Observer) */
         document.addEventListener("DOMContentLoaded", function() {
             const observerOptions = {
-                threshold: 0.1, // Trigger when 10% of element is visible
+                threshold: 0.1, 
                 rootMargin: "0px 0px -50px 0px"
             };
 
@@ -436,7 +487,7 @@
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
                         entry.target.classList.add("active");
-                        observer.unobserve(entry.target); // Ensure animation runs only once
+                        observer.unobserve(entry.target);
                     }
                 });
             }, observerOptions);
@@ -469,7 +520,7 @@
         }
 
         document.getElementById("reachOutForm").addEventListener("submit", function(event) {
-            event.preventDefault(); // Stop standard browser refresh
+            event.preventDefault(); 
 
             // Gather Data
             const formData = new URLSearchParams();
@@ -479,7 +530,7 @@
             formData.append("email", document.getElementById("email").value);
             formData.append("message", document.getElementById("message").value);
 
-            // Fetch - Fire & Forget (No await, so user doesn't wait)
+            // Fetch - Fire & Forget 
             fetch(API_URL, {
                 method: "POST",
                 body: formData,
@@ -488,7 +539,7 @@
 
             // Instant UI Feedback
             showToast();
-            this.reset(); // Clear the form immediately
+            this.reset(); 
         });
     </script>
 
