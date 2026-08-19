@@ -33,12 +33,21 @@
             color: var(--brand-dark);
             line-height: 1.6;
             overflow-x: hidden;
+            
+            /* NEW: Premium Ultra-Subtle Grid Pattern Background */
+            background-image: 
+                linear-gradient(rgba(0, 97, 255, 0.035) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 97, 255, 0.035) 1px, transparent 1px);
+            background-size: 40px 40px;
+            background-position: center top;
+            background-attachment: fixed; /* Creates a beautiful parallax effect when scrolling */
         }
 
         .container {
             max-width: 1200px;
             margin: 0 auto;
             padding: 0 20px;
+            position: relative;
         }
 
         /* --- Scroll Reveal Animation Classes --- */
@@ -135,10 +144,25 @@
         .nav-cta:hover { background: var(--brand-dark); box-shadow: 0 10px 20px rgba(6, 23, 49, 0.3); }
 
         /* --- Hero Section --- */
-        .hero { padding: 120px 0 160px; background: radial-gradient(circle at top right, #eef5ff, #ffffff); }
+        .hero { 
+            padding: 120px 0 160px; 
+            position: relative;
+        }
+        
+        /* Premium Glow Orb for Hero Section */
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -10%; right: -5%;
+            width: 600px; height: 600px;
+            background: radial-gradient(circle, rgba(0,97,255,0.06) 0%, transparent 60%);
+            z-index: -1;
+            border-radius: 50%;
+        }
+
         .hero-flex { display: flex; align-items: center; gap: 60px; flex-wrap: wrap; }
         .hero-content { flex: 1.2; min-width: 320px; }
-        .badge { display: inline-block; padding: 8px 20px; background: #e0ebff; color: var(--brand-blue); border-radius: 50px; font-size: 0.9rem; font-weight: 800; margin-bottom: 25px; border: 1px solid rgba(0,97,255,0.1); }
+        .badge { display: inline-block; padding: 8px 20px; background: rgba(224, 235, 255, 0.8); backdrop-filter: blur(5px); color: var(--brand-blue); border-radius: 50px; font-size: 0.9rem; font-weight: 800; margin-bottom: 25px; border: 1px solid rgba(0,97,255,0.1); }
         .hero-content h1 { font-size: clamp(2.8rem, 5vw, 4.2rem); line-height: 1.1; margin-bottom: 25px; letter-spacing: -1px; }
         .hero-content p { font-size: 1.25rem; color: #4a5568; margin-bottom: 40px; max-width: 580px; }
         .hero-btns { display: flex; gap: 20px; }
@@ -163,8 +187,9 @@
         }
         
         .action-card { 
-            background: rgba(255, 255, 255, 0.85); 
-            backdrop-filter: blur(20px);
+            background: rgba(255, 255, 255, 0.75); 
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
             padding: 60px 40px; 
             border-radius: 32px; 
             box-shadow: var(--shadow); 
@@ -176,14 +201,14 @@
             justify-content: center;
             align-items: center;
             min-height: 400px;
-            scroll-margin-top: 110px; /* Crucial: offsets the scroll so the sticky header doesn't cover it */
+            scroll-margin-top: 110px; 
         }
         
         .action-card:hover { 
             transform: translateY(-20px); 
             box-shadow: var(--shadow-hover);
-            border-color: rgba(0,97,255,0.2); 
-            background: white;
+            border-color: rgba(0,97,255,0.3); 
+            background: rgba(255, 255, 255, 0.95);
         }
         
         .action-card i { font-size: 4rem; margin-bottom: 30px; transition: transform 0.4s ease; }
@@ -205,7 +230,7 @@
         .text-blue { color: var(--brand-blue); }
         .details-text p { font-size: 1.15rem; color: #4a5568; }
         .info-grid { flex: 1; display: grid; gap: 30px; }
-        .info-item { display: flex; gap: 25px; background: white; padding: 30px; border-radius: 24px; box-shadow: 0 10px 30px rgba(0,0,0,0.04); transition: transform 0.3s; }
+        .info-item { display: flex; gap: 25px; background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(10px); padding: 30px; border-radius: 24px; box-shadow: 0 10px 30px rgba(0,0,0,0.04); transition: transform 0.3s; border: 1px solid white;}
         .info-item:hover { transform: translateX(-10px); }
         .info-item i { color: var(--medical-green); font-size: 2.2rem; }
         .info-item h4 { font-size: 1.3rem; margin-bottom: 8px; }
@@ -256,7 +281,7 @@
         footer h3 { font-size: 1.8rem; margin-bottom: 10px; }
         footer p { color: #cbd5e1; font-size: 1.05rem; margin-bottom: 5px; }
         
-        /* New Footer Buttons Styling */
+        /* Footer Buttons Styling */
         .footer-action-btns {
             display: flex;
             justify-content: center;
@@ -310,7 +335,7 @@
 </head>
 <body>
 
-    <!-- Toast Notification (Now completely invisible on load) -->
+    <!-- Toast Notification -->
     <div id="toast" class="toast">
         <i class="fas fa-check-circle"></i> 
         <span>Message sent to Rakhecha Medical Stores!</span>
@@ -326,7 +351,6 @@
         </a>
     </div>
 
-    <!-- NEW NAVIGATION LINKS -->
     <nav id="navbar">
         <div class="container nav-flex">
             <div class="logo-area">
@@ -362,7 +386,6 @@
         </div>
     </header>
 
-    <!-- ACTION CARDS WITH TARGET IDs FOR SMOOTH SCROLLING -->
     <main class="container action-section">
         <div class="action-card reveal" id="store" style="transition-delay: 0.1s;">
             <i class="fas fa-map-marked-alt icon-red"></i>
@@ -451,7 +474,6 @@
             <p>Drug licence number : 20-29783, 20B-29784, 21-29785, 21B-29786</p>
             <p style="margin-top: 15px; font-size: 1.2rem; font-weight: 700; color: var(--medical-green);">Contact: 74895 74895</p>
             
-            <!-- NEW FOOTER BUTTONS -->
             <div class="footer-action-btns">
                 <a href="https://wa.me/917489574895" class="footer-btn whatsapp" target="_blank">
                     <i class="fab fa-whatsapp"></i> WhatsApp
