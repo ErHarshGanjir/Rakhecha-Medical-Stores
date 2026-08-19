@@ -8,203 +8,233 @@
     <!-- Fonts and Icons -->
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- App icon -->
     <link rel="icon" type="image/png" href="favicon.png">
     
     <style>
         :root {
             --brand-blue: #0061ff;
+            --brand-blue-glow: rgba(0, 97, 255, 0.4);
             --brand-dark: #061731;
             --medical-green: #00d285;
             --white: #ffffff;
-            --shadow: 0 20px 40px rgba(0,0,0,0.08);
-            --glass: rgba(255, 255, 255, 0.95);
+            --shadow: 0 25px 50px -12px rgba(0,0,0,0.15);
+            --glass: rgba(255, 255, 255, 0.85);
+            --bg-color: #f4f8ff;
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; }
 
+        /* --- Smooth Scrolling --- */
+        html {
+            scroll-behavior: smooth;
+        }
+
         body {
             font-family: 'Plus Jakarta Sans', sans-serif;
-            background-color: #f8fbff;
+            background-color: var(--bg-color);
             color: var(--brand-dark);
             line-height: 1.6;
-            scroll-behavior: smooth;
+            overflow-x: hidden;
         }
 
         .container {
             max-width: 1200px;
             margin: 0 auto;
             padding: 0 20px;
+            position: relative;
         }
+
+        /* --- Custom Toast Notification --- */
+        .toast {
+            position: fixed;
+            top: -100px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--brand-dark);
+            color: white;
+            padding: 16px 32px;
+            border-radius: 50px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+            z-index: 10000;
+            transition: top 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+        .toast.show { top: 40px; }
+        .toast i { color: var(--medical-green); font-size: 1.2rem; }
 
         /* --- Floating Contact (Mobile Focus) --- */
         .floating-contact {
-            position: fixed;
-            bottom: 25px;
-            right: 25px;
-            z-index: 1000;
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
+            position: fixed; bottom: 25px; right: 25px; z-index: 1000;
+            display: flex; flex-direction: column; gap: 12px;
         }
-
         .float-btn {
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-            text-decoration: none;
-            font-size: 24px;
-            transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            width: 60px; height: 60px; border-radius: 50%; display: flex;
+            align-items: center; justify-content: center; color: white;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2); text-decoration: none; font-size: 24px;
+            transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
-
-        .float-btn:hover { transform: scale(1.1); }
+        .float-btn:hover { transform: scale(1.15) rotate(5deg); }
         .float-phone { background: var(--brand-blue); }
         .float-map { background: #ea4335; }
 
         /* --- Navigation --- */
         nav {
             background: var(--glass);
-            backdrop-filter: blur(10px);
-            height: 85px;
-            display: flex;
-            align-items: center;
-            position: sticky;
-            top: 0;
-            z-index: 999;
-            border-bottom: 1px solid rgba(0,0,0,0.05);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            height: 85px; display: flex; align-items: center;
+            position: fixed; top: 0; width: 100%; z-index: 999;
+            border-bottom: 1px solid rgba(255,255,255,0.5);
+            transition: 0.3s;
         }
-
-        .nav-flex {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            width: 100%;
-        }
-
+        .nav-flex { display: flex; justify-content: space-between; align-items: center; width: 100%; }
         .logo-area { display: flex; align-items: center; gap: 12px; }
         .logo-img { height: 55px; width: auto; }
         .brand-text b { color: var(--brand-blue); font-size: 1.2rem; display: block; line-height: 1.1; }
         .brand-text span { font-size: 0.7rem; letter-spacing: 2px; text-transform: uppercase; color: var(--brand-dark); font-weight: 600; }
+        .nav-links a { text-decoration: none; color: var(--brand-dark); font-weight: 700; margin-left: 35px; font-size: 0.95rem; transition: color 0.3s; }
+        .nav-links a:hover { color: var(--brand-blue); }
+        .nav-cta { background: var(--brand-blue); color: white !important; padding: 12px 28px; border-radius: 50px; box-shadow: 0 10px 20px var(--brand-blue-glow); }
+        .nav-cta:hover { background: var(--brand-dark); box-shadow: 0 10px 20px rgba(6, 23, 49, 0.4); }
 
-        .nav-links a { text-decoration: none; color: var(--brand-dark); font-weight: 700; margin-left: 25px; font-size: 0.9rem; }
-        .nav-cta { background: var(--brand-blue); color: white !important; padding: 12px 24px; border-radius: 50px; transition: 0.3s; }
-        .nav-cta:hover { background: var(--brand-dark); }
+        /* --- Dynamic Hero Section --- */
+        .hero { 
+            padding: 160px 0 100px; 
+            min-height: 100vh;
+            display: flex; align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+        /* Abstract Animated Background Elements */
+        .bg-shape {
+            position: absolute; border-radius: 50%; filter: blur(80px); z-index: -1;
+            animation: float 10s infinite alternate ease-in-out;
+        }
+        .shape-1 { width: 400px; height: 400px; background: rgba(0, 97, 255, 0.15); top: -10%; right: -5%; }
+        .shape-2 { width: 500px; height: 500px; background: rgba(0, 210, 133, 0.1); bottom: -10%; left: -10%; animation-delay: -5s; }
+        
+        @keyframes float {
+            0% { transform: translate(0, 0) rotate(0deg); }
+            100% { transform: translate(30px, 50px) rotate(20deg); }
+        }
 
-        /* --- Hero Section --- */
-        .hero { padding: 100px 0; background: radial-gradient(circle at top right, #eef5ff, #ffffff); }
         .hero-flex { display: flex; align-items: center; gap: 60px; flex-wrap: wrap; }
-        .hero-content { flex: 1; min-width: 320px; }
-        .badge { display: inline-block; padding: 6px 16px; background: #e0ebff; color: var(--brand-blue); border-radius: 50px; font-size: 0.85rem; font-weight: 800; margin-bottom: 25px; border: 1px solid rgba(0,97,255,0.1); }
-        .hero-content h1 { font-size: clamp(2.5rem, 5vw, 3.8rem); line-height: 1.1; margin-bottom: 25px; letter-spacing: -1px; }
-        .hero-content p { font-size: 1.2rem; color: #4a5568; margin-bottom: 40px; max-width: 550px; }
+        .hero-content { flex: 1.2; min-width: 320px; z-index: 2; }
+        .badge { display: inline-block; padding: 8px 20px; background: white; color: var(--brand-blue); border-radius: 50px; font-size: 0.85rem; font-weight: 800; margin-bottom: 25px; box-shadow: 0 10px 20px rgba(0,0,0,0.05); }
+        .hero-content h1 { font-size: clamp(3rem, 6vw, 4.5rem); line-height: 1.05; margin-bottom: 25px; letter-spacing: -1.5px; }
+        .hero-content p { font-size: 1.25rem; color: #4a5568; margin-bottom: 40px; max-width: 550px; }
         .hero-btns { display: flex; gap: 20px; }
 
-        .btn-primary { background: var(--brand-blue); color: white; padding: 16px 36px; border-radius: 12px; text-decoration: none; font-weight: 700; box-shadow: 0 10px 20px rgba(0,97,255,0.2); transition: 0.3s; border: none; cursor: pointer; font-size: 1rem;}
-        .btn-secondary { background: white; border: 1px solid #d1d5db; color: var(--brand-dark); padding: 16px 36px; border-radius: 12px; text-decoration: none; font-weight: 700; transition: 0.3s; }
-        .btn-primary:hover, .btn-secondary:hover { transform: translateY(-3px); box-shadow: var(--shadow); }
+        .btn-primary { background: var(--brand-blue); color: white; padding: 18px 40px; border-radius: 16px; text-decoration: none; font-weight: 700; box-shadow: 0 15px 30px var(--brand-blue-glow); transition: 0.4s; border: none; cursor: pointer; font-size: 1rem;}
+        .btn-secondary { background: rgba(255,255,255,0.5); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.8); color: var(--brand-dark); padding: 18px 40px; border-radius: 16px; text-decoration: none; font-weight: 700; transition: 0.4s; }
+        .btn-primary:hover, .btn-secondary:hover { transform: translateY(-5px); box-shadow: var(--shadow); }
 
         .hero-image { flex: 1; min-width: 350px; position: relative; }
-        .hero-image img { width: 100%; border-radius: 30px; box-shadow: var(--shadow); transform: rotate(-1.5deg); transition: 0.5s; }
-        .hero-image:hover img { transform: rotate(0deg); }
+        .hero-image img { width: 100%; border-radius: 40px; box-shadow: var(--shadow); transition: transform 0.6s cubic-bezier(0.165, 0.84, 0.44, 1); }
+        .hero-image:hover img { transform: scale(1.03) rotate(-1deg); }
 
-        /* --- Action Cards --- */
-        .action-section { margin-top: -80px; display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; padding-bottom: 100px; position: relative; z-index: 10; }
-        .action-card { background: white; padding: 50px 35px; border-radius: 28px; box-shadow: var(--shadow); text-align: center; transition: 0.4s; border: 1px solid rgba(0,0,0,0.02); }
-        .action-card:hover { transform: translateY(-15px); border-color: var(--brand-blue); }
-        .action-card i { font-size: 3rem; margin-bottom: 25px; display: block; }
+        /* --- Scroll Reveal Animations --- */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 0.8s cubic-bezier(0.5, 0, 0, 1);
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* --- 3D Action Cards --- */
+        .action-section { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; padding: 60px 20px 100px; position: relative; z-index: 10; margin-top: -60px; }
+        .action-card { 
+            background: rgba(255, 255, 255, 0.7); 
+            backdrop-filter: blur(20px);
+            padding: 50px 35px; 
+            border-radius: 30px; 
+            text-align: center; 
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+            border: 1px solid rgba(255,255,255,0.8); 
+            box-shadow: 0 20px 40px rgba(0,0,0,0.04);
+            /* 3D setup */
+            transform-style: preserve-3d;
+            perspective: 1000px;
+        }
+        .action-card:hover { 
+            transform: translateY(-15px) rotateX(4deg) rotateY(-4deg) scale3d(1.02, 1.02, 1.02);
+            box-shadow: 0 30px 60px rgba(0,97,255,0.1); 
+            border-color: rgba(0,97,255,0.2);
+        }
+        .action-card i { font-size: 3.5rem; margin-bottom: 25px; display: block; transform: translateZ(30px); transition: 0.4s; }
+        .action-card:hover i { transform: translateZ(50px) scale(1.1); } /* Pops out on hover */
         .icon-blue { color: var(--brand-blue); }
         .icon-red { color: #ea4335; }
         .icon-green { color: var(--medical-green); }
-        .card-link { display: inline-block; margin-top: 20px; padding: 12px 28px; background: #f1f5f9; color: var(--brand-dark); text-decoration: none; border-radius: 10px; font-weight: 700; font-size: 0.95rem; transition: 0.3s; }
-        .card-link:hover { background: var(--brand-dark); color: white; }
-
-        /* --- Details/Stats --- */
-        .details-section { padding: 60px 0; display: flex; gap: 80px; flex-wrap: wrap; align-items: center; }
-        .details-text { flex: 1.2; min-width: 320px; }
-        .details-text h2 { font-size: 2.8rem; margin-bottom: 20px; }
-        .text-blue { color: var(--brand-blue); }
-        .info-grid { flex: 1; display: grid; gap: 25px; }
-        .info-item { display: flex; gap: 20px; background: white; padding: 25px; border-radius: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.03); }
-        .info-item i { color: var(--medical-green); font-size: 1.8rem; }
-        .info-item h4 { font-size: 1.1rem; margin-bottom: 5px; }
-        .info-item p { font-size: 0.95rem; color: #64748b; }
+        
+        .card-link { display: inline-block; margin-top: 20px; padding: 14px 32px; background: white; color: var(--brand-dark); text-decoration: none; border-radius: 12px; font-weight: 700; font-size: 0.95rem; box-shadow: 0 4px 15px rgba(0,0,0,0.05); transition: 0.3s; transform: translateZ(20px); }
+        .card-link:hover { background: var(--brand-blue); color: white; box-shadow: 0 10px 20px var(--brand-blue-glow); }
 
         /* --- Reach Out Form Section --- */
         .reach-out-section { padding: 80px 0 120px; text-align: center; }
-        .reach-out-section h2 { font-size: 2.8rem; margin-bottom: 15px; }
-        .reach-out-section p { color: #64748b; margin-bottom: 40px; font-size: 1.1rem; }
+        .reach-out-section h2 { font-size: clamp(2.5rem, 4vw, 3.5rem); margin-bottom: 15px; letter-spacing: -1px; }
+        .reach-out-section p { color: #64748b; margin-bottom: 50px; font-size: 1.15rem; }
         
         .contact-form {
-            max-width: 700px;
-            margin: 0 auto;
-            background: white;
-            padding: 45px;
-            border-radius: 28px;
-            box-shadow: var(--shadow);
-            text-align: left;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
+            max-width: 800px; margin: 0 auto;
+            background: white; padding: 50px; border-radius: 30px;
+            box-shadow: var(--shadow); text-align: left;
+            display: grid; grid-template-columns: 1fr 1fr; gap: 25px;
+            border: 1px solid rgba(0,0,0,0.03);
         }
-        
-        .form-group { display: flex; flex-direction: column; gap: 8px; }
+        .form-group { display: flex; flex-direction: column; gap: 10px; }
         .form-group.full-width { grid-column: span 2; }
-        .form-group label { font-weight: 600; font-size: 0.9rem; color: var(--brand-dark); }
+        .form-group label { font-weight: 700; font-size: 0.95rem; color: var(--brand-dark); margin-left: 5px; }
         .form-group input, .form-group textarea {
-            width: 100%;
-            padding: 16px;
-            border: 1px solid #e2e8f0;
-            border-radius: 12px;
-            font-family: inherit;
-            font-size: 1rem;
-            outline: none;
-            transition: 0.3s;
-            background: #f8fbff;
+            width: 100%; padding: 18px; border: 2px solid #edf2f7;
+            border-radius: 16px; font-family: inherit; font-size: 1rem;
+            outline: none; transition: 0.3s; background: #f8fbff;
         }
         .form-group input:focus, .form-group textarea:focus { 
-            border-color: var(--brand-blue); 
-            background: white;
-            box-shadow: 0 0 0 4px rgba(0,97,255,0.1); 
+            border-color: var(--brand-blue); background: white;
+            box-shadow: 0 0 0 5px rgba(0,97,255,0.1); 
         }
-        .submit-btn { width: 100%; padding: 18px; font-size: 1.1rem; margin-top: 10px; }
 
         /* --- Footer --- */
-        footer { background: var(--brand-dark); color: white; padding: 80px 0 40px; text-align: center; }
-        .footer-logo { height: 65px; margin-bottom: 25px; }
-        .footer-bottom { margin-top: 50px; padding-top: 25px; border-top: 1px solid rgba(255,255,255,0.08); font-size: 0.85rem; opacity: 0.6; letter-spacing: 1px; }
+        footer { background: var(--brand-dark); color: white; padding: 100px 0 40px; text-align: center; position: relative; overflow: hidden; }
+        .footer-logo { height: 75px; margin-bottom: 30px; }
+        .footer-bottom { margin-top: 60px; padding-top: 30px; border-top: 1px solid rgba(255,255,255,0.1); font-size: 0.85rem; opacity: 0.5; letter-spacing: 1px; }
 
         /* --- Mobile Responsiveness --- */
         @media (max-width: 768px) {
             .nav-links { display: none; }
-            .hero-flex { text-align: center; justify-content: center; }
+            .hero { padding: 120px 0 60px; min-height: auto; }
+            .hero-flex { text-align: center; justify-content: center; gap: 40px; }
             .hero-btns { justify-content: center; flex-direction: column; }
-            .hero-content h1 { font-size: 2.4rem; }
-            .action-section { margin-top: -40px; padding-bottom: 60px; }
-            .details-section { text-align: center; gap: 40px; }
-            .info-item { text-align: left; }
-            .contact-form { grid-template-columns: 1fr; padding: 30px 20px; }
+            .contact-form { grid-template-columns: 1fr; padding: 35px 20px; }
             .form-group.full-width { grid-column: span 1; }
-            .reach-out-section h2 { font-size: 2.2rem; }
         }
     </style>
 </head>
 <body>
 
-    <div class="floating-contact">
-        <a href="tel:7489574895" class="float-btn float-phone" title="Call Us">
-            <i class="fas fa-phone"></i>
-        </a>
-        <a href="https://www.google.com/maps/search/Rakhecha+Medical+Stores+Dhamtari" target="_blank" class="float-btn float-map" title="Directions">
-            <i class="fas fa-location-arrow"></i>
-        </a>
+    <!-- Toast Notification -->
+    <div id="toast" class="toast">
+        <i class="fas fa-check-circle"></i>
+        <span id="toastMsg">Message sent to Rakhecha Medical successfully!</span>
     </div>
 
-    <nav>
+    <!-- Floating Background Shapes -->
+    <div class="bg-shape shape-1"></div>
+    <div class="bg-shape shape-2"></div>
+
+    <div class="floating-contact">
+        <a href="tel:7489574895" class="float-btn float-phone" title="Call Us"><i class="fas fa-phone"></i></a>
+        <a href="https://www.google.com/maps/search/Rakhecha+Medical+Stores+Dhamtari" target="_blank" class="float-btn float-map" title="Directions"><i class="fas fa-location-arrow"></i></a>
+    </div>
+
+    <nav id="navbar">
         <div class="container nav-flex">
             <div class="logo-area">
                 <img src="https://i.ibb.co/HfxTSLb6/RMS-icon-1.png" alt="RMS Logo" class="logo-img">
@@ -223,72 +253,48 @@
 
     <header class="hero">
         <div class="container hero-flex">
-            <div class="hero-content">
-                <div class="badge">Trusted Since 1990</div>
-                <h1>Smart Pharma <br>Distribution.</h1>
+            <div class="hero-content reveal">
+                <div class="badge"><i class="fas fa-shield-alt" style="margin-right: 8px;"></i> Trusted Since 1990</div>
+                <h1>Smart Pharma <br><span style="color: var(--brand-blue);">Distribution.</span></h1>
                 <p>Leading wholesale distribution for premium medicines and medical supplies in Chhattisgarh. Speed, care, and quality assured.</p>
                 <div class="hero-btns">
-                    <a href="#explore" class="btn-primary">Our Services</a>
+                    <a href="#explore" class="btn-primary">Explore Services</a>
                     <a href="#contact" class="btn-secondary">Contact Us</a>
                 </div>
             </div>
-            <div class="hero-image">
+            <div class="hero-image reveal" style="transition-delay: 0.2s;">
                 <img src="https://images.unsplash.com/photo-1585435557343-3b092031a831?auto=format&fit=crop&q=80&w=1200" alt="Medicine Logistics">
             </div>
         </div>
     </header>
 
     <main class="container action-section" id="explore">
-        <div class="action-card">
+        <div class="action-card reveal">
             <i class="fas fa-map-marked-alt icon-red"></i>
             <h3>Visit Our Store</h3>
-            <p>Sihawa Chowk, Dhamtari. Open 7 days a week for pharmaceutical supplies.</p>
+            <p style="margin-top: 10px; color: #64748b;">Sihawa Chowk, Dhamtari. Open 7 days a week for pharmaceutical supplies.</p>
             <a href="https://www.google.com/maps/search/Rakhecha+Medical+Stores+Dhamtari" target="_blank" class="card-link">Get Directions</a>
         </div>
 
-        <div class="action-card">
+        <div class="action-card reveal" style="transition-delay: 0.15s;">
             <i class="fas fa-box-open icon-blue"></i>
             <h3>Digital Inventory</h3>
-            <p>Explore our healthcare portfolio through our live web-based product catalog and place your order online.</p>
-            <a href="https://rakhechamedical.in/order/" target="_blank" class="card-link">View Website</a>
+            <p style="margin-top: 10px; color: #64748b;">Explore our healthcare portfolio through our live web-based product catalog.</p>
+            <a href="https://rakhechamedical.in/order/" target="_blank" class="card-link">Order Online</a>
         </div>
 
-        <div class="action-card">
+        <div class="action-card reveal" style="transition-delay: 0.3s;">
             <i class="fas fa-file-pdf icon-green"></i>
             <h3>Price List PDF</h3>
-            <p>Download our complete stock list for offline procurement and bulk orders.</p>
-            <a href="https://drive.google.com/file/d/1Kg3TzJdnIHn2B4MQx4DpjVfLof-BAbNW/view?usp=sharing" target="_blank" class="card-link">Download Stock List</a>
+            <p style="margin-top: 10px; color: #64748b;">Download our complete stock list for offline procurement and bulk orders.</p>
+            <a href="https://drive.google.com/file/d/1Kg3TzJdnIHn2B4MQx4DpjVfLof-BAbNW/view?usp=sharing" target="_blank" class="card-link">Download List</a>
         </div>
     </main>
 
-    <section class="container details-section">
-        <div class="details-text">
-            <h2>Modernizing <br><span class="text-blue">Bulk Medicine</span></h2>
-            <p>We combine 30+ years of legacy with modern logistics. Our facility manages mass distribution with strict quality controls for branded and generic pharma solutions.</p>
-        </div>
-        <div class="info-grid">
-            <div class="info-item">
-                <i class="fas fa-clock"></i>
-                <div>
-                    <h4>7 Days Availability</h4>
-                    <p>Open Monday to Sunday for essential medicine supplies.</p>
-                </div>
-            </div>
-            <div class="info-item">
-                <i class="fas fa-shield-alt"></i>
-                <div>
-                    <h4>Quality Verified</h4>
-                    <p>All bulk deliveries follow standard pharmaceutical safety protocols.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- NEW REACH OUT SECTION -->
     <section class="reach-out-section" id="contact">
-        <div class="container">
-            <h2>Reach <span class="text-blue">Out To Us</span></h2>
-            <p>Have questions or need to place a bulk order? Send us a message.</p>
+        <div class="container reveal">
+            <h2>Reach <span style="color: var(--brand-blue);">Out To Us</span></h2>
+            <p>Have questions or need to place a bulk order? Send us a fast message below.</p>
 
             <form class="contact-form" id="reachOutForm">
                 <div class="form-group">
@@ -309,81 +315,89 @@
                 </div>
                 <div class="form-group full-width">
                     <label for="message">Your Message</label>
-                    <textarea id="message" rows="5" placeholder="How can we help you?" required></textarea>
+                    <textarea id="message" rows="4" placeholder="How can we help you today?" required></textarea>
                 </div>
                 <div class="form-group full-width">
-                    <button type="submit" class="btn-primary submit-btn" id="submitBtn">Send Message</button>
+                    <button type="submit" class="btn-primary">Send Message Instantly</button>
                 </div>
             </form>
         </div>
     </section>
 
     <footer>
-        <div class="container">
+        <div class="container reveal">
             <img src="https://i.ibb.co/HfxTSLb6/RMS-icon-1.png" alt="RMS Logo" class="footer-logo">
-            <h3>Rakhecha Medical Stores</h3>
-            <p>Near Mahavar Dharam Shala, Sihawa Chowk, Dhamtari, CG - 493773</p>
-            <p>GST number : 22ACSPD4513B1Z8</p>
-            <p>FSSAI number :  10521005000181</p>
-            <p>Drug licence number : 20-29783, 20B-29784,  21-29785, 21B-29786</p>
-            <p style="margin-top: 10px; font-weight: 600; color: var(--brand-blue);">Contact: 74895 74895</p>
+            <h3 style="font-size: 1.8rem; margin-bottom: 15px;">Rakhecha Medical Stores</h3>
+            <p style="color: #cbd5e1;">Near Mahavar Dharam Shala, Sihawa Chowk, Dhamtari, CG - 493773</p>
+            <p style="color: #cbd5e1; margin-top: 10px;">GST: 22ACSPD4513B1Z8 | FSSAI: 10521005000181</p>
+            <p style="margin-top: 20px; font-size: 1.2rem; font-weight: 700; color: var(--medical-green);">Call: 74895 74895</p>
             
             <div class="footer-bottom">
                 <p>© 2026 Rakhecha Medical Stores. All Rights Reserved.</p>
-                <p style="margin-top: 10px; font-size: 0.75rem;">Authorized Wholesale Medical Distributor</p>
             </div>
         </div>
     </footer>
 
-    <!-- Form Submission Logic -->
+    <!-- Interactive Scripts -->
     <script>
-        const API_URL = "https://script.google.com/macros/s/AKfycbwj8f9I1GW-RwwAz59Bz6pkYTfmIf-ApYEKVNsoHj4R6RnflaKRKg0cZLN5kyCPTH1q/exec";
-
-        async function sendContactForm() {
-            const name = document.getElementById("name").value;
-            const city = document.getElementById("city").value;
-            const mobile = document.getElementById("mobile").value;
-            const email = document.getElementById("email").value;
-            const message = document.getElementById("message").value;
-            const submitBtn = document.getElementById("submitBtn");
-
-            const formData = new URLSearchParams();
-            formData.append("name", name);
-            formData.append("city", city);
-            formData.append("mobile", mobile);
-            formData.append("email", email);
-            formData.append("message", message);
-
-            // Give visual feedback to the user while sending
-            submitBtn.innerText = "Sending...";
-            submitBtn.style.opacity = "0.7";
-            submitBtn.disabled = true;
-
-            try {
-                await fetch(API_URL, {
-                    method: "POST",
-                    body: formData,
-                    mode: "no-cors"
-                });
-
-                alert("Thank you! Your message has been sent successfully.");
-                document.getElementById("reachOutForm").reset(); // Clear the form
-
-            } catch (error) {
-                console.error("API Error:", error);
-                alert("Unable to send your message. Please try again.");
-            } finally {
-                // Reset button visual state
-                submitBtn.innerText = "Send Message";
-                submitBtn.style.opacity = "1";
-                submitBtn.disabled = false;
+        // 1. Scroll Reveal Animation
+        function revealElements() {
+            var reveals = document.querySelectorAll('.reveal');
+            for (var i = 0; i < reveals.length; i++) {
+                var windowHeight = window.innerHeight;
+                var elementTop = reveals[i].getBoundingClientRect().top;
+                var elementVisible = 100;
+                
+                if (elementTop < windowHeight - elementVisible) {
+                    reveals[i].classList.add('active');
+                }
             }
         }
+        window.addEventListener('scroll', revealElements);
+        revealElements(); // Trigger on load
 
-        // Attach event listener to handle form submit without refreshing the page
+        // 2. Navbar glass effect on scroll
+        window.addEventListener('scroll', function() {
+            const nav = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                nav.style.boxShadow = '0 10px 30px rgba(0,0,0,0.05)';
+            } else {
+                nav.style.boxShadow = 'none';
+            }
+        });
+
+        // 3. Fire-and-Forget Form Submission with Toast Notification
+        const API_URL = "https://script.google.com/macros/s/AKfycbwj8f9I1GW-RwwAz59Bz6pkYTfmIf-ApYEKVNsoHj4R6RnflaKRKg0cZLN5kyCPTH1q/exec";
+        
+        function showToast() {
+            const toast = document.getElementById("toast");
+            toast.classList.add("show");
+            // Hide toast after 4 seconds
+            setTimeout(() => {
+                toast.classList.remove("show");
+            }, 4000);
+        }
+
         document.getElementById("reachOutForm").addEventListener("submit", function(event) {
-            event.preventDefault(); // Prevents the default browser reload
-            sendContactForm();
+            event.preventDefault(); // Stop page refresh
+
+            const formData = new URLSearchParams();
+            formData.append("name", document.getElementById("name").value);
+            formData.append("city", document.getElementById("city").value);
+            formData.append("mobile", document.getElementById("mobile").value);
+            formData.append("email", document.getElementById("email").value);
+            formData.append("message", document.getElementById("message").value);
+
+            // Fire and forget API call (No Await)
+            fetch(API_URL, {
+                method: "POST",
+                body: formData,
+                mode: "no-cors"
+            }).catch(error => console.error("Background API Error:", error));
+
+            // Instantly show the user a success message and clear form
+            showToast();
+            this.reset(); 
         });
     </script>
 
