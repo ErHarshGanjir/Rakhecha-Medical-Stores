@@ -23,14 +23,8 @@
             --glass: rgba(255, 255, 255, 0.95);
         }
 
-        /* --- STRICT RESET TO FIX RIGHT PADDING & ALIGNMENT --- */
+        /* --- STRICT RESET & SCROLL FIX --- */
         * { box-sizing: border-box; margin: 0; padding: 0; }
-
-        html, body {
-            width: 100%;
-            max-width: 100%;
-            overflow-x: hidden; 
-        }
 
         html { scroll-behavior: smooth; }
 
@@ -39,14 +33,25 @@
             background-color: #f8fbff;
             color: var(--brand-dark);
             line-height: 1.6;
-            
-            /* Enhanced Premium Grid Pattern (Increased opacity from 0.035 to 0.08 for better visibility) */
+            overflow-x: hidden; /* Placed only on body to ensure smooth vertical scrolling */
+            width: 100%;
+        }
+
+        /* --- HIGH PERFORMANCE FIXED BACKGROUND --- 
+           Moved to a separate layer to prevent scrolling lag/stutter */
+        .bg-pattern {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: -2;
+            pointer-events: none;
             background-image: 
                 linear-gradient(rgba(0, 97, 255, 0.08) 1px, transparent 1px),
                 linear-gradient(90deg, rgba(0, 97, 255, 0.08) 1px, transparent 1px);
             background-size: 40px 40px;
             background-position: center top;
-            background-attachment: fixed; 
         }
 
         .container {
@@ -340,6 +345,9 @@
     </style>
 </head>
 <body>
+
+    <!-- hardware-accelerated grid background -->
+    <div class="bg-pattern"></div>
 
     <!-- Toast Notification -->
     <div id="toast" class="toast">
