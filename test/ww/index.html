@@ -23,7 +23,14 @@
             --glass: rgba(255, 255, 255, 0.95);
         }
 
+        /* --- STRICT RESET TO FIX RIGHT PADDING & ALIGNMENT --- */
         * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        html, body {
+            width: 100%;
+            max-width: 100%;
+            overflow-x: hidden; /* Eliminates the extra right space */
+        }
 
         html { scroll-behavior: smooth; }
 
@@ -32,15 +39,14 @@
             background-color: #f8fbff;
             color: var(--brand-dark);
             line-height: 1.6;
-            overflow-x: hidden;
             
-            /* NEW: Premium Ultra-Subtle Grid Pattern Background */
+            /* Premium Ultra-Subtle Grid Pattern Background */
             background-image: 
                 linear-gradient(rgba(0, 97, 255, 0.035) 1px, transparent 1px),
                 linear-gradient(90deg, rgba(0, 97, 255, 0.035) 1px, transparent 1px);
             background-size: 40px 40px;
             background-position: center top;
-            background-attachment: fixed; /* Creates a beautiful parallax effect when scrolling */
+            background-attachment: fixed; 
         }
 
         .container {
@@ -88,11 +94,11 @@
             visibility: visible; 
         }
 
-        /* --- Floating Contact (FAB) --- */
+        /* --- Floating Contact (FAB) FIXED POSITION --- */
         .floating-contact {
             position: fixed;
-            bottom: 30px;
-            right: 30px;
+            bottom: 25px;
+            right: 25px;
             z-index: 9999;
             display: flex;
             flex-direction: column;
@@ -100,8 +106,8 @@
         }
 
         .float-btn {
-            width: 65px;
-            height: 65px;
+            width: 60px;
+            height: 60px;
             border-radius: 50%;
             display: flex;
             align-items: center;
@@ -109,7 +115,7 @@
             color: white;
             box-shadow: 0 10px 25px rgba(0,0,0,0.25);
             text-decoration: none;
-            font-size: 26px;
+            font-size: 24px;
             transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
@@ -147,9 +153,9 @@
         .hero { 
             padding: 120px 0 160px; 
             position: relative;
+            overflow: hidden; /* Added to keep glow orb from breaking alignment */
         }
         
-        /* Premium Glow Orb for Hero Section */
         .hero::before {
             content: '';
             position: absolute;
@@ -187,9 +193,8 @@
         }
         
         .action-card { 
-            background: rgba(255, 255, 255, 0.75); 
+            background: rgba(255, 255, 255, 0.85); 
             backdrop-filter: blur(25px);
-            -webkit-backdrop-filter: blur(25px);
             padding: 60px 40px; 
             border-radius: 32px; 
             box-shadow: var(--shadow); 
@@ -498,7 +503,7 @@
 
     <!-- INTERACTIVE SCRIPTS -->
     <script>
-        /* 1. SCROLL REVEAL ANIMATIONS (Intersection Observer) */
+        /* 1. SCROLL REVEAL ANIMATIONS */
         document.addEventListener("DOMContentLoaded", function() {
             const observerOptions = {
                 threshold: 0.1, 
@@ -535,7 +540,6 @@
             const toast = document.getElementById("toast");
             toast.classList.add("show");
             
-            // Hide toast after 4 seconds
             setTimeout(() => {
                 toast.classList.remove("show");
             }, 4000);
@@ -544,7 +548,6 @@
         document.getElementById("reachOutForm").addEventListener("submit", function(event) {
             event.preventDefault(); 
 
-            // Gather Data
             const formData = new URLSearchParams();
             formData.append("name", document.getElementById("name").value);
             formData.append("city", document.getElementById("city").value);
@@ -552,14 +555,12 @@
             formData.append("email", document.getElementById("email").value);
             formData.append("message", document.getElementById("message").value);
 
-            // Fetch - Fire & Forget 
             fetch(API_URL, {
                 method: "POST",
                 body: formData,
                 mode: "no-cors"
             }).catch(error => console.error("Background API Error:", error));
 
-            // Instant UI Feedback
             showToast();
             this.reset(); 
         });
