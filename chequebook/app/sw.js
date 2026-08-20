@@ -1,0 +1,20 @@
+{
+  "name": "cheque book",
+  "short_name": "cheque book",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#0f172a",
+  "icons": [
+    {
+      "src": "https://i.ibb.co/yFVDLzVM/Cheque-Book-favicon-2.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "https://i.ibb.co/yFVDLzVM/Cheque-Book-favicon-2.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
