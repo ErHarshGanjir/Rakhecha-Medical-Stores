@@ -1,0 +1,2367 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Harsh Ganjir — Developer</title>
+
+<style>
+
+/* =========================================================
+   BASE
+========================================================= */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    font-family:
+        Inter,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        Roboto,
+        Arial,
+        sans-serif;
+
+    background:#05070b;
+    color:#f5f7fb;
+    overflow-x:hidden;
+}
+
+::selection{
+    background:rgba(125,140,255,.35);
+    color:#fff;
+}
+
+
+/* =========================================================
+   BACKGROUND
+========================================================= */
+
+.bg-grid{
+    position:fixed;
+    inset:0;
+
+    background-image:
+        linear-gradient(
+            rgba(255,255,255,.022) 1px,
+            transparent 1px
+        ),
+        linear-gradient(
+            90deg,
+            rgba(255,255,255,.022) 1px,
+            transparent 1px
+        );
+
+    background-size:46px 46px;
+
+    mask-image:
+        linear-gradient(
+            to bottom,
+            black,
+            transparent 88%
+        );
+
+    pointer-events:none;
+    z-index:-5;
+}
+
+.glow{
+    position:fixed;
+    width:550px;
+    height:550px;
+
+    border-radius:50%;
+
+    filter:blur(80px);
+
+    pointer-events:none;
+
+    z-index:-4;
+}
+
+.glow.one{
+    top:-260px;
+    left:-220px;
+
+    background:
+        rgba(91,108,255,.16);
+
+    animation:
+        glowMoveOne 12s ease-in-out infinite alternate;
+}
+
+.glow.two{
+    right:-260px;
+    bottom:-260px;
+
+    background:
+        rgba(52,211,191,.09);
+
+    animation:
+        glowMoveTwo 14s ease-in-out infinite alternate;
+}
+
+@keyframes glowMoveOne{
+
+    from{
+        transform:translate(0,0) scale(1);
+    }
+
+    to{
+        transform:translate(120px,90px) scale(1.2);
+    }
+}
+
+@keyframes glowMoveTwo{
+
+    from{
+        transform:translate(0,0) scale(1);
+    }
+
+    to{
+        transform:translate(-100px,-80px) scale(1.2);
+    }
+}
+
+
+/* =========================================================
+   CONTAINER
+========================================================= */
+
+.container{
+    width:min(1160px, calc(100% - 40px));
+    margin:auto;
+}
+
+
+/* =========================================================
+   NAVIGATION
+========================================================= */
+
+nav{
+    height:82px;
+
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+}
+
+.logo{
+    font-size:20px;
+    font-weight:800;
+    letter-spacing:-.7px;
+}
+
+.logo span{
+    color:#7d8cff;
+}
+
+.nav-status{
+    display:flex;
+    align-items:center;
+    gap:9px;
+
+    color:#8992a1;
+    font-size:12px;
+}
+
+.status-dot{
+    width:7px;
+    height:7px;
+
+    border-radius:50%;
+
+    background:#4ade80;
+
+    box-shadow:
+        0 0 0 5px rgba(74,222,128,.07),
+        0 0 18px rgba(74,222,128,.6);
+
+    animation:
+        pulse 2s infinite;
+}
+
+@keyframes pulse{
+
+    0%,100%{
+        opacity:1;
+    }
+
+    50%{
+        opacity:.35;
+    }
+}
+
+
+/* =========================================================
+   HERO
+========================================================= */
+
+.hero{
+    min-height:
+        calc(100vh - 82px);
+
+    display:grid;
+
+    grid-template-columns:
+        minmax(0,1fr)
+        360px;
+
+    align-items:center;
+
+    gap:75px;
+
+    padding:
+        55px 0
+        100px;
+}
+
+.hero-content{
+    animation:
+        heroIn .9s ease both;
+}
+
+@keyframes heroIn{
+
+    from{
+        opacity:0;
+        transform:translateY(30px);
+    }
+
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+.hero-badge{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+
+    padding:
+        8px 13px;
+
+    border:
+        1px solid rgba(255,255,255,.08);
+
+    border-radius:999px;
+
+    background:
+        rgba(255,255,255,.035);
+
+    color:#a7afbd;
+
+    font-size:12px;
+
+    backdrop-filter:blur(12px);
+
+    margin-bottom:24px;
+}
+
+.hero-badge b{
+    color:#7d8cff;
+}
+
+h1{
+    font-size:
+        clamp(
+            48px,
+            7vw,
+            82px
+        );
+
+    line-height:.95;
+
+    letter-spacing:-5px;
+
+    margin-bottom:28px;
+}
+
+.gradient-text{
+    background:
+        linear-gradient(
+            100deg,
+            #ffffff 10%,
+            #aab5ff 48%,
+            #6ee7d8 100%
+        );
+
+    -webkit-background-clip:text;
+    background-clip:text;
+
+    color:transparent;
+}
+
+.hero-description{
+    max-width:720px;
+
+    color:#929baa;
+
+    font-size:18px;
+
+    line-height:1.75;
+}
+
+.hero-description strong{
+    color:#e9edf3;
+}
+
+
+/* =========================================================
+   BUTTONS
+========================================================= */
+
+.actions{
+    display:flex;
+    flex-wrap:wrap;
+    gap:12px;
+
+    margin-top:32px;
+}
+
+.btn{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    gap:8px;
+
+    padding:
+        13px 18px;
+
+    border-radius:12px;
+
+    text-decoration:none;
+
+    font-size:13px;
+    font-weight:700;
+
+    transition:
+        transform .25s ease,
+        background .25s ease,
+        border .25s ease;
+}
+
+.btn:hover{
+    transform:translateY(-3px);
+}
+
+.btn-primary{
+    background:#f4f6fa;
+    color:#080a0e;
+}
+
+.btn-secondary{
+    color:#d6dbe5;
+
+    background:
+        rgba(255,255,255,.035);
+
+    border:
+        1px solid rgba(255,255,255,.08);
+}
+
+
+/* =========================================================
+   PROFILE
+========================================================= */
+
+.profile-area{
+    display:flex;
+    justify-content:center;
+
+    animation:
+        profileIn 1s .15s ease both;
+
+    transition:
+        transform .2s ease;
+}
+
+@keyframes profileIn{
+
+    from{
+        opacity:0;
+        transform:scale(.85);
+    }
+
+    to{
+        opacity:1;
+        transform:scale(1);
+    }
+}
+
+.profile-ring{
+    width:300px;
+    height:300px;
+
+    padding:8px;
+
+    border-radius:50%;
+
+    background:
+        conic-gradient(
+            from 0deg,
+            #6575ff,
+            #6ee7d8,
+            transparent 45%,
+            #6575ff
+        );
+
+    animation:
+        ringRotate 9s linear infinite;
+
+    box-shadow:
+        0 0 90px rgba(101,117,255,.15);
+}
+
+@keyframes ringRotate{
+    to{
+        transform:rotate(360deg);
+    }
+}
+
+.profile-image{
+    width:100%;
+    height:100%;
+
+    object-fit:cover;
+
+    border-radius:50%;
+
+    border:
+        8px solid #07090e;
+
+    display:block;
+
+    animation:
+        imageRotate 9s linear infinite reverse;
+}
+
+@keyframes imageRotate{
+    to{
+        transform:rotate(360deg);
+    }
+}
+
+
+/* =========================================================
+   SECTIONS
+========================================================= */
+
+section{
+    padding:100px 0;
+}
+
+.section-label{
+    color:#7d8cff;
+
+    font-size:11px;
+    font-weight:800;
+
+    letter-spacing:2px;
+    text-transform:uppercase;
+
+    margin-bottom:12px;
+}
+
+.section-title{
+    font-size:
+        clamp(
+            32px,
+            5vw,
+            50px
+        );
+
+    line-height:1.05;
+
+    letter-spacing:-2px;
+
+    margin-bottom:16px;
+}
+
+.section-description{
+    max-width:720px;
+
+    color:#8c95a4;
+
+    line-height:1.75;
+
+    font-size:15px;
+}
+
+
+/* =========================================================
+   ABOUT
+========================================================= */
+
+.about-grid{
+    margin-top:38px;
+
+    display:grid;
+
+    grid-template-columns:
+        1.35fr
+        .75fr;
+
+    gap:20px;
+}
+
+.about-card{
+    padding:32px;
+
+    border:
+        1px solid rgba(255,255,255,.065);
+
+    border-radius:22px;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(255,255,255,.045),
+            rgba(255,255,255,.015)
+        );
+
+    color:#a4adbb;
+
+    line-height:1.85;
+
+    backdrop-filter:blur(15px);
+}
+
+.about-card strong{
+    color:#e7ebf1;
+}
+
+.fact-list{
+    display:grid;
+    gap:12px;
+}
+
+.fact{
+    padding:20px;
+
+    border:
+        1px solid rgba(255,255,255,.06);
+
+    border-radius:17px;
+
+    background:
+        rgba(255,255,255,.025);
+
+    transition:.3s ease;
+}
+
+.fact:hover{
+    transform:translateX(5px);
+
+    border-color:
+        rgba(125,140,255,.25);
+}
+
+.fact-label{
+    color:#687283;
+
+    font-size:10px;
+
+    text-transform:uppercase;
+
+    letter-spacing:1.2px;
+
+    margin-bottom:7px;
+}
+
+.fact-value{
+    color:#dce1e9;
+
+    font-size:14px;
+
+    font-weight:650;
+}
+
+
+/* =========================================================
+   TECH STACK
+========================================================= */
+
+.stack{
+    margin-top:40px;
+
+    display:grid;
+
+    grid-template-columns:
+        repeat(4,1fr);
+
+    gap:14px;
+}
+
+.stack-card{
+    min-height:145px;
+
+    padding:23px;
+
+    border:
+        1px solid rgba(255,255,255,.06);
+
+    border-radius:18px;
+
+    background:
+        rgba(255,255,255,.025);
+
+    transition:
+        transform .3s ease,
+        border .3s ease,
+        background .3s ease;
+}
+
+.stack-card:hover{
+    transform:translateY(-7px);
+
+    background:
+        rgba(125,140,255,.055);
+
+    border-color:
+        rgba(125,140,255,.25);
+}
+
+.stack-icon{
+    font-size:23px;
+
+    margin-bottom:17px;
+}
+
+.stack-card h3{
+    font-size:14px;
+
+    margin-bottom:7px;
+}
+
+.stack-card p{
+    color:#7d8695;
+
+    font-size:12px;
+
+    line-height:1.6;
+}
+
+
+/* =========================================================
+   ARCHITECTURE
+========================================================= */
+
+.architecture{
+    margin-top:35px;
+
+    padding:32px;
+
+    border:
+        1px solid rgba(110,231,216,.12);
+
+    border-radius:23px;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(110,231,216,.05),
+            rgba(125,140,255,.045)
+        );
+
+    overflow:hidden;
+
+    position:relative;
+}
+
+.architecture::after{
+    content:"";
+
+    position:absolute;
+
+    width:260px;
+    height:260px;
+
+    right:-130px;
+    top:-130px;
+
+    border-radius:50%;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(110,231,216,.13),
+            transparent 70%
+        );
+}
+
+.architecture h3{
+    font-size:18px;
+
+    margin-bottom:9px;
+}
+
+.architecture p{
+    max-width:800px;
+
+    color:#8c96a4;
+
+    font-size:13px;
+
+    line-height:1.75;
+}
+
+.arch-flow{
+    margin-top:27px;
+
+    display:flex;
+
+    align-items:center;
+
+    flex-wrap:wrap;
+
+    gap:10px;
+}
+
+.arch-box{
+    padding:
+        13px 16px;
+
+    border:
+        1px solid rgba(255,255,255,.08);
+
+    border-radius:11px;
+
+    background:
+        rgba(0,0,0,.18);
+
+    color:#dce2e9;
+
+    font-size:12px;
+
+    font-weight:650;
+}
+
+.arch-arrow{
+    color:#5e6878;
+}
+
+
+/* =========================================================
+   PROJECTS
+========================================================= */
+
+.projects{
+    margin-top:40px;
+
+    display:grid;
+
+    grid-template-columns:
+        repeat(2,1fr);
+
+    gap:16px;
+}
+
+.project{
+    position:relative;
+
+    min-height:245px;
+
+    padding:27px;
+
+    border:
+        1px solid rgba(255,255,255,.065);
+
+    border-radius:21px;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(255,255,255,.045),
+            rgba(255,255,255,.015)
+        );
+
+    overflow:hidden;
+
+    transition:
+        transform .35s ease,
+        border .35s ease;
+}
+
+.project::before{
+    content:"";
+
+    position:absolute;
+
+    width:190px;
+    height:190px;
+
+    right:-100px;
+    bottom:-100px;
+
+    border-radius:50%;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(125,140,255,.13),
+            transparent 70%
+        );
+
+    transition:.4s ease;
+}
+
+.project:hover{
+    transform:translateY(-7px);
+
+    border-color:
+        rgba(125,140,255,.25);
+}
+
+.project:hover::before{
+    transform:scale(1.6);
+}
+
+.project.feature{
+    grid-column:span 2;
+
+    min-height:270px;
+
+    background:
+        linear-gradient(
+            120deg,
+            rgba(101,116,255,.075),
+            rgba(110,231,216,.035)
+        );
+}
+
+.project-number{
+    color:#667185;
+
+    font-size:10px;
+
+    font-weight:800;
+
+    letter-spacing:1.2px;
+
+    margin-bottom:20px;
+}
+
+.project.feature .project-number{
+    color:#7d8cff;
+}
+
+.project h3{
+    font-size:20px;
+
+    letter-spacing:-.5px;
+
+    margin-bottom:11px;
+}
+
+.project p{
+    max-width:600px;
+
+    color:#858e9d;
+
+    font-size:13px;
+
+    line-height:1.75;
+}
+
+.project-tags{
+    display:flex;
+
+    flex-wrap:wrap;
+
+    gap:7px;
+
+    margin-top:21px;
+}
+
+.tag{
+    padding:
+        6px 9px;
+
+    border-radius:7px;
+
+    background:
+        rgba(255,255,255,.045);
+
+    border:
+        1px solid rgba(255,255,255,.055);
+
+    color:#9ca5b4;
+
+    font-size:10px;
+}
+
+
+/* =========================================================
+   DEVELOPMENT APPROACH
+========================================================= */
+
+.workflow{
+    margin-top:40px;
+
+    display:grid;
+
+    grid-template-columns:
+        repeat(4,1fr);
+
+    gap:14px;
+}
+
+.workflow-card{
+    padding:24px;
+
+    border:
+        1px solid rgba(255,255,255,.06);
+
+    border-radius:18px;
+
+    background:
+        rgba(255,255,255,.02);
+}
+
+.step{
+    width:30px;
+    height:30px;
+
+    display:flex;
+
+    align-items:center;
+    justify-content:center;
+
+    border-radius:9px;
+
+    background:
+        rgba(125,140,255,.1);
+
+    color:#8995ff;
+
+    font-size:10px;
+
+    font-weight:800;
+
+    margin-bottom:18px;
+}
+
+.workflow-card h3{
+    font-size:14px;
+
+    margin-bottom:8px;
+}
+
+.workflow-card p{
+    color:#788292;
+
+    font-size:12px;
+
+    line-height:1.65;
+}
+
+
+/* =========================================================
+   DECLARATION
+========================================================= */
+
+.declaration{
+    position:relative;
+
+    padding:42px;
+
+    border:
+        1px solid rgba(125,140,255,.13);
+
+    border-radius:25px;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(125,140,255,.075),
+            rgba(110,231,216,.035)
+        );
+
+    overflow:hidden;
+}
+
+.declaration::before{
+    content:"";
+
+    position:absolute;
+
+    width:300px;
+    height:300px;
+
+    right:-160px;
+    top:-160px;
+
+    border-radius:50%;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(125,140,255,.17),
+            transparent 70%
+        );
+}
+
+.declaration h3{
+    position:relative;
+
+    font-size:19px;
+
+    margin-bottom:15px;
+}
+
+.declaration p{
+    position:relative;
+
+    max-width:850px;
+
+    color:#969fad;
+
+    line-height:1.85;
+
+    font-size:14px;
+}
+
+
+/* =========================================================
+   FOOTER
+========================================================= */
+
+footer{
+    padding:
+        40px 0
+        55px;
+
+    border-top:
+        1px solid rgba(255,255,255,.06);
+
+    display:flex;
+
+    justify-content:space-between;
+
+    color:#667080;
+
+    font-size:12px;
+}
+
+footer strong{
+    color:#aab2c0;
+}
+
+
+/* =========================================================
+   SCROLL REVEAL
+========================================================= */
+
+.reveal{
+    opacity:0;
+
+    transform:
+        translateY(30px);
+
+    transition:
+        opacity .8s ease,
+        transform .8s ease;
+}
+
+.reveal.visible{
+    opacity:1;
+
+    transform:
+        translateY(0);
+}
+
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media(max-width:950px){
+
+    .hero{
+        grid-template-columns:1fr;
+
+        text-align:center;
+
+        gap:55px;
+    }
+
+    .hero-content{
+        order:2;
+    }
+
+    .profile-area{
+        order:1;
+    }
+
+    .hero-description{
+        margin:auto;
+    }
+
+    .actions{
+        justify-content:center;
+    }
+
+    .about-grid{
+        grid-template-columns:1fr;
+    }
+
+    .stack{
+        grid-template-columns:
+            repeat(2,1fr);
+    }
+
+    .workflow{
+        grid-template-columns:
+            repeat(2,1fr);
+    }
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media(max-width:650px){
+
+    .container{
+        width:
+            calc(100% - 28px);
+    }
+
+    nav{
+        height:70px;
+    }
+
+    .nav-status{
+        display:none;
+    }
+
+    .hero{
+        min-height:auto;
+
+        padding:
+            45px 0
+            75px;
+
+        gap:42px;
+    }
+
+    h1{
+        font-size:
+            clamp(
+                43px,
+                14vw,
+                64px
+            );
+
+        letter-spacing:-3px;
+    }
+
+    .hero-description{
+        font-size:15px;
+        line-height:1.7;
+    }
+
+    .profile-ring{
+        width:230px;
+        height:230px;
+    }
+
+    .actions{
+        flex-direction:column;
+    }
+
+    .btn{
+        width:100%;
+    }
+
+    section{
+        padding:
+            70px 0;
+    }
+
+    .section-title{
+        font-size:34px;
+
+        letter-spacing:-1.5px;
+    }
+
+    .about-card{
+        padding:24px;
+
+        font-size:14px;
+    }
+
+    .stack{
+        grid-template-columns:1fr;
+    }
+
+    .projects{
+        grid-template-columns:1fr;
+    }
+
+    .project{
+        min-height:auto;
+
+        padding:23px;
+    }
+
+    .project.feature{
+        grid-column:span 1;
+
+        min-height:auto;
+    }
+
+    .workflow{
+        grid-template-columns:1fr;
+    }
+
+    .architecture{
+        padding:24px;
+    }
+
+    .arch-flow{
+        flex-direction:column;
+
+        align-items:stretch;
+    }
+
+    .arch-box{
+        text-align:center;
+    }
+
+    .arch-arrow{
+        text-align:center;
+
+        transform:
+            rotate(90deg);
+    }
+
+    .declaration{
+        padding:26px;
+    }
+
+    footer{
+        flex-direction:column;
+
+        gap:10px;
+
+        text-align:center;
+    }
+}
+
+</style>
+</head>
+
+
+<body>
+
+<div class="bg-grid"></div>
+
+<div class="glow one"></div>
+<div class="glow two"></div>
+
+
+<div class="container">
+
+
+<!-- =====================================================
+     NAVIGATION
+===================================================== -->
+
+<nav>
+
+    <div class="logo">
+        Harsh<span>.</span>
+    </div>
+
+    <div class="nav-status">
+
+        <span class="status-dot"></span>
+
+        Developer Portfolio
+
+    </div>
+
+</nav>
+
+
+
+<!-- =====================================================
+     HERO
+===================================================== -->
+
+<main class="hero">
+
+
+    <div class="hero-content">
+
+
+        <div class="hero-badge">
+
+            <b>⌘</b>
+
+            Independent Developer
+
+        </div>
+
+
+        <h1>
+
+            Hi, I'm
+
+            <span class="gradient-text">
+                Harsh Ganjir.
+            </span>
+
+        </h1>
+
+
+        <p class="hero-description">
+
+            I build
+            <strong>modern web applications,
+            automation systems and data-driven
+            digital solutions.</strong>
+
+            <br><br>
+
+            My focus is on turning ideas and real-world
+            problems into clean, functional and scalable
+            software.
+
+        </p>
+
+
+        <div class="actions">
+
+            <a
+                href="#projects"
+                class="btn btn-primary"
+            >
+                Explore My Projects
+                <span>↓</span>
+            </a>
+
+
+            <a
+                href="#technology"
+                class="btn btn-secondary"
+            >
+                Technology Stack
+            </a>
+
+        </div>
+
+
+    </div>
+
+
+
+    <!-- PROFILE IMAGE -->
+
+    <div class="profile-area">
+
+        <div class="profile-ring">
+
+            <!-- Replace profile.jpg with your image -->
+
+            <img
+                src="profile.jpg"
+                alt="Harsh Ganjir"
+                class="profile-image"
+            >
+
+        </div>
+
+    </div>
+
+
+</main>
+
+
+
+<!-- =====================================================
+     ABOUT
+===================================================== -->
+
+<section class="reveal">
+
+
+    <div class="section-label">
+        About Me
+    </div>
+
+
+    <h2 class="section-title">
+        Developer. Builder. Problem Solver.
+    </h2>
+
+
+    <p class="section-description">
+
+        I enjoy creating software that has a practical
+        purpose and can solve real problems.
+
+    </p>
+
+
+    <div class="about-grid">
+
+
+        <div class="about-card">
+
+            I am a self-driven developer with a strong interest
+            in web development, application architecture,
+            automation and database-driven systems.
+
+            <br><br>
+
+            I work across the complete development process —
+            from designing the interface and structuring data
+            to implementing application logic and deployment.
+
+            <br><br>
+
+            My development style focuses on
+            <strong>clean interfaces, practical architecture,
+            reliable data handling and continuous improvement.</strong>
+
+            <br><br>
+
+            I enjoy experimenting with technologies and
+            combining different tools when they provide the
+            right solution for a particular problem.
+
+        </div>
+
+
+
+        <div class="fact-list">
+
+
+            <div class="fact">
+
+                <div class="fact-label">
+                    Primary Focus
+                </div>
+
+                <div class="fact-value">
+                    Web Applications
+                </div>
+
+            </div>
+
+
+            <div class="fact">
+
+                <div class="fact-label">
+                    Database
+                </div>
+
+                <div class="fact-value">
+                    MongoDB Atlas
+                </div>
+
+            </div>
+
+
+            <div class="fact">
+
+                <div class="fact-label">
+                    Development
+                </div>
+
+                <div class="fact-value">
+                    HTML · CSS · JavaScript
+                </div>
+
+            </div>
+
+
+            <div class="fact">
+
+                <div class="fact-label">
+                    Automation
+                </div>
+
+                <div class="fact-value">
+                    Google Apps Script
+                </div>
+
+            </div>
+
+
+        </div>
+
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     TECHNOLOGY
+===================================================== -->
+
+<section
+    id="technology"
+    class="reveal"
+>
+
+
+    <div class="section-label">
+        Technology
+    </div>
+
+
+    <h2 class="section-title">
+        Technologies I Work With
+    </h2>
+
+
+    <p class="section-description">
+
+        My stack combines frontend development,
+        application logic, cloud databases and automation
+        to create complete digital systems.
+
+    </p>
+
+
+    <div class="stack">
+
+
+        <div class="stack-card">
+
+            <div class="stack-icon">
+                ◈
+            </div>
+
+            <h3>
+                HTML
+            </h3>
+
+            <p>
+                Semantic structure and responsive
+                application interfaces.
+            </p>
+
+        </div>
+
+
+        <div class="stack-card">
+
+            <div class="stack-icon">
+                ◇
+            </div>
+
+            <h3>
+                CSS
+            </h3>
+
+            <p>
+                Modern layouts, responsive design,
+                animations and visual systems.
+            </p>
+
+        </div>
+
+
+        <div class="stack-card">
+
+            <div class="stack-icon">
+                JS
+            </div>
+
+            <h3>
+                JavaScript
+            </h3>
+
+            <p>
+                Dynamic interfaces, application logic
+                and interactive web functionality.
+            </p>
+
+        </div>
+
+
+        <div class="stack-card">
+
+            <div class="stack-icon">
+                ◉
+            </div>
+
+            <h3>
+                MongoDB Atlas
+            </h3>
+
+            <p>
+                Cloud database infrastructure for
+                modern data-driven applications.
+            </p>
+
+        </div>
+
+
+        <div class="stack-card">
+
+            <div class="stack-icon">
+                ⌘
+            </div>
+
+            <h3>
+                Google Apps Script
+            </h3>
+
+            <p>
+                Automation, integrations and
+                server-side application workflows.
+            </p>
+
+        </div>
+
+
+        <div class="stack-card">
+
+            <div class="stack-icon">
+                λ
+            </div>
+
+            <h3>
+                Python
+            </h3>
+
+            <p>
+                Backend development, data processing
+                and application experimentation.
+            </p>
+
+        </div>
+
+
+        <div class="stack-card">
+
+            <div class="stack-icon">
+                ◫
+            </div>
+
+            <h3>
+                SQLite
+            </h3>
+
+            <p>
+                Lightweight database solutions for
+                local and application-level storage.
+            </p>
+
+        </div>
+
+
+        <div class="stack-card">
+
+            <div class="stack-icon">
+                ↗
+            </div>
+
+            <h3>
+                GitHub
+            </h3>
+
+            <p>
+                Source control, project development
+                and web deployment.
+            </p>
+
+        </div>
+
+
+    </div>
+
+
+
+    <!-- ARCHITECTURE -->
+
+    <div class="architecture">
+
+
+        <h3>
+            My Application Architecture
+        </h3>
+
+
+        <p>
+
+            I design applications by separating the interface,
+            application logic and data layer. For cloud-based
+            projects, MongoDB Atlas provides the database layer,
+            while application components communicate through
+            structured data flows and APIs.
+
+        </p>
+
+
+        <div class="arch-flow">
+
+
+            <div class="arch-box">
+                Frontend
+            </div>
+
+
+            <div class="arch-arrow">
+                →
+            </div>
+
+
+            <div class="arch-box">
+                Application Logic
+            </div>
+
+
+            <div class="arch-arrow">
+                →
+            </div>
+
+
+            <div class="arch-box">
+                API / Data Layer
+            </div>
+
+
+            <div class="arch-arrow">
+                →
+            </div>
+
+
+            <div class="arch-box">
+                MongoDB Atlas
+            </div>
+
+
+        </div>
+
+
+    </div>
+
+
+</section>
+
+
+
+<!-- =====================================================
+     PROJECTS
+===================================================== -->
+
+<section
+    id="projects"
+    class="reveal"
+>
+
+
+    <div class="section-label">
+        Selected Projects
+    </div>
+
+
+    <h2 class="section-title">
+        Things I've Built
+    </h2>
+
+
+    <p class="section-description">
+
+        A selection of projects representing my experience
+        with web applications, automation, databases and
+        practical software systems.
+
+    </p>
+
+
+    <div class="projects">
+
+
+        <!-- PROJECT 01 -->
+
+        <article class="project feature">
+
+
+            <div class="project-number">
+                PROJECT 01 · WEB APPLICATION
+            </div>
+
+
+            <h3>
+                Horizon
+            </h3>
+
+
+            <p>
+
+                A modern personal web workspace designed to
+                bring frequently used applications and websites
+                into one clean environment.
+
+                The system includes application cards,
+                password protection, theme customization,
+                LocalStorage preferences, a to-do system
+                and Progressive Web App support.
+
+            </p>
+
+
+            <div class="project-tags">
+
+                <span class="tag">
+                    HTML
+                </span>
+
+                <span class="tag">
+                    CSS
+                </span>
+
+                <span class="tag">
+                    JavaScript
+                </span>
+
+                <span class="tag">
+                    PWA
+                </span>
+
+                <span class="tag">
+                    LocalStorage
+                </span>
+
+            </div>
+
+
+        </article>
+
+
+
+        <!-- PROJECT 02 -->
+
+        <article class="project">
+
+
+            <div class="project-number">
+                PROJECT 02 · MANAGEMENT SYSTEM
+            </div>
+
+
+            <h3>
+                Cheque Management System
+            </h3>
+
+
+            <p>
+
+                A web-based management application for
+                maintaining cheque records, account information,
+                submissions and cheque status.
+
+                The system includes structured data entry,
+                search and filtering functionality.
+
+            </p>
+
+
+            <div class="project-tags">
+
+                <span class="tag">
+                    HTML
+                </span>
+
+                <span class="tag">
+                    JavaScript
+                </span>
+
+                <span class="tag">
+                    Python
+                </span>
+
+                <span class="tag">
+                    Flask
+                </span>
+
+                <span class="tag">
+                    SQLite
+                </span>
+
+            </div>
+
+
+        </article>
+
+
+
+        <!-- PROJECT 03 -->
+
+        <article class="project">
+
+
+            <div class="project-number">
+                PROJECT 03 · WEB SYSTEM
+            </div>
+
+
+            <h3>
+                H Book
+            </h3>
+
+
+            <p>
+
+                An employee management and salary system
+                developed as a web-based application.
+
+                It handles employee information, attendance,
+                salary calculations, deductions, advances and
+                salary-slip related workflows.
+
+            </p>
+
+
+            <div class="project-tags">
+
+                <span class="tag">
+                    HTML
+                </span>
+
+                <span class="tag">
+                    CSS
+                </span>
+
+                <span class="tag">
+                    JavaScript
+                </span>
+
+                <span class="tag">
+                    MongoDB
+                </span>
+
+                <span class="tag">
+                    Google Apps Script
+                </span>
+
+            </div>
+
+
+        </article>
+
+
+
+        <!-- PROJECT 04 -->
+
+        <article class="project">
+
+
+            <div class="project-number">
+                PROJECT 04 · WORKFLOW SYSTEM
+            </div>
+
+
+            <h3>
+                Gmail Ticket System
+            </h3>
+
+
+            <p>
+
+                A workflow application designed to organize
+                incoming support conversations into structured
+                open and closed ticket processes.
+
+                It includes ticket tracking, status management
+                and automated reply-draft workflows.
+
+            </p>
+
+
+            <div class="project-tags">
+
+                <span class="tag">
+                    JavaScript
+                </span>
+
+                <span class="tag">
+                    Google Apps Script
+                </span>
+
+                <span class="tag">
+                    Gmail API
+                </span>
+
+                <span class="tag">
+                    Automation
+                </span>
+
+            </div>
+
+
+        </article>
+
+
+
+        <!-- PROJECT 05 -->
+
+        <article class="project">
+
+
+            <div class="project-number">
+                PROJECT 05 · DATA PROCESSING
+            </div>
+
+
+            <h3>
+                Master Data Matching
+            </h3>
+
+
+            <p>
+
+                A data-processing project designed to identify
+                matching or similar records across different
+                datasets using comparison and fuzzy-matching
+                techniques.
+
+            </p>
+
+
+            <div class="project-tags">
+
+                <span class="tag">
+                    Data Processing
+                </span>
+
+                <span class="tag">
+                    Matching
+                </span>
+
+                <span class="tag">
+                    VBA
+                </span>
+
+                <span class="tag">
+                    C
+                </span>
+
+            </div>
+
+
+        </article>
+
+
+    </div>
+
+
+</section>
+
+
+
+<!-- =====================================================
+     DEVELOPMENT PROCESS
+===================================================== -->
+
+<section class="reveal">
+
+
+    <div class="section-label">
+        Development Approach
+    </div>
+
+
+    <h2 class="section-title">
+        From Idea to Application.
+    </h2>
+
+
+    <p class="section-description">
+
+        I approach development as a complete process,
+        from understanding the problem to building,
+        testing and improving the final application.
+
+    </p>
+
+
+    <div class="workflow">
+
+
+        <div class="workflow-card">
+
+            <div class="step">
+                01
+            </div>
+
+            <h3>
+                Understand
+            </h3>
+
+            <p>
+                Understand the problem, requirements
+                and actual workflow.
+            </p>
+
+        </div>
+
+
+        <div class="workflow-card">
+
+            <div class="step">
+                02
+            </div>
+
+            <h3>
+                Design
+            </h3>
+
+            <p>
+                Plan the interface, data structure
+                and application architecture.
+            </p>
+
+        </div>
+
+
+        <div class="workflow-card">
+
+            <div class="step">
+                03
+            </div>
+
+            <h3>
+                Build
+            </h3>
+
+            <p>
+                Develop the interface, logic,
+                database and integrations.
+            </p>
+
+        </div>
+
+
+        <div class="workflow-card">
+
+            <div class="step">
+                04
+            </div>
+
+            <h3>
+                Improve
+            </h3>
+
+            <p>
+                Test, refine and continuously improve
+                performance and usability.
+            </p>
+
+        </div>
+
+
+    </div>
+
+
+</section>
+
+
+
+<!-- =====================================================
+     DECLARATION
+===================================================== -->
+
+<section
+    id="declaration"
+    class="reveal"
+>
+
+
+    <div class="section-label">
+        Declaration
+    </div>
+
+
+    <div class="declaration">
+
+
+        <h3>
+            Developer Declaration
+        </h3>
+
+
+        <p>
+
+            This profile represents my personal development
+            journey, technical interests and projects that I
+            have worked on while learning and building practical
+            software solutions.
+
+            <br><br>
+
+            I believe development is a continuous learning
+            process. Technologies, architectures and best
+            practices continue to evolve, and I continuously
+            explore new approaches to improve my skills.
+
+            <br><br>
+
+            The projects presented here reflect my experience,
+            experimentation and interest in creating useful,
+            maintainable and user-focused digital applications.
+
+        </p>
+
+
+    </div>
+
+
+</section>
+
+
+
+<!-- =====================================================
+     FOOTER
+===================================================== -->
+
+<footer>
+
+    <div>
+
+        ©
+        <span id="year"></span>
+
+        <strong>
+            Harsh Ganjir
+        </strong>
+
+    </div>
+
+
+    <div>
+
+        Developer · Builder · Learner
+
+    </div>
+
+</footer>
+
+
+</div>
+
+
+
+<script>
+
+/* =========================================================
+   YEAR
+========================================================= */
+
+document.getElementById("year").textContent =
+    new Date().getFullYear();
+
+
+
+/* =========================================================
+   SCROLL REVEAL
+========================================================= */
+
+const observer =
+    new IntersectionObserver(
+
+        entries => {
+
+            entries.forEach(entry => {
+
+                if(entry.isIntersecting){
+
+                    entry.target.classList.add(
+                        "visible"
+                    );
+
+                    observer.unobserve(
+                        entry.target
+                    );
+                }
+
+            });
+
+        },
+
+        {
+            threshold:.12
+        }
+
+    );
+
+
+document
+    .querySelectorAll(".reveal")
+    .forEach(element => {
+
+        observer.observe(element);
+
+    });
+
+
+
+/* =========================================================
+   DESKTOP PROFILE PARALLAX
+========================================================= */
+
+document.addEventListener(
+    "mousemove",
+    event => {
+
+        if(window.innerWidth < 900){
+            return;
+        }
+
+        const x =
+            (
+                event.clientX /
+                window.innerWidth -
+                .5
+            ) * 10;
+
+        const y =
+            (
+                event.clientY /
+                window.innerHeight -
+                .5
+            ) * 10;
+
+        const profile =
+            document.querySelector(
+                ".profile-area"
+            );
+
+        if(profile){
+
+            profile.style.transform =
+                `translate(${x}px,${y}px)`;
+
+        }
+
+    }
+);
+
+</script>
+
+</body>
+</html>
+
