@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Medical Stores - RTTS Admin</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 p-8">
+    <div class="max-w-md mx-auto bg-white rounded-lg shadow-md p-6">
+        <h2 class="text-2xl font-bold mb-6 text-gray-800">Add New Medical Store</h2>
+        
+        <form id="addStoreForm" class="space-y-4">
+            <!-- Route / City Selection -->
+            <div>
+                <label class="block text-sm font-medium text-gray-700">Route / City</label>
+                <select id="routeSelect" class="mt-1 block w-full p-2 border border-gray-300 rounded-md" required>
+                    <option value="">Select a Route...</option>
+                    <option value="SADER_ROAD">SADER ROAD</option>
+                    <option value="BASTER_ROAD">BASTER ROAD</option>
+                    <option value="RAIPUR_ROAD">RAIPUR ROAD</option>
+                </select>
+            </div>
+
+            <!-- Medical Store Name -->
+            <div>
+                <label class="block text-sm font-medium text-gray-700">Medical Store Name</label>
+                <input type="text" id="storeName" class="mt-1 block w-full p-2 border border-gray-300 rounded-md" placeholder="e.g., DEEPAK MEDICAL" required>
+            </div>
+
+            <!-- Mobile -->
+            <div>
+                <label class="block text-sm font-medium text-gray-700">Mobile Number</label>
+                <input type="text" id="mobileNum" class="mt-1 block w-full p-2 border border-gray-300 rounded-md">
+            </div>
+
+            <!-- WhatsApp Link -->
+            <div>
+                <label class="block text-sm font-medium text-gray-700">WhatsApp Link</label>
+                <input type="url" id="whatsappLink" class="mt-1 block w-full p-2 border border-gray-300 rounded-md" placeholder="https://wa.me/...">
+            </div>
+
+            <button type="submit" class="w-full bg-blue-600 text-white font-bold py-2 px-4 rounded hover:bg-blue-700 transition">
+                Add Store to Database
+            </button>
+        </form>
+        <div id="statusMessage" class="mt-4 text-center font-medium hidden"></div>
+    </div>
+
+    <!-- Firebase SDK Setup -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import { getDatabase, ref, push, set } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
+
+        // 1. Your Firebase Configuration
+        const firebaseConfig = {
+            // Replace with your full config from the Firebase Console (Project Settings)
+            databaseURL: "https://h-wwe-295d0-default-rtdb.asia-southeast1.firebasedatabase.app"
+        };
+
+        // 2. Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const database = getDatabase(app);
+
+        // 3. Handle Form Submission
+        document.getElementById('addStoreForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const route = document.getElementById('routeSelect').value;
+            const storeName = document.getElementById('storeName').value;
+            const mobile = document.getElementById('mobileNum').value;
+            const whatsapp = document.getElementById('whatsappLink').value;
+            const statusMsg = document.getElementById('statusMessage');
+
+            try {
+                // Create a reference to the specific route in the database
+                const routeRef = ref(database, 'routes/' + route);
+                
+                // Generate a unique ID for the new store
+                const newStoreRef = push(routeRef);
+                
+                // Set the data payload
+                await set(newStoreRef, {
+                    medicalName: storeName,
+                    status: "",
+                    remark: "",
+                    mobile: mobile,
+                    whatsapp: whatsapp,
+                    chalan: 0,
+                    searchTags: storeName.toLowerCase()
+                });
+
+                // Reset form and show success
+                document.getElementById('addStoreForm').reset();
+                statusMsg.textContent = `${storeName} added successfully!`;
+                statusMsg.className = "mt-4 text-center font-medium text-green-600 block";
+                
+                setTimeout(() => statusMsg.classList.add('hidden'), 3000);
+
+            } catch (error) {
+                statusMsg.textContent = "Error adding store: " + error.message;
+                statusMsg.className = "mt-4 text-center font-medium text-red-600 block";
+            }
+        });
+    </script>
+</body>
+</html>
