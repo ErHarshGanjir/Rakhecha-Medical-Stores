@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Status Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/jspdf@latest/dist/jspdf.umd.min.js"></script>
+    <script src="https://unpkg.com/jspdf-autotable@latest/dist/jspdf.plugin.autotable.js"></script>
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f3f4f6; background-size: cover; background-position: center center; background-repeat: no-repeat; background-attachment: fixed; transition: background-image 0.5s ease-in-out; }
+        html { scroll-behavior: smooth; }
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #f1f1f1; }
+        ::-webkit-scrollbar-thumb { background: #888; border-radius: 4px; }
+        #snackbar { visibility: hidden; min-width: 250px; margin-left: -125px; background-color: #333; color: #fff; text-align: center; border-radius: 4px; padding: 16px; position: fixed; z-index: 1000; left: 50%; bottom: 30px; opacity: 0; transition: opacity 0.5s ease-in-out; }
+        #snackbar.show { visibility: visible; opacity: 1; }
+        #loader { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(255, 255, 255, 0.8); z-index: 9999; display: flex; justify-content: center; align-items: center; }
+        .keyboard-selected { outline: 3px solid #3b82f6; box-shadow: 0 0 15px rgba(59, 130, 246, 0.5); transform: scale(1.02); transition: all 0.1s; }
+    </style>
+</head>
+<body class="antialiased text-gray-800">
+
+    <div id="app" class="max-w-7xl mx-auto p-4 sm:p-6 lg:p-8">
+        <header class="mb-6 flex justify-between items-center">
+            <div class="flex items-center space-x-4">
+                <img src="https://i.ibb.co/HfxTSLb6/RMS-icon-1.png" alt="RMS Logo" class="h-16 w-auto"> 
+                <div>
+                    <h1 class="text-3xl font-bold text-gray-900">Order Status Dashboard</h1>
+                    <p id="sheet-name-display" class="text-lg text-gray-600 mt-1">Connecting to Firebase...</p>
+                </div>
+            </div>
+            <div class="flex items-center space-x-4">
+                <div class="bg-white p-2 rounded-lg shadow flex flex-col space-y-2">
+                    <button onclick="window.handleClearDay()" class="text-sm font-medium text-gray-600 hover:text-blue-600 px-3 py-1">Keep Ledger Lock & Shop Off</button>
+                    <button onclick="window.handleFilterPayment()" class="text-sm font-medium text-gray-600 hover:text-blue-600 px-3 py-1">Keep Ledger Lock</button>
+                    <button onclick="window.handleClearRemarks()" class="text-sm font-medium text-gray-600 hover:text-red-600 px-3 py-1">Clear All Remarks</button>
+                </div>
+                <div class="bg-white p-3 rounded-lg shadow text-right min-w-[180px]">
+                    <div id="current-time" class="text-xl font-bold text-gray-800"></div>
+                    <div id="current-date" class="text-sm text-gray-600"></div>
+                </div>
+            </div>
+        </header>
+
+        <nav id="sheet-tabs" class="mb-4 border-b border-gray-200">
+            <div class="flex space-x-4 text-sm font-medium text-center text-gray-500">
+                <!-- Routes act as sheets now -->
+            </div>
+        </nav>
+        
+        <div class="mb-6">
+            <input type="text" id="search-input" placeholder="Search by medical name..." class="w-full p-3 border rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500">
+        </div>
+
+        <div id="city-jump-links" class="mb-6 flex flex-wrap gap-2"></div>
+        <main id="content-area">
+            <div id="cities-container"></div>
+            <p id="no-results" class="hidden text-center p-8 text-gray-500">No matching records found.</p>
+        </main>
+    </div>
+
+    <div id="loader"><div class="text-xl font-bold text-blue-600 animate-pulse">Loading Data...</div></div>
+    <div id="snackbar"></div>
+    <button id="scrollTopBtn" class="hidden fixed bottom-5 right-5 z-50 p-3 bg-blue-600 text-white rounded-full shadow-lg" onclick="window.scrollTo({top:0, behavior:'smooth'})">↑</button>
+
+    <!-- Firebase Integration Module -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import { getDatabase, ref, onValue, update, get } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
+
+        const firebaseConfig = { databaseURL: "https://h-wwe-295d0-default-rtdb.asia-southeast1.firebasedatabase.app" };
+        const app = initializeApp(firebaseConfig);
+        const db = getDatabase(app);
+
+        window.state = { currentRoute: null, isLoading: true, allCitiesData: [] };
+        const STATUS_OPTIONS = ['Order received', 'Call not received', 'No order', 'Shop off', 'Ledger lock/payment', 'Delivered Ex counter', 'Call decline'];
+        
+        // Backgrounds & Time logic remain identical to Apps Script version
+        const bgImages = ['https://iili.io/KXDr811.th.jpg', 'https://img.freepik.com/free-photo/tokyo-skyline-with-rainbow-bridge-tokyo-tower-tokyo-japan_335224-23.jpg'];
+        document.body.style.backgroundImage = `url('${bgImages[Math.floor(Math.random() * bgImages.length)]}')`;
+
+        setInterval(() => {
+            const now = new Date();
+            document.getElementById('current-time').textContent = now.toLocaleTimeString('en-US');
+            document.getElementById('current-date').textContent = now.toLocaleDateString('en-US');
+        }, 1000);
+
+        function showSnackbar(msg) {
+            const sb = document.getElementById('snackbar');
+            sb.textContent = msg;
+            sb.classList.add('show');
+            setTimeout(() => sb.classList.remove('show'), 3000);
+        }
+
+        // --- FIREBASE DATA FETCHING ---
+        // Listens to the database in real-time, replacing the old 15-second Google Script poll
+        const routesRef = ref(db, 'routes');
+        onValue(routesRef, (snapshot) => {
+            const data = snapshot.val() || {};
+            const routes = Object.keys(data);
+            
+            if (routes.length === 0) {
+                document.getElementById('cities-container').innerHTML = '<p class="text-center p-8">No routes found. Please add stores via the Admin panel.</p>';
+                document.getElementById('loader').style.display = 'none';
+                return;
+            }
+
+            setupTabs(routes);
+            
+            if (!window.state.currentRoute) window.state.currentRoute = routes[0];
+            
+            // Format Firebase data to match legacy HTML generator
+            const formattedData = [{
+                cityName: window.state.currentRoute.replace(/_/g, ' '),
+                routeKey: window.state.currentRoute,
+                records: Object.entries(data[window.state.currentRoute] || {}).map(([id, store]) => ({
+                    id, ...store
+                }))
+            }];
+            
+            window.state.allCitiesData = formattedData;
+            renderCities(formattedData);
+            document.getElementById('loader').style.display = 'none';
+        });
+
+        function setupTabs(routes) {
+            const tabsContainer = document.querySelector('#sheet-tabs div');
+            tabsContainer.innerHTML = routes.map((route, idx) => 
+                `<button onclick="window.switchTab('${route}')" class="p-4 border-b-2 ${window.state.currentRoute === route ? 'text-blue-600 border-blue-600' : 'border-transparent'}">${route.replace(/_/g, ' ')}</button>`
+            ).join('');
+        }
+
+        window.switchTab = (route) => {
+            window.state.currentRoute = route;
+            document.getElementById('loader').style.display = 'flex';
+            // Data will auto-render via the onValue listener snapshot
+        };
+
+        // --- FIREBASE UPDATES ---
+        window.handleUpdate = async function(element) {
+            const id = element.dataset.id;
+            const route = element.dataset.route;
+            const field = element.dataset.field;
+            const value = element.value;
+
+            element.classList.add('bg-yellow-100');
+            const updates = {};
+            updates[`routes/${route}/${id}/${field}`] = value;
+
+            if (field === 'status' && value === 'Order received') {
+                const currentChalan = parseInt(document.getElementById(`chalan-${id}`).innerText) || 0;
+                updates[`routes/${route}/${id}/chalan`] = currentChalan + 1;
+            }
+
+            try {
+                await update(ref(db), updates);
+                element.classList.remove('bg-yellow-100');
+                element.classList.add('bg-green-100');
+                setTimeout(() => element.classList.remove('bg-green-100'), 1500);
+            } catch (err) {
+                showSnackbar("Error updating database.");
+                element.classList.remove('bg-yellow-100');
+                element.classList.add('bg-red-100');
+            }
+        };
+
+        window.handleChalanUpdate = async function(route, id, change) {
+            const displaySpan = document.getElementById(`chalan-${id}`);
+            const currentValue = parseInt(displaySpan.innerText) || 0;
+            const newValue = Math.max(0, currentValue + change);
+            
+            try {
+                const updates = {};
+                updates[`routes/${route}/${id}/chalan`] = newValue;
+                await update(ref(db), updates);
+            } catch(e) { showSnackbar("Error updating chalan"); }
+        };
+
+        // --- BULK OPERATIONS ---
+        window.handleClearDay = async function() {
+            if(!confirm("Reset day statuses?")) return;
+            bulkClearStatus(['Shop off', 'Ledger lock/payment']);
+        };
+
+        window.handleFilterPayment = async function() {
+            if(!confirm("Filter for payments?")) return;
+            bulkClearStatus(['Ledger lock/payment']);
+        };
+
+        async function bulkClearStatus(keepStatuses) {
+            document.getElementById('loader').style.display = 'flex';
+            const route = window.state.currentRoute;
+            const snapshot = await get(ref(db, `routes/${route}`));
+            const stores = snapshot.val() || {};
+            const updates = {};
+            
+            for(let id in stores) {
+                if(!keepStatuses.includes(stores[id].status)) {
+                    updates[`routes/${route}/${id}/status`] = "";
+                }
+            }
+            await update(ref(db), updates);
+            document.getElementById('loader').style.display = 'none';
+            showSnackbar("Statuses cleared!");
+        }
+
+        window.handleClearRemarks = async function() {
+            if(!confirm("Clear ALL remarks for this route?")) return;
+            const route = window.state.currentRoute;
+            const snapshot = await get(ref(db, `routes/${route}`));
+            const updates = {};
+            for(let id in snapshot.val()) { updates[`routes/${route}/${id}/remark`] = ""; }
+            await update(ref(db), updates);
+            showSnackbar("Remarks cleared!");
+        };
+
+        // --- PDF GENERATORS (Re-used exactly as before) ---
+        window.generateSheetACK = function() {
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF('p', 'mm', 'a4');
+            const records = window.state.allCitiesData[0].records.filter(r => (Number(r.chalan) || 0) > 0);
+            
+            doc.text(`${window.state.allCitiesData[0].cityName} - ACK Report`, 14, 22);
+            doc.autoTable({
+                head: [['Sr.', 'Medical Name', 'Box', 'Remark']],
+                body: records.map((r, i) => [i+1, r.medicalName, r.chalan, r.remark || '-']),
+                startY: 30
+            });
+            window.open(URL.createObjectURL(doc.output('blob')), '_blank');
+        };
+
+        function renderCities(data) {
+            const container = document.getElementById('cities-container');
+            container.innerHTML = '';
+            document.getElementById('city-jump-links').innerHTML = `<button onclick="window.generateSheetACK()" class="bg-green-500 text-white py-1 px-4 rounded-full text-sm">Generate ACK PDF</button>`;
+
+            data.forEach(city => {
+                const grid = city.records.map(record => `
+                <div class="bg-white p-3 rounded-lg shadow" id="card-${record.id}" data-search="${record.medicalName.toLowerCase()}">
+                    <div class="border-b pb-2 mb-2 font-semibold flex justify-between">
+                        ${record.medicalName}
+                        ${record.whatsapp ? `<a href="${record.whatsapp}" target="_blank" class="text-green-500">WA</a>` : ''}
+                    </div>
+                    <div class="space-y-2 text-sm">
+                        <select data-id="${record.id}" data-route="${city.routeKey}" data-field="status" onchange="window.handleUpdate(this)" class="w-full border rounded p-1">
+                            <option value="">Status...</option>
+                            ${STATUS_OPTIONS.map(opt => `<option value="${opt}" ${record.status===opt?'selected':''}>${opt}</option>`).join('')}
+                        </select>
+                        <input value="${record.remark || ''}" data-id="${record.id}" data-route="${city.routeKey}" data-field="remark" onblur="window.handleUpdate(this)" placeholder="Remark" class="w-full border rounded p-1">
+                        <div class="flex justify-between items-center mt-2">
+                            <span class="text-xs text-gray-500">Chalan:</span>
+                            <div>
+                                <button onclick="window.handleChalanUpdate('${city.routeKey}', '${record.id}', -1)" class="text-red-500 font-bold px-2">-</button>
+                                <span id="chalan-${record.id}" class="font-bold">${record.chalan || 0}</span>
+                                <button onclick="window.handleChalanUpdate('${city.routeKey}', '${record.id}', 1)" class="text-green-500 font-bold px-2">+</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>`).join('');
+                container.innerHTML += `<h2 class="text-2xl font-bold mt-6 mb-4">${city.cityName}</h2><div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">${grid}</div>`;
+            });
+        }
+        
+        // Search Logic
+        document.getElementById('search-input').addEventListener('input', (e) => {
+            const query = e.target.value.toLowerCase();
+            document.querySelectorAll('[id^="card-"]').forEach(card => {
+                card.style.display = card.dataset.search.includes(query) ? 'block' : 'none';
+            });
+        });
+    </script>
+</body>
+</html>
