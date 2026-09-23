@@ -3,104 +3,135 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Add Medical Stores - RTTS Admin</title>
+    <title>RTTS Admin Portal</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-gray-100 p-8">
-    <div class="max-w-md mx-auto bg-white rounded-lg shadow-md p-6">
-        <h2 class="text-2xl font-bold mb-6 text-gray-800">Add New Medical Store</h2>
+    <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-3 gap-8">
         
-        <form id="addStoreForm" class="space-y-4">
-            <!-- Route / City Selection -->
-            <div>
-                <label class="block text-sm font-medium text-gray-700">Route / City</label>
-                <select id="routeSelect" class="mt-1 block w-full p-2 border border-gray-300 rounded-md" required>
-                    <option value="">Select a Route...</option>
-                    <option value="SADER_ROAD">SADER ROAD</option>
-                    <option value="BASTER_ROAD">BASTER ROAD</option>
-                    <option value="RAIPUR_ROAD">RAIPUR ROAD</option>
-                </select>
-            </div>
+        <!-- Add Store Form -->
+        <div class="bg-white rounded-lg shadow-md p-6 h-fit">
+            <h2 class="text-2xl font-bold mb-6 text-gray-800">Add Medical Store</h2>
+            <form id="addStoreForm" class="space-y-4">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700">Tab / Region</label>
+                    <input type="text" id="tabName" placeholder="e.g., local, raipur NH" class="mt-1 block w-full p-2 border rounded-md" required>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700">Route / City</label>
+                    <input type="text" id="routeName" placeholder="e.g., SADER ROAD" class="mt-1 block w-full p-2 border rounded-md" required>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700">Medical Store Name</label>
+                    <input type="text" id="storeName" placeholder="e.g., DEEPAK MEDICAL" class="mt-1 block w-full p-2 border rounded-md" required>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700">Mobile Number</label>
+                    <input type="text" id="mobileNum" class="mt-1 block w-full p-2 border rounded-md">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700">WhatsApp Link</label>
+                    <input type="url" id="whatsappLink" class="mt-1 block w-full p-2 border rounded-md">
+                </div>
+                <button type="submit" class="w-full bg-blue-600 text-white font-bold py-2 px-4 rounded hover:bg-blue-700 transition">
+                    Add Store to Database
+                </button>
+            </form>
+            <div id="statusMessage" class="mt-4 text-center font-medium hidden"></div>
+        </div>
 
-            <!-- Medical Store Name -->
-            <div>
-                <label class="block text-sm font-medium text-gray-700">Medical Store Name</label>
-                <input type="text" id="storeName" class="mt-1 block w-full p-2 border border-gray-300 rounded-md" placeholder="e.g., DEEPAK MEDICAL" required>
+        <!-- Store Management Table -->
+        <div class="lg:col-span-2 bg-white rounded-lg shadow-md p-6">
+            <h2 class="text-2xl font-bold mb-6 text-gray-800">Manage Existing Stores</h2>
+            <div class="overflow-x-auto h-[600px] overflow-y-auto">
+                <table class="w-full text-left border-collapse">
+                    <thead class="sticky top-0 bg-gray-100 shadow-sm">
+                        <tr class="text-gray-600 text-sm">
+                            <th class="p-3 border-b">Tab</th>
+                            <th class="p-3 border-b">Route</th>
+                            <th class="p-3 border-b">Medical Store</th>
+                            <th class="p-3 border-b text-center">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="storeList" class="text-sm">
+                        <tr><td colspan="4" class="p-4 text-center">Loading...</td></tr>
+                    </tbody>
+                </table>
             </div>
-
-            <!-- Mobile -->
-            <div>
-                <label class="block text-sm font-medium text-gray-700">Mobile Number</label>
-                <input type="text" id="mobileNum" class="mt-1 block w-full p-2 border border-gray-300 rounded-md">
-            </div>
-
-            <!-- WhatsApp Link -->
-            <div>
-                <label class="block text-sm font-medium text-gray-700">WhatsApp Link</label>
-                <input type="url" id="whatsappLink" class="mt-1 block w-full p-2 border border-gray-300 rounded-md" placeholder="https://wa.me/...">
-            </div>
-
-            <button type="submit" class="w-full bg-blue-600 text-white font-bold py-2 px-4 rounded hover:bg-blue-700 transition">
-                Add Store to Database
-            </button>
-        </form>
-        <div id="statusMessage" class="mt-4 text-center font-medium hidden"></div>
+        </div>
     </div>
 
-    <!-- Firebase SDK Setup -->
+    <!-- Firebase Integration -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-        import { getDatabase, ref, push, set } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
+        import { getDatabase, ref, push, set, onValue, remove } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
 
-        // 1. Your Firebase Configuration
-        const firebaseConfig = {
-            // Replace with your full config from the Firebase Console (Project Settings)
-            databaseURL: "https://h-wwe-295d0-default-rtdb.asia-southeast1.firebasedatabase.app"
-        };
-
-        // 2. Initialize Firebase
+        const firebaseConfig = { databaseURL: "https://h-wwe-295d0-default-rtdb.asia-southeast1.firebasedatabase.app" };
         const app = initializeApp(firebaseConfig);
         const database = getDatabase(app);
 
-        // 3. Handle Form Submission
+        // Add Store Logic
         document.getElementById('addStoreForm').addEventListener('submit', async (e) => {
             e.preventDefault();
-            
-            const route = document.getElementById('routeSelect').value;
-            const storeName = document.getElementById('storeName').value;
-            const mobile = document.getElementById('mobileNum').value;
-            const whatsapp = document.getElementById('whatsappLink').value;
+            const tab = document.getElementById('tabName').value.trim();
+            const route = document.getElementById('routeName').value.trim();
+            const storeName = document.getElementById('storeName').value.trim();
             const statusMsg = document.getElementById('statusMessage');
 
             try {
-                // Create a reference to the specific route in the database
-                const routeRef = ref(database, 'routes/' + route);
-                
-                // Generate a unique ID for the new store
-                const newStoreRef = push(routeRef);
-                
-                // Set the data payload
-                await set(newStoreRef, {
+                const storeRef = push(ref(database, `tabs/${tab}/${route}`));
+                await set(storeRef, {
                     medicalName: storeName,
-                    status: "",
-                    remark: "",
-                    mobile: mobile,
-                    whatsapp: whatsapp,
-                    chalan: 0,
+                    status: "", remark: "", chalan: 0,
+                    mobile: document.getElementById('mobileNum').value,
+                    whatsapp: document.getElementById('whatsappLink').value,
                     searchTags: storeName.toLowerCase()
                 });
-
-                // Reset form and show success
-                document.getElementById('addStoreForm').reset();
-                statusMsg.textContent = `${storeName} added successfully!`;
+                document.getElementById('storeName').value = ''; 
+                statusMsg.textContent = `${storeName} added!`;
                 statusMsg.className = "mt-4 text-center font-medium text-green-600 block";
-                
                 setTimeout(() => statusMsg.classList.add('hidden'), 3000);
-
             } catch (error) {
-                statusMsg.textContent = "Error adding store: " + error.message;
+                statusMsg.textContent = "Error: " + error.message;
                 statusMsg.className = "mt-4 text-center font-medium text-red-600 block";
             }
+        });
+
+        // Load & Delete Store Logic
+        onValue(ref(database, 'tabs'), (snapshot) => {
+            const data = snapshot.val() || {};
+            const tbody = document.getElementById('storeList');
+            tbody.innerHTML = '';
+            
+            for (const [tabKey, tabData] of Object.entries(data)) {
+                for (const [routeKey, routeData] of Object.entries(tabData)) {
+                    for (const [storeId, storeInfo] of Object.entries(routeData)) {
+                        const tr = document.createElement('tr');
+                        tr.className = "border-b hover:bg-gray-50";
+                        tr.innerHTML = `
+                            <td class="p-3 font-medium text-gray-700">${tabKey}</td>
+                            <td class="p-3 text-gray-600">${routeKey}</td>
+                            <td class="p-3 font-bold text-gray-900">${storeInfo.medicalName}</td>
+                            <td class="p-3 text-center">
+                                <button class="delete-btn bg-red-100 text-red-600 hover:bg-red-500 hover:text-white px-3 py-1 rounded transition text-xs font-bold" 
+                                        data-path="tabs/${tabKey}/${routeKey}/${storeId}" 
+                                        data-name="${storeInfo.medicalName}">Delete</button>
+                            </td>
+                        `;
+                        tbody.appendChild(tr);
+                    }
+                }
+            }
+
+            document.querySelectorAll('.delete-btn').forEach(btn => {
+                btn.addEventListener('click', async (e) => {
+                    const path = e.target.getAttribute('data-path');
+                    const name = e.target.getAttribute('data-name');
+                    if(confirm(`Are you sure you want to delete ${name}?`)) {
+                        await remove(ref(database, path));
+                    }
+                });
+            });
         });
     </script>
 </body>
