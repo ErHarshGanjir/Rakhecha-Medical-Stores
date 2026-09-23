@@ -66,6 +66,7 @@
     <button id="scrollTopBtn" class="hidden fixed bottom-5 right-5 z-50 p-3 bg-blue-600 text-white rounded-full shadow-lg" onclick="window.scrollTo({top:0, behavior:'smooth'})">↑</button>
 
     <!-- Firebase Integration Module -->
+    <!-- Firebase Integration Module -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
         import { getDatabase, ref, onValue, update, get } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
@@ -74,13 +75,12 @@
         const app = initializeApp(firebaseConfig);
         const db = getDatabase(app);
 
-        window.state = { currentRoute: null, isLoading: true, allCitiesData: [] };
+        window.state = { currentTab: null, rawDbData: {}, allCitiesData: [] };
         const STATUS_OPTIONS = ['Order received', 'Call not received', 'No order', 'Shop off', 'Ledger lock/payment', 'Delivered Ex counter', 'Call decline'];
         
-        // Backgrounds & Time logic remain identical to Apps Script version
+        // Background and Time Initialization
         const bgImages = ['https://iili.io/KXDr811.th.jpg', 'https://img.freepik.com/free-photo/tokyo-skyline-with-rainbow-bridge-tokyo-tower-tokyo-japan_335224-23.jpg'];
         document.body.style.backgroundImage = `url('${bgImages[Math.floor(Math.random() * bgImages.length)]}')`;
-
         setInterval(() => {
             const now = new Date();
             document.getElementById('current-time').textContent = now.toLocaleTimeString('en-US');
@@ -89,93 +89,85 @@
 
         function showSnackbar(msg) {
             const sb = document.getElementById('snackbar');
-            sb.textContent = msg;
-            sb.classList.add('show');
+            sb.textContent = msg; sb.classList.add('show');
             setTimeout(() => sb.classList.remove('show'), 3000);
         }
 
         // --- FIREBASE DATA FETCHING ---
-        // Listens to the database in real-time, replacing the old 15-second Google Script poll
-        const routesRef = ref(db, 'routes');
-        onValue(routesRef, (snapshot) => {
+        onValue(ref(db, 'tabs'), (snapshot) => {
             const data = snapshot.val() || {};
-            const routes = Object.keys(data);
+            window.state.rawDbData = data;
+            const tabNames = Object.keys(data);
             
-            if (routes.length === 0) {
-                document.getElementById('cities-container').innerHTML = '<p class="text-center p-8">No routes found. Please add stores via the Admin panel.</p>';
+            if (tabNames.length === 0) {
+                document.getElementById('cities-container').innerHTML = '<p class="text-center p-8">No records found. Please use the Admin panel.</p>';
                 document.getElementById('loader').style.display = 'none';
                 return;
             }
 
-            setupTabs(routes);
+            if (!window.state.currentTab || !tabNames.includes(window.state.currentTab)) {
+                window.state.currentTab = tabNames[0];
+            }
             
-            if (!window.state.currentRoute) window.state.currentRoute = routes[0];
-            
-            // Format Firebase data to match legacy HTML generator
-            const formattedData = [{
-                cityName: window.state.currentRoute.replace(/_/g, ' '),
-                routeKey: window.state.currentRoute,
-                records: Object.entries(data[window.state.currentRoute] || {}).map(([id, store]) => ({
-                    id, ...store
-                }))
-            }];
-            
-            window.state.allCitiesData = formattedData;
-            renderCities(formattedData);
+            renderTabsNav(tabNames);
+            processAndRenderActiveTab();
             document.getElementById('loader').style.display = 'none';
         });
 
-        function setupTabs(routes) {
+        function renderTabsNav(tabs) {
             const tabsContainer = document.querySelector('#sheet-tabs div');
-            tabsContainer.innerHTML = routes.map((route, idx) => 
-                `<button onclick="window.switchTab('${route}')" class="p-4 border-b-2 ${window.state.currentRoute === route ? 'text-blue-600 border-blue-600' : 'border-transparent'}">${route.replace(/_/g, ' ')}</button>`
+            tabsContainer.innerHTML = tabs.map(tab => 
+                `<button onclick="window.switchTab('${tab}')" class="p-4 border-b-2 font-bold transition-colors ${window.state.currentTab === tab ? 'text-blue-600 border-blue-600' : 'border-transparent text-gray-500 hover:text-gray-800'}">${tab}</button>`
             ).join('');
         }
 
-        window.switchTab = (route) => {
-            window.state.currentRoute = route;
-            document.getElementById('loader').style.display = 'flex';
-            // Data will auto-render via the onValue listener snapshot
+        window.switchTab = (tab) => {
+            window.state.currentTab = tab;
+            renderTabsNav(Object.keys(window.state.rawDbData));
+            processAndRenderActiveTab();
         };
+
+        function processAndRenderActiveTab() {
+            const tabData = window.state.rawDbData[window.state.currentTab] || {};
+            const routes = Object.keys(tabData);
+            
+            const formattedData = routes.map(routeKey => ({
+                cityName: routeKey,
+                routeKey: routeKey,
+                records: Object.entries(tabData[routeKey] || {}).map(([id, store]) => ({ id, ...store }))
+            }));
+            
+            window.state.allCitiesData = formattedData;
+            renderRoutes(formattedData);
+        }
 
         // --- FIREBASE UPDATES ---
         window.handleUpdate = async function(element) {
-            const id = element.dataset.id;
-            const route = element.dataset.route;
-            const field = element.dataset.field;
+            const { id, route, field } = element.dataset;
             const value = element.value;
+            const tab = window.state.currentTab;
 
             element.classList.add('bg-yellow-100');
-            const updates = {};
-            updates[`routes/${route}/${id}/${field}`] = value;
+            const updates = { [`tabs/${tab}/${route}/${id}/${field}`]: value };
 
             if (field === 'status' && value === 'Order received') {
                 const currentChalan = parseInt(document.getElementById(`chalan-${id}`).innerText) || 0;
-                updates[`routes/${route}/${id}/chalan`] = currentChalan + 1;
+                updates[`tabs/${tab}/${route}/${id}/chalan`] = currentChalan + 1;
             }
 
             try {
                 await update(ref(db), updates);
-                element.classList.remove('bg-yellow-100');
-                element.classList.add('bg-green-100');
+                element.classList.replace('bg-yellow-100', 'bg-green-100');
                 setTimeout(() => element.classList.remove('bg-green-100'), 1500);
             } catch (err) {
-                showSnackbar("Error updating database.");
-                element.classList.remove('bg-yellow-100');
-                element.classList.add('bg-red-100');
+                element.classList.replace('bg-yellow-100', 'bg-red-100');
             }
         };
 
         window.handleChalanUpdate = async function(route, id, change) {
-            const displaySpan = document.getElementById(`chalan-${id}`);
-            const currentValue = parseInt(displaySpan.innerText) || 0;
-            const newValue = Math.max(0, currentValue + change);
-            
-            try {
-                const updates = {};
-                updates[`routes/${route}/${id}/chalan`] = newValue;
-                await update(ref(db), updates);
-            } catch(e) { showSnackbar("Error updating chalan"); }
+            const display = document.getElementById(`chalan-${id}`);
+            const newValue = Math.max(0, (parseInt(display.innerText) || 0) + change);
+            await update(ref(db), { [`tabs/${window.state.currentTab}/${route}/${id}/chalan`]: newValue });
         };
 
         // --- BULK OPERATIONS ---
@@ -183,7 +175,6 @@
             if(!confirm("Reset day statuses?")) return;
             bulkClearStatus(['Shop off', 'Ledger lock/payment']);
         };
-
         window.handleFilterPayment = async function() {
             if(!confirm("Filter for payments?")) return;
             bulkClearStatus(['Ledger lock/payment']);
@@ -191,79 +182,91 @@
 
         async function bulkClearStatus(keepStatuses) {
             document.getElementById('loader').style.display = 'flex';
-            const route = window.state.currentRoute;
-            const snapshot = await get(ref(db, `routes/${route}`));
-            const stores = snapshot.val() || {};
+            const tab = window.state.currentTab;
+            const tabData = window.state.rawDbData[tab] || {};
             const updates = {};
             
-            for(let id in stores) {
-                if(!keepStatuses.includes(stores[id].status)) {
-                    updates[`routes/${route}/${id}/status`] = "";
+            for(let route in tabData) {
+                for(let id in tabData[route]) {
+                    if(!keepStatuses.includes(tabData[route][id].status)) {
+                        updates[`tabs/${tab}/${route}/${id}/status`] = "";
+                    }
                 }
             }
             await update(ref(db), updates);
-            document.getElementById('loader').style.display = 'none';
             showSnackbar("Statuses cleared!");
         }
 
         window.handleClearRemarks = async function() {
-            if(!confirm("Clear ALL remarks for this route?")) return;
-            const route = window.state.currentRoute;
-            const snapshot = await get(ref(db, `routes/${route}`));
+            if(!confirm("Clear ALL remarks for this tab?")) return;
+            const tab = window.state.currentTab;
+            const tabData = window.state.rawDbData[tab] || {};
             const updates = {};
-            for(let id in snapshot.val()) { updates[`routes/${route}/${id}/remark`] = ""; }
+            for(let route in tabData) {
+                for(let id in tabData[route]) { updates[`tabs/${tab}/${route}/${id}/remark`] = ""; }
+            }
             await update(ref(db), updates);
             showSnackbar("Remarks cleared!");
         };
 
-        // --- PDF GENERATORS (Re-used exactly as before) ---
+        // --- RENDERING & PDF ---
         window.generateSheetACK = function() {
             const { jsPDF } = window.jspdf;
             const doc = new jsPDF('p', 'mm', 'a4');
-            const records = window.state.allCitiesData[0].records.filter(r => (Number(r.chalan) || 0) > 0);
             
-            doc.text(`${window.state.allCitiesData[0].cityName} - ACK Report`, 14, 22);
+            const allRecords = window.state.allCitiesData.flatMap(route => 
+                route.records.map(r => ({...r, cityName: route.cityName}))
+            ).filter(r => (Number(r.chalan) || 0) > 0);
+            
+            doc.text(`${window.state.currentTab} - Acknowledgment Report`, 14, 22);
             doc.autoTable({
-                head: [['Sr.', 'Medical Name', 'Box', 'Remark']],
-                body: records.map((r, i) => [i+1, r.medicalName, r.chalan, r.remark || '-']),
+                head: [['Sr.', 'Medical Name', 'Route', 'Box', 'Remark']],
+                body: allRecords.map((r, i) => [i+1, r.medicalName, r.cityName, r.chalan, r.remark || '-']),
                 startY: 30
             });
             window.open(URL.createObjectURL(doc.output('blob')), '_blank');
         };
 
-        function renderCities(data) {
+        function renderRoutes(data) {
             const container = document.getElementById('cities-container');
             container.innerHTML = '';
-            document.getElementById('city-jump-links').innerHTML = `<button onclick="window.generateSheetACK()" class="bg-green-500 text-white py-1 px-4 rounded-full text-sm">Generate ACK PDF</button>`;
+            
+            document.getElementById('city-jump-links').innerHTML = `
+                <button onclick="window.generateSheetACK()" class="bg-green-500 hover:bg-green-600 text-white font-medium py-1 px-4 rounded-full shadow transition mr-2">Generate ACK PDF</button>` + 
+                data.map(route => `<a href="#city-${route.cityName.replace(/\s+/g, '-')}" class="bg-white hover:bg-blue-500 hover:text-white text-gray-700 py-1 px-3 rounded-full border shadow-sm transition">${route.cityName}</a>`).join('');
 
-            data.forEach(city => {
-                const grid = city.records.map(record => `
-                <div class="bg-white p-3 rounded-lg shadow" id="card-${record.id}" data-search="${record.medicalName.toLowerCase()}">
-                    <div class="border-b pb-2 mb-2 font-semibold flex justify-between">
+            data.forEach(route => {
+                const grid = route.records.map(record => `
+                <div class="bg-white p-3 rounded-lg shadow border-t-4 border-blue-500" id="card-${record.id}" data-search="${record.searchTags}">
+                    <div class="border-b pb-2 mb-2 font-bold flex justify-between text-gray-800">
                         ${record.medicalName}
-                        ${record.whatsapp ? `<a href="${record.whatsapp}" target="_blank" class="text-green-500">WA</a>` : ''}
+                        ${record.whatsapp ? `<a href="${record.whatsapp}" target="_blank" class="text-green-500" title="WhatsApp">💬</a>` : ''}
                     </div>
                     <div class="space-y-2 text-sm">
-                        <select data-id="${record.id}" data-route="${city.routeKey}" data-field="status" onchange="window.handleUpdate(this)" class="w-full border rounded p-1">
+                        <select data-id="${record.id}" data-route="${route.routeKey}" data-field="status" onchange="window.handleUpdate(this)" class="w-full border rounded p-1 font-semibold text-gray-700">
                             <option value="">Status...</option>
                             ${STATUS_OPTIONS.map(opt => `<option value="${opt}" ${record.status===opt?'selected':''}>${opt}</option>`).join('')}
                         </select>
-                        <input value="${record.remark || ''}" data-id="${record.id}" data-route="${city.routeKey}" data-field="remark" onblur="window.handleUpdate(this)" placeholder="Remark" class="w-full border rounded p-1">
-                        <div class="flex justify-between items-center mt-2">
-                            <span class="text-xs text-gray-500">Chalan:</span>
-                            <div>
-                                <button onclick="window.handleChalanUpdate('${city.routeKey}', '${record.id}', -1)" class="text-red-500 font-bold px-2">-</button>
-                                <span id="chalan-${record.id}" class="font-bold">${record.chalan || 0}</span>
-                                <button onclick="window.handleChalanUpdate('${city.routeKey}', '${record.id}', 1)" class="text-green-500 font-bold px-2">+</button>
+                        <input value="${record.remark || ''}" data-id="${record.id}" data-route="${route.routeKey}" data-field="remark" onblur="window.handleUpdate(this)" placeholder="Remark" class="w-full border rounded p-1">
+                        <div class="flex justify-between items-center pt-2 border-t mt-2">
+                            <span class="text-xs font-bold text-gray-500">CHALAN</span>
+                            <div class="flex items-center space-x-3 bg-gray-100 rounded px-2">
+                                <button onclick="window.handleChalanUpdate('${route.routeKey}', '${record.id}', -1)" class="text-red-500 font-black text-lg hover:scale-110">-</button>
+                                <span id="chalan-${record.id}" class="font-bold text-lg w-4 text-center">${record.chalan || 0}</span>
+                                <button onclick="window.handleChalanUpdate('${route.routeKey}', '${record.id}', 1)" class="text-green-500 font-black text-lg hover:scale-110">+</button>
                             </div>
                         </div>
                     </div>
                 </div>`).join('');
-                container.innerHTML += `<h2 class="text-2xl font-bold mt-6 mb-4">${city.cityName}</h2><div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">${grid}</div>`;
+                
+                container.innerHTML += `
+                    <div id="city-${route.cityName.replace(/\s+/g, '-')}" class="mb-10 scroll-mt-4 pt-4">
+                        <h2 class="text-2xl font-bold mb-4 text-gray-800 border-b-2 border-gray-300 inline-block pr-4">${route.cityName}</h2>
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">${grid || '<p class="text-gray-500">No stores.</p>'}</div>
+                    </div>`;
             });
         }
         
-        // Search Logic
         document.getElementById('search-input').addEventListener('input', (e) => {
             const query = e.target.value.toLowerCase();
             document.querySelectorAll('[id^="card-"]').forEach(card => {
