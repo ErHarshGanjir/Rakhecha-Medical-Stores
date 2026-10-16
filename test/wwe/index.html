@@ -48,7 +48,6 @@
         h1, h2, h3 { color: var(--primary-navy); font-weight: 700; line-height: 1.3; }
         h1, h2 { font-family: 'Playfair Display', serif; }
 
-        /* Emoji Icon Styling */
         .emoji-icon { 
             font-size: 2rem; 
             margin-bottom: 16px; 
@@ -93,33 +92,18 @@
             visibility: hidden; 
             transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
         }
-        .toast.show { 
-            bottom: 40px; 
-            opacity: 1; 
-            visibility: visible; 
-        }
+        .toast.show { bottom: 40px; opacity: 1; visibility: visible; }
 
         /* --- Floating Action Buttons (FAB) --- */
         .floating-contact {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            z-index: 9999;
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
+            position: fixed; bottom: 30px; right: 30px; z-index: 9999;
+            display: flex; flex-direction: column; gap: 15px;
         }
         .float-btn {
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.25);
-            text-decoration: none;
-            font-size: 26px;
+            width: 60px; height: 60px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            color: white; box-shadow: 0 10px 25px rgba(0,0,0,0.25);
+            text-decoration: none; font-size: 26px;
             transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
         .float-btn:hover { transform: scale(1.15) translateY(-5px); color: white; }
@@ -128,16 +112,10 @@
 
         /* --- Navigation --- */
         nav {
-            background: var(--primary-navy);
-            height: 90px;
-            display: flex;
-            align-items: center;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            box-shadow: var(--shadow-md);
+            background: var(--primary-navy); height: 90px;
+            display: flex; align-items: center; position: sticky;
+            top: 0; z-index: 1000; box-shadow: var(--shadow-md);
         }
-
         .nav-flex { display: flex; justify-content: space-between; align-items: center; width: 100%; }
         .logo-area { display: flex; align-items: center; gap: 15px; text-decoration: none; }
         .logo-img { height: 50px; width: auto; object-fit: contain; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3)); }
@@ -145,43 +123,29 @@
         .logo-text span { color: var(--border-color); font-weight: 500; font-size: 0.85rem; display: block; font-family: 'Plus Jakarta Sans', sans-serif;}
         
         .nav-links { display: flex; align-items: center; gap: 32px; }
-        .nav-links a { 
-            text-decoration: none; color: #ffffff; 
-            font-weight: 600; font-size: 0.95rem; 
-            transition: color 0.2s ease;
-        }
+        .nav-links a { text-decoration: none; color: #ffffff; font-weight: 600; font-size: 0.95rem; transition: color 0.2s ease; }
         .nav-links a:hover { color: var(--accent-gold); }
-        
         .nav-cta {
-            background-color: var(--bg-light-blue);
-            color: var(--primary-navy) !important;
-            padding: 10px 24px;
-            border-radius: 50px;
-            font-weight: 800;
-            transition: all 0.3s ease;
+            background-color: var(--bg-light-blue); color: var(--primary-navy) !important;
+            padding: 10px 24px; border-radius: 50px; font-weight: 800; transition: all 0.3s ease;
         }
         .nav-cta:hover { background-color: #ffffff; transform: translateY(-2px); box-shadow: 0 4px 10px rgba(255,255,255,0.2); }
-
         .hamburger { display: none; font-size: 2rem; color: #ffffff; cursor: pointer; user-select: none; }
 
         /* --- Hero Section --- */
         .hero { 
             padding: 100px 0 120px; 
             background: linear-gradient(135deg, var(--bg-light-blue) 0%, var(--bg-main) 100%);
-            position: relative; 
-            border-bottom: 4px solid var(--primary-navy);
+            position: relative; border-bottom: 4px solid var(--primary-navy);
         }
         .hero-flex { display: flex; align-items: center; gap: 60px; flex-wrap: wrap; }
         .hero-content { flex: 1.2; min-width: 320px; }
         
         .badge {
             display: inline-flex; align-items: center; gap: 8px;
-            padding: 8px 20px; border-radius: 50px;
-            background: #ffffff;
+            padding: 8px 20px; border-radius: 50px; background: #ffffff;
             color: var(--primary-navy); font-weight: 700; font-size: 0.9rem;
-            margin-bottom: 24px;
-            border: 1px solid var(--border-color);
-            box-shadow: var(--shadow-sm);
+            margin-bottom: 24px; border: 1px solid var(--border-color); box-shadow: var(--shadow-sm);
         }
         
         .hero-content h1 { font-size: clamp(2.8rem, 5vw, 4.5rem); margin-bottom: 24px; line-height: 1.1; }
@@ -190,29 +154,19 @@
         .hero-btns { display: flex; gap: 16px; flex-wrap: wrap; }
         .btn-primary, .btn-secondary {
             display: inline-flex; align-items: center; justify-content: center;
-            padding: 16px 32px; border-radius: 8px;
-            font-weight: 700; font-size: 1.05rem; text-decoration: none;
+            padding: 16px 32px; border-radius: 8px; font-weight: 700; font-size: 1.05rem; text-decoration: none;
             transition: all 0.3s ease; cursor: pointer; border: none;
         }
-        .btn-primary {
-            background-color: var(--primary-navy); color: #ffffff;
-            box-shadow: var(--shadow-md);
-        }
+        .btn-primary { background-color: var(--primary-navy); color: #ffffff; box-shadow: var(--shadow-md); }
         .btn-primary:hover { background-color: var(--secondary-navy); box-shadow: var(--shadow-hover); transform: translateY(-3px); }
-        
-        .btn-secondary {
-            background-color: #ffffff; color: var(--primary-navy);
-            border: 2px solid var(--primary-navy);
-        }
+        .btn-secondary { background-color: #ffffff; color: var(--primary-navy); border: 2px solid var(--primary-navy); }
         .btn-secondary:hover { border-color: var(--primary-navy); background-color: var(--bg-light-blue); transform: translateY(-3px);}
 
         .hero-image { flex: 1; min-width: 350px; display: flex; justify-content: center; }
         /* Hero Image Updated: Stable, No Border */
         .hero-image img { 
-            width: 100%; max-width: 450px;
-            border-radius: 20px;
-            box-shadow: var(--shadow-md);
-            background: transparent;
+            width: 100%; max-width: 450px; border-radius: 20px;
+            box-shadow: var(--shadow-md); background: transparent;
         }
 
         /* --- Sections Layout --- */
@@ -225,45 +179,26 @@
         .section-header p { color: var(--text-muted); font-size: 1.15rem; font-weight: 500;}
 
         /* --- Cards Grid --- */
-        .grid-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 30px;
-        }
+        .grid-container { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 30px; }
         
         .card {
-            background: #ffffff;
-            border: 1px solid var(--border-color);
-            border-radius: 16px;
-            padding: 35px 30px;
-            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
-            box-shadow: var(--shadow-sm);
+            background: #ffffff; border: 1px solid var(--border-color); border-radius: 16px;
+            padding: 35px 30px; transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1); box-shadow: var(--shadow-sm);
         }
-        .card:hover {
-            transform: translateY(-8px);
-            box-shadow: var(--shadow-hover);
-            background-color: var(--bg-main);
-            border-color: var(--primary-navy);
-        }
+        .card:hover { transform: translateY(-8px); box-shadow: var(--shadow-hover); background-color: var(--bg-main); border-color: var(--primary-navy); }
         .card h3 { font-size: 1.25rem; margin-bottom: 12px; color: var(--primary-navy); }
         .card p { color: var(--text-muted); font-size: 1rem; line-height: 1.6; font-weight: 500;}
 
-        /* --- Process Flowchart --- */
-        .process-flow {
-            max-width: 800px;
-            margin: 0 auto;
-            position: relative;
-            padding-left: 40px;
-        }
+        /* --- Process Flowchart (Upgraded) --- */
+        .process-flow { max-width: 800px; margin: 0 auto; position: relative; padding-left: 40px; }
         .process-flow::before {
             content: ''; position: absolute; left: 20px; top: 0; bottom: 0;
-            width: 4px; background: var(--border-color); border-radius: 4px;
+            width: 4px; background: linear-gradient(to bottom, var(--primary-navy), var(--border-color)); border-radius: 4px;
         }
         .process-item {
             position: relative; background: #ffffff; padding: 25px 30px;
-            border-radius: 16px; box-shadow: var(--shadow-sm);
-            margin-bottom: 24px; border: 1px solid var(--border-color);
-            display: flex; align-items: center; gap: 20px;
+            border-radius: 16px; box-shadow: var(--shadow-sm); margin-bottom: 24px; 
+            border: 1px solid var(--border-color); display: flex; align-items: center; gap: 20px;
             transition: all 0.3s ease;
         }
         .process-item::before {
@@ -275,38 +210,52 @@
         .process-num { font-size: 2.2rem; font-weight: 800; color: var(--primary-navy); opacity: 0.15; font-family: 'Playfair Display', serif;}
         .process-item p { margin: 0; color: var(--text-dark); font-weight: 600; font-size: 1.1rem; }
 
-        /* --- Contact Section --- */
+        /* --- Contact Section (Upgraded Interactive Blocks) --- */
         .contact-wrapper {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 0;
-            background: #ffffff;
-            border-radius: 20px;
-            box-shadow: var(--shadow-md);
-            overflow: hidden;
-            border: 1px solid var(--border-color);
+            display: grid; grid-template-columns: 1fr 1fr; gap: 0;
+            background: #ffffff; border-radius: 20px; box-shadow: var(--shadow-md);
+            overflow: hidden; border: 1px solid var(--border-color);
         }
         
-        .contact-info { padding: 50px; background: var(--bg-card-blue); color: var(--primary-navy); display: flex; flex-direction: column; justify-content: center;}
-        .contact-info h3 { color: var(--primary-navy); font-size: 2rem; margin-bottom: 40px; }
+        .contact-info { padding: 50px; background: var(--bg-card-blue); display: flex; flex-direction: column; justify-content: center;}
+        .contact-info h3 { color: var(--primary-navy); font-size: 2rem; margin-bottom: 30px; }
         
-        .info-block { display: flex; gap: 16px; margin-bottom: 35px; align-items: flex-start; }
-        .info-block div h4 { color: var(--primary-navy); font-size: 1.1rem; margin-bottom: 8px; }
-        .info-block div p { color: var(--text-muted); margin: 0; font-size: 1rem; line-height: 1.5; font-weight: 500;}
+        .contact-action-card {
+            display: flex; align-items: center; gap: 20px; padding: 20px;
+            background: #ffffff; border-radius: 12px; text-decoration: none;
+            margin-bottom: 15px; box-shadow: var(--shadow-sm);
+            transition: all 0.3s ease; border: 1px solid var(--border-color);
+        }
+        .contact-action-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); border-color: var(--primary-navy); }
+        .contact-action-icon {
+            width: 50px; height: 50px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.5rem; color: #ffffff; flex-shrink: 0; box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+        .icon-map { background: #EA4335; } /* Google Maps Red */
+        .icon-phone { background: var(--primary-navy); }
+        .icon-wa { background: #25D366; }
+        .icon-mail { background: #EA4335; } /* Gmail Red */
+        
+        .contact-action-text h4 { color: var(--primary-navy); margin-bottom: 4px; font-size: 1.05rem; }
+        .contact-action-text p { color: var(--text-muted); font-size: 0.95rem; font-weight: 600; margin: 0; line-height: 1.4;}
 
+        /* --- Contact Form (Upgraded Embedded Icons) --- */
         .contact-form-container { padding: 50px; background: #ffffff;}
         .form-group { margin-bottom: 22px; }
-        .form-group label { display: block; font-weight: 700; font-size: 0.95rem; margin-bottom: 10px; color: var(--primary-navy); }
-        .form-group input, .form-group textarea {
-            width: 100%; padding: 16px;
-            background: #f8fafc;
-            border: 2px solid var(--border-color);
-            border-radius: 10px;
+        .form-group label { display: block; font-weight: 700; font-size: 0.95rem; margin-bottom: 8px; color: var(--primary-navy); }
+        
+        .input-with-icon { position: relative; display: flex; align-items: center; }
+        .input-with-icon i { position: absolute; left: 16px; color: var(--primary-navy); font-size: 1.1rem; opacity: 0.7;}
+        .input-with-icon input, .input-with-icon textarea {
+            width: 100%; padding: 16px 16px 16px 45px; /* Added left padding for icon */
+            background: #f8fafc; border: 2px solid var(--border-color); border-radius: 10px;
             color: var(--text-dark); font-family: 'Plus Jakarta Sans', sans-serif;
-            font-size: 1rem; font-weight: 500;
-            outline: none; transition: all 0.3s ease;
+            font-size: 1rem; font-weight: 500; outline: none; transition: all 0.3s ease;
         }
-        .form-group input:focus, .form-group textarea:focus { border-color: var(--primary-navy); background: #ffffff; box-shadow: 0 0 0 4px var(--bg-light-blue); }
+        .textarea-with-icon i { top: 18px; }
+        .input-with-icon input:focus, .input-with-icon textarea:focus { border-color: var(--primary-navy); background: #ffffff; box-shadow: 0 0 0 4px var(--bg-light-blue); }
+        .input-with-icon input:focus + i, .input-with-icon textarea:focus + i { opacity: 1; color: var(--accent-gold); }
         
         .btn-submit {
             width: 100%; background: var(--primary-navy); color: #ffffff;
@@ -317,17 +266,14 @@
         .btn-submit:hover { background: var(--secondary-navy); box-shadow: var(--shadow-hover); transform: translateY(-2px);}
 
         /* --- Full Width Map Section --- */
-        .full-width-map {
-            width: 100%; height: 500px; margin-top: 60px;
-            box-shadow: inset 0 10px 20px rgba(0,0,0,0.05);
-        }
+        .full-width-map { width: 100%; height: 500px; margin-top: 60px; box-shadow: inset 0 10px 20px rgba(0,0,0,0.05); }
         .full-width-map iframe { width: 100%; height: 100%; border: none; pointer-events: auto; }
 
         /* --- Footer --- */
         footer { background: var(--primary-navy); padding: 80px 0 40px; color: #ffffff; }
         .footer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 40px; margin-bottom: 50px; }
         
-        /* Footer Logo Updated: Removed inversion filter to ensure it displays correctly */
+        /* Footer Logo Updated */
         .footer-logo { height: 75px; margin-bottom: 20px; border-radius: 8px; }
         .footer-brand p { color: var(--border-color); font-size: 1rem; margin-top: 10px; font-weight: 500;}
         
@@ -343,9 +289,7 @@
         }
 
         /* --- Mobile Responsiveness --- */
-        @media (max-width: 900px) { 
-            .contact-wrapper { grid-template-columns: 1fr; } 
-        }
+        @media (max-width: 900px) { .contact-wrapper { grid-template-columns: 1fr; } }
         @media (max-width: 768px) {
             .hamburger { display: block; }
             .nav-links { 
@@ -364,12 +308,15 @@
             .process-flow::before { left: 0px; }
             .process-item::before { left: -28px; }
             .contact-info, .contact-form-container { padding: 30px;}
+            
+            .contact-action-card { padding: 15px; }
+            .contact-action-icon { width: 45px; height: 45px; font-size: 1.2rem; }
         }
     </style>
 </head>
 <body>
 
-    <!-- Toast Notification -->
+    <!-- Toast Notification (Now Slides up from Bottom) -->
     <div id="toast" class="toast">
         <i class="fas fa-check-circle"></i> 
         <span>Message successfully sent to Rakhecha Medical Stores!</span>
@@ -547,36 +494,37 @@
                 <h2>⚙️ Distribution Flow Process</h2>
             </div>
             
-            <div class="process-flow reveal">
-                <div class="process-item">
+            <div class="process-flow">
+                <!-- Staggered Entry Animations -->
+                <div class="process-item reveal" style="transition-delay: 0.1s;">
                     <div class="process-num">01</div>
                     <p>📞 Receiving orders over the phone, email, or RMS online order placement portal.</p>
                 </div>
-                <div class="process-item">
+                <div class="process-item reveal" style="transition-delay: 0.2s;">
                     <div class="process-num">02</div>
                     <p>🧾 Billing generation for the placed order.</p>
                 </div>
-                <div class="process-item">
+                <div class="process-item reveal" style="transition-delay: 0.3s;">
                     <div class="process-num">03</div>
                     <p>🛒 Picking precise products accurately from stock.</p>
                 </div>
-                <div class="process-item">
+                <div class="process-item reveal" style="transition-delay: 0.4s;">
                     <div class="process-num">04</div>
                     <p>🔍 Strict verification of physical goods against the bill.</p>
                 </div>
-                <div class="process-item">
+                <div class="process-item reveal" style="transition-delay: 0.5s;">
                     <div class="process-num">05</div>
                     <p>📦 Safe packaging protocols to protect goods.</p>
                 </div>
-                <div class="process-item">
+                <div class="process-item reveal" style="transition-delay: 0.6s;">
                     <div class="process-num">06</div>
                     <p>❄️ Thermal packaging applied for cold chain products (if required).</p>
                 </div>
-                <div class="process-item">
+                <div class="process-item reveal" style="transition-delay: 0.7s;">
                     <div class="process-num">07</div>
                     <p>🏁 Ready for shipment (pickup from the RMS counter is also available).</p>
                 </div>
-                <div class="process-item">
+                <div class="process-item reveal" style="transition-delay: 0.8s;">
                     <div class="process-num">08</div>
                     <p>🚚 Safe, protected, and on-time delivery by an RMS executive.</p>
                 </div>
@@ -594,52 +542,79 @@
             <div class="contact-info">
                 <h3>Rakhecha Medical Stores 🏥</h3>
                 
-                <div class="info-block">
-                    <div>
-                        <h4>📍 Corporate Address</h4>
+                <!-- Fully Clickable Contact Cards with Brand Icons -->
+                <a href="https://www.google.com/maps/search/Rakhecha+Medical+Stores+Dhamtari" target="_blank" class="contact-action-card">
+                    <div class="contact-action-icon icon-map"><i class="fas fa-map-marker-alt"></i></div>
+                    <div class="contact-action-text">
+                        <h4>Corporate Address</h4>
                         <p>In front of Mahawer Dharamshala, back side of IDBI Bank, Sihava Chowk, Dhamtari</p>
                     </div>
-                </div>
-                
-                <div class="info-block">
-                    <div>
-                        <h4>📞 Direct Contact</h4>
-                        <p>Call: 7489574895<br>WhatsApp: 7489574895</p>
+                </a>
+
+                <a href="tel:7489574895" class="contact-action-card">
+                    <div class="contact-action-icon icon-phone"><i class="fas fa-phone-alt"></i></div>
+                    <div class="contact-action-text">
+                        <h4>Direct Call</h4>
+                        <p>+91 74895 74895</p>
                     </div>
-                </div>
-                
-                <div class="info-block">
-                    <div>
-                        <h4>📧 Official Mail ID</h4>
+                </a>
+
+                <a href="https://wa.me/917489574895" target="_blank" class="contact-action-card">
+                    <div class="contact-action-icon icon-wa"><i class="fab fa-whatsapp"></i></div>
+                    <div class="contact-action-text">
+                        <h4>WhatsApp Support</h4>
+                        <p>+91 74895 74895</p>
+                    </div>
+                </a>
+
+                <a href="mailto:rakhechamedical@gmail.com" class="contact-action-card">
+                    <div class="contact-action-icon icon-mail"><i class="fab fa-google"></i></div>
+                    <div class="contact-action-text">
+                        <h4>Official Gmail</h4>
                         <p>rakhechamedical@gmail.com</p>
                     </div>
-                </div>
+                </a>
             </div>
             
             <div class="contact-form-container">
                 <h4 style="color: var(--primary-navy); margin-bottom: 25px; font-size: 1.3rem;">📝 Send an Inquiry</h4>
                 
-                <!-- Google API Form -->
+                <!-- Google API Form with Embedded Icons -->
                 <form id="reachOutForm" class="contact-form">
                     <div class="form-group">
-                        <label>👤 Full Name</label>
-                        <input type="text" id="name" placeholder="Enter your full name" required>
+                        <label>Full Name</label>
+                        <div class="input-with-icon">
+                            <i class="fas fa-user"></i>
+                            <input type="text" id="name" placeholder="Enter your full name" required>
+                        </div>
                     </div>
                     <div class="form-group">
-                        <label>🏙️ City / Location</label>
-                        <input type="text" id="city" placeholder="Enter your city" required>
+                        <label>City / Location</label>
+                        <div class="input-with-icon">
+                            <i class="fas fa-city"></i>
+                            <input type="text" id="city" placeholder="Enter your city" required>
+                        </div>
                     </div>
                     <div class="form-group">
-                        <label>📱 Mobile Number</label>
-                        <input type="tel" id="mobile" placeholder="Enter mobile number" required>
+                        <label>Mobile Number</label>
+                        <div class="input-with-icon">
+                            <i class="fas fa-mobile-alt"></i>
+                            <input type="tel" id="mobile" placeholder="Enter mobile number" required>
+                        </div>
                     </div>
                     <div class="form-group">
-                        <label>✉️ Email Address</label>
-                        <input type="email" id="email" placeholder="Enter email address" required>
+                        <label>Email Address</label>
+                        <div class="input-with-icon">
+                            <i class="fas fa-envelope"></i>
+                            <input type="email" id="email" placeholder="Enter email address" required>
+                        </div>
                     </div>
                     <div class="form-group">
-                        <label>💬 Your Message</label>
-                        <textarea id="message" rows="4" placeholder="How can we assist you today?" required></textarea>
+                        <label>Your Message</label>
+                        <div class="input-with-icon textarea-with-icon">
+                            <i class="fas fa-comment-dots"></i>
+                            <textarea id="message" rows="4" placeholder="How can we assist you today?" required></textarea>
+                        </div>
                     </div>
                     <button type="submit" class="btn-submit">🚀 Send Message Instantly</button>
                 </form>
@@ -692,7 +667,7 @@
 
     <!-- INTERACTIVE SCRIPTS -->
     <script>
-        // 1. Scroll Reveal Animations
+        // 1. Scroll Reveal Animations (Handles Staggered Effects too)
         document.addEventListener("DOMContentLoaded", function() {
             const observerOptions = {
                 threshold: 0.1, 
@@ -728,7 +703,7 @@
             });
         });
 
-        // 3. API Logic & Toast Notification (From Reference Code)
+        // 3. API Logic & Bottom Toast Notification
         const API_URL = "https://script.google.com/macros/s/AKfycbwj8f9I1GW-RwwAz59Bz6pkYTfmIf-ApYEKVNsoHj4R6RnflaKRKg0cZLN5kyCPTH1q/exec";
 
         function showToast() {
