@@ -21,7 +21,7 @@
             --text-dark: #0f172a;
             --text-muted: #475569;
             --border-color: #dbeafe;
-        
+            
             --shadow-sm: 0 4px 6px rgba(11, 36, 71, 0.04);
             --shadow-md: 0 10px 20px rgba(11, 36, 71, 0.08);
             --shadow-hover: 0 15px 30px rgba(11, 36, 71, 0.12);
@@ -44,6 +44,8 @@
             display: flex;
             flex-direction: column;
             min-height: 100vh;
+            /* Added padding to offset the fixed header */
+            padding-top: 90px;
         }
 
         .container {
@@ -108,10 +110,11 @@
         .float-phone { background: var(--primary-navy); border: 2px solid #ffffff; }
 
         /* --- Navigation --- */
+        /* Changed to fixed so it never hides on scroll */
         nav {
             background: var(--primary-navy); height: 90px;
-            display: flex; align-items: center; position: sticky;
-            top: 0; z-index: 1000; box-shadow: var(--shadow-md);
+            display: flex; align-items: center; position: fixed;
+            top: 0; left: 0; width: 100%; z-index: 1000; box-shadow: var(--shadow-md);
         }
         .nav-flex { display: flex; justify-content: space-between; align-items: center; width: 100%; }
         .logo-area { display: flex; align-items: center; gap: 15px; text-decoration: none; cursor: pointer; }
@@ -132,10 +135,10 @@
         /* --- MAIN CONTENT WRAPPER --- */
         #main-view { flex: 1; }
 
-        /* --- Hero Section (Updated Background Image Opacity) --- */
+        /* --- Hero Section --- */
         .hero { 
-            padding: 120px 0 140px; 
-            /* Directional gradient: opaque on the left for text readability, highly transparent on the right for image visibility */
+            padding: 100px 0 140px; 
+            /* Directional gradient */
             background: linear-gradient(90deg, rgba(244, 249, 255, 0.95) 0%, rgba(244, 249, 255, 0.7) 40%, rgba(255, 255, 255, 0.2) 100%), url('https://imgh.in/host/3i11sw');
             background-size: cover;
             background-position: center;
@@ -323,7 +326,7 @@
             .nav-links a { margin: 15px 0; font-size: 1.1rem; }
             .nav-cta { text-align: center; width: 100%; margin-top: 10px;}
 
-            /* Adjusted Hero Gradient for Mobile to ensure readability */
+            /* Adjusted Hero Gradient for Mobile */
             .hero {
                 background: linear-gradient(180deg, rgba(244, 249, 255, 0.95) 0%, rgba(255, 255, 255, 0.8) 100%), url('https://imgh.in/host/3i11sw');
                 background-size: cover; background-position: center;
@@ -375,6 +378,8 @@
             <div class="hamburger" id="mobile-menu-btn">☰</div>
             
             <div class="nav-links" id="nav-menu">
+                <!-- Added Home Button here -->
+                <a onclick="showMainView('#home')">Home</a>
                 <a onclick="showMainView('#about')">About</a>
                 <a onclick="showMainView('#advantages')">Advantages</a>
                 <a onclick="showMainView('#services')">Services</a>
@@ -388,7 +393,8 @@
          MAIN PAGE VIEW 
          ========================================== -->
     <div id="main-view">
-        <header class="hero">
+        <!-- Added id="home" to match the Home nav link -->
+        <header class="hero" id="home">
             <div class="container hero-flex">
                 <div class="hero-content reveal">
                     <div class="badge">🏆 Trusted Since 1990</div>
@@ -831,7 +837,7 @@
             if (scrollToId) {
                 const element = document.querySelector(scrollToId);
                 if (element) {
-                    const y = element.getBoundingClientRect().top + window.scrollY - 90; // Adjust for sticky nav
+                    const y = element.getBoundingClientRect().top + window.scrollY - 90; // Adjust for fixed nav
                     window.scrollTo({ top: y, behavior: 'smooth' });
                 }
             } else {
