@@ -262,25 +262,23 @@
         .full-width-map { width: 100%; height: 500px; margin-top: 60px; box-shadow: inset 0 10px 20px rgba(0,0,0,0.05); }
         .full-width-map iframe { width: 100%; height: 100%; border: none; pointer-events: auto; }
 
-        /* --- WIP MODAL VIEW (SPA Logic) --- */
-        #modal-view {
-            display: none;
-            flex: 1;
-            padding: 80px 24px;
+        /* --- SEPARATE MODAL VIEWS (SPA Logic) --- */
+        .modal-view-section {
+            display: none; flex: 1; padding: 80px 24px;
             background-color: var(--bg-light-blue);
             animation: fadeIn 0.4s ease forwards;
         }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
         
         .wip-container {
-            max-width: 600px; margin: 0 auto;
+            max-width: 700px; margin: 0 auto;
             background: #ffffff; padding: 60px 40px;
             border-radius: 20px; box-shadow: var(--shadow-md);
-            text-align: center; border: 2px dashed var(--border-color);
+            text-align: center; border: 2px solid var(--primary-navy);
         }
-        .wip-container i { font-size: 4rem; color: var(--accent-gold); margin-bottom: 25px; }
+        .wip-container i.main-icon { font-size: 4rem; color: var(--accent-gold); margin-bottom: 25px; }
         .wip-container h2 { font-size: 2.2rem; margin-bottom: 15px; color: var(--primary-navy); }
-        .wip-container p { color: var(--text-muted); font-size: 1.1rem; margin-bottom: 40px; font-weight: 500; }
+        .wip-container p.subtitle { color: var(--text-muted); font-size: 1.1rem; margin-bottom: 40px; font-weight: 500; }
         
         /* --- Footer --- */
         footer { background: var(--primary-navy); padding: 80px 0 40px; color: #ffffff; margin-top: auto; }
@@ -292,9 +290,11 @@
         .footer-links-col h4 { color: #ffffff; margin-bottom: 25px; font-size: 1.2rem; }
         .footer-links-col ul { list-style: none; }
         .footer-links-col ul li { margin-bottom: 14px; }
+        /* Notice standard emojis inside the span to separate them visually */
         .footer-links-col ul a { color: var(--border-color); text-decoration: none; font-size: 1rem; transition: color 0.2s; cursor: pointer; font-weight: 500;}
-        .footer-links-col ul a:hover { color: var(--accent-gold); text-decoration: underline; }
-        
+        .footer-links-col ul a:hover { color: var(--accent-gold); }
+        .footer-links-col ul a span.icon { margin-right: 8px; }
+
         .footer-bottom { 
             padding-top: 30px; border-top: 1px solid rgba(255,255,255,0.1); 
             text-align: center; color: var(--border-color); font-size: 0.95rem; font-weight: 500;
@@ -349,7 +349,6 @@
     <!-- Static Navigation Header -->
     <nav id="navbar">
         <div class="container nav-flex">
-            <!-- Clicking the logo safely returns to the main view -->
             <a onclick="showMainView()" class="logo-area">
                 <img src="https://i.ibb.co/HfxTSLb6/RMS-icon-1.png" alt="RMS Logo" class="logo-img">
                 <div class="logo-text">
@@ -359,7 +358,6 @@
             
             <div class="hamburger" id="mobile-menu-btn">☰</div>
             
-            <!-- Clicking any nav link safely returns to the main view -->
             <div class="nav-links" id="nav-menu">
                 <a onclick="showMainView('#about')">About</a>
                 <a onclick="showMainView('#advantages')">Advantages</a>
@@ -374,7 +372,6 @@
          MAIN PAGE VIEW 
          ========================================== -->
     <div id="main-view">
-        <!-- Hero Section -->
         <header class="hero">
             <div class="container hero-flex">
                 <div class="hero-content reveal">
@@ -392,7 +389,6 @@
             </div>
         </header>
 
-        <!-- About Section -->
         <section id="about" class="section container">
             <div class="section-header reveal">
                 <h2>🏥 About Rakhecha Medical Stores</h2>
@@ -400,7 +396,6 @@
             </div>
         </section>
 
-        <!-- Advantages Section -->
         <section id="advantages" class="section bg-light">
             <div class="container">
                 <div class="section-header reveal">
@@ -452,7 +447,6 @@
             </div>
         </section>
 
-        <!-- Services Section -->
         <section id="services" class="section container">
             <div class="section-header reveal">
                 <h2>💼 Our Services</h2>
@@ -507,7 +501,6 @@
             </div>
         </section>
 
-        <!-- Process Section -->
         <section id="process" class="section bg-light">
             <div class="container">
                 <div class="section-header reveal">
@@ -551,7 +544,6 @@
             </div>
         </section>
 
-        <!-- Contact Section -->
         <section id="contact" class="section container">
             <div class="section-header reveal">
                 <h2>📬 Reach Out To Us</h2>
@@ -649,18 +641,81 @@
          ========================================== -->
 
     <!-- ==========================================
-         SPA MODAL VIEW (Work In Progress)
+         SEPARATE MODAL VIEWS
          ========================================== -->
-    <div id="modal-view">
+    
+    <!-- Modal: Operating Licence -->
+    <div id="modal-licence" class="modal-view-section">
         <div class="wip-container">
-            <i class="fas fa-laptop-code"></i>
-            <h2 id="modal-title">Development Mode</h2>
-            <p>We are currently building this section out. It will be available in the next deployment cycle.</p>
+            <i class="fas fa-file-signature main-icon"></i>
+            <h2>Operating Licence</h2>
+            <p class="subtitle">Detailed licensing information is currently being structured. It will be available in the next deployment cycle.</p>
             <button onclick="showMainView()" class="btn-primary" style="margin-top: 10px;">⬅ Return to Home</button>
         </div>
     </div>
+
+    <!-- Modal: Company Declaration -->
+    <div id="modal-declaration" class="modal-view-section">
+        <div class="wip-container">
+            <i class="fas fa-handshake main-icon"></i>
+            <h2>Company Declaration</h2>
+            <p class="subtitle">Company policies and declarations are currently being drafted for this section.</p>
+            <button onclick="showMainView()" class="btn-primary" style="margin-top: 10px;">⬅ Return to Home</button>
+        </div>
+    </div>
+
+    <!-- Modal: Expiry & Breakage Claim Process -->
+    <div id="modal-expiry" class="modal-view-section">
+        <div class="wip-container">
+            <i class="fas fa-box-open main-icon"></i>
+            <h2>Expiry & Breakage Claims</h2>
+            <p class="subtitle">The step-by-step claims guide is under construction and will be deployed soon.</p>
+            <button onclick="showMainView()" class="btn-primary" style="margin-top: 10px;">⬅ Return to Home</button>
+        </div>
+    </div>
+
+    <!-- Modal: Partnered Pharmaceutical Companies -->
+    <div id="modal-companies" class="modal-view-section">
+        <div class="wip-container">
+            <i class="fas fa-industry main-icon"></i>
+            <h2>Partnered Companies</h2>
+            <p class="subtitle">Our complete vendor and manufacturer portfolio is being compiled for this page.</p>
+            <button onclick="showMainView()" class="btn-primary" style="margin-top: 10px;">⬅ Return to Home</button>
+        </div>
+    </div>
+
+    <!-- Modal: Newly Added Products -->
+    <div id="modal-new-products" class="modal-view-section">
+        <div class="wip-container">
+            <i class="fas fa-tags main-icon"></i>
+            <h2>Newly Added Products</h2>
+            <p class="subtitle">The live feed for new inventory arrivals is currently in development.</p>
+            <button onclick="showMainView()" class="btn-primary" style="margin-top: 10px;">⬅ Return to Home</button>
+        </div>
+    </div>
+
+    <!-- Modal: RMS Facility Gallery -->
+    <div id="modal-gallery" class="modal-view-section">
+        <div class="wip-container">
+            <i class="fas fa-images main-icon"></i>
+            <h2>Facility Gallery</h2>
+            <p class="subtitle">High-resolution images of our storage and dispatch facilities are being prepared.</p>
+            <button onclick="showMainView()" class="btn-primary" style="margin-top: 10px;">⬅ Return to Home</button>
+        </div>
+    </div>
+
+    <!-- Modal: Detailed Process Overview -->
+    <div id="modal-process-details" class="modal-view-section">
+        <div class="wip-container">
+            <i class="fas fa-cogs main-icon"></i>
+            <h2>Detailed Process Overview</h2>
+            <p class="subtitle">Extended documentation on our logistics process will be published here.</p>
+            <button onclick="showMainView()" class="btn-primary" style="margin-top: 10px;">⬅ Return to Home</button>
+        </div>
+    </div>
+
     <!-- ==========================================
-         END SPA MODAL VIEW
+         END SEPARATE MODAL VIEWS
          ========================================== -->
 
     <!-- Static Footer -->
@@ -674,25 +729,25 @@
                 </div>
                 
                 <div class="footer-links-col">
-                    <h4>⚖️ Legal & Information</h4>
+                    <h4><span class="icon">⚖️</span> Legal & Information</h4>
                     <ul>
-                        <li><a onclick="openModalView('📄 Operating Licence')">Operating Licence</a></li>
-                        <li><a onclick="openModalView('📜 Company Declaration')">Company Declaration</a></li>
-                        <li><a onclick="openModalView('🔄 Expiry & Breakage Claim Process')">Expiry & Breakage Claim Process</a></li>
-                        <li><a onclick="showMainView('#contact')">📬 Contact: Get in Touch</a></li>
+                        <li><a onclick="openModal('modal-licence')"><span class="icon">📄</span> Operating Licence</a></li>
+                        <li><a onclick="openModal('modal-declaration')"><span class="icon">📜</span> Company Declaration</a></li>
+                        <li><a onclick="openModal('modal-expiry')"><span class="icon">🔄</span> Expiry & Breakage Claim Process</a></li>
+                        <li><a onclick="showMainView('#contact')"><span class="icon">📬</span> Contact: Get in Touch</a></li>
                     </ul>
                 </div>
                 
                 <div class="footer-links-col">
-                    <h4>🔗 Resources & Links</h4>
+                    <h4><span class="icon">🔗</span> Resources & Links</h4>
                     <ul>
-                        <li><a onclick="openModalView('🏭 Partnered Pharmaceutical Companies')">Partnered Pharmaceutical Companies</a></li>
-                        <li><a onclick="openModalView('✨ Newly Added Products')">Newly Added Products</a></li>
-                        <li><a onclick="openModalView('🖼️ RMS Facility Gallery')">RMS Facility Gallery</a></li>
-                        <li><a onclick="openModalView('⚙️ Detailed Process Details')">Detailed Process Overview</a></li>
-                        <!-- External Links remain standard anchors opening in a new tab -->
-                        <li><a href="https://rakhechamedical.in/order/" target="_blank">🛒 Online Order Portal</a></li>
-                        <li><a href="https://drive.google.com/file/d/1Kg3TzJdnlHn2B4MQx4DpjVfLof-BAbNW/view" target="_blank">📄 PDF Product List</a></li>
+                        <li><a onclick="openModal('modal-companies')"><span class="icon">🏭</span> Partnered Pharmaceutical Companies</a></li>
+                        <li><a onclick="openModal('modal-new-products')"><span class="icon">✨</span> Newly Added Products</a></li>
+                        <li><a onclick="openModal('modal-gallery')"><span class="icon">🖼️</span> RMS Facility Gallery</a></li>
+                        <li><a onclick="openModal('modal-process-details')"><span class="icon">⚙️</span> Detailed Process Overview</a></li>
+                        
+                        <li><a href="https://rakhechamedical.in/order/" target="_blank"><span class="icon">🛒</span> Online Order Portal</a></li>
+                        <li><a href="https://drive.google.com/file/d/1Kg3TzJdnlHn2B4MQx4DpjVfLof-BAbNW/view" target="_blank"><span class="icon">📄</span> PDF Product List</a></li>
                     </ul>
                 </div>
             </div>
@@ -732,18 +787,31 @@
             });
         });
 
-        // 3. SPA Modal View Logic (Swaps middle content, keeps header/footer)
-        function openModalView(title) {
-            document.getElementById('modal-title').innerText = title;
+        // 3. SPA Navigation Logic
+        function openModal(modalId) {
+            // Hide main view
             document.getElementById('main-view').style.display = 'none';
-            document.getElementById('modal-view').style.display = 'block';
-            window.scrollTo({ top: 0, behavior: 'smooth' });
+            // Hide all modal views
+            const modals = document.querySelectorAll('.modal-view-section');
+            modals.forEach(modal => modal.style.display = 'none');
+            
+            // Show requested modal view
+            const activeModal = document.getElementById(modalId);
+            if (activeModal) {
+                activeModal.style.display = 'block';
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
         }
 
         function showMainView(scrollToId = null) {
-            document.getElementById('modal-view').style.display = 'none';
+            // Hide all modal views
+            const modals = document.querySelectorAll('.modal-view-section');
+            modals.forEach(modal => modal.style.display = 'none');
+            
+            // Show main view
             document.getElementById('main-view').style.display = 'block';
             
+            // Scroll logic
             if (scrollToId) {
                 const element = document.querySelector(scrollToId);
                 if (element) {
@@ -755,7 +823,7 @@
             }
         }
 
-        // 4. API Logic & Bottom Toast Notification
+        // 4. Form API Logic & Toast Notification
         const API_URL = "https://script.google.com/macros/s/AKfycbwj8f9I1GW-RwwAz59Bz6pkYTfmIf-ApYEKVNsoHj4R6RnflaKRKg0cZLN5kyCPTH1q/exec";
 
         function showToast() {
