@@ -36,6 +36,9 @@
             color: var(--text-dark);
             line-height: 1.6;
             overflow-x: hidden;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
         }
 
         .container {
@@ -70,27 +73,15 @@
         }
         .reveal.active { opacity: 1; transform: translateY(0); }
 
-        /* --- Toast Notification (Bottom, Theme Matched) --- */
+        /* --- Toast Notification --- */
         .toast {
-            position: fixed;
-            bottom: -100px; 
-            left: 50%;
-            transform: translateX(-50%);
-            background: var(--primary-navy);
-            color: var(--accent-gold);
-            padding: 16px 32px;
-            border-radius: 50px;
-            font-weight: 700;
-            font-size: 1rem;
-            border: 2px solid var(--accent-gold);
-            box-shadow: 0 10px 30px rgba(11, 36, 71, 0.4);
-            z-index: 10000;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            opacity: 0; 
-            visibility: hidden; 
-            transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            position: fixed; bottom: -100px; left: 50%;
+            transform: translateX(-50%); background: var(--primary-navy);
+            color: var(--accent-gold); padding: 16px 32px;
+            border-radius: 50px; font-weight: 700; font-size: 1rem;
+            border: 2px solid var(--accent-gold); box-shadow: 0 10px 30px rgba(11, 36, 71, 0.4);
+            z-index: 10000; display: flex; align-items: center; gap: 12px;
+            opacity: 0; visibility: hidden; transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
         }
         .toast.show { bottom: 40px; opacity: 1; visibility: visible; }
 
@@ -117,13 +108,13 @@
             top: 0; z-index: 1000; box-shadow: var(--shadow-md);
         }
         .nav-flex { display: flex; justify-content: space-between; align-items: center; width: 100%; }
-        .logo-area { display: flex; align-items: center; gap: 15px; text-decoration: none; }
+        .logo-area { display: flex; align-items: center; gap: 15px; text-decoration: none; cursor: pointer; }
         .logo-img { height: 50px; width: auto; object-fit: contain; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3)); }
         .logo-text { font-size: 1.3rem; font-weight: 800; color: #ffffff; letter-spacing: 0.5px; line-height: 1.1; }
         .logo-text span { color: var(--border-color); font-weight: 500; font-size: 0.85rem; display: block; font-family: 'Plus Jakarta Sans', sans-serif;}
         
         .nav-links { display: flex; align-items: center; gap: 32px; }
-        .nav-links a { text-decoration: none; color: #ffffff; font-weight: 600; font-size: 0.95rem; transition: color 0.2s ease; }
+        .nav-links a { text-decoration: none; color: #ffffff; font-weight: 600; font-size: 0.95rem; transition: color 0.2s ease; cursor: pointer; }
         .nav-links a:hover { color: var(--accent-gold); }
         .nav-cta {
             background-color: var(--bg-light-blue); color: var(--primary-navy) !important;
@@ -131,6 +122,9 @@
         }
         .nav-cta:hover { background-color: #ffffff; transform: translateY(-2px); box-shadow: 0 4px 10px rgba(255,255,255,0.2); }
         .hamburger { display: none; font-size: 2rem; color: #ffffff; cursor: pointer; user-select: none; }
+
+        /* --- MAIN CONTENT WRAPPER --- */
+        #main-view { flex: 1; }
 
         /* --- Hero Section --- */
         .hero { 
@@ -163,7 +157,6 @@
         .btn-secondary:hover { border-color: var(--primary-navy); background-color: var(--bg-light-blue); transform: translateY(-3px);}
 
         .hero-image { flex: 1; min-width: 350px; display: flex; justify-content: center; }
-        /* Hero Image Updated: Stable, No Border */
         .hero-image img { 
             width: 100%; max-width: 450px; border-radius: 20px;
             box-shadow: var(--shadow-md); background: transparent;
@@ -189,7 +182,7 @@
         .card h3 { font-size: 1.25rem; margin-bottom: 12px; color: var(--primary-navy); }
         .card p { color: var(--text-muted); font-size: 1rem; line-height: 1.6; font-weight: 500;}
 
-        /* --- Process Flowchart (Upgraded) --- */
+        /* --- Process Flowchart --- */
         .process-flow { max-width: 800px; margin: 0 auto; position: relative; padding-left: 40px; }
         .process-flow::before {
             content: ''; position: absolute; left: 20px; top: 0; bottom: 0;
@@ -210,7 +203,7 @@
         .process-num { font-size: 2.2rem; font-weight: 800; color: var(--primary-navy); opacity: 0.15; font-family: 'Playfair Display', serif;}
         .process-item p { margin: 0; color: var(--text-dark); font-weight: 600; font-size: 1.1rem; }
 
-        /* --- Contact Section (Upgraded Interactive Blocks) --- */
+        /* --- Contact Section --- */
         .contact-wrapper {
             display: grid; grid-template-columns: 1fr 1fr; gap: 0;
             background: #ffffff; border-radius: 20px; box-shadow: var(--shadow-md);
@@ -232,15 +225,15 @@
             display: flex; align-items: center; justify-content: center;
             font-size: 1.5rem; color: #ffffff; flex-shrink: 0; box-shadow: 0 4px 10px rgba(0,0,0,0.1);
         }
-        .icon-map { background: #EA4335; } /* Google Maps Red */
+        .icon-map { background: #EA4335; } 
         .icon-phone { background: var(--primary-navy); }
         .icon-wa { background: #25D366; }
-        .icon-mail { background: #EA4335; } /* Gmail Red */
+        .icon-mail { background: #EA4335; } 
         
         .contact-action-text h4 { color: var(--primary-navy); margin-bottom: 4px; font-size: 1.05rem; }
         .contact-action-text p { color: var(--text-muted); font-size: 0.95rem; font-weight: 600; margin: 0; line-height: 1.4;}
 
-        /* --- Contact Form (Upgraded Embedded Icons) --- */
+        /* --- Contact Form --- */
         .contact-form-container { padding: 50px; background: #ffffff;}
         .form-group { margin-bottom: 22px; }
         .form-group label { display: block; font-weight: 700; font-size: 0.95rem; margin-bottom: 8px; color: var(--primary-navy); }
@@ -248,7 +241,7 @@
         .input-with-icon { position: relative; display: flex; align-items: center; }
         .input-with-icon i { position: absolute; left: 16px; color: var(--primary-navy); font-size: 1.1rem; opacity: 0.7;}
         .input-with-icon input, .input-with-icon textarea {
-            width: 100%; padding: 16px 16px 16px 45px; /* Added left padding for icon */
+            width: 100%; padding: 16px 16px 16px 45px;
             background: #f8fafc; border: 2px solid var(--border-color); border-radius: 10px;
             color: var(--text-dark); font-family: 'Plus Jakarta Sans', sans-serif;
             font-size: 1rem; font-weight: 500; outline: none; transition: all 0.3s ease;
@@ -269,11 +262,30 @@
         .full-width-map { width: 100%; height: 500px; margin-top: 60px; box-shadow: inset 0 10px 20px rgba(0,0,0,0.05); }
         .full-width-map iframe { width: 100%; height: 100%; border: none; pointer-events: auto; }
 
+        /* --- WIP MODAL VIEW (SPA Logic) --- */
+        #modal-view {
+            display: none;
+            flex: 1;
+            padding: 80px 24px;
+            background-color: var(--bg-light-blue);
+            animation: fadeIn 0.4s ease forwards;
+        }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        
+        .wip-container {
+            max-width: 600px; margin: 0 auto;
+            background: #ffffff; padding: 60px 40px;
+            border-radius: 20px; box-shadow: var(--shadow-md);
+            text-align: center; border: 2px dashed var(--border-color);
+        }
+        .wip-container i { font-size: 4rem; color: var(--accent-gold); margin-bottom: 25px; }
+        .wip-container h2 { font-size: 2.2rem; margin-bottom: 15px; color: var(--primary-navy); }
+        .wip-container p { color: var(--text-muted); font-size: 1.1rem; margin-bottom: 40px; font-weight: 500; }
+        
         /* --- Footer --- */
-        footer { background: var(--primary-navy); padding: 80px 0 40px; color: #ffffff; }
+        footer { background: var(--primary-navy); padding: 80px 0 40px; color: #ffffff; margin-top: auto; }
         .footer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 40px; margin-bottom: 50px; }
         
-        /* Footer Logo Updated */
         .footer-logo { height: 75px; margin-bottom: 20px; border-radius: 8px; }
         .footer-brand p { color: var(--border-color); font-size: 1rem; margin-top: 10px; font-weight: 500;}
         
@@ -311,12 +323,14 @@
             
             .contact-action-card { padding: 15px; }
             .contact-action-icon { width: 45px; height: 45px; font-size: 1.2rem; }
+            
+            .wip-container { padding: 40px 20px; }
         }
     </style>
 </head>
 <body>
 
-    <!-- Toast Notification (Now Slides up from Bottom) -->
+    <!-- Toast Notification -->
     <div id="toast" class="toast">
         <i class="fas fa-check-circle"></i> 
         <span>Message successfully sent to Rakhecha Medical Stores!</span>
@@ -332,10 +346,11 @@
         </a>
     </div>
 
-    <!-- Navigation -->
+    <!-- Static Navigation Header -->
     <nav id="navbar">
         <div class="container nav-flex">
-            <a href="#" class="logo-area">
+            <!-- Clicking the logo safely returns to the main view -->
+            <a onclick="showMainView()" class="logo-area">
                 <img src="https://i.ibb.co/HfxTSLb6/RMS-icon-1.png" alt="RMS Logo" class="logo-img">
                 <div class="logo-text">
                     RAKHECHA <span>Medical Stores</span>
@@ -344,290 +359,311 @@
             
             <div class="hamburger" id="mobile-menu-btn">☰</div>
             
+            <!-- Clicking any nav link safely returns to the main view -->
             <div class="nav-links" id="nav-menu">
-                <a href="#about">About</a>
-                <a href="#advantages">Advantages</a>
-                <a href="#services">Services</a>
-                <a href="#process">Process</a>
-                <a href="#contact" class="nav-cta">Get in Touch</a>
+                <a onclick="showMainView('#about')">About</a>
+                <a onclick="showMainView('#advantages')">Advantages</a>
+                <a onclick="showMainView('#services')">Services</a>
+                <a onclick="showMainView('#process')">Process</a>
+                <a onclick="showMainView('#contact')" class="nav-cta">Get in Touch</a>
             </div>
         </div>
     </nav>
 
-    <!-- Hero Section -->
-    <header class="hero">
-        <div class="container hero-flex">
-            <div class="hero-content reveal">
-                <div class="badge">🏆 Trusted Since 1990</div>
-                <h1>Smart Pharma <br>Distribution. 💊</h1>
-                <p>Rakhecha Medical Stores: Leading pharmaceutical wholesale distribution in Chhattisgarh. Supplying premium-quality medicines and medical supplies with a commitment to speed, clinical care, and reliability.</p>
-                <div class="hero-btns">
-                    <a href="https://rakhechamedical.in/order/" target="_blank" class="btn-primary">📱 Digital Inventory</a>
-                    <a href="https://drive.google.com/file/d/1Kg3TzJdnlHn2B4MQx4DpjVfLof-BAbNW/view" target="_blank" class="btn-secondary">📄 Product PDF</a>
+    <!-- ==========================================
+         MAIN PAGE VIEW 
+         ========================================== -->
+    <div id="main-view">
+        <!-- Hero Section -->
+        <header class="hero">
+            <div class="container hero-flex">
+                <div class="hero-content reveal">
+                    <div class="badge">🏆 Trusted Since 1990</div>
+                    <h1>Smart Pharma <br>Distribution. 💊</h1>
+                    <p>Rakhecha Medical Stores: Leading pharmaceutical wholesale distribution in Chhattisgarh. Supplying premium-quality medicines and medical supplies with a commitment to speed, clinical care, and reliability.</p>
+                    <div class="hero-btns">
+                        <a href="https://rakhechamedical.in/order/" target="_blank" class="btn-primary">📱 Digital Inventory</a>
+                        <a href="https://drive.google.com/file/d/1Kg3TzJdnlHn2B4MQx4DpjVfLof-BAbNW/view" target="_blank" class="btn-secondary">📄 Product PDF</a>
+                    </div>
+                </div>
+                <div class="hero-image reveal" style="transition-delay: 0.2s;">
+                    <img src="https://imgh.in/host/kfscat" alt="Rakhecha Medical Stores Delivery">
                 </div>
             </div>
-            <div class="hero-image reveal" style="transition-delay: 0.2s;">
-                <img src="https://imgh.in/host/kfscat" alt="Rakhecha Medical Stores Delivery">
-            </div>
-        </div>
-    </header>
+        </header>
 
-    <!-- About Section -->
-    <section id="about" class="section container">
-        <div class="section-header reveal">
-            <h2>🏥 About Rakhecha Medical Stores</h2>
-            <p>Welcome to Rakhecha Medical Stores, your trusted partner in health and wellness in Dhamtari since 1990. For over three decades, we have been at the forefront of providing exceptional healthcare solutions to our community. As a reliable retail pharmacy and a well-established pharmaceutical distributor, we pride ourselves on our commitment to quality, authenticity, and compassionate service. Our mission is to ensure you have access to premium healthcare supplies, empowering you to live a healthier life. With a focus on customer satisfaction, we aim to be your go-to destination for all your medical needs.</p>
-        </div>
-    </section>
-
-    <!-- Advantages Section -->
-    <section id="advantages" class="section bg-light">
-        <div class="container">
+        <!-- About Section -->
+        <section id="about" class="section container">
             <div class="section-header reveal">
-                <h2>✨ Our Advantages</h2>
+                <h2>🏥 About Rakhecha Medical Stores</h2>
+                <p>Welcome to Rakhecha Medical Stores, your trusted partner in health and wellness in Dhamtari since 1990. For over three decades, we have been at the forefront of providing exceptional healthcare solutions to our community. As a reliable retail pharmacy and a well-established pharmaceutical distributor, we pride ourselves on our commitment to quality, authenticity, and compassionate service. Our mission is to ensure you have access to premium healthcare supplies, empowering you to live a healthier life. With a focus on customer satisfaction, we aim to be your go-to destination for all your medical needs.</p>
+            </div>
+        </section>
+
+        <!-- Advantages Section -->
+        <section id="advantages" class="section bg-light">
+            <div class="container">
+                <div class="section-header reveal">
+                    <h2>✨ Our Advantages</h2>
+                </div>
+                
+                <div class="grid-container">
+                    <div class="card reveal">
+                        <span class="emoji-icon">📦</span>
+                        <h3>Wide Range of Products</h3>
+                        <p>We provide a variety of medicines, medical supplies, surgical items, and vitamins, so you can find everything you need for your health in one place.</p>
+                    </div>
+                    <div class="card reveal" style="transition-delay: 0.1s;">
+                        <span class="emoji-icon">🛡️</span>
+                        <h3>Zero Compromise on Quality</h3>
+                        <p>We only offer high-quality products. You can trust that what you buy from us is safe and effective.</p>
+                    </div>
+                    <div class="card reveal" style="transition-delay: 0.2s;">
+                        <span class="emoji-icon">📅</span>
+                        <h3>7 Days of Service</h3>
+                        <p>We're here for you every day of the week, so you can get what you need whenever you need it.</p>
+                    </div>
+                    <div class="card reveal" style="transition-delay: 0.3s;">
+                        <span class="emoji-icon">❤️</span>
+                        <h3>Quality Care</h3>
+                        <p>We build strong relationships with our customers by selling only genuine products from trusted sources.</p>
+                    </div>
+                    <div class="card reveal">
+                        <span class="emoji-icon">💻</span>
+                        <h3>Easy Online Ordering</h3>
+                        <p>Ordering from our website is simple and quick. You can easily find and purchase what you need from home.</p>
+                    </div>
+                    <div class="card reveal" style="transition-delay: 0.1s;">
+                        <span class="emoji-icon">✅</span>
+                        <h3>Supply & Inventory Reliability</h3>
+                        <p>We make sure our products are always in stock, so you can rely on us to have what you want.</p>
+                    </div>
+                    <div class="card reveal" style="transition-delay: 0.2s;">
+                        <span class="emoji-icon">🔬</span>
+                        <h3>Quality Assurance</h3>
+                        <p>We ensure our products are stored and transported properly for the best quality.</p>
+                    </div>
+                    <div class="card reveal" style="transition-delay: 0.3s;">
+                        <span class="emoji-icon">⚡</span>
+                        <h3>Digital Efficiency in Ordering</h3>
+                        <p>Our online system makes ordering fast and easy, allowing you to complete your purchases with minimal effort.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Services Section -->
+        <section id="services" class="section container">
+            <div class="section-header reveal">
+                <h2>💼 Our Services</h2>
             </div>
             
             <div class="grid-container">
                 <div class="card reveal">
-                    <span class="emoji-icon">📦</span>
-                    <h3>Wide Range of Products</h3>
-                    <p>We provide a variety of medicines, medical supplies, surgical items, and vitamins, so you can find everything you need for your health in one place.</p>
+                    <span class="emoji-icon">🏢</span>
+                    <h3>Bulk Procurement & Sourcing</h3>
+                    <p>As a trusted stockist, we procure medicines from top manufacturers in large quantities, ensuring the best products are readily available for our clients.</p>
                 </div>
                 <div class="card reveal" style="transition-delay: 0.1s;">
-                    <span class="emoji-icon">🛡️</span>
-                    <h3>Zero Compromise on Quality</h3>
-                    <p>We only offer high-quality products. You can trust that what you buy from us is safe and effective.</p>
+                    <span class="emoji-icon">📋</span>
+                    <h3>Comprehensive Stock Portfolio</h3>
+                    <p>We maintain a wide-ranging inventory of medicines, always on hand to meet the immediate needs of our customers.</p>
                 </div>
                 <div class="card reveal" style="transition-delay: 0.2s;">
-                    <span class="emoji-icon">📅</span>
-                    <h3>7 Days of Service</h3>
-                    <p>We're here for you every day of the week, so you can get what you need whenever you need it.</p>
-                </div>
-                <div class="card reveal" style="transition-delay: 0.3s;">
-                    <span class="emoji-icon">❤️</span>
-                    <h3>Quality Care</h3>
-                    <p>We build strong relationships with our customers by selling only genuine products from trusted sources.</p>
+                    <span class="emoji-icon">🔄</span>
+                    <h3>Expiry and Breakage Claims</h3>
+                    <p>We provide value for every product! If any medicine expires or gets damaged, we generate a credit note that can be applied to future purchases.</p>
                 </div>
                 <div class="card reveal">
-                    <span class="emoji-icon">💻</span>
-                    <h3>Easy Online Ordering</h3>
-                    <p>Ordering from our website is simple and quick. You can easily find and purchase what you need from home.</p>
+                    <span class="emoji-icon">🚀</span>
+                    <h3>Ready-to-Ship Inventory</h3>
+                    <p>Our prepared inventory allows us to ship medicines promptly, ensuring that they are ready for immediate dispatch.</p>
                 </div>
                 <div class="card reveal" style="transition-delay: 0.1s;">
-                    <span class="emoji-icon">✅</span>
-                    <h3>Supply & Inventory Reliability</h3>
-                    <p>We make sure our products are always in stock, so you can rely on us to have what you want.</p>
+                    <span class="emoji-icon">🧊</span>
+                    <h3>Cold-Chain Management</h3>
+                    <p>We employ temperature-controlled storage solutions to safely manage heat-sensitive products, including insulin and vaccines.</p>
                 </div>
                 <div class="card reveal" style="transition-delay: 0.2s;">
-                    <span class="emoji-icon">🔬</span>
-                    <h3>Quality Assurance</h3>
-                    <p>We ensure our products are stored and transported properly for the best quality.</p>
+                    <span class="emoji-icon">⏱️</span>
+                    <h3>On-Time Delivery</h3>
+                    <p>Our commitment to quick shipping helps prevent stockouts at hospitals and retail outlets, ensuring continuous service.</p>
                 </div>
-                <div class="card reveal" style="transition-delay: 0.3s;">
-                    <span class="emoji-icon">⚡</span>
-                    <h3>Digital Efficiency in Ordering</h3>
-                    <p>Our online system makes ordering fast and easy, allowing you to complete your purchases with minimal effort.</p>
+                <div class="card reveal">
+                    <span class="emoji-icon">🎯</span>
+                    <h3>Seamless Order Fulfillment</h3>
+                    <p>We handle high-volume orders with precision, ensuring smooth processing and accuracy without any item errors.</p>
+                </div>
+                <div class="card reveal" style="transition-delay: 0.1s;">
+                    <span class="emoji-icon">🛣️</span>
+                    <h3>End-to-End Distribution</h3>
+                    <p>We take care of the entire distribution process, from our stock to the chemist's counter, providing a hassle-free experience for our clients.</p>
+                </div>
+                <div class="card reveal" style="transition-delay: 0.2s;">
+                    <span class="emoji-icon">♾️</span>
+                    <h3>Uninterrupted Supply Chain</h3>
+                    <p>We ensure reliable deliveries, even during high-demand seasons, keeping your supply chain running without interruptions.</p>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- Services Section -->
-    <section id="services" class="section container">
-        <div class="section-header reveal">
-            <h2>💼 Our Services</h2>
-        </div>
-        
-        <div class="grid-container">
-            <div class="card reveal">
-                <span class="emoji-icon">🏢</span>
-                <h3>Bulk Procurement & Sourcing</h3>
-                <p>As a trusted stockist, we procure medicines from top manufacturers in large quantities, ensuring the best products are readily available for our clients.</p>
+        <!-- Process Section -->
+        <section id="process" class="section bg-light">
+            <div class="container">
+                <div class="section-header reveal">
+                    <h2>⚙️ Distribution Flow Process</h2>
+                </div>
+                
+                <div class="process-flow">
+                    <div class="process-item reveal" style="transition-delay: 0.1s;">
+                        <div class="process-num">01</div>
+                        <p>📞 Receiving orders over the phone, email, or RMS online order placement portal.</p>
+                    </div>
+                    <div class="process-item reveal" style="transition-delay: 0.2s;">
+                        <div class="process-num">02</div>
+                        <p>🧾 Billing generation for the placed order.</p>
+                    </div>
+                    <div class="process-item reveal" style="transition-delay: 0.3s;">
+                        <div class="process-num">03</div>
+                        <p>🛒 Picking precise products accurately from stock.</p>
+                    </div>
+                    <div class="process-item reveal" style="transition-delay: 0.4s;">
+                        <div class="process-num">04</div>
+                        <p>🔍 Strict verification of physical goods against the bill.</p>
+                    </div>
+                    <div class="process-item reveal" style="transition-delay: 0.5s;">
+                        <div class="process-num">05</div>
+                        <p>📦 Safe packaging protocols to protect goods.</p>
+                    </div>
+                    <div class="process-item reveal" style="transition-delay: 0.6s;">
+                        <div class="process-num">06</div>
+                        <p>❄️ Thermal packaging applied for cold chain products (if required).</p>
+                    </div>
+                    <div class="process-item reveal" style="transition-delay: 0.7s;">
+                        <div class="process-num">07</div>
+                        <p>🏁 Ready for shipment (pickup from the RMS counter is also available).</p>
+                    </div>
+                    <div class="process-item reveal" style="transition-delay: 0.8s;">
+                        <div class="process-num">08</div>
+                        <p>🚚 Safe, protected, and on-time delivery by an RMS executive.</p>
+                    </div>
+                </div>
             </div>
-            <div class="card reveal" style="transition-delay: 0.1s;">
-                <span class="emoji-icon">📋</span>
-                <h3>Comprehensive Stock Portfolio</h3>
-                <p>We maintain a wide-ranging inventory of medicines, always on hand to meet the immediate needs of our customers.</p>
-            </div>
-            <div class="card reveal" style="transition-delay: 0.2s;">
-                <span class="emoji-icon">🔄</span>
-                <h3>Expiry and Breakage Claims</h3>
-                <p>We provide value for every product! If any medicine expires or gets damaged, we generate a credit note that can be applied to future purchases.</p>
-            </div>
-            <div class="card reveal">
-                <span class="emoji-icon">🚀</span>
-                <h3>Ready-to-Ship Inventory</h3>
-                <p>Our prepared inventory allows us to ship medicines promptly, ensuring that they are ready for immediate dispatch.</p>
-            </div>
-            <div class="card reveal" style="transition-delay: 0.1s;">
-                <span class="emoji-icon">🧊</span>
-                <h3>Cold-Chain Management</h3>
-                <p>We employ temperature-controlled storage solutions to safely manage heat-sensitive products, including insulin and vaccines.</p>
-            </div>
-            <div class="card reveal" style="transition-delay: 0.2s;">
-                <span class="emoji-icon">⏱️</span>
-                <h3>On-Time Delivery</h3>
-                <p>Our commitment to quick shipping helps prevent stockouts at hospitals and retail outlets, ensuring continuous service.</p>
-            </div>
-            <div class="card reveal">
-                <span class="emoji-icon">🎯</span>
-                <h3>Seamless Order Fulfillment</h3>
-                <p>We handle high-volume orders with precision, ensuring smooth processing and accuracy without any item errors.</p>
-            </div>
-            <div class="card reveal" style="transition-delay: 0.1s;">
-                <span class="emoji-icon">🛣️</span>
-                <h3>End-to-End Distribution</h3>
-                <p>We take care of the entire distribution process, from our stock to the chemist's counter, providing a hassle-free experience for our clients.</p>
-            </div>
-            <div class="card reveal" style="transition-delay: 0.2s;">
-                <span class="emoji-icon">♾️</span>
-                <h3>Uninterrupted Supply Chain</h3>
-                <p>We ensure reliable deliveries, even during high-demand seasons, keeping your supply chain running without interruptions.</p>
-            </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- Process Section -->
-    <section id="process" class="section bg-light">
-        <div class="container">
+        <!-- Contact Section -->
+        <section id="contact" class="section container">
             <div class="section-header reveal">
-                <h2>⚙️ Distribution Flow Process</h2>
+                <h2>📬 Reach Out To Us</h2>
             </div>
             
-            <div class="process-flow">
-                <!-- Staggered Entry Animations -->
-                <div class="process-item reveal" style="transition-delay: 0.1s;">
-                    <div class="process-num">01</div>
-                    <p>📞 Receiving orders over the phone, email, or RMS online order placement portal.</p>
-                </div>
-                <div class="process-item reveal" style="transition-delay: 0.2s;">
-                    <div class="process-num">02</div>
-                    <p>🧾 Billing generation for the placed order.</p>
-                </div>
-                <div class="process-item reveal" style="transition-delay: 0.3s;">
-                    <div class="process-num">03</div>
-                    <p>🛒 Picking precise products accurately from stock.</p>
-                </div>
-                <div class="process-item reveal" style="transition-delay: 0.4s;">
-                    <div class="process-num">04</div>
-                    <p>🔍 Strict verification of physical goods against the bill.</p>
-                </div>
-                <div class="process-item reveal" style="transition-delay: 0.5s;">
-                    <div class="process-num">05</div>
-                    <p>📦 Safe packaging protocols to protect goods.</p>
-                </div>
-                <div class="process-item reveal" style="transition-delay: 0.6s;">
-                    <div class="process-num">06</div>
-                    <p>❄️ Thermal packaging applied for cold chain products (if required).</p>
-                </div>
-                <div class="process-item reveal" style="transition-delay: 0.7s;">
-                    <div class="process-num">07</div>
-                    <p>🏁 Ready for shipment (pickup from the RMS counter is also available).</p>
-                </div>
-                <div class="process-item reveal" style="transition-delay: 0.8s;">
-                    <div class="process-num">08</div>
-                    <p>🚚 Safe, protected, and on-time delivery by an RMS executive.</p>
-                </div>
-            </div>
-        </div>
-    </section>
+            <div class="contact-wrapper reveal">
+                <div class="contact-info">
+                    <h3>Rakhecha Medical Stores 🏥</h3>
+                    
+                    <a href="https://www.google.com/maps/search/Rakhecha+Medical+Stores+Dhamtari" target="_blank" class="contact-action-card">
+                        <div class="contact-action-icon icon-map"><i class="fas fa-map-marker-alt"></i></div>
+                        <div class="contact-action-text">
+                            <h4>Corporate Address</h4>
+                            <p>In front of Mahawer Dharamshala, back side of IDBI Bank, Sihava Chowk, Dhamtari</p>
+                        </div>
+                    </a>
 
-    <!-- Contact Section -->
-    <section id="contact" class="section container">
-        <div class="section-header reveal">
-            <h2>📬 Reach Out To Us</h2>
-        </div>
-        
-        <div class="contact-wrapper reveal">
-            <div class="contact-info">
-                <h3>Rakhecha Medical Stores 🏥</h3>
+                    <a href="tel:7489574895" class="contact-action-card">
+                        <div class="contact-action-icon icon-phone"><i class="fas fa-phone-alt"></i></div>
+                        <div class="contact-action-text">
+                            <h4>Direct Call</h4>
+                            <p>+91 74895 74895</p>
+                        </div>
+                    </a>
+
+                    <a href="https://wa.me/917489574895" target="_blank" class="contact-action-card">
+                        <div class="contact-action-icon icon-wa"><i class="fab fa-whatsapp"></i></div>
+                        <div class="contact-action-text">
+                            <h4>WhatsApp Support</h4>
+                            <p>+91 74895 74895</p>
+                        </div>
+                    </a>
+
+                    <a href="mailto:rakhechamedical@gmail.com" class="contact-action-card">
+                        <div class="contact-action-icon icon-mail"><i class="fab fa-google"></i></div>
+                        <div class="contact-action-text">
+                            <h4>Official Gmail</h4>
+                            <p>rakhechamedical@gmail.com</p>
+                        </div>
+                    </a>
+                </div>
                 
-                <!-- Fully Clickable Contact Cards with Brand Icons -->
-                <a href="https://www.google.com/maps/search/Rakhecha+Medical+Stores+Dhamtari" target="_blank" class="contact-action-card">
-                    <div class="contact-action-icon icon-map"><i class="fas fa-map-marker-alt"></i></div>
-                    <div class="contact-action-text">
-                        <h4>Corporate Address</h4>
-                        <p>In front of Mahawer Dharamshala, back side of IDBI Bank, Sihava Chowk, Dhamtari</p>
-                    </div>
-                </a>
-
-                <a href="tel:7489574895" class="contact-action-card">
-                    <div class="contact-action-icon icon-phone"><i class="fas fa-phone-alt"></i></div>
-                    <div class="contact-action-text">
-                        <h4>Direct Call</h4>
-                        <p>+91 74895 74895</p>
-                    </div>
-                </a>
-
-                <a href="https://wa.me/917489574895" target="_blank" class="contact-action-card">
-                    <div class="contact-action-icon icon-wa"><i class="fab fa-whatsapp"></i></div>
-                    <div class="contact-action-text">
-                        <h4>WhatsApp Support</h4>
-                        <p>+91 74895 74895</p>
-                    </div>
-                </a>
-
-                <a href="mailto:rakhechamedical@gmail.com" class="contact-action-card">
-                    <div class="contact-action-icon icon-mail"><i class="fab fa-google"></i></div>
-                    <div class="contact-action-text">
-                        <h4>Official Gmail</h4>
-                        <p>rakhechamedical@gmail.com</p>
-                    </div>
-                </a>
+                <div class="contact-form-container">
+                    <h4 style="color: var(--primary-navy); margin-bottom: 25px; font-size: 1.3rem;">📝 Send an Inquiry</h4>
+                    
+                    <form id="reachOutForm" class="contact-form">
+                        <div class="form-group">
+                            <label>Full Name</label>
+                            <div class="input-with-icon">
+                                <i class="fas fa-user"></i>
+                                <input type="text" id="name" placeholder="Enter your full name" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>City / Location</label>
+                            <div class="input-with-icon">
+                                <i class="fas fa-city"></i>
+                                <input type="text" id="city" placeholder="Enter your city" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Mobile Number</label>
+                            <div class="input-with-icon">
+                                <i class="fas fa-mobile-alt"></i>
+                                <input type="tel" id="mobile" placeholder="Enter mobile number" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Email Address</label>
+                            <div class="input-with-icon">
+                                <i class="fas fa-envelope"></i>
+                                <input type="email" id="email" placeholder="Enter email address" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Your Message</label>
+                            <div class="input-with-icon textarea-with-icon">
+                                <i class="fas fa-comment-dots"></i>
+                                <textarea id="message" rows="4" placeholder="How can we assist you today?" required></textarea>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn-submit">🚀 Send Message Instantly</button>
+                    </form>
+                </div>
             </div>
-            
-            <div class="contact-form-container">
-                <h4 style="color: var(--primary-navy); margin-bottom: 25px; font-size: 1.3rem;">📝 Send an Inquiry</h4>
-                
-                <!-- Google API Form with Embedded Icons -->
-                <form id="reachOutForm" class="contact-form">
-                    <div class="form-group">
-                        <label>Full Name</label>
-                        <div class="input-with-icon">
-                            <i class="fas fa-user"></i>
-                            <input type="text" id="name" placeholder="Enter your full name" required>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label>City / Location</label>
-                        <div class="input-with-icon">
-                            <i class="fas fa-city"></i>
-                            <input type="text" id="city" placeholder="Enter your city" required>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label>Mobile Number</label>
-                        <div class="input-with-icon">
-                            <i class="fas fa-mobile-alt"></i>
-                            <input type="tel" id="mobile" placeholder="Enter mobile number" required>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label>Email Address</label>
-                        <div class="input-with-icon">
-                            <i class="fas fa-envelope"></i>
-                            <input type="email" id="email" placeholder="Enter email address" required>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label>Your Message</label>
-                        <div class="input-with-icon textarea-with-icon">
-                            <i class="fas fa-comment-dots"></i>
-                            <textarea id="message" rows="4" placeholder="How can we assist you today?" required></textarea>
-                        </div>
-                    </div>
-                    <button type="submit" class="btn-submit">🚀 Send Message Instantly</button>
-                </form>
-            </div>
+        </section>
+
+        <!-- Full Width Advanced Interactive Map -->
+        <div class="full-width-map reveal">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d14949.62002570077!2d81.5460425!3d20.7125505!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a2f29c644424083%3A0x7949a208d9da0f5c!2sRakhecha%20Medical%20Stores!5e0!3m2!1sen!2sin!4v1700000000000!5m2!1sen!2sin" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
         </div>
-    </section>
-
-    <!-- Full Width Advanced Interactive Map -->
-    <div class="full-width-map reveal">
-        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d14949.62002570077!2d81.5460425!3d20.7125505!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a2f29c644424083%3A0x7949a208d9da0f5c!2sRakhecha%20Medical%20Stores!5e0!3m2!1sen!2sin!4v1700000000000!5m2!1sen!2sin" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
     </div>
+    <!-- ==========================================
+         END MAIN PAGE VIEW 
+         ========================================== -->
 
-    <!-- Footer -->
+    <!-- ==========================================
+         SPA MODAL VIEW (Work In Progress)
+         ========================================== -->
+    <div id="modal-view">
+        <div class="wip-container">
+            <i class="fas fa-laptop-code"></i>
+            <h2 id="modal-title">Development Mode</h2>
+            <p>We are currently building this section out. It will be available in the next deployment cycle.</p>
+            <button onclick="showMainView()" class="btn-primary" style="margin-top: 10px;">⬅ Return to Home</button>
+        </div>
+    </div>
+    <!-- ==========================================
+         END SPA MODAL VIEW
+         ========================================== -->
+
+    <!-- Static Footer -->
     <footer>
         <div class="container">
             <div class="footer-grid">
@@ -640,19 +676,21 @@
                 <div class="footer-links-col">
                     <h4>⚖️ Legal & Information</h4>
                     <ul>
-                        <li><a href="javascript:void(0)">📄 Operating Licence</a></li>
-                        <li><a href="javascript:void(0)">📜 Company Declaration</a></li>
-                        <li><a href="javascript:void(0)">🔄 Expiry & Breakage Claim Process</a></li>
-                        <li><a href="#contact">📬 Contact: Get in Touch</a></li>
+                        <li><a onclick="openModalView('📄 Operating Licence')">Operating Licence</a></li>
+                        <li><a onclick="openModalView('📜 Company Declaration')">Company Declaration</a></li>
+                        <li><a onclick="openModalView('🔄 Expiry & Breakage Claim Process')">Expiry & Breakage Claim Process</a></li>
+                        <li><a onclick="showMainView('#contact')">📬 Contact: Get in Touch</a></li>
                     </ul>
                 </div>
                 
                 <div class="footer-links-col">
                     <h4>🔗 Resources & Links</h4>
                     <ul>
-                        <li><a href="javascript:void(0)">🏭 Partnered Pharmaceutical Companies</a></li>
-                        <li><a href="javascript:void(0)">✨ Newly Added Products</a></li>
-                        <li><a href="javascript:void(0)">🖼️ RMS Facility Gallery</a></li>
+                        <li><a onclick="openModalView('🏭 Partnered Pharmaceutical Companies')">Partnered Pharmaceutical Companies</a></li>
+                        <li><a onclick="openModalView('✨ Newly Added Products')">Newly Added Products</a></li>
+                        <li><a onclick="openModalView('🖼️ RMS Facility Gallery')">RMS Facility Gallery</a></li>
+                        <li><a onclick="openModalView('⚙️ Detailed Process Details')">Detailed Process Overview</a></li>
+                        <!-- External Links remain standard anchors opening in a new tab -->
                         <li><a href="https://rakhechamedical.in/order/" target="_blank">🛒 Online Order Portal</a></li>
                         <li><a href="https://drive.google.com/file/d/1Kg3TzJdnlHn2B4MQx4DpjVfLof-BAbNW/view" target="_blank">📄 PDF Product List</a></li>
                     </ul>
@@ -667,13 +705,9 @@
 
     <!-- INTERACTIVE SCRIPTS -->
     <script>
-        // 1. Scroll Reveal Animations (Handles Staggered Effects too)
+        // 1. Scroll Reveal Animations
         document.addEventListener("DOMContentLoaded", function() {
-            const observerOptions = {
-                threshold: 0.1, 
-                rootMargin: "0px 0px -50px 0px"
-            };
-
+            const observerOptions = { threshold: 0.1, rootMargin: "0px 0px -50px 0px" };
             const observer = new IntersectionObserver(function(entries, observer) {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
@@ -691,33 +725,47 @@
         const mobileBtn = document.getElementById('mobile-menu-btn');
         const navMenu = document.getElementById('nav-menu');
         
-        mobileBtn.addEventListener('click', () => {
-            navMenu.classList.toggle('active');
-        });
-
+        mobileBtn.addEventListener('click', () => { navMenu.classList.toggle('active'); });
         document.querySelectorAll('.nav-links a').forEach(link => {
             link.addEventListener('click', () => {
-                if(window.innerWidth <= 768) {
-                    navMenu.classList.remove('active');
-                }
+                if(window.innerWidth <= 768) navMenu.classList.remove('active');
             });
         });
 
-        // 3. API Logic & Bottom Toast Notification
+        // 3. SPA Modal View Logic (Swaps middle content, keeps header/footer)
+        function openModalView(title) {
+            document.getElementById('modal-title').innerText = title;
+            document.getElementById('main-view').style.display = 'none';
+            document.getElementById('modal-view').style.display = 'block';
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function showMainView(scrollToId = null) {
+            document.getElementById('modal-view').style.display = 'none';
+            document.getElementById('main-view').style.display = 'block';
+            
+            if (scrollToId) {
+                const element = document.querySelector(scrollToId);
+                if (element) {
+                    const y = element.getBoundingClientRect().top + window.scrollY - 90; // Adjust for sticky nav
+                    window.scrollTo({ top: y, behavior: 'smooth' });
+                }
+            } else {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+        }
+
+        // 4. API Logic & Bottom Toast Notification
         const API_URL = "https://script.google.com/macros/s/AKfycbwj8f9I1GW-RwwAz59Bz6pkYTfmIf-ApYEKVNsoHj4R6RnflaKRKg0cZLN5kyCPTH1q/exec";
 
         function showToast() {
             const toast = document.getElementById("toast");
             toast.classList.add("show");
-            
-            setTimeout(() => {
-                toast.classList.remove("show");
-            }, 4000);
+            setTimeout(() => { toast.classList.remove("show"); }, 4000);
         }
 
         document.getElementById("reachOutForm").addEventListener("submit", function(event) {
             event.preventDefault(); 
-
             const formData = new URLSearchParams();
             formData.append("name", document.getElementById("name").value);
             formData.append("city", document.getElementById("city").value);
@@ -726,9 +774,7 @@
             formData.append("message", document.getElementById("message").value);
 
             fetch(API_URL, {
-                method: "POST",
-                body: formData,
-                mode: "no-cors"
+                method: "POST", body: formData, mode: "no-cors"
             }).catch(error => console.error("Background API Error:", error));
 
             showToast();
