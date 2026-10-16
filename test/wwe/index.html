@@ -18,7 +18,6 @@
             --primary-navy: #0B2447; 
             --secondary-navy: #19376D;
             --accent-gold: #D4AF37;
-            --success-green: #00d285;
             --text-dark: #0f172a;
             --text-muted: #475569;
             --border-color: #dbeafe;
@@ -72,19 +71,20 @@
         }
         .reveal.active { opacity: 1; transform: translateY(0); }
 
-        /* --- Toast Notification --- */
+        /* --- Toast Notification (Bottom, Theme Matched) --- */
         .toast {
             position: fixed;
-            top: -100px; 
+            bottom: -100px; 
             left: 50%;
             transform: translateX(-50%);
-            background: var(--success-green);
-            color: white;
+            background: var(--primary-navy);
+            color: var(--accent-gold);
             padding: 16px 32px;
             border-radius: 50px;
-            font-weight: 600;
+            font-weight: 700;
             font-size: 1rem;
-            box-shadow: 0 10px 30px rgba(0, 210, 133, 0.4);
+            border: 2px solid var(--accent-gold);
+            box-shadow: 0 10px 30px rgba(11, 36, 71, 0.4);
             z-index: 10000;
             display: flex;
             align-items: center;
@@ -94,7 +94,7 @@
             transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
         }
         .toast.show { 
-            top: 40px; 
+            bottom: 40px; 
             opacity: 1; 
             visibility: visible; 
         }
@@ -207,17 +207,13 @@
         .btn-secondary:hover { border-color: var(--primary-navy); background-color: var(--bg-light-blue); transform: translateY(-3px);}
 
         .hero-image { flex: 1; min-width: 350px; display: flex; justify-content: center; }
+        /* Hero Image Updated: Stable, No Border */
         .hero-image img { 
             width: 100%; max-width: 450px;
             border-radius: 20px;
-            box-shadow: var(--shadow-hover);
-            background: #fff;
-            padding: 30px;
-            border: 2px solid var(--primary-navy);
-            transform: rotate(-2deg);
-            transition: transform 0.5s ease;
+            box-shadow: var(--shadow-md);
+            background: transparent;
         }
-        .hero-image:hover img { transform: rotate(0deg) scale(1.02); }
 
         /* --- Sections Layout --- */
         .section { padding: 100px 0; }
@@ -283,7 +279,7 @@
         .contact-wrapper {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 0; /* Flush for seamless look */
+            gap: 0;
             background: #ffffff;
             border-radius: 20px;
             box-shadow: var(--shadow-md);
@@ -331,14 +327,15 @@
         footer { background: var(--primary-navy); padding: 80px 0 40px; color: #ffffff; }
         .footer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 40px; margin-bottom: 50px; }
         
-        .footer-logo { height: 75px; margin-bottom: 20px; filter: brightness(0) invert(1); }
+        /* Footer Logo Updated: Removed inversion filter to ensure it displays correctly */
+        .footer-logo { height: 75px; margin-bottom: 20px; border-radius: 8px; }
         .footer-brand p { color: var(--border-color); font-size: 1rem; margin-top: 10px; font-weight: 500;}
         
         .footer-links-col h4 { color: #ffffff; margin-bottom: 25px; font-size: 1.2rem; }
         .footer-links-col ul { list-style: none; }
         .footer-links-col ul li { margin-bottom: 14px; }
         .footer-links-col ul a { color: var(--border-color); text-decoration: none; font-size: 1rem; transition: color 0.2s; cursor: pointer; font-weight: 500;}
-        .footer-links-col ul a:hover { color: #ffffff; text-decoration: underline; }
+        .footer-links-col ul a:hover { color: var(--accent-gold); text-decoration: underline; }
         
         .footer-bottom { 
             padding-top: 30px; border-top: 1px solid rgba(255,255,255,0.1); 
@@ -375,7 +372,7 @@
     <!-- Toast Notification -->
     <div id="toast" class="toast">
         <i class="fas fa-check-circle"></i> 
-        <span>Message sent to Rakhecha Medical Stores!</span>
+        <span>Message successfully sent to Rakhecha Medical Stores!</span>
     </div>
 
     <!-- Floating Action Buttons -->
@@ -423,7 +420,7 @@
                 </div>
             </div>
             <div class="hero-image reveal" style="transition-delay: 0.2s;">
-                <img src="https://i.ibb.co/HfxTSLb6/RMS-icon-1.png" alt="Rakhecha Medical Stores">
+                <img src="https://imgh.in/host/kfscat" alt="Rakhecha Medical Stores Delivery">
             </div>
         </div>
     </header>
