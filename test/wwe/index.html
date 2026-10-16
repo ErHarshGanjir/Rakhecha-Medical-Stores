@@ -3,34 +3,36 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rakhecha Medical Stores | The Best Medical Store in Dhamtari Since 1990</title>
+    <title>Rakhecha Medical Stores | The Best Medical Store in Dhamtari</title>
     
-    <!-- Professional Corporate Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+    <!-- Premium Fonts and Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
         :root {
             /* Light Blue Theme with Navy Header */
             --bg-main: #ffffff;
-            --bg-light-blue: #f0f8ff; /* Alice Blue */
-            --bg-card-blue: #e0f2fe; /* Slightly darker light blue for cards */
-            --primary-navy: #0B2447; /* Perfect Header Navy */
+            --bg-light-blue: #f4f9ff; 
+            --bg-card-blue: #e8f3ff; 
+            --primary-navy: #0B2447; 
             --secondary-navy: #19376D;
             --accent-gold: #D4AF37;
-            --text-dark: #1a1a1a;
-            --text-muted: #4a5568;
-            --border-color: #bae6fd;
+            --success-green: #00d285;
+            --text-dark: #0f172a;
+            --text-muted: #475569;
+            --border-color: #dbeafe;
             
-            --shadow-sm: 0 2px 4px rgba(11, 36, 71, 0.05);
-            --shadow-md: 0 4px 12px rgba(11, 36, 71, 0.08);
-            --shadow-hover: 0 10px 25px rgba(11, 36, 71, 0.15);
+            --shadow-sm: 0 4px 6px rgba(11, 36, 71, 0.04);
+            --shadow-md: 0 10px 20px rgba(11, 36, 71, 0.08);
+            --shadow-hover: 0 15px 30px rgba(11, 36, 71, 0.12);
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; }
         html { scroll-behavior: smooth; }
 
         body {
-            font-family: 'Inter', sans-serif;
+            font-family: 'Plus Jakarta Sans', sans-serif;
             background-color: var(--bg-main);
             color: var(--text-dark);
             line-height: 1.6;
@@ -47,7 +49,20 @@
         h1, h2, h3 { color: var(--primary-navy); font-weight: 700; line-height: 1.3; }
         h1, h2 { font-family: 'Playfair Display', serif; }
 
-        .emoji-icon { font-size: 2.2rem; margin-bottom: 12px; display: inline-block; }
+        /* Emoji Icon Styling */
+        .emoji-icon { 
+            font-size: 2rem; 
+            margin-bottom: 16px; 
+            display: inline-flex; 
+            align-items: center;
+            justify-content: center;
+            width: 60px;
+            height: 60px;
+            background: #ffffff;
+            border-radius: 12px;
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--border-color);
+        }
 
         /* --- Animations --- */
         .reveal {
@@ -56,6 +71,60 @@
             transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
         }
         .reveal.active { opacity: 1; transform: translateY(0); }
+
+        /* --- Toast Notification --- */
+        .toast {
+            position: fixed;
+            top: -100px; 
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--success-green);
+            color: white;
+            padding: 16px 32px;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1rem;
+            box-shadow: 0 10px 30px rgba(0, 210, 133, 0.4);
+            z-index: 10000;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            opacity: 0; 
+            visibility: hidden; 
+            transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+        .toast.show { 
+            top: 40px; 
+            opacity: 1; 
+            visibility: visible; 
+        }
+
+        /* --- Floating Action Buttons (FAB) --- */
+        .floating-contact {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        .float-btn {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.25);
+            text-decoration: none;
+            font-size: 26px;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .float-btn:hover { transform: scale(1.15) translateY(-5px); color: white; }
+        .float-whatsapp { background: #25D366; }
+        .float-phone { background: var(--primary-navy); border: 2px solid #ffffff; }
 
         /* --- Navigation --- */
         nav {
@@ -71,14 +140,14 @@
 
         .nav-flex { display: flex; justify-content: space-between; align-items: center; width: 100%; }
         .logo-area { display: flex; align-items: center; gap: 15px; text-decoration: none; }
-        .logo-img { height: 50px; width: auto; object-fit: contain; }
-        .logo-text { font-size: 1.25rem; font-weight: 800; color: #ffffff; letter-spacing: 0.5px; }
-        .logo-text span { color: var(--bg-light-blue); font-weight: 400; font-size: 0.9rem; display: block; }
+        .logo-img { height: 50px; width: auto; object-fit: contain; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3)); }
+        .logo-text { font-size: 1.3rem; font-weight: 800; color: #ffffff; letter-spacing: 0.5px; line-height: 1.1; }
+        .logo-text span { color: var(--border-color); font-weight: 500; font-size: 0.85rem; display: block; font-family: 'Plus Jakarta Sans', sans-serif;}
         
         .nav-links { display: flex; align-items: center; gap: 32px; }
         .nav-links a { 
             text-decoration: none; color: #ffffff; 
-            font-weight: 500; font-size: 0.95rem; 
+            font-weight: 600; font-size: 0.95rem; 
             transition: color 0.2s ease;
         }
         .nav-links a:hover { color: var(--accent-gold); }
@@ -87,20 +156,13 @@
             background-color: var(--bg-light-blue);
             color: var(--primary-navy) !important;
             padding: 10px 24px;
-            border-radius: 4px;
-            font-weight: 700;
-            transition: all 0.2s ease;
+            border-radius: 50px;
+            font-weight: 800;
+            transition: all 0.3s ease;
         }
-        .nav-cta:hover { background-color: #ffffff; transform: translateY(-2px); }
+        .nav-cta:hover { background-color: #ffffff; transform: translateY(-2px); box-shadow: 0 4px 10px rgba(255,255,255,0.2); }
 
-        /* Mobile Three-Line Menu */
-        .hamburger {
-            display: none;
-            font-size: 2rem;
-            color: #ffffff;
-            cursor: pointer;
-            user-select: none;
-        }
+        .hamburger { display: none; font-size: 2rem; color: #ffffff; cursor: pointer; user-select: none; }
 
         /* --- Hero Section --- */
         .hero { 
@@ -114,77 +176,81 @@
         
         .badge {
             display: inline-flex; align-items: center; gap: 8px;
-            padding: 6px 16px; border-radius: 50px;
+            padding: 8px 20px; border-radius: 50px;
             background: #ffffff;
-            color: var(--primary-navy); font-weight: 700; font-size: 0.85rem;
+            color: var(--primary-navy); font-weight: 700; font-size: 0.9rem;
             margin-bottom: 24px;
             border: 1px solid var(--border-color);
             box-shadow: var(--shadow-sm);
         }
         
-        .hero-content h1 { font-size: clamp(2.5rem, 5vw, 4rem); margin-bottom: 24px; }
-        .hero-content p { font-size: 1.15rem; color: var(--text-muted); margin-bottom: 40px; max-width: 650px; }
+        .hero-content h1 { font-size: clamp(2.8rem, 5vw, 4.5rem); margin-bottom: 24px; line-height: 1.1; }
+        .hero-content p { font-size: 1.2rem; color: var(--text-muted); margin-bottom: 40px; max-width: 650px; font-weight: 500; }
         
         .hero-btns { display: flex; gap: 16px; flex-wrap: wrap; }
         .btn-primary, .btn-secondary {
             display: inline-flex; align-items: center; justify-content: center;
-            padding: 16px 32px; border-radius: 4px;
-            font-weight: 600; font-size: 1rem; text-decoration: none;
+            padding: 16px 32px; border-radius: 8px;
+            font-weight: 700; font-size: 1.05rem; text-decoration: none;
             transition: all 0.3s ease; cursor: pointer; border: none;
         }
         .btn-primary {
             background-color: var(--primary-navy); color: #ffffff;
             box-shadow: var(--shadow-md);
         }
-        .btn-primary:hover { background-color: var(--secondary-navy); box-shadow: var(--shadow-hover); transform: translateY(-2px); }
+        .btn-primary:hover { background-color: var(--secondary-navy); box-shadow: var(--shadow-hover); transform: translateY(-3px); }
         
         .btn-secondary {
             background-color: #ffffff; color: var(--primary-navy);
             border: 2px solid var(--primary-navy);
         }
-        .btn-secondary:hover { border-color: var(--primary-navy); background-color: var(--bg-light-blue); }
+        .btn-secondary:hover { border-color: var(--primary-navy); background-color: var(--bg-light-blue); transform: translateY(-3px);}
 
         .hero-image { flex: 1; min-width: 350px; display: flex; justify-content: center; }
         .hero-image img { 
             width: 100%; max-width: 450px;
-            border-radius: 8px;
-            box-shadow: var(--shadow-md);
+            border-radius: 20px;
+            box-shadow: var(--shadow-hover);
             background: #fff;
-            padding: 40px;
+            padding: 30px;
             border: 2px solid var(--primary-navy);
+            transform: rotate(-2deg);
+            transition: transform 0.5s ease;
         }
+        .hero-image:hover img { transform: rotate(0deg) scale(1.02); }
 
         /* --- Sections Layout --- */
-        .section { padding: 90px 0; }
+        .section { padding: 100px 0; }
         .bg-light { background-color: var(--bg-light-blue); }
         
         .section-header { text-align: center; margin-bottom: 60px; max-width: 800px; margin-inline: auto; }
-        .section-header h2 { font-size: 2.5rem; margin-bottom: 20px; position: relative; display: inline-block; padding-bottom: 10px; }
-        .section-header h2::after { content: ''; position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); width: 60px; height: 3px; background-color: var(--primary-navy); }
-        .section-header p { color: var(--text-muted); font-size: 1.1rem; }
+        .section-header h2 { font-size: 2.8rem; margin-bottom: 20px; position: relative; display: inline-block; padding-bottom: 12px; }
+        .section-header h2::after { content: ''; position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); width: 60px; height: 4px; background-color: var(--primary-navy); border-radius: 2px; }
+        .section-header p { color: var(--text-muted); font-size: 1.15rem; font-weight: 500;}
 
         /* --- Cards Grid --- */
         .grid-container {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 24px;
+            gap: 30px;
         }
         
         .card {
             background: #ffffff;
             border: 1px solid var(--border-color);
-            border-radius: 12px;
-            padding: 32px;
-            transition: all 0.3s ease;
+            border-radius: 16px;
+            padding: 35px 30px;
+            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
             box-shadow: var(--shadow-sm);
         }
         .card:hover {
-            transform: translateY(-5px);
+            transform: translateY(-8px);
             box-shadow: var(--shadow-hover);
-            background-color: var(--bg-card-blue);
+            background-color: var(--bg-main);
+            border-color: var(--primary-navy);
         }
-        .card h3 { font-size: 1.2rem; margin-bottom: 12px; color: var(--primary-navy); font-family: 'Inter', sans-serif; }
-        .card p { color: var(--text-muted); font-size: 0.95rem; line-height: 1.6; }
+        .card h3 { font-size: 1.25rem; margin-bottom: 12px; color: var(--primary-navy); }
+        .card p { color: var(--text-muted); font-size: 1rem; line-height: 1.6; font-weight: 500;}
 
         /* --- Process Flowchart --- */
         .process-flow {
@@ -193,128 +259,90 @@
             position: relative;
             padding-left: 40px;
         }
-        /* The connecting line */
         .process-flow::before {
-            content: '';
-            position: absolute;
-            left: 20px;
-            top: 0;
-            bottom: 0;
-            width: 4px;
-            background: var(--border-color);
-            border-radius: 4px;
+            content: ''; position: absolute; left: 20px; top: 0; bottom: 0;
+            width: 4px; background: var(--border-color); border-radius: 4px;
         }
         .process-item {
-            position: relative;
-            background: #ffffff;
-            padding: 24px 30px;
-            border-radius: 12px;
-            box-shadow: var(--shadow-sm);
-            margin-bottom: 24px;
-            border: 1px solid var(--border-color);
-            display: flex;
-            align-items: center;
-            gap: 20px;
-        }
-        /* The dot on the timeline */
-        .process-item::before {
-            content: '';
-            position: absolute;
-            left: -28px;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 20px;
-            height: 20px;
-            background: var(--primary-navy);
-            border-radius: 50%;
-            border: 4px solid #ffffff;
-            box-shadow: 0 0 0 2px var(--primary-navy);
-            z-index: 2;
-        }
-        .process-item:hover {
-            background-color: var(--bg-card-blue);
-            transform: translateX(5px);
+            position: relative; background: #ffffff; padding: 25px 30px;
+            border-radius: 16px; box-shadow: var(--shadow-sm);
+            margin-bottom: 24px; border: 1px solid var(--border-color);
+            display: flex; align-items: center; gap: 20px;
             transition: all 0.3s ease;
         }
-        .process-num {
-            font-size: 2rem;
-            font-weight: 800;
-            color: var(--primary-navy);
-            opacity: 0.2;
+        .process-item::before {
+            content: ''; position: absolute; left: -28px; top: 50%; transform: translateY(-50%);
+            width: 20px; height: 20px; background: var(--primary-navy);
+            border-radius: 50%; border: 4px solid #ffffff; box-shadow: 0 0 0 2px var(--primary-navy); z-index: 2;
         }
-        .process-item p { margin: 0; color: var(--text-dark); font-weight: 500; font-size: 1.05rem; }
+        .process-item:hover { background-color: var(--bg-card-blue); transform: translateX(8px); border-color: var(--primary-navy);}
+        .process-num { font-size: 2.2rem; font-weight: 800; color: var(--primary-navy); opacity: 0.15; font-family: 'Playfair Display', serif;}
+        .process-item p { margin: 0; color: var(--text-dark); font-weight: 600; font-size: 1.1rem; }
 
         /* --- Contact Section --- */
         .contact-wrapper {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 40px;
+            gap: 0; /* Flush for seamless look */
             background: #ffffff;
-            border-radius: 12px;
+            border-radius: 20px;
             box-shadow: var(--shadow-md);
             overflow: hidden;
             border: 1px solid var(--border-color);
         }
         
-        .contact-info { padding: 48px; background: var(--bg-card-blue); color: var(--primary-navy); }
-        .contact-info h3 { color: var(--primary-navy); font-size: 1.8rem; margin-bottom: 32px; font-family: 'Playfair Display', serif; }
+        .contact-info { padding: 50px; background: var(--bg-card-blue); color: var(--primary-navy); display: flex; flex-direction: column; justify-content: center;}
+        .contact-info h3 { color: var(--primary-navy); font-size: 2rem; margin-bottom: 40px; }
         
-        .info-block { display: flex; gap: 16px; margin-bottom: 32px; align-items: flex-start; }
-        .info-block div h4 { color: var(--primary-navy); font-size: 1.05rem; margin-bottom: 8px; font-family: 'Inter', sans-serif;}
-        .info-block div p { color: var(--text-muted); margin: 0; font-size: 0.95rem; line-height: 1.5; font-weight: 500;}
+        .info-block { display: flex; gap: 16px; margin-bottom: 35px; align-items: flex-start; }
+        .info-block div h4 { color: var(--primary-navy); font-size: 1.1rem; margin-bottom: 8px; }
+        .info-block div p { color: var(--text-muted); margin: 0; font-size: 1rem; line-height: 1.5; font-weight: 500;}
 
-        .contact-form-container { padding: 48px; }
-        .form-group { margin-bottom: 20px; }
-        .form-group label { display: block; font-weight: 600; font-size: 0.9rem; margin-bottom: 8px; color: var(--primary-navy); }
+        .contact-form-container { padding: 50px; background: #ffffff;}
+        .form-group { margin-bottom: 22px; }
+        .form-group label { display: block; font-weight: 700; font-size: 0.95rem; margin-bottom: 10px; color: var(--primary-navy); }
         .form-group input, .form-group textarea {
-            width: 100%; padding: 14px 16px;
-            background: #ffffff;
-            border: 1px solid var(--border-color);
-            border-radius: 6px;
-            color: var(--text-dark); font-family: 'Inter', sans-serif;
-            outline: none; transition: all 0.2s ease;
+            width: 100%; padding: 16px;
+            background: #f8fafc;
+            border: 2px solid var(--border-color);
+            border-radius: 10px;
+            color: var(--text-dark); font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 1rem; font-weight: 500;
+            outline: none; transition: all 0.3s ease;
         }
-        .form-group input:focus, .form-group textarea:focus { border-color: var(--primary-navy); box-shadow: 0 0 0 3px var(--bg-light-blue); }
+        .form-group input:focus, .form-group textarea:focus { border-color: var(--primary-navy); background: #ffffff; box-shadow: 0 0 0 4px var(--bg-light-blue); }
         
         .btn-submit {
             width: 100%; background: var(--primary-navy); color: #ffffff;
-            padding: 16px; border: none; border-radius: 6px;
-            font-weight: 600; font-size: 1rem; cursor: pointer;
-            transition: all 0.3s; margin-top: 10px;
+            padding: 18px; border: none; border-radius: 10px;
+            font-weight: 700; font-size: 1.1rem; cursor: pointer;
+            transition: all 0.3s; margin-top: 10px; box-shadow: var(--shadow-sm);
         }
         .btn-submit:hover { background: var(--secondary-navy); box-shadow: var(--shadow-hover); transform: translateY(-2px);}
 
         /* --- Full Width Map Section --- */
         .full-width-map {
-            width: 100%;
-            height: 450px;
-            margin-top: 60px;
-            box-shadow: 0 -5px 20px rgba(0,0,0,0.05);
+            width: 100%; height: 500px; margin-top: 60px;
+            box-shadow: inset 0 10px 20px rgba(0,0,0,0.05);
         }
-        .full-width-map iframe {
-            width: 100%;
-            height: 100%;
-            border: none;
-            /* Ensures it is clickable and movable */
-            pointer-events: auto; 
-        }
+        .full-width-map iframe { width: 100%; height: 100%; border: none; pointer-events: auto; }
 
         /* --- Footer --- */
-        footer { background: var(--primary-navy); padding: 60px 0 30px; color: #ffffff; }
-        .footer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 40px; margin-bottom: 40px; }
+        footer { background: var(--primary-navy); padding: 80px 0 40px; color: #ffffff; }
+        .footer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 40px; margin-bottom: 50px; }
         
-        .footer-logo { height: 70px; margin-bottom: 15px; filter: brightness(0) invert(1); /* Makes logo white if it isn't already */ }
-        .footer-brand p { color: #bae6fd; font-size: 0.95rem; margin-top: 10px; }
+        .footer-logo { height: 75px; margin-bottom: 20px; filter: brightness(0) invert(1); }
+        .footer-brand p { color: var(--border-color); font-size: 1rem; margin-top: 10px; font-weight: 500;}
         
-        .footer-links-col h4 { color: #ffffff; margin-bottom: 20px; font-size: 1.1rem; font-family: 'Inter', sans-serif;}
+        .footer-links-col h4 { color: #ffffff; margin-bottom: 25px; font-size: 1.2rem; }
         .footer-links-col ul { list-style: none; }
-        .footer-links-col ul li { margin-bottom: 12px; }
-        .footer-links-col ul a { color: #bae6fd; text-decoration: none; font-size: 0.95rem; transition: color 0.2s; cursor: pointer; }
+        .footer-links-col ul li { margin-bottom: 14px; }
+        .footer-links-col ul a { color: var(--border-color); text-decoration: none; font-size: 1rem; transition: color 0.2s; cursor: pointer; font-weight: 500;}
         .footer-links-col ul a:hover { color: #ffffff; text-decoration: underline; }
         
         .footer-bottom { 
-            padding-top: 24px; border-top: 1px solid rgba(255,255,255,0.1); 
-            text-align: center; color: #bae6fd; font-size: 0.9rem;
+            padding-top: 30px; border-top: 1px solid rgba(255,255,255,0.1); 
+            text-align: center; color: var(--border-color); font-size: 0.95rem; font-weight: 500;
         }
 
         /* --- Mobile Responsiveness --- */
@@ -324,40 +352,52 @@
         @media (max-width: 768px) {
             .hamburger { display: block; }
             .nav-links { 
-                display: none; 
-                flex-direction: column; 
-                position: absolute; 
-                top: 90px; 
-                left: 0; 
-                width: 100%; 
-                background: var(--primary-navy); 
-                padding: 20px; 
-                box-shadow: 0 10px 10px rgba(0,0,0,0.1);
+                display: none; flex-direction: column; position: absolute; 
+                top: 90px; left: 0; width: 100%; background: var(--primary-navy); 
+                padding: 20px; box-shadow: 0 10px 10px rgba(0,0,0,0.1);
             }
             .nav-links.active { display: flex; }
-            .nav-links a { margin: 10px 0; font-size: 1.1rem; }
-            .nav-cta { text-align: center; width: 100%; }
+            .nav-links a { margin: 15px 0; font-size: 1.1rem; }
+            .nav-cta { text-align: center; width: 100%; margin-top: 10px;}
 
-            .hero-flex { flex-direction: column; text-align: center; }
+            .hero-flex { flex-direction: column; text-align: center; gap: 30px;}
             .hero-btns { justify-content: center; }
             
             .process-flow { padding-left: 20px; }
             .process-flow::before { left: 0px; }
             .process-item::before { left: -28px; }
+            .contact-info, .contact-form-container { padding: 30px;}
         }
     </style>
 </head>
 <body>
 
+    <!-- Toast Notification -->
+    <div id="toast" class="toast">
+        <i class="fas fa-check-circle"></i> 
+        <span>Message sent to Rakhecha Medical Stores!</span>
+    </div>
+
+    <!-- Floating Action Buttons -->
+    <div class="floating-contact">
+        <a href="https://wa.me/917489574895" target="_blank" class="float-btn float-whatsapp" title="WhatsApp Us">
+            <i class="fab fa-whatsapp"></i>
+        </a>
+        <a href="tel:7489574895" class="float-btn float-phone" title="Call Us">
+            <i class="fas fa-phone-alt"></i>
+        </a>
+    </div>
+
+    <!-- Navigation -->
     <nav id="navbar">
         <div class="container nav-flex">
             <a href="#" class="logo-area">
-                <img src="https://lh3.googleusercontent.com/d/1cs-3PcYeUteKYVRBs0oR51MtEnzTtlAI" alt="RMS Logo" class="logo-img">
+                <img src="https://i.ibb.co/HfxTSLb6/RMS-icon-1.png" alt="RMS Logo" class="logo-img">
                 <div class="logo-text">
-                    Rakhecha <span>Medical Stores</span>
+                    RAKHECHA <span>Medical Stores</span>
                 </div>
             </a>
-            <!-- Three Line Mobile Menu Icon -->
+            
             <div class="hamburger" id="mobile-menu-btn">☰</div>
             
             <div class="nav-links" id="nav-menu">
@@ -370,6 +410,7 @@
         </div>
     </nav>
 
+    <!-- Hero Section -->
     <header class="hero">
         <div class="container hero-flex">
             <div class="hero-content reveal">
@@ -382,11 +423,12 @@
                 </div>
             </div>
             <div class="hero-image reveal" style="transition-delay: 0.2s;">
-                <img src="https://lh3.googleusercontent.com/d/1cs-3PcYeUteKYVRBs0oR51MtEnzTtlAI" alt="Rakhecha Medical Stores">
+                <img src="https://i.ibb.co/HfxTSLb6/RMS-icon-1.png" alt="Rakhecha Medical Stores">
             </div>
         </div>
     </header>
 
+    <!-- About Section -->
     <section id="about" class="section container">
         <div class="section-header reveal">
             <h2>🏥 About Rakhecha Medical Stores</h2>
@@ -394,6 +436,7 @@
         </div>
     </section>
 
+    <!-- Advantages Section -->
     <section id="advantages" class="section bg-light">
         <div class="container">
             <div class="section-header reveal">
@@ -445,6 +488,7 @@
         </div>
     </section>
 
+    <!-- Services Section -->
     <section id="services" class="section container">
         <div class="section-header reveal">
             <h2>💼 Our Services</h2>
@@ -473,7 +517,7 @@
             </div>
             <div class="card reveal" style="transition-delay: 0.1s;">
                 <span class="emoji-icon">🧊</span>
-                <h3>Cold-Chain Management & Storage</h3>
+                <h3>Cold-Chain Management</h3>
                 <p>We employ temperature-controlled storage solutions to safely manage heat-sensitive products, including insulin and vaccines.</p>
             </div>
             <div class="card reveal" style="transition-delay: 0.2s;">
@@ -499,6 +543,7 @@
         </div>
     </section>
 
+    <!-- Process Section -->
     <section id="process" class="section bg-light">
         <div class="container">
             <div class="section-header reveal">
@@ -508,27 +553,27 @@
             <div class="process-flow reveal">
                 <div class="process-item">
                     <div class="process-num">01</div>
-                    <p>📞 Receiving orders over the phone, email, or RMS product directory (the online order placement portal).</p>
+                    <p>📞 Receiving orders over the phone, email, or RMS online order placement portal.</p>
                 </div>
                 <div class="process-item">
                     <div class="process-num">02</div>
-                    <p>🧾 Billing for the order.</p>
+                    <p>🧾 Billing generation for the placed order.</p>
                 </div>
                 <div class="process-item">
                     <div class="process-num">03</div>
-                    <p>🛒 Picking products from stock.</p>
+                    <p>🛒 Picking precise products accurately from stock.</p>
                 </div>
                 <div class="process-item">
                     <div class="process-num">04</div>
-                    <p>🔍 Verification of physical goods against the bill.</p>
+                    <p>🔍 Strict verification of physical goods against the bill.</p>
                 </div>
                 <div class="process-item">
                     <div class="process-num">05</div>
-                    <p>📦 Packaging (safe packing to protect goods).</p>
+                    <p>📦 Safe packaging protocols to protect goods.</p>
                 </div>
                 <div class="process-item">
                     <div class="process-num">06</div>
-                    <p>❄️ Thermal packaging for cold chain products (if required).</p>
+                    <p>❄️ Thermal packaging applied for cold chain products (if required).</p>
                 </div>
                 <div class="process-item">
                     <div class="process-num">07</div>
@@ -536,15 +581,16 @@
                 </div>
                 <div class="process-item">
                     <div class="process-num">08</div>
-                    <p>🚚 Safe, protected, and on-time shipment by an RMS executive.</p>
+                    <p>🚚 Safe, protected, and on-time delivery by an RMS executive.</p>
                 </div>
             </div>
         </div>
     </section>
 
+    <!-- Contact Section -->
     <section id="contact" class="section container">
         <div class="section-header reveal">
-            <h2>📬 Contact Us</h2>
+            <h2>📬 Reach Out To Us</h2>
         </div>
         
         <div class="contact-wrapper reveal">
@@ -553,46 +599,52 @@
                 
                 <div class="info-block">
                     <div>
-                        <h4>📍 Address</h4>
+                        <h4>📍 Corporate Address</h4>
                         <p>In front of Mahawer Dharamshala, back side of IDBI Bank, Sihava Chowk, Dhamtari</p>
                     </div>
                 </div>
                 
                 <div class="info-block">
                     <div>
-                        <h4>📞 Contact Numbers</h4>
+                        <h4>📞 Direct Contact</h4>
                         <p>Call: 7489574895<br>WhatsApp: 7489574895</p>
                     </div>
                 </div>
                 
                 <div class="info-block">
                     <div>
-                        <h4>📧 Mail ID</h4>
+                        <h4>📧 Official Mail ID</h4>
                         <p>rakhechamedical@gmail.com</p>
                     </div>
                 </div>
             </div>
             
             <div class="contact-form-container">
-                <h4 style="color: var(--primary-navy); margin-bottom: 20px; font-size: 1.2rem;">📝 Get in touch form &lt;wip&gt;</h4>
-                <form id="reachOutForm">
+                <h4 style="color: var(--primary-navy); margin-bottom: 25px; font-size: 1.3rem;">📝 Send an Inquiry</h4>
+                
+                <!-- Google API Form -->
+                <form id="reachOutForm" class="contact-form">
                     <div class="form-group">
-                        <label>👤 Name</label>
-                        <input type="text" placeholder="Enter your name" required>
+                        <label>👤 Full Name</label>
+                        <input type="text" id="name" placeholder="Enter your full name" required>
+                    </div>
+                    <div class="form-group">
+                        <label>🏙️ City / Location</label>
+                        <input type="text" id="city" placeholder="Enter your city" required>
                     </div>
                     <div class="form-group">
                         <label>📱 Mobile Number</label>
-                        <input type="tel" placeholder="Enter mobile number" required>
+                        <input type="tel" id="mobile" placeholder="Enter mobile number" required>
                     </div>
                     <div class="form-group">
-                        <label>✉️ Email ID</label>
-                        <input type="email" placeholder="Enter email address" required>
+                        <label>✉️ Email Address</label>
+                        <input type="email" id="email" placeholder="Enter email address" required>
                     </div>
                     <div class="form-group">
-                        <label>💬 Message</label>
-                        <textarea rows="4" placeholder="Your message here" required></textarea>
+                        <label>💬 Your Message</label>
+                        <textarea id="message" rows="4" placeholder="How can we assist you today?" required></textarea>
                     </div>
-                    <button type="submit" class="btn-submit">🚀 Submit</button>
+                    <button type="submit" class="btn-submit">🚀 Send Message Instantly</button>
                 </form>
             </div>
         </div>
@@ -603,33 +655,33 @@
         <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d14949.62002570077!2d81.5460425!3d20.7125505!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a2f29c644424083%3A0x7949a208d9da0f5c!2sRakhecha%20Medical%20Stores!5e0!3m2!1sen!2sin!4v1700000000000!5m2!1sen!2sin" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
     </div>
 
+    <!-- Footer -->
     <footer>
         <div class="container">
             <div class="footer-grid">
                 <div class="footer-brand">
-                    <!-- Added RMS Logo to Footer -->
-                    <img src="https://lh3.googleusercontent.com/d/1cs-3PcYeUteKYVRBs0oR51MtEnzTtlAI" alt="RMS Logo" class="footer-logo">
-                    <h2 style="color: #ffffff; font-size: 1.5rem; margin-bottom: 10px; font-family: 'Playfair Display', serif;">Rakhecha Medical Stores</h2>
+                    <img src="https://i.ibb.co/HfxTSLb6/RMS-icon-1.png" alt="RMS Logo" class="footer-logo">
+                    <h2 style="color: #ffffff; font-size: 1.6rem; margin-bottom: 10px; font-family: 'Playfair Display', serif;">Rakhecha Medical Stores</h2>
                     <p>The Best Medical Store in Dhamtari Since 1990</p>
                 </div>
                 
                 <div class="footer-links-col">
                     <h4>⚖️ Legal & Information</h4>
                     <ul>
-                        <li><a href="javascript:void(0)">📄 Licence</a></li>
-                        <li><a href="javascript:void(0)">📜 Declaration</a></li>
-                        <li><a href="javascript:void(0)">🔄 Expiry and Breakage Claim Process</a></li>
-                        <li><a href="javascript:void(0)">📬 Contact: Get in Touch</a></li>
+                        <li><a href="javascript:void(0)">📄 Operating Licence</a></li>
+                        <li><a href="javascript:void(0)">📜 Company Declaration</a></li>
+                        <li><a href="javascript:void(0)">🔄 Expiry & Breakage Claim Process</a></li>
+                        <li><a href="#contact">📬 Contact: Get in Touch</a></li>
                     </ul>
                 </div>
                 
                 <div class="footer-links-col">
                     <h4>🔗 Resources & Links</h4>
                     <ul>
-                        <li><a href="javascript:void(0)">🏭 List of all Pharmaceutical Companies</a></li>
+                        <li><a href="javascript:void(0)">🏭 Partnered Pharmaceutical Companies</a></li>
                         <li><a href="javascript:void(0)">✨ Newly Added Products</a></li>
-                        <li><a href="javascript:void(0)">🖼️ RMS Gallery</a></li>
-                        <li><a href="https://rakhechamedical.in/order/" target="_blank">🛒 Online Order Placements</a></li>
+                        <li><a href="javascript:void(0)">🖼️ RMS Facility Gallery</a></li>
+                        <li><a href="https://rakhechamedical.in/order/" target="_blank">🛒 Online Order Portal</a></li>
                         <li><a href="https://drive.google.com/file/d/1Kg3TzJdnlHn2B4MQx4DpjVfLof-BAbNW/view" target="_blank">📄 PDF Product List</a></li>
                     </ul>
                 </div>
@@ -641,22 +693,29 @@
         </div>
     </footer>
 
+    <!-- INTERACTIVE SCRIPTS -->
     <script>
-        // Scroll Animations
+        // 1. Scroll Reveal Animations
         document.addEventListener("DOMContentLoaded", function() {
-            const observer = new IntersectionObserver((entries) => {
+            const observerOptions = {
+                threshold: 0.1, 
+                rootMargin: "0px 0px -50px 0px"
+            };
+
+            const observer = new IntersectionObserver(function(entries, observer) {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
                         entry.target.classList.add("active");
                         observer.unobserve(entry.target);
                     }
                 });
-            }, { threshold: 0.1, rootMargin: "0px 0px -50px 0px" });
+            }, observerOptions);
 
-            document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+            const revealElements = document.querySelectorAll('.reveal');
+            revealElements.forEach(el => observer.observe(el));
         });
 
-        // Mobile Menu Toggle
+        // 2. Mobile Menu Toggle
         const mobileBtn = document.getElementById('mobile-menu-btn');
         const navMenu = document.getElementById('nav-menu');
         
@@ -664,7 +723,6 @@
             navMenu.classList.toggle('active');
         });
 
-        // Hide menu when clicking a link (mobile)
         document.querySelectorAll('.nav-links a').forEach(link => {
             link.addEventListener('click', () => {
                 if(window.innerWidth <= 768) {
@@ -673,10 +731,35 @@
             });
         });
 
-        // Form Submit Prevent Default
+        // 3. API Logic & Toast Notification (From Reference Code)
+        const API_URL = "https://script.google.com/macros/s/AKfycbwj8f9I1GW-RwwAz59Bz6pkYTfmIf-ApYEKVNsoHj4R6RnflaKRKg0cZLN5kyCPTH1q/exec";
+
+        function showToast() {
+            const toast = document.getElementById("toast");
+            toast.classList.add("show");
+            
+            setTimeout(() => {
+                toast.classList.remove("show");
+            }, 4000);
+        }
+
         document.getElementById("reachOutForm").addEventListener("submit", function(event) {
             event.preventDefault(); 
-            alert("Contact form submitted!");
+
+            const formData = new URLSearchParams();
+            formData.append("name", document.getElementById("name").value);
+            formData.append("city", document.getElementById("city").value);
+            formData.append("mobile", document.getElementById("mobile").value);
+            formData.append("email", document.getElementById("email").value);
+            formData.append("message", document.getElementById("message").value);
+
+            fetch(API_URL, {
+                method: "POST",
+                body: formData,
+                mode: "no-cors"
+            }).catch(error => console.error("Background API Error:", error));
+
+            showToast();
             this.reset(); 
         });
     </script>
