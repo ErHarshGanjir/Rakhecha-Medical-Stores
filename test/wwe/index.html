@@ -8,7 +8,6 @@
     <!-- Premium Fonts and Icons -->
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="icon" type="image/png" href="favicon.png">
     
     <style>
         :root {
@@ -28,21 +27,27 @@
             --shadow-hover: 0 15px 30px rgba(11, 36, 71, 0.12);
         }
 
+        /* --- STRICT RESET & OVERFLOW FIX FOR MOBILE --- */
         * { box-sizing: border-box; margin: 0; padding: 0; }
-        html { scroll-behavior: smooth; }
+        
+        html, body {
+            max-width: 100%;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
 
         body {
             font-family: 'Plus Jakarta Sans', sans-serif;
             background-color: var(--bg-main);
             color: var(--text-dark);
             line-height: 1.6;
-            overflow-x: hidden;
             display: flex;
             flex-direction: column;
             min-height: 100vh;
         }
 
         .container {
+            width: 100%;
             max-width: 1200px;
             margin: 0 auto;
             padding: 0 24px;
@@ -127,11 +132,16 @@
         /* --- MAIN CONTENT WRAPPER --- */
         #main-view { flex: 1; }
 
-        /* --- Hero Section --- */
+        /* --- Hero Section (Updated with Background Image) --- */
         .hero { 
-            padding: 100px 0 120px; 
-            background: linear-gradient(135deg, var(--bg-light-blue) 0%, var(--bg-main) 100%);
-            position: relative; border-bottom: 4px solid var(--primary-navy);
+            padding: 120px 0 140px; 
+            /* Added background image with a light-blue gradient overlay to maintain text readability */
+            background: linear-gradient(135deg, rgba(244, 249, 255, 0.92) 0%, rgba(255, 255, 255, 0.95) 100%), url('https://imgh.in/host/3i11sw');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            position: relative; 
+            border-bottom: 4px solid var(--primary-navy);
         }
         .hero-flex { display: flex; align-items: center; gap: 60px; flex-wrap: wrap; }
         .hero-content { flex: 1.2; min-width: 320px; }
@@ -291,7 +301,6 @@
         .footer-links-col h4 { color: #ffffff; margin-bottom: 25px; font-size: 1.2rem; }
         .footer-links-col ul { list-style: none; }
         .footer-links-col ul li { margin-bottom: 14px; }
-        /* Notice standard emojis inside the span to separate them visually */
         .footer-links-col ul a { color: var(--border-color); text-decoration: none; font-size: 1rem; transition: color 0.2s; cursor: pointer; font-weight: 500;}
         .footer-links-col ul a:hover { color: var(--accent-gold); }
         .footer-links-col ul a span.icon { margin-right: 8px; }
@@ -377,7 +386,7 @@
             <div class="container hero-flex">
                 <div class="hero-content reveal">
                     <div class="badge">🏆 Trusted Since 1990</div>
-                    <h1>The Best Medical Store in Dhamtari Since 1990 </h1>
+                    <h1>Smart Pharma <br>Distribution. 💊</h1>
                     <p>Rakhecha Medical Stores: Leading pharmaceutical wholesale distribution in Chhattisgarh. Supplying premium-quality medicines and medical supplies with a commitment to speed, clinical care, and reliability.</p>
                     <div class="hero-btns">
                         <a href="https://rakhechamedical.in/order/" target="_blank" class="btn-primary">📱 Digital Inventory</a>
