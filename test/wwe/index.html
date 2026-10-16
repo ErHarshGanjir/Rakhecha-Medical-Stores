@@ -7,24 +7,23 @@
     
     <!-- Professional Corporate Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
         :root {
-            /* Navy and Gold Corporate Theme */
+            /* Light Blue Theme with Navy Header */
             --bg-main: #ffffff;
-            --bg-alt: #f4f7f6;
-            --primary-navy: #0B2447;
+            --bg-light-blue: #f0f8ff; /* Alice Blue */
+            --bg-card-blue: #e0f2fe; /* Slightly darker light blue for cards */
+            --primary-navy: #0B2447; /* Perfect Header Navy */
             --secondary-navy: #19376D;
             --accent-gold: #D4AF37;
-            --accent-gold-light: #F3E5AB;
             --text-dark: #1a1a1a;
-            --text-muted: #555555;
-            --border-color: #e0e0e0;
+            --text-muted: #4a5568;
+            --border-color: #bae6fd;
             
             --shadow-sm: 0 2px 4px rgba(11, 36, 71, 0.05);
-            --shadow-md: 0 4px 12px rgba(11, 36, 71, 0.1);
-            --shadow-hover: 0 10px 25px rgba(212, 175, 55, 0.2);
+            --shadow-md: 0 4px 12px rgba(11, 36, 71, 0.08);
+            --shadow-hover: 0 10px 25px rgba(11, 36, 71, 0.15);
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -46,9 +45,9 @@
         }
 
         h1, h2, h3 { color: var(--primary-navy); font-weight: 700; line-height: 1.3; }
-        
-        /* Serif font for elegant headings */
         h1, h2 { font-family: 'Playfair Display', serif; }
+
+        .emoji-icon { font-size: 2.2rem; margin-bottom: 12px; display: inline-block; }
 
         /* --- Animations --- */
         .reveal {
@@ -66,7 +65,7 @@
             align-items: center;
             position: sticky;
             top: 0;
-            z-index: 999;
+            z-index: 1000;
             box-shadow: var(--shadow-md);
         }
 
@@ -74,7 +73,7 @@
         .logo-area { display: flex; align-items: center; gap: 15px; text-decoration: none; }
         .logo-img { height: 50px; width: auto; object-fit: contain; }
         .logo-text { font-size: 1.25rem; font-weight: 800; color: #ffffff; letter-spacing: 0.5px; }
-        .logo-text span { color: var(--accent-gold); font-weight: 400; font-size: 0.9rem; display: block; }
+        .logo-text span { color: var(--bg-light-blue); font-weight: 400; font-size: 0.9rem; display: block; }
         
         .nav-links { display: flex; align-items: center; gap: 32px; }
         .nav-links a { 
@@ -85,21 +84,30 @@
         .nav-links a:hover { color: var(--accent-gold); }
         
         .nav-cta {
-            background-color: var(--accent-gold);
+            background-color: var(--bg-light-blue);
             color: var(--primary-navy) !important;
             padding: 10px 24px;
             border-radius: 4px;
             font-weight: 700;
             transition: all 0.2s ease;
         }
-        .nav-cta:hover { background-color: #e6c555; transform: translateY(-2px); }
+        .nav-cta:hover { background-color: #ffffff; transform: translateY(-2px); }
+
+        /* Mobile Three-Line Menu */
+        .hamburger {
+            display: none;
+            font-size: 2rem;
+            color: #ffffff;
+            cursor: pointer;
+            user-select: none;
+        }
 
         /* --- Hero Section --- */
         .hero { 
             padding: 100px 0 120px; 
-            background: linear-gradient(135deg, var(--bg-alt) 0%, var(--bg-main) 100%);
+            background: linear-gradient(135deg, var(--bg-light-blue) 0%, var(--bg-main) 100%);
             position: relative; 
-            border-bottom: 4px solid var(--accent-gold);
+            border-bottom: 4px solid var(--primary-navy);
         }
         .hero-flex { display: flex; align-items: center; gap: 60px; flex-wrap: wrap; }
         .hero-content { flex: 1.2; min-width: 320px; }
@@ -107,14 +115,14 @@
         .badge {
             display: inline-flex; align-items: center; gap: 8px;
             padding: 6px 16px; border-radius: 50px;
-            background: var(--accent-gold-light);
+            background: #ffffff;
             color: var(--primary-navy); font-weight: 700; font-size: 0.85rem;
             margin-bottom: 24px;
-            border: 1px solid var(--accent-gold);
+            border: 1px solid var(--border-color);
+            box-shadow: var(--shadow-sm);
         }
         
         .hero-content h1 { font-size: clamp(2.5rem, 5vw, 4rem); margin-bottom: 24px; }
-        .hero-content h1 span { color: var(--accent-gold); }
         .hero-content p { font-size: 1.15rem; color: var(--text-muted); margin-bottom: 40px; max-width: 650px; }
         
         .hero-btns { display: flex; gap: 16px; flex-wrap: wrap; }
@@ -131,10 +139,10 @@
         .btn-primary:hover { background-color: var(--secondary-navy); box-shadow: var(--shadow-hover); transform: translateY(-2px); }
         
         .btn-secondary {
-            background-color: transparent; color: var(--primary-navy);
+            background-color: #ffffff; color: var(--primary-navy);
             border: 2px solid var(--primary-navy);
         }
-        .btn-secondary:hover { border-color: var(--accent-gold); color: var(--primary-navy); background-color: var(--accent-gold-light); }
+        .btn-secondary:hover { border-color: var(--primary-navy); background-color: var(--bg-light-blue); }
 
         .hero-image { flex: 1; min-width: 350px; display: flex; justify-content: center; }
         .hero-image img { 
@@ -143,19 +151,19 @@
             box-shadow: var(--shadow-md);
             background: #fff;
             padding: 40px;
-            border: 2px solid var(--accent-gold);
+            border: 2px solid var(--primary-navy);
         }
 
         /* --- Sections Layout --- */
         .section { padding: 90px 0; }
-        .bg-gray { background-color: var(--bg-alt); }
+        .bg-light { background-color: var(--bg-light-blue); }
         
         .section-header { text-align: center; margin-bottom: 60px; max-width: 800px; margin-inline: auto; }
         .section-header h2 { font-size: 2.5rem; margin-bottom: 20px; position: relative; display: inline-block; padding-bottom: 10px; }
-        .section-header h2::after { content: ''; position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); width: 60px; height: 3px; background-color: var(--accent-gold); }
+        .section-header h2::after { content: ''; position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); width: 60px; height: 3px; background-color: var(--primary-navy); }
         .section-header p { color: var(--text-muted); font-size: 1.1rem; }
 
-        /* --- Cards Grid (Advantages & Services) --- */
+        /* --- Cards Grid --- */
         .grid-container {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
@@ -165,47 +173,76 @@
         .card {
             background: #ffffff;
             border: 1px solid var(--border-color);
-            border-radius: 8px;
+            border-radius: 12px;
             padding: 32px;
             transition: all 0.3s ease;
             box-shadow: var(--shadow-sm);
-            border-top: 4px solid var(--primary-navy);
         }
         .card:hover {
             transform: translateY(-5px);
             box-shadow: var(--shadow-hover);
-            border-top-color: var(--accent-gold);
+            background-color: var(--bg-card-blue);
         }
         .card h3 { font-size: 1.2rem; margin-bottom: 12px; color: var(--primary-navy); font-family: 'Inter', sans-serif; }
         .card p { color: var(--text-muted); font-size: 0.95rem; line-height: 1.6; }
 
-        /* --- Process List --- */
-        .process-list {
-            list-style: none;
-            display: flex;
-            flex-direction: column;
-            gap: 16px;
+        /* --- Process Flowchart --- */
+        .process-flow {
             max-width: 800px;
             margin: 0 auto;
+            position: relative;
+            padding-left: 40px;
+        }
+        /* The connecting line */
+        .process-flow::before {
+            content: '';
+            position: absolute;
+            left: 20px;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: var(--border-color);
+            border-radius: 4px;
         }
         .process-item {
+            position: relative;
+            background: #ffffff;
+            padding: 24px 30px;
+            border-radius: 12px;
+            box-shadow: var(--shadow-sm);
+            margin-bottom: 24px;
+            border: 1px solid var(--border-color);
             display: flex;
             align-items: center;
             gap: 20px;
-            background: #ffffff;
-            padding: 24px;
-            border-radius: 8px;
-            box-shadow: var(--shadow-sm);
-            border-left: 4px solid var(--accent-gold);
+        }
+        /* The dot on the timeline */
+        .process-item::before {
+            content: '';
+            position: absolute;
+            left: -28px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 20px;
+            height: 20px;
+            background: var(--primary-navy);
+            border-radius: 50%;
+            border: 4px solid #ffffff;
+            box-shadow: 0 0 0 2px var(--primary-navy);
+            z-index: 2;
+        }
+        .process-item:hover {
+            background-color: var(--bg-card-blue);
+            transform: translateX(5px);
+            transition: all 0.3s ease;
         }
         .process-num {
-            background: var(--primary-navy);
-            color: var(--accent-gold);
-            min-width: 40px; height: 40px;
-            display: flex; align-items: center; justify-content: center;
-            border-radius: 50%; font-weight: bold; font-size: 1.2rem;
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--primary-navy);
+            opacity: 0.2;
         }
-        .process-item p { margin: 0; color: var(--text-dark); font-weight: 500; }
+        .process-item p { margin: 0; color: var(--text-dark); font-weight: 500; font-size: 1.05rem; }
 
         /* --- Contact Section --- */
         .contact-wrapper {
@@ -213,63 +250,100 @@
             grid-template-columns: 1fr 1fr;
             gap: 40px;
             background: #ffffff;
-            border-radius: 8px;
+            border-radius: 12px;
             box-shadow: var(--shadow-md);
             overflow: hidden;
             border: 1px solid var(--border-color);
         }
         
-        .contact-info { padding: 48px; background: var(--primary-navy); color: #ffffff; }
-        .contact-info h3 { color: var(--accent-gold); font-size: 1.8rem; margin-bottom: 32px; font-family: 'Playfair Display', serif; }
+        .contact-info { padding: 48px; background: var(--bg-card-blue); color: var(--primary-navy); }
+        .contact-info h3 { color: var(--primary-navy); font-size: 1.8rem; margin-bottom: 32px; font-family: 'Playfair Display', serif; }
         
         .info-block { display: flex; gap: 16px; margin-bottom: 32px; align-items: flex-start; }
-        .info-block i { font-size: 1.25rem; margin-top: 4px; color: var(--accent-gold); }
-        .info-block div h4 { color: #ffffff; font-size: 1rem; margin-bottom: 8px; font-family: 'Inter', sans-serif;}
-        .info-block div p { color: #d1d5db; margin: 0; font-size: 0.95rem; line-height: 1.5; }
+        .info-block div h4 { color: var(--primary-navy); font-size: 1.05rem; margin-bottom: 8px; font-family: 'Inter', sans-serif;}
+        .info-block div p { color: var(--text-muted); margin: 0; font-size: 0.95rem; line-height: 1.5; font-weight: 500;}
 
         .contact-form-container { padding: 48px; }
         .form-group { margin-bottom: 20px; }
         .form-group label { display: block; font-weight: 600; font-size: 0.9rem; margin-bottom: 8px; color: var(--primary-navy); }
         .form-group input, .form-group textarea {
             width: 100%; padding: 14px 16px;
-            background: var(--bg-alt);
+            background: #ffffff;
             border: 1px solid var(--border-color);
-            border-radius: 4px;
+            border-radius: 6px;
             color: var(--text-dark); font-family: 'Inter', sans-serif;
             outline: none; transition: all 0.2s ease;
         }
-        .form-group input:focus, .form-group textarea:focus { border-color: var(--accent-gold); background: #ffffff; box-shadow: 0 0 0 3px var(--accent-gold-light); }
+        .form-group input:focus, .form-group textarea:focus { border-color: var(--primary-navy); box-shadow: 0 0 0 3px var(--bg-light-blue); }
         
         .btn-submit {
             width: 100%; background: var(--primary-navy); color: #ffffff;
-            padding: 16px; border: none; border-radius: 4px;
+            padding: 16px; border: none; border-radius: 6px;
             font-weight: 600; font-size: 1rem; cursor: pointer;
             transition: all 0.3s; margin-top: 10px;
         }
-        .btn-submit:hover { background: var(--accent-gold); color: var(--primary-navy); }
+        .btn-submit:hover { background: var(--secondary-navy); box-shadow: var(--shadow-hover); transform: translateY(-2px);}
+
+        /* --- Full Width Map Section --- */
+        .full-width-map {
+            width: 100%;
+            height: 450px;
+            margin-top: 60px;
+            box-shadow: 0 -5px 20px rgba(0,0,0,0.05);
+        }
+        .full-width-map iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            /* Ensures it is clickable and movable */
+            pointer-events: auto; 
+        }
 
         /* --- Footer --- */
-        footer { background: #061124; padding: 60px 0 30px; color: #ffffff; }
+        footer { background: var(--primary-navy); padding: 60px 0 30px; color: #ffffff; }
         .footer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 40px; margin-bottom: 40px; }
         
-        .footer-brand p { color: #9ca3af; font-size: 0.95rem; margin-top: 16px; }
+        .footer-logo { height: 70px; margin-bottom: 15px; filter: brightness(0) invert(1); /* Makes logo white if it isn't already */ }
+        .footer-brand p { color: #bae6fd; font-size: 0.95rem; margin-top: 10px; }
         
-        .footer-links-col h4 { color: var(--accent-gold); margin-bottom: 20px; font-size: 1.1rem; font-family: 'Inter', sans-serif;}
+        .footer-links-col h4 { color: #ffffff; margin-bottom: 20px; font-size: 1.1rem; font-family: 'Inter', sans-serif;}
         .footer-links-col ul { list-style: none; }
         .footer-links-col ul li { margin-bottom: 12px; }
-        .footer-links-col ul a { color: #d1d5db; text-decoration: none; font-size: 0.95rem; transition: color 0.2s; cursor: pointer; }
-        .footer-links-col ul a:hover { color: var(--accent-gold); }
+        .footer-links-col ul a { color: #bae6fd; text-decoration: none; font-size: 0.95rem; transition: color 0.2s; cursor: pointer; }
+        .footer-links-col ul a:hover { color: #ffffff; text-decoration: underline; }
         
         .footer-bottom { 
             padding-top: 24px; border-top: 1px solid rgba(255,255,255,0.1); 
-            text-align: center; color: #6b7280; font-size: 0.9rem;
+            text-align: center; color: #bae6fd; font-size: 0.9rem;
         }
 
-        @media (max-width: 900px) { .contact-wrapper { grid-template-columns: 1fr; } }
+        /* --- Mobile Responsiveness --- */
+        @media (max-width: 900px) { 
+            .contact-wrapper { grid-template-columns: 1fr; } 
+        }
         @media (max-width: 768px) {
-            .nav-links { display: none; }
+            .hamburger { display: block; }
+            .nav-links { 
+                display: none; 
+                flex-direction: column; 
+                position: absolute; 
+                top: 90px; 
+                left: 0; 
+                width: 100%; 
+                background: var(--primary-navy); 
+                padding: 20px; 
+                box-shadow: 0 10px 10px rgba(0,0,0,0.1);
+            }
+            .nav-links.active { display: flex; }
+            .nav-links a { margin: 10px 0; font-size: 1.1rem; }
+            .nav-cta { text-align: center; width: 100%; }
+
             .hero-flex { flex-direction: column; text-align: center; }
             .hero-btns { justify-content: center; }
+            
+            .process-flow { padding-left: 20px; }
+            .process-flow::before { left: 0px; }
+            .process-item::before { left: -28px; }
         }
     </style>
 </head>
@@ -283,7 +357,10 @@
                     Rakhecha <span>Medical Stores</span>
                 </div>
             </a>
-            <div class="nav-links">
+            <!-- Three Line Mobile Menu Icon -->
+            <div class="hamburger" id="mobile-menu-btn">☰</div>
+            
+            <div class="nav-links" id="nav-menu">
                 <a href="#about">About</a>
                 <a href="#advantages">Advantages</a>
                 <a href="#services">Services</a>
@@ -296,12 +373,12 @@
     <header class="hero">
         <div class="container hero-flex">
             <div class="hero-content reveal">
-                <div class="badge"><i class="fas fa-certificate"></i> Trusted Since 1990</div>
-                <h1>Smart Pharma <br><span>Distribution.</span></h1>
-                <p>Rakhecha Medical Stores: Leading pharmaceutical wholesale distribution in Chhattisgarh.[cite: 6] Supplying premium-quality medicines and medical supplies with a commitment to speed, clinical care, and reliability.[cite: 6]</p>
+                <div class="badge">🏆 Trusted Since 1990</div>
+                <h1>Smart Pharma <br>Distribution. 💊</h1>
+                <p>Rakhecha Medical Stores: Leading pharmaceutical wholesale distribution in Chhattisgarh. Supplying premium-quality medicines and medical supplies with a commitment to speed, clinical care, and reliability.</p>
                 <div class="hero-btns">
-                    <a href="https://rakhechamedical.in/order/" target="_blank" class="btn-primary">Digital Inventory</a>
-                    <a href="https://drive.google.com/file/d/1Kg3TzJdnlHn2B4MQx4DpjVfLof-BAbNW/view" target="_blank" class="btn-secondary">Product PDF</a>
+                    <a href="https://rakhechamedical.in/order/" target="_blank" class="btn-primary">📱 Digital Inventory</a>
+                    <a href="https://drive.google.com/file/d/1Kg3TzJdnlHn2B4MQx4DpjVfLof-BAbNW/view" target="_blank" class="btn-secondary">📄 Product PDF</a>
                 </div>
             </div>
             <div class="hero-image reveal" style="transition-delay: 0.2s;">
@@ -312,49 +389,57 @@
 
     <section id="about" class="section container">
         <div class="section-header reveal">
-            <h2>About Rakhecha Medical Stores</h2>
-            <p>Welcome to Rakhecha Medical Stores, your trusted partner in health and wellness in Dhamtari since 1990.[cite: 6] For over three decades, we have been at the forefront of providing exceptional healthcare solutions to our community.[cite: 6] As a reliable retail pharmacy and a well-established pharmaceutical distributor, we pride ourselves on our commitment to quality, authenticity, and compassionate service.[cite: 6] Our mission is to ensure you have access to premium healthcare supplies, empowering you to live a healthier life.[cite: 6] With a focus on customer satisfaction, we aim to be your go-to destination for all your medical needs.[cite: 6]</p>
+            <h2>🏥 About Rakhecha Medical Stores</h2>
+            <p>Welcome to Rakhecha Medical Stores, your trusted partner in health and wellness in Dhamtari since 1990. For over three decades, we have been at the forefront of providing exceptional healthcare solutions to our community. As a reliable retail pharmacy and a well-established pharmaceutical distributor, we pride ourselves on our commitment to quality, authenticity, and compassionate service. Our mission is to ensure you have access to premium healthcare supplies, empowering you to live a healthier life. With a focus on customer satisfaction, we aim to be your go-to destination for all your medical needs.</p>
         </div>
     </section>
 
-    <section id="advantages" class="section bg-gray">
+    <section id="advantages" class="section bg-light">
         <div class="container">
             <div class="section-header reveal">
-                <h2>Our Advantages</h2>
+                <h2>✨ Our Advantages</h2>
             </div>
             
             <div class="grid-container">
                 <div class="card reveal">
+                    <span class="emoji-icon">📦</span>
                     <h3>Wide Range of Products</h3>
-                    <p>We provide a variety of medicines, medical supplies, surgical items, and vitamins, so you can find everything you need for your health in one place.[cite: 6]</p>
+                    <p>We provide a variety of medicines, medical supplies, surgical items, and vitamins, so you can find everything you need for your health in one place.</p>
                 </div>
                 <div class="card reveal" style="transition-delay: 0.1s;">
+                    <span class="emoji-icon">🛡️</span>
                     <h3>Zero Compromise on Quality</h3>
-                    <p>We only offer high-quality products.[cite: 6] You can trust that what you buy from us is safe and effective.[cite: 6]</p>
+                    <p>We only offer high-quality products. You can trust that what you buy from us is safe and effective.</p>
                 </div>
                 <div class="card reveal" style="transition-delay: 0.2s;">
+                    <span class="emoji-icon">📅</span>
                     <h3>7 Days of Service</h3>
-                    <p>We're here for you every day of the week, so you can get what you need whenever you need it.[cite: 6]</p>
+                    <p>We're here for you every day of the week, so you can get what you need whenever you need it.</p>
                 </div>
                 <div class="card reveal" style="transition-delay: 0.3s;">
+                    <span class="emoji-icon">❤️</span>
                     <h3>Quality Care</h3>
-                    <p>We build strong relationships with our customers by selling only genuine products from trusted sources.[cite: 6]</p>
+                    <p>We build strong relationships with our customers by selling only genuine products from trusted sources.</p>
                 </div>
                 <div class="card reveal">
+                    <span class="emoji-icon">💻</span>
                     <h3>Easy Online Ordering</h3>
-                    <p>Ordering from our website is simple and quick.[cite: 7] You can easily find and purchase what you need from home.[cite: 7]</p>
+                    <p>Ordering from our website is simple and quick. You can easily find and purchase what you need from home.</p>
                 </div>
                 <div class="card reveal" style="transition-delay: 0.1s;">
+                    <span class="emoji-icon">✅</span>
                     <h3>Supply & Inventory Reliability</h3>
-                    <p>We make sure our products are always in stock, so you can rely on us to have what you want.[cite: 7]</p>
+                    <p>We make sure our products are always in stock, so you can rely on us to have what you want.</p>
                 </div>
                 <div class="card reveal" style="transition-delay: 0.2s;">
+                    <span class="emoji-icon">🔬</span>
                     <h3>Quality Assurance</h3>
-                    <p>We ensure our products are stored and transported properly for the best quality.[cite: 7]</p>
+                    <p>We ensure our products are stored and transported properly for the best quality.</p>
                 </div>
                 <div class="card reveal" style="transition-delay: 0.3s;">
+                    <span class="emoji-icon">⚡</span>
                     <h3>Digital Efficiency in Ordering</h3>
-                    <p>Our online system makes ordering fast and easy, allowing you to complete your purchases with minimal effort.[cite: 7]</p>
+                    <p>Our online system makes ordering fast and easy, allowing you to complete your purchases with minimal effort.</p>
                 </div>
             </div>
         </div>
@@ -362,181 +447,190 @@
 
     <section id="services" class="section container">
         <div class="section-header reveal">
-            <h2>Our Services</h2>
+            <h2>💼 Our Services</h2>
         </div>
         
         <div class="grid-container">
             <div class="card reveal">
+                <span class="emoji-icon">🏢</span>
                 <h3>Bulk Procurement & Sourcing</h3>
-                <p>As a trusted stockist, we procure medicines from top manufacturers in large quantities, ensuring the best products are readily available for our clients.[cite: 7]</p>
+                <p>As a trusted stockist, we procure medicines from top manufacturers in large quantities, ensuring the best products are readily available for our clients.</p>
             </div>
             <div class="card reveal" style="transition-delay: 0.1s;">
+                <span class="emoji-icon">📋</span>
                 <h3>Comprehensive Stock Portfolio</h3>
-                <p>We maintain a wide-ranging inventory of medicines, always on hand to meet the immediate needs of our customers.[cite: 7]</p>
+                <p>We maintain a wide-ranging inventory of medicines, always on hand to meet the immediate needs of our customers.</p>
             </div>
             <div class="card reveal" style="transition-delay: 0.2s;">
+                <span class="emoji-icon">🔄</span>
                 <h3>Expiry and Breakage Claims</h3>
-                <p>We provide value for every product![cite: 7] If any medicine expires or gets damaged, we generate a credit note that can be applied to future purchases.[cite: 7]</p>
+                <p>We provide value for every product! If any medicine expires or gets damaged, we generate a credit note that can be applied to future purchases.</p>
             </div>
             <div class="card reveal">
+                <span class="emoji-icon">🚀</span>
                 <h3>Ready-to-Ship Inventory</h3>
-                <p>Our prepared inventory allows us to ship medicines promptly, ensuring that they are ready for immediate dispatch.[cite: 7]</p>
+                <p>Our prepared inventory allows us to ship medicines promptly, ensuring that they are ready for immediate dispatch.</p>
             </div>
             <div class="card reveal" style="transition-delay: 0.1s;">
+                <span class="emoji-icon">🧊</span>
                 <h3>Cold-Chain Management & Storage</h3>
-                <p>We employ temperature-controlled storage solutions to safely manage heat-sensitive products, including insulin and vaccines.[cite: 7]</p>
+                <p>We employ temperature-controlled storage solutions to safely manage heat-sensitive products, including insulin and vaccines.</p>
             </div>
             <div class="card reveal" style="transition-delay: 0.2s;">
+                <span class="emoji-icon">⏱️</span>
                 <h3>On-Time Delivery</h3>
-                <p>Our commitment to quick shipping helps prevent stockouts at hospitals and retail outlets, ensuring continuous service.[cite: 7]</p>
+                <p>Our commitment to quick shipping helps prevent stockouts at hospitals and retail outlets, ensuring continuous service.</p>
             </div>
             <div class="card reveal">
+                <span class="emoji-icon">🎯</span>
                 <h3>Seamless Order Fulfillment</h3>
-                <p>We handle high-volume orders with precision, ensuring smooth processing and accuracy without any item errors.[cite: 7]</p>
+                <p>We handle high-volume orders with precision, ensuring smooth processing and accuracy without any item errors.</p>
             </div>
             <div class="card reveal" style="transition-delay: 0.1s;">
+                <span class="emoji-icon">🛣️</span>
                 <h3>End-to-End Distribution</h3>
-                <p>We take care of the entire distribution process, from our stock to the chemist's counter, providing a hassle-free experience for our clients.[cite: 8]</p>
+                <p>We take care of the entire distribution process, from our stock to the chemist's counter, providing a hassle-free experience for our clients.</p>
             </div>
             <div class="card reveal" style="transition-delay: 0.2s;">
+                <span class="emoji-icon">♾️</span>
                 <h3>Uninterrupted Supply Chain</h3>
-                <p>We ensure reliable deliveries, even during high-demand seasons, keeping your supply chain running without interruptions.[cite: 8]</p>
+                <p>We ensure reliable deliveries, even during high-demand seasons, keeping your supply chain running without interruptions.</p>
             </div>
         </div>
     </section>
 
-    <section id="process" class="section bg-gray">
+    <section id="process" class="section bg-light">
         <div class="container">
             <div class="section-header reveal">
-                <h2>Process</h2>
+                <h2>⚙️ Distribution Flow Process</h2>
             </div>
             
-            <ul class="process-list reveal">
-                <li class="process-item">
-                    <div class="process-num">1</div>
-                    <p>Receiving orders over the phone, email, or RMS product directory (the online order placement portal).[cite: 8]</p>
-                </li>
-                <li class="process-item">
-                    <div class="process-num">2</div>
-                    <p>Billing for the order.[cite: 8]</p>
-                </li>
-                <li class="process-item">
-                    <div class="process-num">3</div>
-                    <p>Picking products from stock.[cite: 8]</p>
-                </li>
-                <li class="process-item">
-                    <div class="process-num">4</div>
-                    <p>Verification of physical goods against the bill.[cite: 8]</p>
-                </li>
-                <li class="process-item">
-                    <div class="process-num">5</div>
-                    <p>Packaging (safe packing to protect goods).[cite: 8]</p>
-                </li>
-                <li class="process-item">
-                    <div class="process-num">6</div>
-                    <p>Thermal packaging for cold chain products (if required).[cite: 8]</p>
-                </li>
-                <li class="process-item">
-                    <div class="process-num">7</div>
-                    <p>Ready for shipment (pickup from the RMS counter is also available).[cite: 8]</p>
-                </li>
-                <li class="process-item">
-                    <div class="process-num">8</div>
-                    <p>Safe, protected, and on-time shipment by an RMS executive.[cite: 8]</p>
-                </li>
-            </ul>
+            <div class="process-flow reveal">
+                <div class="process-item">
+                    <div class="process-num">01</div>
+                    <p>📞 Receiving orders over the phone, email, or RMS product directory (the online order placement portal).</p>
+                </div>
+                <div class="process-item">
+                    <div class="process-num">02</div>
+                    <p>🧾 Billing for the order.</p>
+                </div>
+                <div class="process-item">
+                    <div class="process-num">03</div>
+                    <p>🛒 Picking products from stock.</p>
+                </div>
+                <div class="process-item">
+                    <div class="process-num">04</div>
+                    <p>🔍 Verification of physical goods against the bill.</p>
+                </div>
+                <div class="process-item">
+                    <div class="process-num">05</div>
+                    <p>📦 Packaging (safe packing to protect goods).</p>
+                </div>
+                <div class="process-item">
+                    <div class="process-num">06</div>
+                    <p>❄️ Thermal packaging for cold chain products (if required).</p>
+                </div>
+                <div class="process-item">
+                    <div class="process-num">07</div>
+                    <p>🏁 Ready for shipment (pickup from the RMS counter is also available).</p>
+                </div>
+                <div class="process-item">
+                    <div class="process-num">08</div>
+                    <p>🚚 Safe, protected, and on-time shipment by an RMS executive.</p>
+                </div>
+            </div>
         </div>
     </section>
 
     <section id="contact" class="section container">
         <div class="section-header reveal">
-            <h2>Contact</h2>
+            <h2>📬 Contact Us</h2>
         </div>
         
         <div class="contact-wrapper reveal">
             <div class="contact-info">
-                <h3>Rakhecha Medical Stores</h3>
+                <h3>Rakhecha Medical Stores 🏥</h3>
                 
                 <div class="info-block">
-                    <i class="fas fa-map-marker-alt"></i>
                     <div>
-                        <h4>Address</h4>
-                        <p>Rakhecha Medical Stores, in front of Mahawer Dharamshala, back side of IDBI Bank, Sihava Chowk, Dhamtari[cite: 9]</p>
+                        <h4>📍 Address</h4>
+                        <p>In front of Mahawer Dharamshala, back side of IDBI Bank, Sihava Chowk, Dhamtari</p>
                     </div>
                 </div>
                 
                 <div class="info-block">
-                    <i class="fas fa-phone-alt"></i>
                     <div>
-                        <h4>Contact</h4>
-                        <p>7489574895[cite: 8]<br>WhatsApp 7489574895[cite: 8]</p>
+                        <h4>📞 Contact Numbers</h4>
+                        <p>Call: 7489574895<br>WhatsApp: 7489574895</p>
                     </div>
                 </div>
                 
                 <div class="info-block">
-                    <i class="fas fa-envelope"></i>
                     <div>
-                        <h4>Mail ID</h4>
-                        <p>rakhechamedical@gmail.com[cite: 8]</p>
+                        <h4>📧 Mail ID</h4>
+                        <p>rakhechamedical@gmail.com</p>
                     </div>
-                </div>
-
-                <div style="margin-top: 30px; height: 200px; width: 100%; border-radius: 4px; overflow: hidden; border: 2px solid var(--accent-gold);">
-                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d14949.62002570077!2d81.5460425!3d20.7125505!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a2f29c644424083%3A0x7949a208d9da0f5c!2sRakhecha%20Medical%20Stores!5e0!3m2!1sen!2sin!4v1700000000000!5m2!1sen!2sin" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                 </div>
             </div>
             
             <div class="contact-form-container">
-                <h4 style="color: var(--primary-navy); margin-bottom: 20px; font-size: 1.2rem;">Get in touch form &lt;wip&gt;[cite: 8]</h4>
+                <h4 style="color: var(--primary-navy); margin-bottom: 20px; font-size: 1.2rem;">📝 Get in touch form &lt;wip&gt;</h4>
                 <form id="reachOutForm">
                     <div class="form-group">
-                        <label>Name</label>
+                        <label>👤 Name</label>
                         <input type="text" placeholder="Enter your name" required>
                     </div>
                     <div class="form-group">
-                        <label>Mobile Number</label>
+                        <label>📱 Mobile Number</label>
                         <input type="tel" placeholder="Enter mobile number" required>
                     </div>
                     <div class="form-group">
-                        <label>Email ID</label>
+                        <label>✉️ Email ID</label>
                         <input type="email" placeholder="Enter email address" required>
                     </div>
                     <div class="form-group">
-                        <label>Message</label>
-                        <textarea rows="5" placeholder="Your message here" required></textarea>
+                        <label>💬 Message</label>
+                        <textarea rows="4" placeholder="Your message here" required></textarea>
                     </div>
-                    <button type="submit" class="btn-submit">Submit</button>
+                    <button type="submit" class="btn-submit">🚀 Submit</button>
                 </form>
             </div>
         </div>
     </section>
 
+    <!-- Full Width Advanced Interactive Map -->
+    <div class="full-width-map reveal">
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d14949.62002570077!2d81.5460425!3d20.7125505!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a2f29c644424083%3A0x7949a208d9da0f5c!2sRakhecha%20Medical%20Stores!5e0!3m2!1sen!2sin!4v1700000000000!5m2!1sen!2sin" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+    </div>
+
     <footer>
         <div class="container">
             <div class="footer-grid">
                 <div class="footer-brand">
+                    <!-- Added RMS Logo to Footer -->
+                    <img src="https://lh3.googleusercontent.com/d/1cs-3PcYeUteKYVRBs0oR51MtEnzTtlAI" alt="RMS Logo" class="footer-logo">
                     <h2 style="color: #ffffff; font-size: 1.5rem; margin-bottom: 10px; font-family: 'Playfair Display', serif;">Rakhecha Medical Stores</h2>
-                    <p>Rakhecha Medical Stores | The Best Medical Store in Dhamtari Since 1990[cite: 6]</p>
+                    <p>The Best Medical Store in Dhamtari Since 1990</p>
                 </div>
                 
                 <div class="footer-links-col">
-                    <h4>Legal & Information</h4>
+                    <h4>⚖️ Legal & Information</h4>
                     <ul>
-                        <li><a href="javascript:void(0)">licence[cite: 8]</a></li>
-                        <li><a href="javascript:void(0)">declearetion[cite: 8]</a></li>
-                        <li><a href="javascript:void(0)">expiry and breakage claim process[cite: 8]</a></li>
-                        <li><a href="javascript:void(0)">Contact: get in touch[cite: 8]</a></li>
+                        <li><a href="javascript:void(0)">📄 Licence</a></li>
+                        <li><a href="javascript:void(0)">📜 Declaration</a></li>
+                        <li><a href="javascript:void(0)">🔄 Expiry and Breakage Claim Process</a></li>
+                        <li><a href="javascript:void(0)">📬 Contact: Get in Touch</a></li>
                     </ul>
                 </div>
                 
                 <div class="footer-links-col">
-                    <h4>Resources & Links</h4>
+                    <h4>🔗 Resources & Links</h4>
                     <ul>
-                        <li><a href="javascript:void(0)">list of all pharmaceutical companies[cite: 8]</a></li>
-                        <li><a href="javascript:void(0)">newly added products[cite: 8]</a></li>
-                        <li><a href="javascript:void(0)">RMS gallery[cite: 8]</a></li>
-                        <li><a href="https://rakhechamedical.in/order/" target="_blank">online order placements[cite: 8]</a></li>
-                        <li><a href="https://drive.google.com/file/d/1Kg3TzJdnlHn2B4MQx4DpjVfLof-BAbNW/view" target="_blank">PDF product list[cite: 8]</a></li>
+                        <li><a href="javascript:void(0)">🏭 List of all Pharmaceutical Companies</a></li>
+                        <li><a href="javascript:void(0)">✨ Newly Added Products</a></li>
+                        <li><a href="javascript:void(0)">🖼️ RMS Gallery</a></li>
+                        <li><a href="https://rakhechamedical.in/order/" target="_blank">🛒 Online Order Placements</a></li>
+                        <li><a href="https://drive.google.com/file/d/1Kg3TzJdnlHn2B4MQx4DpjVfLof-BAbNW/view" target="_blank">📄 PDF Product List</a></li>
                     </ul>
                 </div>
             </div>
@@ -548,6 +642,7 @@
     </footer>
 
     <script>
+        // Scroll Animations
         document.addEventListener("DOMContentLoaded", function() {
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
@@ -561,9 +656,27 @@
             document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
         });
 
+        // Mobile Menu Toggle
+        const mobileBtn = document.getElementById('mobile-menu-btn');
+        const navMenu = document.getElementById('nav-menu');
+        
+        mobileBtn.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+        });
+
+        // Hide menu when clicking a link (mobile)
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                if(window.innerWidth <= 768) {
+                    navMenu.classList.remove('active');
+                }
+            });
+        });
+
+        // Form Submit Prevent Default
         document.getElementById("reachOutForm").addEventListener("submit", function(event) {
             event.preventDefault(); 
-            alert("Contact form WIP");
+            alert("Contact form submitted!");
             this.reset(); 
         });
     </script>
