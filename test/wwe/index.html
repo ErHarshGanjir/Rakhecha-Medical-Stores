@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rakhecha Medical Stores</title>
+    <style>
+        :root {
+            --bg-color: #0d0d0d;
+            --text-main: #e0e0e0;
+            --accent-pink: #ff00ff; /* Matches logo accent */
+            --accent-white: #ffffff;
+            --border-color: #333;
+            --font-stack: 'Courier New', Courier, monospace;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: var(--font-stack);
+            line-height: 1.6;
+        }
+
+        /* Navigation */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+            border-bottom: 1px solid var(--border-color);
+            position: sticky;
+            top: 0;
+            background: rgba(13, 13, 13, 0.95);
+            z-index: 1000;
+        }
+
+        .nav-links a {
+            color: var(--text-main);
+            text-decoration: none;
+            margin-left: 1.5rem;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent-pink);
+        }
+
+        /* Sections */
+        section {
+            padding: 4rem 2rem;
+            max-width: 1000px;
+            margin: 0 auto;
+            border-bottom: 1px dashed var(--border-color);
+        }
+
+        h1, h2, h3 {
+            color: var(--accent-white);
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+        }
+
+        h2 {
+            border-left: 4px solid var(--accent-pink);
+            padding-left: 10px;
+        }
+
+        /* Hero / Home */
+        .hero {
+            text-align: center;
+            padding: 6rem 2rem;
+        }
+
+        .hero img {
+            max-width: 300px;
+            margin-bottom: 2rem;
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            letter-spacing: 2px;
+        }
+
+        .hero-subtitle {
+            color: var(--accent-pink);
+            font-weight: bold;
+            margin-bottom: 2rem;
+        }
+
+        .action-btns {
+            margin-top: 2rem;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            margin: 0 10px;
+            border: 1px solid var(--accent-pink);
+            color: var(--accent-pink);
+            text-decoration: none;
+            text-transform: uppercase;
+            transition: all 0.3s ease;
+        }
+
+        .btn:hover {
+            background: var(--accent-pink);
+            color: var(--bg-color);
+        }
+
+        /* Grid Layouts */
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+        }
+
+        ul {
+            list-style-type: square;
+            padding-left: 1.5rem;
+        }
+
+        li {
+            margin-bottom: 0.5rem;
+        }
+
+        /* Process Steps */
+        .process-list {
+            list-style-type: decimal;
+        }
+
+        /* Footer */
+        footer {
+            padding: 3rem 2rem;
+            text-align: center;
+            font-size: 0.8rem;
+            border-top: 1px solid var(--accent-pink);
+        }
+
+        .footer-links {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-links a {
+            color: var(--text-main);
+            text-decoration: underline;
+            cursor: pointer;
+        }
+
+        .footer-links a:hover {
+            color: var(--accent-pink);
+        }
+
+        iframe {
+            width: 100%;
+            height: 300px;
+            border: 1px solid var(--border-color);
+            margin-top: 1rem;
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div style="color: var(--accent-pink); font-weight: bold; font-size: 1.2rem;">RMS</div>
+        <div class="nav-links">
+            <a href="#home">Home</a>
+            <a href="#services">Services</a>
+            <a href="#process">Process</a>
+            <a href="#contact">Contact</a>
+        </div>
+    </nav>
+
+    <section id="home" class="hero">
+        <img src="https://lh3.googleusercontent.com/d/1cs-3PcYeUteKYVRBs0oR51MtEnzTtlAI" alt="RMS Logo">
+        <h1>Rakhecha Medical Stores</h1>
+        <div class="hero-subtitle">Trusted Since 1990 | Smart Pharma Distribution</div>
+        <p>Leading pharmaceutical wholesale distribution in Chhattisgarh[cite: 1]. Supplying premium-quality medicines and medical supplies with a commitment to speed, clinical care, and reliability[cite: 1].</p>
+        <div class="action-btns">
+            <a href="https://drive.google.com/file/d/1Kg3TzJdnlHn2B4MQx4DpjVfLof-BAbNW/view" target="_blank" class="btn">Product PDF</a>
+            <a href="https://rakhechamedical.in/order/" target="_blank" class="btn">Digital Inventory</a>
+        </div>
+    </section>
+
+    <section id="about">
+        <h2>About Us</h2>
+        <p>Welcome to Rakhecha Medical Stores, your trusted partner in health and wellness in Dhamtari since 1990[cite: 1]. As a reliable retail pharmacy and a well-established pharmaceutical distributor, we pride ourselves on our commitment to quality, authenticity, and compassionate service[cite: 1].</p>
+        
+        <h3 style="margin-top: 2rem;">Our Advantages</h3>
+        <div class="grid-2">
+            <div>
+                <ul>
+                    <li><strong>Wide Range of Products:</strong> Medicines, surgical items, and vitamins[cite: 1].</li>
+                    <li><strong>Zero Compromise on Quality:</strong> High-quality, safe products[cite: 1].</li>
+                    <li><strong>7 Days of Service:</strong> Available every day of the week[cite: 1].</li>
+                    <li><strong>Quality Care:</strong> Genuine products from trusted sources[cite: 1].</li>
+                </ul>
+            </div>
+            <div>
+                <ul>
+                    <li><strong>Easy Online Ordering:</strong> Simple and quick purchasing from home[cite: 2].</li>
+                    <li><strong>Supply & Inventory Reliability:</strong> Products always in stock[cite: 2].</li>
+                    <li><strong>Quality Assurance:</strong> Proper storage and transportation[cite: 2].</li>
+                    <li><strong>Digital Efficiency:</strong> Fast and easy online system[cite: 2].</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <section id="services">
+        <h2>Our Services</h2>
+        <div class="grid-2">
+            <div>
+                <ul>
+                    <li><strong>Bulk Procurement:</strong> Procuring medicines from top manufacturers in large quantities[cite: 2].</li>
+                    <li><strong>Comprehensive Stock:</strong> Wide-ranging inventory always on hand[cite: 2].</li>
+                    <li><strong>Expiry Claims:</strong> Credit notes generated for expired or damaged goods[cite: 2].</li>
+                    <li><strong>Ready-to-Ship:</strong> Prompt shipping for immediate dispatch[cite: 2].</li>
+                </ul>
+            </div>
+            <div>
+                <ul>
+                    <li><strong>Cold-Chain Management:</strong> Temperature-controlled storage for insulin and vaccines[cite: 2].</li>
+                    <li><strong>On-Time Delivery:</strong> Quick shipping prevents stockouts[cite: 2].</li>
+                    <li><strong>Order Fulfillment:</strong> Precision handling of high-volume orders[cite: 2].</li>
+                    <li><strong>Uninterrupted Supply Chain:</strong> Reliable deliveries during high-demand seasons.</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <section id="process">
+        <h2>Distribution Process</h2>
+        <ol class="process-list">
+            <li>Receiving orders over phone, email, or RMS portal.</li>
+            <li>Billing for the order.</li>
+            <li>Picking products from stock.</li>
+            <li>Verification of physical goods against the bill.</li>
+            <li>Packaging for safe transit[cite: 3].</li>
+            <li>Thermal packaging for cold chain products[cite: 3].</li>
+            <li>Ready for shipment or RMS counter pickup[cite: 3].</li>
+            <li>Safe, protected, and on-time shipment by an RMS executive[cite: 3].</li>
+        </ol>
+    </section>
+
+    <section id="contact">
+        <h2>Contact Us</h2>
+        <div class="grid-2">
+            <div>
+                <p><strong>Address:</strong> Rakhecha Medical Stores, in front of Mahawer Dharamshala, back side of IDBI Bank, Sihava Chowk, Dhamtari[cite: 4]</p>
+                <p><strong>Email:</strong> rakhechamedical@gmail.com[cite: 4]</p>
+                <p><strong>Phone & WhatsApp:</strong> 74895 74895[cite: 4]</p>
+                
+                <br>
+                <!-- WIP Form Placeholder -->
+                <h3>Get In Touch</h3>
+                <p style="color: var(--accent-pink); font-style: italic;">[ Contact Form WIP - Pending Requirements ]</p>
+            </div>
+            <div>
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d14949.62002570077!2d81.5460425!3d20.7125505!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a2f29c644424083%3A0x7949a208d9da0f5c!2sRakhecha%20Medical%20Stores!5e0!3m2!1sen!2sin!4v1700000000000!5m2!1sen!2sin" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <!-- Modal Links Placeholder -->
+        <div class="footer-links">
+            <a onclick="alert('Modal: Licence')">Licence</a>
+            <a onclick="alert('Modal: Declaration')">Declaration</a>
+            <a onclick="alert('Modal: Pharmaceutical Companies')">List of Companies</a>
+            <a onclick="alert('Modal: Newly Added Products')">Newly Added</a>
+            <a onclick="alert('Modal: RMS Gallery')">RMS Gallery</a>
+            <a onclick="alert('Modal: Expiry and Breakage Claim Process')">Expiry Claim Process</a>
+        </div>
+        <p>&copy; 2026 Rakhecha Medical Stores. All rights reserved.</p>
+    </footer>
+
+</body>
+</html>
