@@ -667,15 +667,206 @@
          ========================================== -->
     
     <!-- Modal: Operating Licence -->
+<!-- Modal: Operating Licence -->
+    <style>
+        /* ==========================================
+           MODAL: OPERATING LICENCE (GLASSMORPHISM)
+           ========================================== */
+        #modal-licence {
+            padding: 0 !important; 
+            background: transparent;
+        }
+
+        .licence-modal-wrapper {
+            position: relative;
+            padding: 80px 24px 100px;
+            min-height: 100vh;
+            overflow: hidden;
+            /* Gradient overlay keeping text readable while showing the image */
+            background: linear-gradient(135deg, rgba(244, 249, 255, 0.65) 0%, rgba(255, 255, 255, 0.35) 100%), url('https://imgh.in/host/3i11sw');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+
+        .licence-page-container {
+            position: relative; z-index: 2;
+            width: 100%; max-width: 1000px; margin: 0 auto;
+        }
+
+        .licence-brand-header { 
+            text-align: center; margin-bottom: 60px; 
+            text-shadow: 0 2px 10px rgba(255,255,255,0.8);
+        }
+        .licence-brand-name { 
+            margin: 0; font-size: clamp(32px, 4vw, 42px); font-weight: 800; 
+            font-family: 'Playfair Display', serif; color: var(--primary-navy);
+        }
+        .licence-brand-description { 
+            max-width: 600px; margin: 15px auto 0; color: var(--primary-navy); 
+            font-size: 1.1rem; line-height: 1.6; font-weight: 600;
+        }
+
+        .trust-showcase-wrapper { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 35px; }
+        
+        /* Glassmorphism Card Structure */
+        .premium-badge-card {
+            display: flex; flex-direction: column; justify-content: space-between;
+            /* Translucent white background for glass effect */
+            background: rgba(255, 255, 255, 0.35); 
+            /* Deep blur effect */
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            /* Frosty glass borders */
+            border: 1px solid rgba(255, 255, 255, 0.7); 
+            border-radius: 16px;
+            /* Soft shadow for depth */
+            box-shadow: 0 8px 32px 0 rgba(11, 36, 71, 0.1), inset 0 0 0 1px rgba(255, 255, 255, 0.2);
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+            position: relative;
+        }
+        
+        /* Navy top border line */
+        .premium-badge-card::before {
+            content: ""; position: absolute; top: 0; left: 0; right: 0; height: 4px;
+            background: var(--secondary-navy);
+            z-index: 10;
+        }
+
+        .premium-badge-card:hover { 
+            transform: translateY(-5px); 
+            box-shadow: 0 12px 40px 0 rgba(11, 36, 71, 0.15); 
+            background: rgba(255, 255, 255, 0.45);
+        }
+
+        .card-content-wrapper { padding: 40px 30px; flex-grow: 1; }
+
+        .card-top-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 30px; }
+        
+        .premium-logo-frame {
+            display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+            width: 54px; height: 54px; border-radius: 14px; color: #ffffff;
+            background: var(--primary-navy); box-shadow: 0 4px 10px rgba(11, 36, 71, 0.15);
+        }
+        .premium-logo-frame svg { width: 26px; height: 26px; fill: currentColor; }
+        
+        .live-status-tag {
+            display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+            padding: 6px 12px; border: 1px solid rgba(0, 210, 133, 0.2); border-radius: 50px;
+            background: rgba(255, 255, 255, 0.5); /* Glassy tag */
+            backdrop-filter: blur(4px);
+            color: #00a669; font-size: 0.75rem; font-weight: 800; 
+            letter-spacing: 0.5px; text-transform: uppercase;
+        }
+        .status-dot { width: 6px; height: 6px; flex-shrink: 0; border-radius: 50%; background: #00d285; }
+        
+        .brand-meta-name { 
+            margin-bottom: 10px; color: var(--primary-navy); font-size: 0.8rem; 
+            font-weight: 800; letter-spacing: 1px; text-transform: uppercase; 
+        }
+        .regulatory-title-text { 
+            margin: 0 0 25px; font-size: 1.6rem; font-weight: 800; 
+            color: var(--primary-navy); font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+        
+        .number-label { 
+            margin-bottom: 8px; color: var(--primary-navy); font-size: 0.75rem; 
+            font-weight: 800; letter-spacing: 1px; text-transform: uppercase; 
+        }
+        /* Glassy number strip */
+        .secure-number-strip {
+            padding: 15px 20px; border: 1px solid rgba(255, 255, 255, 0.6); border-radius: 10px;
+            background: rgba(255, 255, 255, 0.4); backdrop-filter: blur(8px);
+            color: var(--primary-navy); font-family: "SFMono-Regular", Consolas, monospace;
+            font-size: 1.05rem; font-weight: 700; line-height: 1.6; letter-spacing: 0.5px;
+        }
+
+        /* Solid Navy footer inside the card to ground the design */
+        .card-bottom-footer {
+            display: flex; align-items: center; gap: 10px; padding: 25px 30px;
+            background: rgba(11, 36, 71, 0.95); /* Slightly translucent navy */
+            backdrop-filter: blur(10px);
+            color: #ffffff; font-size: 0.9rem; font-weight: 500;
+        }
+        
+        .card-bottom-footer svg { width: 18px; height: 18px; flex-shrink: 0; fill: #ffffff; }
+
+        @media (max-width: 768px) {
+            .licence-modal-wrapper { padding: 40px 16px 60px; }
+            .licence-brand-header { margin-bottom: 40px; }
+            .card-content-wrapper { padding: 30px 20px; }
+            .card-bottom-footer { padding: 20px; }
+        }
+    </style>
+    
     <div id="modal-licence" class="modal-view-section">
-        <div class="wip-container">
-            <i class="fas fa-file-signature main-icon"></i>
-            <h2>Operating Licence</h2>
-            <p class="subtitle">Detailed licensing information is currently being structured. It will be available in the next deployment cycle.</p>
-            <button onclick="showMainView()" class="btn-primary" style="margin-top: 10px;">⬅ Return to Home</button>
+        <div class="licence-modal-wrapper">
+            <div class="licence-page-container">
+
+                <header class="licence-brand-header">
+                    <h1 class="licence-brand-name">Rakhecha Medical Stores</h1>
+                    <p class="licence-brand-description">
+                        Committed to responsible pharmaceutical distribution and regulatory compliance.
+                    </p>
+                </header>
+
+                <section class="trust-showcase-wrapper" aria-label="Business registration and drug licences">
+                    <!-- FSSAI Registration -->
+                    <article class="premium-badge-card">
+                        <div class="card-content-wrapper">
+                            <div class="card-top-row">
+                                <div class="premium-logo-frame" aria-hidden="true">
+                                    <svg viewBox="0 0 24 24">
+                                        <path d="M12 1 3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4Zm-2 15-4-4 1.41-1.41L10 13.17l7.59-7.59L19 7l-9 9Z"/>
+                                    </svg>
+                                </div>
+                                <div class="live-status-tag">
+                                    <span class="status-dot"></span> Active License
+                                </div>
+                            </div>
+                            <div class="brand-meta-name">Rakhecha Medical Stores</div>
+                            <h2 class="regulatory-title-text">FSSAI Registration</h2>
+                            <div class="number-label">Registration Number</div>
+                            <div class="secure-number-strip">10521005000181</div>
+                        </div>
+                        <footer class="card-bottom-footer">
+                            <svg viewBox="0 0 24 24" aria-hidden="true">
+                                <path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20Zm1 15h-2v-6h2v6Zm0-8h-2V7h2v2Z"/>
+                            </svg>
+                            <span>Food Safety and Standards Authority of India</span>
+                        </footer>
+                    </article>
+
+                    <!-- Drug Licences -->
+                    <article class="premium-badge-card">
+                        <div class="card-content-wrapper">
+                            <div class="card-top-row">
+                                <div class="premium-logo-frame" aria-hidden="true">
+                                    <svg viewBox="0 0 24 24">
+                                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2Zm1 15h-2v-4H7v-2h4V7h2v4h4v2h-4v4Z"/>
+                                    </svg>
+                                </div>
+                                <div class="live-status-tag">
+                                    <span class="status-dot"></span> License Details
+                                </div>
+                            </div>
+                            <div class="brand-meta-name">Forms: 20, 20B, 21, 21B</div>
+                            <h2 class="regulatory-title-text">Drug Licences</h2>
+                            <div class="number-label">Licence Numbers</div>
+                            <div class="secure-number-strip">20-29783, 20B-29784,<br>21-29785, 21B-29786</div>
+                        </div>
+                        <footer class="card-bottom-footer">
+                            <svg viewBox="0 0 24 24" aria-hidden="true">
+                                <path d="M18 8h-1V6a5 5 0 0 0-10 0v2H6a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V10a2 2 0 0 0-2-2ZM9 6a3 3 0 0 1 6 0v2H9V6Zm3 11a2 2 0 1 1 0-4 2 2 0 0 1 0 4Z"/>
+                            </svg>
+                            <span>Authorized retail and wholesale drug distribution</span>
+                        </footer>
+                    </article>
+                </section>
+            </div>
         </div>
     </div>
-
     <!-- Modal: Company Declaration -->
     <div id="modal-declaration" class="modal-view-section">
         <div class="wip-container">
