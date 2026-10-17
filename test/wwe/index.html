@@ -868,14 +868,268 @@
         </div>
     </div>
     <!-- Modal: Company Declaration -->
+<!-- Modal: Company Declaration -->
+    <style>
+        /* ==========================================
+           MODAL: COMPANY DECLARATION (THEME MATCHED)
+           ========================================== */
+        #modal-declaration {
+            padding: 0 !important;
+            background: transparent;
+        }
+
+        .dec-modal-wrapper {
+            position: relative;
+            padding: 100px 24px 100px; /* Adjusted padding since button is removed */
+            min-height: 100vh;
+            overflow: hidden;
+            background: linear-gradient(135deg, rgba(244, 249, 255, 0.65) 0%, rgba(255, 255, 255, 0.35) 100%), url('https://imgh.in/host/3i11sw');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .dec-page-container {
+            position: relative; z-index: 2;
+            width: 100%; max-width: 820px; margin: 0 auto;
+        }
+
+        /* Glassmorphism Card styling */
+        .declaration-card {
+            position: relative; overflow: hidden;
+            padding: 44px 48px 34px;
+            border: 1px solid rgba(255, 255, 255, 0.7);
+            border-radius: 24px;
+            background: rgba(255, 255, 255, 0.45);
+            box-shadow: 0 8px 32px 0 rgba(11, 36, 71, 0.1), inset 0 0 0 1px rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+        }
+
+        .declaration-card::before {
+            content: ""; position: absolute; top: 0; left: 0; right: 0; height: 4px;
+            background: var(--primary-navy);
+        }
+
+        .dec-header { text-align: center; }
+
+        .dec-icon-frame {
+            width: 68px; height: 68px; margin: 0 auto 20px;
+            display: grid; place-items: center; border-radius: 22px;
+            color: #ffffff;
+            background: var(--primary-navy);
+            box-shadow: 0 12px 28px rgba(11, 36, 71, 0.22);
+        }
+
+        .dec-icon-frame svg {
+            width: 36px; height: 36px; fill: none; stroke: currentColor;
+            stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round;
+        }
+
+        .dec-business-name {
+            margin: 0; font-size: clamp(25px, 4vw, 35px);
+            font-weight: 800; letter-spacing: -1px; line-height: 1.25;
+            color: var(--primary-navy); font-family: 'Playfair Display', serif;
+        }
+
+        .dec-subtitle {
+            margin: 12px 0 0; color: var(--primary-navy); font-size: 15px; 
+            line-height: 1.7; font-weight: 600;
+        }
+
+        .dec-section-heading { display: flex; align-items: center; gap: 12px; margin: 34px 0 20px; }
+        .dec-heading-line { height: 1px; flex: 1; background: var(--primary-navy); opacity: 0.2; }
+        .dec-heading-label {
+            color: var(--primary-navy); font-size: 11px; font-weight: 800;
+            letter-spacing: 2px; text-transform: uppercase; white-space: nowrap;
+        }
+
+        .declaration-text { font-size: 16px; line-height: 2; color: var(--text-dark); font-weight: 500; }
+        .declaration-text p { margin: 0 0 20px; }
+
+        /* Animation classes */
+        .dec-word {
+            display: inline; opacity: 0; filter: blur(3px);
+            animation: wordReveal .3s ease forwards; white-space: pre-wrap;
+        }
+        
+        .dec-word.emphasis { color: var(--primary-navy); font-weight: 800; }
+        
+        /* Highlight styling replacing the previous orange/gold */
+        .dec-word.highlight-blue { 
+            color: var(--primary-navy); 
+            font-weight: 800; 
+            background: rgba(11, 36, 71, 0.08); 
+            padding: 2px 6px; 
+            border-radius: 6px; 
+        }
+
+        .dec-progress-section { margin-top: 30px; }
+        .dec-progress-track { width: 100%; height: 4px; overflow: hidden; border-radius: 20px; background: rgba(11,36,71,0.1); }
+        
+        /* Replaced gold gradient with navy */
+        .dec-progress-fill {
+            width: 0; height: 100%; border-radius: inherit;
+            background: var(--primary-navy); animation: progressGrow 1s ease .2s forwards;
+        }
+        
+        .dec-progress-label {
+            margin-top: 12px; color: var(--primary-navy); font-size: 10px;
+            font-weight: 800; letter-spacing: 1.8px; text-align: center; text-transform: uppercase;
+        }
+
+        .dec-trust-footer {
+            display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px;
+            margin-top: 30px; padding-top: 23px; border-top: 1px solid rgba(11, 36, 71, 0.1);
+        }
+        .dec-trust-item {
+            display: flex; align-items: center; justify-content: center; gap: 9px;
+            color: var(--primary-navy); font-size: 12px; font-weight: 700; line-height: 1.6; text-align: left;
+        }
+        /* Replaced gold strokes with navy */
+        .dec-trust-item svg {
+            width: 23px; height: 23px; flex-shrink: 0; fill: none;
+            stroke: var(--primary-navy); stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round;
+        }
+
+        @keyframes wordReveal { to { opacity: 1; filter: blur(0); } }
+        @keyframes progressGrow { to { width: 100%; } }
+
+        @media (max-width: 600px) {
+            .dec-modal-wrapper { padding: 80px 16px 60px; }
+            .declaration-card { padding: 30px 22px 24px; border-radius: 23px; }
+            .dec-icon-frame { width: 58px; height: 58px; border-radius: 18px; margin-bottom: 16px; }
+            .dec-icon-frame svg { width: 31px; height: 31px; }
+            .dec-section-heading { margin-top: 28px; }
+            .declaration-text { font-size: 15px; line-height: 1.9; }
+            .dec-trust-footer { gap: 8px; }
+            .dec-trust-item { flex-direction: column; gap: 6px; font-size: 10px; text-align: center; }
+        }
+    </style>
+
     <div id="modal-declaration" class="modal-view-section">
-        <div class="wip-container">
-            <i class="fas fa-handshake main-icon"></i>
-            <h2>Company Declaration</h2>
-            <p class="subtitle">Company policies and declarations are currently being drafted for this section.</p>
-            <button onclick="showMainView()" class="btn-primary" style="margin-top: 10px;">⬅ Return to Home</button>
+        <div class="dec-modal-wrapper">
+            <div class="dec-page-container">
+
+                <section class="declaration-card" aria-labelledby="business-title">
+                    <header class="dec-header">
+                        <div class="dec-icon-frame">
+                            <svg viewBox="0 0 24 24">
+                                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                                <polyline points="14 2 14 8 20 8"></polyline>
+                                <path d="M16 13H8"></path>
+                                <path d="M16 17H8"></path>
+                                <path d="M10 9H8"></path>
+                            </svg>
+                        </div>
+                        <h1 class="dec-business-name" id="business-title">Rakhecha Medical Stores</h1>
+                        <p class="dec-subtitle">Responsible pharmaceutical distribution and regulatory compliance.</p>
+                    </header>
+
+                    <div class="dec-section-heading">
+                        <span class="dec-heading-line"></span>
+                        <span class="dec-heading-label">Business Declaration</span>
+                        <span class="dec-heading-line"></span>
+                    </div>
+
+                    <div class="declaration-text" id="declaration-content">
+                        <!-- JS WILL POPULATE THIS TEXT DYNAMICALLY -->
+                    </div>
+
+                    <div class="dec-progress-section" aria-hidden="true">
+                        <div class="dec-progress-track">
+                            <div class="dec-progress-fill"></div>
+                        </div>
+                        <div class="dec-progress-label">Transparency · Quality · Trust</div>
+                    </div>
+
+                    <div class="dec-trust-footer">
+                        <div class="dec-trust-item">
+                            <svg viewBox="0 0 24 24">
+                                <path d="M12 2 4 5.5V11c0 5 3.4 8.9 8 11 4.6-2.1 8-6 8-11V5.5L12 2Z"></path>
+                                <path d="m8.5 12 2.3 2.3 4.8-5"></path>
+                            </svg>
+                            <span>Genuine<br>Products</span>
+                        </div>
+                        <div class="dec-trust-item">
+                            <svg viewBox="0 0 24 24">
+                                <circle cx="12" cy="12" r="9"></circle>
+                                <path d="M12 3v18M3 12h18"></path>
+                            </svg>
+                            <span>Quality<br>Standards</span>
+                        </div>
+                        <div class="dec-trust-item">
+                            <svg viewBox="0 0 24 24">
+                                <rect x="5" y="10" width="14" height="11" rx="2"></rect>
+                                <path d="M8 10V7a4 4 0 0 1 8 0v3"></path>
+                                <path d="m10 15 1.5 1.5L14.5 13"></path>
+                            </svg>
+                            <span>Consumer<br>Safety</span>
+                        </div>
+                    </div>
+                </section>
+            </div>
         </div>
+
+        <!-- Embedded Script for Word Reveal Animation -->
+        <script>
+        (() => {
+            const declarationBox = document.getElementById("declaration-content");
+            const paragraphs = [
+                [
+                    ["Rakhecha Medical Stores is a fully licensed and ", ""],
+                    ["government-verified", "emphasis"],
+                    [" pharmaceutical stockist. We operate in strict compliance with the Ministry of Health & Family Welfare and the Government of India. All inventory is sourced directly from authorized manufacturers with genuine product invoices.", ""]
+                ],
+                [
+                    ["We guarantee ", ""],
+                    ["100% genuine products", "highlight-blue"], /* Swapped class from orange to highlight-blue */
+                    [", professional storage standards, and absolute consumer safety.", ""]
+                ]
+            ];
+
+            const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+            if (reduceMotion) {
+                paragraphs.forEach(parts => {
+                    const p = document.createElement("p");
+                    parts.forEach(([text]) => p.appendChild(document.createTextNode(text)));
+                    declarationBox.appendChild(p);
+                });
+                return;
+            }
+
+            declarationBox.innerHTML = "";
+            const words = [];
+
+            paragraphs.forEach(parts => {
+                const p = document.createElement("p");
+                parts.forEach(([text, style]) => {
+                    const tokens = text.match(/\s+|[^\s]+/g) || [];
+                    tokens.forEach(token => {
+                        if (/^\s+$/.test(token)) {
+                            p.appendChild(document.createTextNode(token));
+                        } else {
+                            const span = document.createElement("span");
+                            span.className = "dec-word" + (style ? " " + style : "");
+                            span.textContent = token;
+                            p.appendChild(span);
+                            words.push(span);
+                        }
+                    });
+                });
+                declarationBox.appendChild(p);
+            });
+
+            const delay = 85;
+            words.forEach((word, index) => {
+                word.style.animationDelay = (index * delay) + "ms";
+            });
+        })();
+        </script>
     </div>
+    <!-- End Modal: Company Declaration -->
 
     <!-- Modal: Expiry & Breakage Claim Process -->
     <div id="modal-expiry" class="modal-view-section">
