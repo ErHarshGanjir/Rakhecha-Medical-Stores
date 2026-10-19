@@ -712,13 +712,16 @@
     
     <!-- Modal: Operating Licence -->
 <!-- Modal: Operating Licence -->
+<!-- Modal: Operating Licence -->
     <style>
         /* ==========================================
-           MODAL: OPERATING LICENCE (GLASSMORPHISM)
+           MODAL: OPERATING LICENCE (THEME MATCHED & GST ADDED)
            ========================================== */
         #modal-licence {
             padding: 0 !important; 
             background: transparent;
+            display: none;
+            flex: 1;
         }
 
         .licence-modal-wrapper {
@@ -726,16 +729,16 @@
             padding: 80px 24px 100px;
             min-height: 100vh;
             overflow: hidden;
-            /* Gradient overlay keeping text readable while showing the image */
             background: linear-gradient(135deg, rgba(244, 249, 255, 0.65) 0%, rgba(255, 255, 255, 0.35) 100%), url('https://imgh.in/host/3i11sw');
             background-size: cover;
             background-position: center;
             background-attachment: fixed;
+            animation: fadeIn 0.4s ease forwards;
         }
 
         .licence-page-container {
             position: relative; z-index: 2;
-            width: 100%; max-width: 1000px; margin: 0 auto;
+            width: 100%; max-width: 1200px; margin: 0 auto;
         }
 
         .licence-brand-header { 
@@ -751,27 +754,23 @@
             font-size: 1.1rem; line-height: 1.6; font-weight: 600;
         }
 
+        /* Switched to 3 columns to accommodate the GST card */
         .trust-showcase-wrapper { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 35px; }
         
         /* Glassmorphism Card Structure */
         .premium-badge-card {
             display: flex; flex-direction: column; justify-content: space-between;
-            /* Translucent white background for glass effect */
             background: rgba(255, 255, 255, 0.35); 
-            /* Deep blur effect */
             backdrop-filter: blur(24px);
             -webkit-backdrop-filter: blur(24px);
-            /* Frosty glass borders */
             border: 1px solid rgba(255, 255, 255, 0.7); 
             border-radius: 16px;
-            /* Soft shadow for depth */
             box-shadow: 0 8px 32px 0 rgba(11, 36, 71, 0.1), inset 0 0 0 1px rgba(255, 255, 255, 0.2);
             overflow: hidden;
             transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
             position: relative;
         }
         
-        /* Navy top border line */
         .premium-badge-card::before {
             content: ""; position: absolute; top: 0; left: 0; right: 0; height: 4px;
             background: var(--secondary-navy);
@@ -798,7 +797,7 @@
         .live-status-tag {
             display: inline-flex; align-items: center; justify-content: center; gap: 6px;
             padding: 6px 12px; border: 1px solid rgba(0, 210, 133, 0.2); border-radius: 50px;
-            background: rgba(255, 255, 255, 0.5); /* Glassy tag */
+            background: rgba(255, 255, 255, 0.5); 
             backdrop-filter: blur(4px);
             color: #00a669; font-size: 0.75rem; font-weight: 800; 
             letter-spacing: 0.5px; text-transform: uppercase;
@@ -818,7 +817,7 @@
             margin-bottom: 8px; color: var(--primary-navy); font-size: 0.75rem; 
             font-weight: 800; letter-spacing: 1px; text-transform: uppercase; 
         }
-        /* Glassy number strip */
+        
         .secure-number-strip {
             padding: 15px 20px; border: 1px solid rgba(255, 255, 255, 0.6); border-radius: 10px;
             background: rgba(255, 255, 255, 0.4); backdrop-filter: blur(8px);
@@ -826,12 +825,12 @@
             font-size: 1.05rem; font-weight: 700; line-height: 1.6; letter-spacing: 0.5px;
         }
 
-        /* Solid Navy footer inside the card to ground the design */
         .card-bottom-footer {
             display: flex; align-items: center; gap: 10px; padding: 25px 30px;
-            background: rgba(11, 36, 71, 0.95); /* Slightly translucent navy */
+            background: rgba(11, 36, 71, 0.95); 
             backdrop-filter: blur(10px);
             color: #ffffff; font-size: 0.9rem; font-weight: 500;
+            min-height: 75px; 
         }
         
         .card-bottom-footer svg { width: 18px; height: 18px; flex-shrink: 0; fill: #ffffff; }
@@ -840,7 +839,7 @@
             .licence-modal-wrapper { padding: 40px 16px 60px; }
             .licence-brand-header { margin-bottom: 40px; }
             .card-content-wrapper { padding: 30px 20px; }
-            .card-bottom-footer { padding: 20px; }
+            .card-bottom-footer { padding: 20px; min-height: auto; }
         }
     </style>
     
@@ -856,6 +855,7 @@
                 </header>
 
                 <section class="trust-showcase-wrapper" aria-label="Business registration and drug licences">
+                    
                     <!-- FSSAI Registration -->
                     <article class="premium-badge-card">
                         <div class="card-content-wrapper">
@@ -907,6 +907,34 @@
                             <span>Authorized retail and wholesale drug distribution</span>
                         </footer>
                     </article>
+
+                    <!-- NEW: GST Registration with PERFECT Official Starburst Certificate Icon -->
+                    <article class="premium-badge-card">
+                        <div class="card-content-wrapper">
+                            <div class="card-top-row">
+                                <div class="premium-logo-frame" aria-hidden="true">
+                                    <svg viewBox="0 0 24 24">
+                                        <!-- Official Verified Certificate / Starburst Icon -->
+                                        <path d="M23 12l-2.44-2.78.34-3.68-3.61-.82-1.89-3.18L12 3 8.6 1.54 6.71 4.72l-3.61.81.34 3.68L1 12l2.44 2.78-.34 3.69 3.61.82 1.89 3.18L12 21l3.4 1.46 1.89-3.18 3.61-.82-.34-3.68L23 12zm-13 5l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/>
+                                    </svg>
+                                </div>
+                                <div class="live-status-tag">
+                                    <span class="status-dot"></span> Verified Taxpayer
+                                </div>
+                            </div>
+                            <div class="brand-meta-name">Rakhecha Medical Stores</div>
+                            <h2 class="regulatory-title-text">GST Registration</h2>
+                            <div class="number-label">GSTIN Number</div>
+                            <div class="secure-number-strip">22ACSPD4513B1Z8</div>
+                        </div>
+                        <footer class="card-bottom-footer">
+                            <svg viewBox="0 0 24 24" aria-hidden="true">
+                                <path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20Zm1 15h-2v-6h2v6Zm0-8h-2V7h2v2Z"/>
+                            </svg>
+                            <span>Goods and Services Tax Network, Government of India</span>
+                        </footer>
+                    </article>
+
                 </section>
             </div>
         </div>
