@@ -867,7 +867,7 @@
             </div>
         </div>
     </div>
-    <!-- Modal: Company Declaration -->
+    <!-- Modal: Company Declaration ------------------------------------------------------------------------------------------------->
 <!-- Modal: Company Declaration -->
     <style>
         /* ==========================================
@@ -1129,19 +1129,363 @@
         })();
         </script>
     </div>
-    <!-- End Modal: Company Declaration -->
+    <!-- End Modal: Company Declaration ---------------------------------------------------------------------------------->
 
-    <!-- Modal: Expiry & Breakage Claim Process -->
+    <!-- Modal: Expiry & Breakage Claim Process ----------------------------------------------------------------------------------------------->
+<!-- Modal: Expiry & Breakage Claim Process -->
+    <style>
+        /* ==========================================
+           MODAL: EXPIRY CLAIMS (THEME MATCHED & GLASSMORPHISM)
+           ========================================== */
+        #modal-expiry {
+            padding: 0 !important;
+            background: transparent;
+            display: none; flex: 1;
+            /* Added Sky Blue Accent */
+            --accent-sky: #0ea5e9; 
+            --accent-sky-light: #bae6fd;
+        }
+
+        .expiry-modal-wrapper {
+            position: relative;
+            padding: 100px 24px 100px;
+            min-height: 100vh;
+            overflow: hidden;
+            background: linear-gradient(135deg, rgba(244, 249, 255, 0.65) 0%, rgba(255, 255, 255, 0.35) 100%), url('https://imgh.in/host/3i11sw');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            display: flex;
+            flex-direction: column;
+            animation: fadeIn 0.4s ease forwards;
+        }
+
+        .expiry-page-container {
+            position: relative; z-index: 2;
+            width: 100%; max-width: 1100px; margin: 0 auto;
+        }
+
+        /* Glassmorphism main container */
+        .expiry-card-container {
+            position: relative;
+            padding: 50px 40px;
+            border: 1px solid rgba(255, 255, 255, 0.7);
+            border-radius: 24px;
+            background: rgba(255, 255, 255, 0.45);
+            box-shadow: 0 8px 32px 0 rgba(11, 36, 71, 0.1), inset 0 0 0 1px rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            overflow: hidden;
+        }
+
+        .expiry-card-container::before {
+            content: ""; position: absolute; top: 0; left: 0; right: 0; height: 4px;
+            background: var(--primary-navy);
+        }
+
+        /* Header Area */
+        .expiry-header {
+            display: grid;
+            grid-template-columns: 155px minmax(0,1fr);
+            gap: 30px;
+            align-items: center;
+            margin-bottom: 40px;
+        }
+
+        .expiry-hero-art {
+            position: relative; display: grid; place-items: center;
+            width: 145px; height: 145px; border-radius: 50%;
+            background: rgba(11, 36, 71, 0.05); /* Soft navy tint */
+            box-shadow: 0 8px 24px rgba(11, 36, 71, 0.1);
+            animation: rmsExpiryFloat 4s ease-in-out infinite;
+        }
+        .expiry-hero-art svg { width: 108px; height: 108px; overflow: visible; }
+
+        .expiry-kicker {
+            margin-bottom: 8px; color: var(--primary-navy);
+            font-size: 11px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase;
+        }
+        .expiry-brand {
+            margin: 0; font-size: clamp(23px,3vw,34px); font-weight: 800;
+            line-height: 1.25; letter-spacing: -1px; color: var(--primary-navy);
+            font-family: 'Playfair Display', serif;
+        }
+        
+        .expiry-divider { height: 1px; margin: 20px 0; background: rgba(11, 36, 71, 0.15); }
+        
+        .expiry-title {
+            margin: 0; font-size: clamp(26px,4vw,42px); font-weight: 800;
+            line-height: 1.2; letter-spacing: -1px; color: var(--primary-navy);
+        }
+        .title-sky { color: var(--accent-sky); }
+
+        .expiry-intro {
+            max-width: 900px; margin: 12px 0 0; color: var(--text-dark);
+            font-size: 15px; line-height: 1.85; font-weight: 500;
+        }
+
+        /* Four Process Steps */
+        .expiry-steps {
+            display: grid; grid-template-columns: repeat(4,minmax(0,1fr));
+            gap: 24px; margin-top: 40px;
+        }
+
+        .expiry-step {
+            position: relative; min-width: 0; padding: 30px 20px 25px;
+            text-align: center; border-radius: 20px;
+            background: rgba(255, 255, 255, 0.7);
+            border: 1px solid rgba(255, 255, 255, 0.9);
+            box-shadow: var(--shadow-sm);
+            transition: transform .3s ease, box-shadow .3s ease;
+        }
+        .expiry-step:hover {
+            transform: translateY(-6px);
+            box-shadow: var(--shadow-md);
+            background: rgba(255, 255, 255, 0.95);
+        }
+
+        .step-number {
+            position: absolute; top: -15px; left: 20px;
+            display: grid; place-items: center; width: 40px; height: 40px;
+            border: 3px solid white; border-radius: 50%;
+            background: var(--primary-navy); color: white;
+            font-size: 14px; font-weight: 800; box-shadow: 0 5px 12px rgba(11,36,71,.2);
+        }
+
+        .step-art {
+            display: grid; place-items: center; width: 75px; height: 75px;
+            margin: 0 auto 20px; border-radius: 50%;
+            background: rgba(11, 36, 71, 0.05); color: var(--primary-navy);
+        }
+        .step-art svg {
+            width: 40px; height: 40px; fill: none; stroke: currentColor;
+            stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round;
+        }
+
+        .step-title {
+            min-height: 42px; display: flex; align-items: center; justify-content: center;
+            margin: 0 0 10px; color: var(--primary-navy); font-size: 15px; font-weight: 800; line-height: 1.4;
+        }
+        .step-description { margin: 0; color: var(--text-muted); font-size: 13px; line-height: 1.6; font-weight: 500;}
+
+        .step-connector { display: none; }
+
+        /* Terms and conditions */
+        .expiry-terms {
+            display: grid; grid-template-columns: 130px minmax(0,1fr); gap: 30px;
+            align-items: center; margin-top: 40px; padding: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.8); border-radius: 20px;
+            background: rgba(255, 255, 255, 0.6);
+            box-shadow: inset 0 0 0 1px rgba(255,255,255,0.5);
+        }
+
+        .terms-art {
+            display: grid; place-items: center; width: 110px; height: 110px;
+            border-radius: 50%; background: rgba(11, 36, 71, 0.05); color: var(--primary-navy);
+        }
+        .terms-art svg { width: 60px; height: 60px; fill: none; stroke: currentColor; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+
+        .terms-title { margin: 0 0 15px; color: var(--primary-navy); font-size: 20px; font-weight: 800; letter-spacing: -.4px; line-height: 1.4; }
+        .terms-list { display: grid; gap: 12px; padding: 0; margin: 0; list-style: none; }
+        .terms-list li { display: flex; align-items: flex-start; gap: 12px; color: var(--text-dark); font-size: 14px; line-height: 1.6; font-weight: 500; }
+        
+        .term-check {
+            display: grid; place-items: center; flex-shrink: 0;
+            width: 22px; height: 22px; margin-top: 2px; border-radius: 50%;
+            background: var(--accent-sky); color: #ffffff;
+            font-size: 12px; font-weight: 900;
+        }
+
+        @keyframes rmsExpiryFloat {
+            0%,100% { transform: translateY(0); }
+            50% { transform: translateY(-8px); }
+        }
+
+        /* Tablet */
+        @media (max-width: 900px) {
+            .expiry-card-container { padding: 30px; }
+            .expiry-steps { grid-template-columns: repeat(2,minmax(0,1fr)); gap: 30px; }
+            .expiry-step { padding: 30px 20px 25px; }
+        }
+
+        /* Mobile */
+        @media (max-width: 600px) {
+            .expiry-modal-wrapper { padding: 80px 16px 60px; }
+            .expiry-card-container { padding: 30px 20px; border-radius: 20px; }
+            .expiry-header { grid-template-columns: 1fr; gap: 20px; text-align: center; }
+            .expiry-hero-art { margin: 0 auto; width: 120px; height: 120px; }
+            .expiry-hero-art svg { width: 90px; height: 90px; }
+            
+            .expiry-steps { grid-template-columns: 1fr; gap: 25px; margin-top: 30px; }
+            .expiry-step { 
+                display: grid; grid-template-columns: 70px minmax(0,1fr); gap: 0 15px; 
+                align-items: center; text-align: left; padding: 25px 20px;
+            }
+            .step-art { grid-row: 1 / span 2; width: 60px; height: 60px; margin: 0; }
+            .step-art svg { width: 32px; height: 32px; }
+            .step-number { top: -10px; left: -10px; width: 32px; height: 32px; font-size: 12px; }
+            .step-title { min-height: 0; justify-content: flex-start; margin: 0 0 5px; font-size: 15px; }
+            
+            .expiry-terms { grid-template-columns: 1fr; gap: 20px; padding: 25px 20px; text-align: left;}
+            .terms-art { display: none; }
+        }
+    </style>
+
     <div id="modal-expiry" class="modal-view-section">
-        <div class="wip-container">
-            <i class="fas fa-box-open main-icon"></i>
-            <h2>Expiry & Breakage Claims</h2>
-            <p class="subtitle">The step-by-step claims guide is under construction and will be deployed soon.</p>
-            <button onclick="showMainView()" class="btn-primary" style="margin-top: 10px;">⬅ Return to Home</button>
+        <div class="expiry-modal-wrapper">
+            <div class="expiry-page-container">
+
+                <div class="expiry-card-container">
+                    <!-- Header -->
+                    <header class="expiry-header">
+                        <div class="expiry-hero-art" aria-hidden="true">
+                            <svg viewBox="0 0 120 120">
+                                <defs>
+                                    <linearGradient id="rmsBoxGradient" x1="0" y1="0" x2="1" y2="1">
+                                        <stop offset="0" stop-color="#19376D"/>
+                                        <stop offset="1" stop-color="#0B2447"/>
+                                    </linearGradient>
+                                </defs>
+                                <!-- Box -->
+                                <path d="M12 42 51 23 94 41 54 62Z" fill="#2a4d8c" stroke="#19376D" stroke-width="1.5"/>
+                                <path d="M12 42 54 62 54 100 12 78Z" fill="url(#rmsBoxGradient)"/>
+                                <path d="M54 62 94 41 94 78 54 100Z" fill="#152f60"/>
+
+                                <!-- Medicine packs (Sky Blue Accents) -->
+                                <rect x="28" y="15" width="25" height="35" rx="5" transform="rotate(-8 28 15)" fill="#ffffff" stroke="var(--accent-sky)" stroke-width="2"/>
+                                <rect x="34" y="21" width="13" height="5" rx="2" fill="var(--accent-sky)"/>
+                                <rect x="34" y="31" width="13" height="4" rx="2" fill="var(--accent-sky-light)"/>
+
+                                <rect x="61" y="8" width="23" height="36" rx="5" transform="rotate(8 61 8)" fill="#ffffff" stroke="var(--accent-sky)" stroke-width="2"/>
+                                <path d="M68 21h11M68 27h11M68 33h7" stroke="var(--accent-sky)" stroke-width="2" stroke-linecap="round"/>
+
+                                <!-- Medical cross -->
+                                <rect x="31" y="57" width="31" height="9" rx="2" fill="#ffffff"/>
+                                <rect x="42" y="46" width="9" height="31" rx="2" fill="#ffffff"/>
+
+                                <!-- Verification shield -->
+                                <path d="M80 52 105 61V78 Q104 94 80 107 Q56 94 55 78V61Z" fill="#ffffff" stroke="var(--accent-sky)" stroke-width="3"/>
+                                <path d="m68 79 8 8 16-18" fill="none" stroke="var(--accent-sky)" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </div>
+
+                        <div>
+                            <div class="expiry-kicker">Customer Support Programme</div>
+                            <h1 class="expiry-brand">Rakhecha Medical Stores</h1>
+                            
+                            <div class="expiry-divider"></div>
+                            
+                            <h2 class="expiry-title">
+                                Expiry Breakage <span class="title-sky">Claim Process</span>
+                            </h2>
+                            <p class="expiry-intro">
+                                Expiry breakage claim is a complimentary service for our valuable customers. This service provides value for eligible expired or damaged products, subject to the applicable terms and conditions.
+                            </p>
+                        </div>
+                    </header>
+
+                    <!-- Four Process Steps -->
+                    <section class="expiry-steps" aria-label="Claim process steps">
+                        <!-- Step 1 -->
+                        <article class="expiry-step">
+                            <span class="step-number">01</span>
+                            <div class="step-art" aria-hidden="true">
+                                <svg viewBox="0 0 48 48">
+                                    <path d="m5 16 19-10 19 10-19 11Z"/>
+                                    <path d="M5 16v19l19 9 19-9V16"/>
+                                    <path d="M24 27v17M5 16l19 11 19-11"/>
+                                    <path d="m16 10 19 11M13 20v8l6 3v-8"/>
+                                    <circle cx="39" cy="38" r="8" fill="var(--accent-sky)" stroke="white" stroke-width="2"/>
+                                    <path d="M39 34v5m0 3v.2" stroke="white" stroke-width="2.2" stroke-linecap="round"/>
+                                </svg>
+                            </div>
+                            <h3 class="step-title">Handover Products</h3>
+                            <p class="step-description">Hand over expired or damaged products to the RMS executive with a tag bearing your name or organization.</p>
+                        </article>
+
+                        <!-- Step 2 -->
+                        <article class="expiry-step">
+                            <span class="step-number">02</span>
+                            <div class="step-art" aria-hidden="true">
+                                <svg viewBox="0 0 48 48">
+                                    <rect x="9" y="5" width="27" height="37" rx="4"/>
+                                    <path d="M17 14h12M17 21h12M17 28h6"/>
+                                    <circle cx="33" cy="32" r="9" fill="#ffffff" stroke="currentColor" stroke-width="2"/>
+                                    <path d="m39 39 5 5"/>
+                                    <path d="m29 32 3 3 5-6"/>
+                                </svg>
+                            </div>
+                            <h3 class="step-title">Verification & Eligibility</h3>
+                            <p class="step-description">The product will be checked and eligibility verified. Approval is subject to the applicable terms and conditions.</p>
+                        </article>
+
+                        <!-- Step 3 -->
+                        <article class="expiry-step">
+                            <span class="step-number">03</span>
+                            <div class="step-art" aria-hidden="true">
+                                <svg viewBox="0 0 48 48">
+                                    <rect x="8" y="5" width="32" height="38" rx="4"/>
+                                    <path d="M16 5V2h16v3"/>
+                                    <path d="M16 15h16M16 35h16"/>
+                                    <path d="M28 23c-1-3-9-3-9 1s9 3 9 7-8 4-10 0"/>
+                                    <path d="M23 19v17"/>
+                                </svg>
+                            </div>
+                            <h3 class="step-title">Generate Credit Note</h3>
+                            <p class="step-description">A credit note will be generated for the approved eligible claim.</p>
+                        </article>
+
+                        <!-- Step 4 -->
+                        <article class="expiry-step">
+                            <span class="step-number">04</span>
+                            <div class="step-art" aria-hidden="true">
+                                <svg viewBox="0 0 48 48">
+                                    <path d="M5 8h5l5 25h23l5-18H13"/>
+                                    <circle cx="19" cy="40" r="3"/>
+                                    <circle cx="35" cy="40" r="3"/>
+                                    <circle cx="34" cy="14" r="9" fill="#ffffff" stroke="currentColor" stroke-width="2"/>
+                                    <path d="m30 14 3 3 5-6"/>
+                                </svg>
+                            </div>
+                            <h3 class="step-title">Adjust on Future Purchases</h3>
+                            <p class="step-description">The approved credit note will be adjusted against future purchases.</p>
+                        </article>
+                    </section>
+
+                    <!-- Terms and conditions -->
+                    <section class="expiry-terms">
+                        <div class="terms-art" aria-hidden="true">
+                            <svg viewBox="0 0 80 80">
+                                <rect x="15" y="8" width="40" height="55" rx="4"/>
+                                <path d="M24 22h22M24 32h22M24 42h14"/>
+                                <path d="M48 44 65 50V61Q64 72 48 78 Q32 72 31 61V50Z" fill="#ffffff" stroke="currentColor" stroke-width="2"/>
+                                <path d="m40 60 6 6 11-13"/>
+                            </svg>
+                        </div>
+                        <div>
+                            <h3 class="terms-title">Terms and Conditions for Expiry Breakage Claim</h3>
+                            <ul class="terms-list">
+                                <li>
+                                    <span class="term-check">✓</span>
+                                    <span>Products should be purchased from Rakhecha Medical Stores.</span>
+                                </li>
+                                <li>
+                                    <span class="term-check">✓</span>
+                                    <span>Expired products must be handed over to the RMS executive within 5 months of expiry.</span>
+                                </li>
+                                <li>
+                                    <span class="term-check">✓</span>
+                                    <span>For damaged or broken medicines, batch numbers must be clearly visible.</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </section>
+                </div>
+            </div>
         </div>
     </div>
 
-    <!-- Modal: Partnered Pharmaceutical Companies -->
+    <!-- Modal: Partnered Pharmaceutical Companies ------------------------------------------------------------------------------------->
     <div id="modal-companies" class="modal-view-section">
         <div class="wip-container">
             <i class="fas fa-industry main-icon"></i>
@@ -1151,7 +1495,7 @@
         </div>
     </div>
 
-    <!-- Modal: Newly Added Products -->
+    <!-- Modal: Newly Added Products ------------------------------------------------------------------------------>
     <div id="modal-new-products" class="modal-view-section">
         <div class="wip-container">
             <i class="fas fa-tags main-icon"></i>
