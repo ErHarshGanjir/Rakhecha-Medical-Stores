@@ -1486,12 +1486,754 @@
     </div>
 
     <!-- Modal: Partnered Pharmaceutical Companies ------------------------------------------------------------------------------------->
+<!-- Modal: Partnered Pharmaceutical Companies -->
     <div id="modal-companies" class="modal-view-section">
-        <div class="wip-container">
-            <i class="fas fa-industry main-icon"></i>
-            <h2>Partnered Companies</h2>
-            <p class="subtitle">Our complete vendor and manufacturer portfolio is being compiled for this page.</p>
-            <button onclick="showMainView()" class="btn-primary" style="margin-top: 10px;">⬅ Return to Home</button>
+        <style>
+            /* ======================================================
+               MODAL: COMPANY DIRECTORY (THEME MATCHED & FIXED)
+               ====================================================== */
+            #modal-companies {
+                padding: 0 !important;
+                background: transparent;
+                display: none; 
+                flex: 1;
+            }
+
+            .companies-modal-wrapper {
+                --rms-navy: #0B2447;
+                --rms-secondary-navy: #19376D;
+                --rms-sky: #0ea5e9; /* Replaced Gold with Sky Blue */
+                --rms-text: #0f172a;
+                --rms-muted: #475569;
+                --rms-line: #dbeafe;
+                
+                width: 100%;
+                color: var(--rms-navy);
+                font-family: 'Plus Jakarta Sans', sans-serif;
+                box-sizing: border-box;
+                
+                padding: 100px 24px 100px;
+                min-height: 100vh;
+                overflow: hidden;
+                background: linear-gradient(135deg, rgba(244, 249, 255, 0.65) 0%, rgba(255, 255, 255, 0.35) 100%), url('https://imgh.in/host/3i11sw');
+                background-size: cover;
+                background-position: center;
+                background-attachment: fixed;
+                animation: fadeIn 0.4s ease forwards;
+            }
+
+            .companies-modal-wrapper *,
+            .companies-modal-wrapper *::before,
+            .companies-modal-wrapper *::after {
+                box-sizing: border-box;
+            }
+
+            .companies-modal-wrapper button,
+            .companies-modal-wrapper input {
+                font: inherit;
+            }
+
+            /* Glassmorphism Shell */
+            .companies-modal-wrapper .rms-directory-shell {
+                max-width: 1240px;
+                margin: auto;
+                padding: clamp(16px, 3vw, 40px);
+                overflow: hidden;
+                border: 1px solid rgba(255, 255, 255, 0.7);
+                border-radius: 24px;
+                background: rgba(255, 255, 255, 0.45);
+                box-shadow: 0 8px 32px 0 rgba(11, 36, 71, 0.1), inset 0 0 0 1px rgba(255, 255, 255, 0.2);
+                backdrop-filter: blur(24px);
+                -webkit-backdrop-filter: blur(24px);
+                position: relative;
+            }
+            
+            .companies-modal-wrapper .rms-directory-shell::before {
+                content: ""; position: absolute; top: 0; left: 0; right: 0; height: 4px;
+                background: var(--rms-navy);
+            }
+
+            /* Header */
+            .companies-modal-wrapper .rms-directory-header {
+                padding: 8px 0 5px;
+                text-align: center;
+                animation: rmsHeaderIn .6s ease both;
+            }
+
+            .companies-modal-wrapper .rms-directory-kicker {
+                display: inline-flex;
+                align-items: center;
+                gap: 9px;
+                padding: 8px 14px;
+                margin-bottom: 15px;
+                border: 1px solid rgba(11, 36, 71, 0.14);
+                border-radius: 100px;
+                background: rgba(255, 255, 255, 0.7);
+                color: var(--rms-navy);
+                font-size: 10px;
+                font-weight: 800;
+                letter-spacing: 1.2px;
+                text-transform: uppercase;
+            }
+
+            .companies-modal-wrapper .rms-kicker-dot {
+                width: 7px;
+                height: 7px;
+                border-radius: 50%;
+                background: var(--rms-sky);
+            }
+
+            .companies-modal-wrapper .rms-directory-title {
+                margin: 0;
+                color: var(--rms-navy);
+                font-family: 'Playfair Display', serif;
+                font-size: clamp(29px, 4vw, 42px);
+                font-weight: 800;
+                line-height: 1.2;
+                letter-spacing: -.7px;
+            }
+
+            /* Search */
+            .companies-modal-wrapper .rms-search-row {
+                display: flex;
+                justify-content: center;
+                margin: 27px 0 35px;
+            }
+
+            .companies-modal-wrapper .rms-search {
+                display: flex;
+                align-items: center;
+                gap: 12px;
+                width: min(100%, 590px);
+                min-height: 56px;
+                padding: 0 16px;
+                border: 2px solid var(--rms-line);
+                border-radius: 15px;
+                background: rgba(255, 255, 255, 0.9);
+                box-shadow: 0 5px 20px rgba(11, 36, 71, 0.045);
+                transition: border-color .25s, box-shadow .25s;
+            }
+
+            .companies-modal-wrapper .rms-search:focus-within {
+                border-color: var(--rms-navy);
+                box-shadow: 0 0 0 4px rgba(11, 36, 71, 0.08);
+            }
+
+            .companies-modal-wrapper .rms-search-symbol {
+                flex: 0 0 auto;
+                color: var(--rms-navy);
+                font-size: 23px;
+                line-height: 1;
+                opacity: 0.7;
+            }
+
+            .companies-modal-wrapper #rms-company-search {
+                width: 100%;
+                min-width: 0;
+                padding: 15px 0;
+                border: 0;
+                outline: 0;
+                background: transparent;
+                color: var(--rms-text);
+                font-size: 14px;
+                font-weight: 500;
+            }
+
+            .companies-modal-wrapper #rms-company-search::placeholder {
+                color: var(--rms-muted);
+            }
+
+            .companies-modal-wrapper .rms-clear-search {
+                display: none;
+                align-items: center;
+                justify-content: center;
+                flex: 0 0 30px;
+                width: 30px;
+                height: 30px;
+                padding: 0;
+                border: 0;
+                border-radius: 50%;
+                background: rgba(11, 36, 71, 0.05);
+                color: var(--rms-navy);
+                font-size: 20px;
+                cursor: pointer;
+            }
+
+            .companies-modal-wrapper .rms-clear-search.is-visible {
+                display: flex;
+            }
+
+            /* Card grid */
+            .companies-modal-wrapper #rms-company-grid {
+                display: grid;
+                grid-template-columns: repeat(4, minmax(0, 1fr));
+                gap: 20px;
+                align-items: stretch;
+            }
+
+            /* Premium company card */
+            .companies-modal-wrapper .rms-company-card {
+                position: relative;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                min-width: 0;
+                min-height: 190px;
+                padding: 20px 15px;
+                overflow: hidden;
+                border: 1px solid rgba(255, 255, 255, 0.8);
+                border-radius: 17px;
+                background: rgba(255, 255, 255, 0.8);
+                box-shadow: 0 4px 14px rgba(11, 36, 71, 0.035);
+                text-align: center;
+                cursor: pointer;
+                opacity: 0;
+                animation: rmsCardIn .45s ease forwards;
+                transition: transform 0.3s ease, border-color .25s ease, box-shadow .25s ease, background .25s ease;
+                backdrop-filter: blur(10px);
+            }
+
+            .companies-modal-wrapper .rms-company-card::before {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 3px;
+                background: var(--rms-secondary-navy);
+                content: "";
+                opacity: 0;
+                transition: opacity .25s ease;
+            }
+
+            .companies-modal-wrapper .rms-company-card:hover,
+            .companies-modal-wrapper .rms-company-card:focus-visible {
+                border-color: var(--rms-navy);
+                background: #fff;
+                box-shadow: 0 10px 25px rgba(11, 36, 71, 0.09);
+                outline: none;
+                transform: translateY(-4px);
+            }
+
+            .companies-modal-wrapper .rms-company-card:hover::before,
+            .companies-modal-wrapper .rms-company-card:focus-visible::before {
+                opacity: 1;
+            }
+
+            /* Logo area */
+            .companies-modal-wrapper .rms-logo-frame {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: 100%;
+                height: 110px;
+                flex: 0 0 110px;
+                margin-bottom: 15px;
+                padding: 12px;
+                overflow: hidden;
+                border: 1px solid #edf2f3;
+                border-radius: 12px;
+                background: #fff;
+            }
+
+            .companies-modal-wrapper .rms-company-logo {
+                display: block;
+                width: 100%;
+                height: 100%;
+                object-fit: contain;
+                object-position: center;
+                transition: transform .3s ease;
+            }
+
+            .companies-modal-wrapper .rms-company-card:hover .rms-company-logo {
+                transform: scale(1.045);
+            }
+
+            .companies-modal-wrapper .rms-logo-fallback {
+                display: none;
+                align-items: center;
+                justify-content: center;
+                width: 53px;
+                height: 53px;
+                flex: 0 0 53px;
+                border-radius: 15px;
+                background: rgba(11, 36, 71, 0.05);
+                color: var(--rms-navy);
+                font-size: 18px;
+                font-weight: 800;
+            }
+
+            /* Name */
+            .companies-modal-wrapper .rms-company-name {
+                width: 100%;
+                margin: 0;
+                color: var(--rms-navy);
+                font-size: 14px;
+                font-weight: 700;
+                line-height: 1.5;
+                overflow-wrap: anywhere;
+            }
+
+            /* Empty search state */
+            .companies-modal-wrapper .rms-empty {
+                display: none;
+                padding: 40px 18px;
+                border: 2px dashed rgba(11, 36, 71, 0.2);
+                border-radius: 18px;
+                text-align: center;
+                color: var(--rms-muted);
+                background: rgba(255, 255, 255, 0.5);
+            }
+
+            .companies-modal-wrapper .rms-empty.is-visible {
+                display: block;
+            }
+
+            .companies-modal-wrapper .rms-empty h3 {
+                margin: 0 0 8px;
+                color: var(--rms-navy);
+                font-size: 17px;
+            }
+
+            .companies-modal-wrapper .rms-empty p {
+                margin: 0;
+                font-size: 14px;
+                line-height: 1.7;
+            }
+
+            /* ======================================================
+               FLOATING HOVER DESCRIPTION
+            ====================================================== */
+            #rms-company-detail {
+                position: fixed !important;
+                left: 0;
+                top: 0;
+                z-index: 2147483000 !important;
+                display: block;
+                width: min(320px, calc(100vw - 28px));
+                max-width: calc(100vw - 28px);
+                padding: 20px 22px;
+                border: 1px solid rgba(11, 36, 71, 0.1);
+                border-radius: 16px;
+                background: rgba(255, 255, 255, 0.95);
+                box-shadow: 0 15px 42px rgba(11, 36, 71, 0.15);
+                backdrop-filter: blur(10px);
+                opacity: 0;
+                visibility: hidden;
+                pointer-events: none;
+                transform: translateY(5px);
+                transition: opacity .16s ease, transform .16s ease, visibility .16s ease;
+                font-family: 'Plus Jakarta Sans', sans-serif;
+            }
+
+            #rms-company-detail.is-open {
+                opacity: 1;
+                visibility: visible;
+                transform: translateY(0);
+            }
+
+            #rms-company-detail .rms-tooltip-title {
+                margin: 0 0 10px;
+                color: var(--rms-navy);
+                font-size: 15px;
+                font-weight: 800;
+                line-height: 1.4;
+                overflow-wrap: anywhere;
+            }
+
+            #rms-company-detail .rms-tooltip-divider {
+                width: 40px;
+                height: 3px;
+                margin: 0 0 12px;
+                border-radius: 8px;
+                background: var(--rms-sky); /* Replaced Gold with Sky Blue */
+            }
+
+            #rms-company-detail .rms-tooltip-description {
+                margin: 0;
+                color: var(--rms-muted);
+                font-size: 13px;
+                line-height: 1.6;
+                font-weight: 500;
+                overflow-wrap: anywhere;
+            }
+
+            @media (max-width: 600px) {
+                #rms-company-detail {
+                    width: min(285px, calc(100vw - 24px));
+                    padding: 16px;
+                    border-radius: 14px;
+                }
+                #rms-company-detail .rms-tooltip-title { font-size: 14px; }
+                #rms-company-detail .rms-tooltip-description { font-size: 12px; }
+            }
+
+            /* Entrance animations */
+            @keyframes rmsHeaderIn {
+                from { opacity: 0; transform: translateY(7px); }
+                to { opacity: 1; transform: translateY(0); }
+            }
+
+            @keyframes rmsCardIn {
+                from { opacity: 0; }
+                to { opacity: 1; }
+            }
+
+            /* Tablet */
+            @media (max-width: 950px) {
+                .companies-modal-wrapper #rms-company-grid {
+                    grid-template-columns: repeat(3, minmax(0, 1fr));
+                    gap: 16px;
+                }
+            }
+
+            /* Mobile */
+            @media (max-width: 600px) {
+                .companies-modal-wrapper { padding: 80px 16px 60px; }
+                
+                .companies-modal-wrapper .rms-directory-shell {
+                    padding: 25px 16px;
+                    border-radius: 18px;
+                }
+
+                .companies-modal-wrapper .rms-directory-title {
+                    font-size: clamp(26px, 7vw, 32px);
+                }
+
+                .companies-modal-wrapper .rms-search-row {
+                    margin: 20px 0;
+                }
+
+                .companies-modal-wrapper .rms-search {
+                    min-height: 51px;
+                    padding: 0 12px;
+                    gap: 9px;
+                }
+
+                .companies-modal-wrapper #rms-company-grid {
+                    grid-template-columns: repeat(2, minmax(0, 1fr));
+                    gap: 12px;
+                }
+
+                .companies-modal-wrapper .rms-company-card {
+                    min-height: 170px;
+                    padding: 12px 10px;
+                    border-radius: 14px;
+                }
+
+                .companies-modal-wrapper .rms-logo-frame {
+                    height: 84px;
+                    flex-basis: 84px;
+                    padding: 8px;
+                    margin-bottom: 10px;
+                    border-radius: 10px;
+                }
+
+                .companies-modal-wrapper .rms-company-name {
+                    font-size: 11.5px;
+                    line-height: 1.4;
+                }
+            }
+
+            @media (max-width: 350px) {
+                .companies-modal-wrapper .rms-company-card {
+                    min-height: 160px;
+                    padding: 9px 7px;
+                }
+                .companies-modal-wrapper .rms-logo-frame {
+                    height: 75px;
+                    flex-basis: 75px;
+                }
+                .companies-modal-wrapper .rms-company-name {
+                    font-size: 10px;
+                }
+            }
+
+            @media (prefers-reduced-motion: reduce) {
+                .companies-modal-wrapper *,
+                .companies-modal-wrapper *::before,
+                .companies-modal-wrapper *::after,
+                #rms-company-detail,
+                #rms-company-detail * {
+                    animation: none !important;
+                    transition: none !important;
+                }
+            }
+        </style>
+
+        <div class="companies-modal-wrapper">
+            <div class="rms-directory-shell">
+                <header class="rms-directory-header">
+                    <div class="rms-directory-kicker">
+                        <span class="rms-kicker-dot"></span>
+                        Our Pharmaceutical Network
+                    </div>
+                    <h2 class="rms-directory-title">
+                        Pharmaceutical Companies
+                    </h2>
+                </header>
+
+                <div class="rms-search-row">
+                    <div class="rms-search">
+                        <span class="rms-search-symbol" aria-hidden="true">⌕</span>
+                        <input
+                            id="rms-company-search"
+                            type="search"
+                            placeholder="Search pharmaceutical companies..."
+                            aria-label="Search pharmaceutical companies"
+                            autocomplete="off"
+                        >
+                        <button
+                            type="button"
+                            id="rms-clear-search"
+                            class="rms-clear-search"
+                            aria-label="Clear search"
+                        >×</button>
+                    </div>
+                </div>
+
+                <div id="rms-company-grid"></div>
+
+                <div id="rms-company-empty" class="rms-empty">
+                    <h3>No companies found</h3>
+                    <p>Try a different search term.</p>
+                </div>
+            </div>
+
+            <!-- Floating company description tooltip -->
+            <div id="rms-company-detail" role="tooltip" aria-hidden="true">
+                <h3 id="rms-detail-title" class="rms-tooltip-title"></h3>
+                <div class="rms-tooltip-divider"></div>
+                <p id="rms-detail-description" class="rms-tooltip-description"></p>
+            </div>
+
+            <script>
+            (() => {
+                "use strict";
+
+                const root = document.getElementById("modal-companies");
+                if (!root || root.dataset.rmsReady === "true") return;
+                root.dataset.rmsReady = "true";
+
+                const companies = [
+                    ["Abbares Pharmaceuticals","1dO0P8Fko1WKbO_iOCyNpX0kvDTBCP4NI","A rising healthcare firm focusing on the distribution and marketing of generic formulations."],
+                    ["Abbott Laboratories","1xW4BS8M_qK8aANjWkaKJMw0d_rMtK3yQ","A global healthcare company producing medical devices, diagnostics, branded generics, and nutritional products."],
+                    ["Aimil Pharmaceuticals","1DRkDxXS_gVmNp4X_FmVxqe1trIvJFF5i","An Indian pharmaceutical company specializing in research-based Ayurvedic and herbal formulations."],
+                    ["Alembic Pharmaceuticals","1Pk32HNx5BhjW6kEycUy2EuDK_LulBv7v","A pharmaceutical manufacturer of generic medicines, active pharmaceutical ingredients, and formulations."],
+                    ["Alkem Laboratories","1vvIXcS-qLDe1b_vX6OVnO-B4LFHfGDMB","A pharmaceutical company engaged in the development and manufacture of formulations and active ingredients."],
+                    ["Alvid Biocare","16bMSXvweD0zAbHH8h3E4Lu-pWoPH2f8f","A pharmaceutical marketer offering a range of prescription therapeutics."],
+                    ["Apex Laboratories","1SGR6FZbgkjw1f-DS_BBgXQuPP_egfOLl","A manufacturer known for vitamin, mineral, and nutritional supplement products."],
+                    ["Bayer","1V2E_Rj5jCPoZC0viJ0dsHYiPPUF5tJvr","A global life sciences company focused on healthcare and agricultural products."],
+                    ["Biological E. Limited","1EZwH-WOph9dASbbxbhOBP0jXiKmM720R","A biopharmaceutical company specializing in vaccines and biological therapeutics."],
+                    ["Centaur Pharmaceuticals","1orVXLrbf9Q6V-1lohmRaf9u7lQgXegqx","An Indian pharmaceutical company active in formulations, clinical research, and API manufacturing."],
+                    ["Charak Pharmaceuticals","1hZfDRNybkxVwCpp3IRELGResmwXWiS3b","A company focused on natural Ayurvedic healthcare products."],
+                    ["Cipla","1efi4p_LEZVp5db3J8JlDsG_GDt6Jy01j","A pharmaceutical company known for generic and branded medicines across multiple therapeutic areas."],
+                    ["DWD Pharmaceuticals","1ylwiVLZO4-Akg67MFwL79HZ-pW5ithjI","A pharmaceutical formulation company with products in several therapeutic areas."],
+                    ["Franco-Indian Pharmaceuticals","1faaQO8f-m6SYymKGyeYiy339A9q1-tiM","A pharmaceutical manufacturer with formulations across pediatrics, dermatology, and general healthcare."],
+                    ["Glenmark Pharmaceuticals","1ItPaDZWJXfQmGj4UeBYgxkiNk4cDl75r","A research-led pharmaceutical company specializing in generics, specialty medicines, and APIs."],
+                    ["GSK (GlaxoSmithKline)","1Zzw48mpXK4g5KzUmbEFBDP1v2GMLXNfg","A biopharmaceutical company focused on vaccines and specialty medicines."],
+                    ["Hamdard","1czsXCENeB785O4Q_UND73HZwdOhDSZxK","A traditional Unani medicine and consumer healthcare organization."],
+                    ["Indechmein / Ind-Chemie","1alJj2sWvQiHz35tMp7pu94jhj4j6MS2A","A domestic manufacturer associated with pharmaceutical formulations."],
+                    ["Indoco Remedies","1zrpm-73uCbyB0mkjkycGDS-8xpKdNxUO","A pharmaceutical company manufacturing active ingredients and finished dosage products."],
+                    ["Jagsonpal Pharmaceuticals Limited","1LzMWE9TeXhlw_KdoDPNQqsYEvwn6V57m","An Indian pharmaceutical company with products across multiple therapeutic areas."],
+                    ["Kahnadelwal Lab (Khandelwal Laboratories)","1ujRbhYNX8UEk1yCdJfsnUDz4omHzAYAQ","A pharmaceutical manufacturer associated with therapeutic formulations."],
+                    ["Koye Pharmaceuticals","1mIlm3O1zSUr0RfiCVYX9zZyQ7p9skC4o","A healthcare company concentrating on primary care and chronic disease management."],
+                    ["Lupin","1By_axOh1av9QraYZ5G1768f8iZSXoDlI","A pharmaceutical company producing generic medicines and therapies across several treatment areas."],
+                    ["Macleods Pharmaceuticals","1SP4RJhUtP5C1x_i0ZrNRPr4N_PsRLh-u","A pharmaceutical manufacturer with products across several therapeutic areas."],
+                    ["Meditia","1GUJtEsuGPBdL_r4q3tKi8LPbIoCRgqMQ","A regional pharmaceutical provider focused on generic medicines and medical supplies."],
+                    ["Micropark Logistics","1HNrGLkEIohRahbnumWxWyu7aTNSTwdW2","A pharmaceutical logistics company associated with medicine storage and distribution."],
+                    ["Mylan Laboratories","1jKqJjKL8K_pGtm7fWPJS0iUJU12_LE1u","A generic and specialty pharmaceutical manufacturer now associated with Viatris."],
+                    ["Novo Nordisk","1EWhkGG8oWDk8KAcppMs4Cx28ddrZI1_m","A global healthcare company known for medicines in diabetes and other chronic diseases."],
+                    ["Olympus Corporation","1VroZomzLUfSrwWq_AmeuMCZ6ORYT8EEE","A medical technology company known for endoscopic and surgical visualization equipment."],
+                    ["P&G (Procter & Gamble)","1kcUnsGefkQOXBQkmwV2N55IcjN4JRJJC","A consumer goods company with a broad portfolio of personal care and consumer health products."],
+                    ["Pfizer","1mfnPKy4pUvVsls0IljMpbTh1WaESu2pi","A global healthcare company with medicines and vaccines across multiple therapeutic areas."],
+                    ["Sanofi","1uDTz0dtXzquUO6Jz1VzC66mujlTLF2GF","A global biopharmaceutical company working across medicines and vaccines."],
+                    ["Shreya Life Sciences","1G6EsvLY5J3AK3N2SyNFqzWxM75Axf9R5","A pharmaceutical company associated with specialized pharmaceutical products."],
+                    ["Solvay","1JOOGbelG1Fhox9Rn90TdK8FOA2DY9YlV","A global chemicals company with activities across advanced materials and specialty solutions."],
+                    ["Sun Pharma","1xBNUBQMkIXz-4N6VRF1hf_AtkBSpNOD0","A pharmaceutical company providing medicines across specialty and generic treatment areas."],
+                    ["Sustrenburg","15jSbgCQoJxGVn5jXN1ZmQc_g7Of8EUUc","The supplied description references orthopedic, gynecological, and acute-care formulations."],
+                    ["Walter Bushnell","1XBSFCWdNVGb-E9JXxUKr9n9AH09a9PK6","A pharmaceutical company with products in prescription medicines, dental care, and pain therapies."],
+                    ["Warren Pharmaceuticals","1jr5SuutLZq0U5nSM19d8f-sJyFA05sh0","A drug formulation company associated with dermatology, gastroenterology, and pain relief."],
+                    ["Yash Pharma","1nr0LL9R4qCvmRdgW8O-UvjO0vpkENE1u","The supplied description references life-sciences therapies, biosimilars, and generic medicines."],
+                    ["Zydus Lifesciences","14AhPvsQnHuAVUWWhdN8iUfc0OZfQ-Qgp","A pharmaceutical company working across APIs, generics, and animal health."]
+                ].map(([name, id, description]) => ({
+                    name,
+                    logo: "https://lh3.googleusercontent.com/d/" + id,
+                    description
+                }));
+
+                const grid = root.querySelector("#rms-company-grid");
+                const search = root.querySelector("#rms-company-search");
+                const clear = root.querySelector("#rms-clear-search");
+                const empty = root.querySelector("#rms-company-empty");
+
+                const popup = document.getElementById("rms-company-detail");
+                const detailTitle = document.getElementById("rms-detail-title");
+                const detailDescription = document.getElementById("rms-detail-description");
+
+                if (!grid || !search || !clear || !empty || !popup) return;
+
+                let activeCard = null;
+                let hideTimer = null;
+
+                if (popup.parentElement !== document.body) {
+                    document.body.appendChild(popup);
+                }
+
+                function initials(name) {
+                    return name.split(/\s+/).filter(Boolean).slice(0, 2).map(part => part.charAt(0)).join("").toUpperCase();
+                }
+
+                function positionTooltip(card) {
+                    if (!card) return;
+                    const gap = 12;
+                    const margin = 12;
+                    const rect = card.getBoundingClientRect();
+
+                    popup.style.left = "0px";
+                    popup.style.top = "0px";
+                    popup.classList.add("is-open");
+
+                    const tipRect = popup.getBoundingClientRect();
+                    const tipWidth = tipRect.width || Math.min(320, window.innerWidth - 28);
+                    const tipHeight = tipRect.height || 100;
+
+                    let left = rect.right + gap;
+                    if (left + tipWidth > window.innerWidth - margin) {
+                        left = rect.left - tipWidth - gap;
+                    }
+                    if (left < margin) {
+                        left = Math.max(margin, Math.min(rect.left + rect.width / 2 - tipWidth / 2, window.innerWidth - tipWidth - margin));
+                    }
+
+                    let top = rect.top + rect.height / 2 - tipHeight / 2;
+                    top = Math.max(margin, Math.min(top, window.innerHeight - tipHeight - margin));
+
+                    popup.style.left = Math.round(left) + "px";
+                    popup.style.top = Math.round(top) + "px";
+                }
+
+                function showDetails(company, card) {
+                    window.clearTimeout(hideTimer);
+                    activeCard = card;
+                    detailTitle.textContent = company.name;
+                    detailDescription.textContent = company.description || "A short description is not available.";
+                    popup.setAttribute("aria-hidden", "false");
+                    positionTooltip(card);
+                }
+
+                function hideDetails() {
+                    window.clearTimeout(hideTimer);
+                    popup.classList.remove("is-open");
+                    popup.setAttribute("aria-hidden", "true");
+                    activeCard = null;
+                }
+
+                function scheduleHide() {
+                    window.clearTimeout(hideTimer);
+                    hideTimer = window.setTimeout(() => {
+                        if (!activeCard || !activeCard.matches(":focus")) hideDetails();
+                    }, 100);
+                }
+
+                function createCard(company, index) {
+                    const card = document.createElement("button");
+                    card.type = "button";
+                    card.className = "rms-company-card";
+                    card.style.animationDelay = (index % 8) * 30 + "ms";
+                    card.setAttribute("aria-describedby", "rms-company-detail");
+                    card.setAttribute("aria-label", company.name + " — hover or focus for description");
+
+                    const frame = document.createElement("span");
+                    frame.className = "rms-logo-frame";
+
+                    const img = document.createElement("img");
+                    img.className = "rms-company-logo";
+                    img.src = company.logo;
+                    img.alt = "";
+                    img.loading = "lazy";
+                    img.decoding = "async";
+
+                    const fallback = document.createElement("span");
+                    fallback.className = "rms-logo-fallback";
+                    fallback.textContent = initials(company.name);
+
+                    img.addEventListener("error", () => {
+                        img.style.display = "none";
+                        fallback.style.display = "flex";
+                    }, { once: true });
+
+                    frame.append(img, fallback);
+
+                    const name = document.createElement("span");
+                    name.className = "rms-company-name";
+                    name.textContent = company.name;
+
+                    card.append(frame, name);
+
+                    card.addEventListener("mouseenter", () => showDetails(company, card));
+                    card.addEventListener("mouseleave", scheduleHide);
+                    card.addEventListener("focus", () => showDetails(company, card));
+                    card.addEventListener("blur", scheduleHide);
+
+                    card.addEventListener("click", () => {
+                        const isTouch = window.matchMedia("(hover: none), (pointer: coarse)").matches;
+                        if (!isTouch) return;
+                        if (activeCard === card && popup.classList.contains("is-open")) {
+                            hideDetails();
+                        } else {
+                            showDetails(company, card);
+                        }
+                    });
+
+                    return card;
+                }
+
+                function renderCompanies() {
+                    const query = search.value.trim().toLocaleLowerCase();
+                    const filtered = companies.filter(company =>
+                        (company.name + " " + company.description).toLocaleLowerCase().includes(query)
+                    );
+
+                    const fragment = document.createDocumentFragment();
+                    filtered.forEach((company, index) => {
+                        fragment.appendChild(createCard(company, index));
+                    });
+
+                    grid.replaceChildren(fragment);
+                    empty.classList.toggle("is-visible", filtered.length === 0);
+                    clear.classList.toggle("is-visible", query.length > 0);
+                }
+
+                search.addEventListener("input", renderCompanies);
+
+                clear.addEventListener("click", () => {
+                    search.value = "";
+                    renderCompanies();
+                    search.focus();
+                });
+
+                window.addEventListener("resize", () => {
+                    if (activeCard && popup.classList.contains("is-open")) {
+                        positionTooltip(activeCard);
+                    }
+                });
+
+                window.addEventListener("scroll", () => {
+                    if (activeCard && popup.classList.contains("is-open")) {
+                        positionTooltip(activeCard);
+                    }
+                }, true);
+
+                document.addEventListener("keydown", event => {
+                    if (event.key === "Escape" && popup.classList.contains("is-open")) {
+                        hideDetails();
+                    }
+                });
+
+                renderCompanies();
+            })();
+            </script>
         </div>
     </div>
 
@@ -1648,7 +2390,7 @@
                                     <path d="M9 10h2m2 0h2M9 14h2m2 0h2M10 21v-4h4v4"/>
                                 </svg>
                             </span>
-                            <span>Partnered Pharmaceutical Companies</span>
+                            <span>Pharmaceutical Companies</span>
                             <span class="rms-footer-arrow">↗</span>
                         </a>
                     </li>
