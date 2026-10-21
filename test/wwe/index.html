@@ -2311,499 +2311,977 @@
 
     <!-- Modal: Newly Added Products ------------------------------------------------------------------------------>
 <!-- Modal: Newly Added Products -->
-    <style>
-        /* ==========================================
-           MODAL: NEW PRODUCTS (THEME MATCHED & NO BUTTON)
-           ========================================== */
-        #modal-new-products {
-            padding: 0 !important;
-            background: transparent;
-            display: none; flex: 1;
-            /* Using Theme Colors */
-            --np-ink: var(--primary-navy);
-            --np-muted: var(--text-muted);
-            --np-accent: #0ea5e9; /* Replaced Gold with Sky Blue */
-            --np-border: var(--border-color);
-        }
 
-        .np-modal-wrapper {
-            position: relative;
-            padding: 100px 24px 100px; /* Adjusted padding since button is removed */
-            min-height: 100vh;
-            overflow: hidden;
-            /* Soft light blue gradient instead of image */
-            background: linear-gradient(180deg, rgba(244, 249, 255, 1) 0%, rgba(232, 243, 255, 1) 100%);
-            display: flex;
-            flex-direction: column;
-            animation: fadeIn 0.4s ease forwards;
-        }
+<style>
+/* =====================================================
+   RAKHECHA MEDICAL STORES — NEW PRODUCTS MODAL
+   Supports portrait and landscape product images
+===================================================== */
 
-        #modal-new-products *,
-        #modal-new-products *::before,
-        #modal-new-products *::after,
-        #np-lightbox,
-        #np-lightbox * {
-            box-sizing: border-box;
-        }
+#modal-new-products {
+    display: none;
+    flex: 1;
+    padding: 0 !important;
+    background: transparent;
+    --np-ink: var(--primary-navy, #0b2447);
+    --np-muted: var(--text-muted, #64748b);
+    --np-accent: #0ea5e9;
+    --np-border: var(--border-color, #e2e8f0);
+}
 
-        #modal-new-products .np-shell {
-            width: 100%;
-            max-width: 1050px;
-            margin: 0 auto;
-            position: relative;
-            z-index: 2;
-        }
+#modal-new-products *,
+#modal-new-products *::before,
+#modal-new-products *::after,
+#np-lightbox,
+#np-lightbox * {
+    box-sizing: border-box;
+}
 
-        /* ==========================================
-           HEADER
-        ========================================== */
-        #modal-new-products .np-header {
-            max-width: 720px;
-            margin: 0 auto 50px;
-            text-align: center;
-            animation: npHeaderReveal .75s cubic-bezier(.2,.75,.25,1) both;
-        }
+#modal-new-products .np-modal-wrapper {
+    position: relative;
+    min-height: 100vh;
+    padding: 100px 24px;
+    overflow: hidden;
+    background: linear-gradient(180deg, #f4f9ff 0%, #e8f3ff 100%);
+    display: flex;
+    flex-direction: column;
+    animation: npFadeIn .4s ease both;
+}
 
-        #modal-new-products .np-kicker {
-            display: inline-flex; align-items: center; justify-content: center; gap: 9px;
-            margin-bottom: 20px; padding: 8px 16px;
-            border: 1px solid rgba(11, 36, 71, 0.1); border-radius: 100px;
-            background: #ffffff; color: var(--np-ink);
-            font-size: 0.75rem; font-weight: 800; letter-spacing: 1.5px;
-            box-shadow: var(--shadow-sm); text-transform: uppercase;
-        }
+#modal-new-products .np-shell {
+    width: 100%;
+    max-width: 1050px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 2;
+}
 
-        #modal-new-products .np-live-dot {
-            width: 8px; height: 8px; flex: 0 0 8px;
-            border-radius: 50%; background: #00d285; /* Success Green */
-            box-shadow: 0 0 0 4px rgba(0, 210, 133, 0.2);
-            animation: npPulse 1.8s infinite;
-        }
+/* Header */
 
-        #modal-new-products .np-header h2 {
-            margin: 0; color: var(--np-ink);
-            font-size: clamp(32px, 4vw, 42px); font-weight: 800;
-            line-height: 1.2; letter-spacing: -1px; font-family: 'Playfair Display', serif;
-        }
+#modal-new-products .np-header {
+    max-width: 720px;
+    margin: 0 auto 50px;
+    text-align: center;
+    animation: npHeaderReveal .75s cubic-bezier(.2,.75,.25,1) both;
+}
 
-        #modal-new-products .np-header h2 span {
-            color: var(--np-accent);
-        }
+#modal-new-products .np-kicker {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 9px;
+    margin-bottom: 20px;
+    padding: 8px 16px;
+    border: 1px solid rgba(11,36,71,.1);
+    border-radius: 100px;
+    background: #fff;
+    color: var(--np-ink);
+    font-size: .75rem;
+    font-weight: 800;
+    letter-spacing: 1.5px;
+    box-shadow: var(--shadow-sm, 0 4px 15px rgba(11,36,71,.06));
+    text-transform: uppercase;
+}
 
-        #modal-new-products .np-subtitle {
-            max-width: 560px; margin: 15px auto 0;
-            color: var(--np-muted); font-size: 1.1rem; line-height: 1.6; font-weight: 500;
-        }
+#modal-new-products .np-live-dot {
+    width: 8px;
+    height: 8px;
+    flex: 0 0 8px;
+    border-radius: 50%;
+    background: #00d285;
+    box-shadow: 0 0 0 4px rgba(0,210,133,.2);
+    animation: npPulse 1.8s infinite;
+}
 
-        #modal-new-products .np-header-line {
-            display: flex; align-items: center; justify-content: center; gap: 15px;
-            margin-top: 30px; color: var(--np-ink); font-size: 1rem; opacity: 0.5;
-        }
+#modal-new-products .np-header h2 {
+    margin: 0;
+    color: var(--np-ink);
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: clamp(32px,4vw,42px);
+    font-weight: 800;
+    line-height: 1.2;
+    letter-spacing: -1px;
+}
 
-        #modal-new-products .np-header-line span {
-            width: 60px; height: 2px;
-            background: linear-gradient(90deg, transparent, var(--np-ink));
-            border-radius: 2px;
-        }
+#modal-new-products .np-header h2 span {
+    color: var(--np-accent);
+}
 
-        #modal-new-products .np-header-line span:last-child {
-            transform: rotate(180deg);
-        }
+#modal-new-products .np-subtitle {
+    max-width: 560px;
+    margin: 15px auto 0;
+    color: var(--np-muted);
+    font-size: 1.1rem;
+    line-height: 1.6;
+    font-weight: 500;
+}
 
-        /* ==========================================
-           DESKTOP GRID — TWO COLUMNS
-        ========================================== */
-        #modal-new-products .np-grid {
-            display: grid; grid-template-columns: repeat(2,minmax(0,1fr));
-            align-items: start; gap: clamp(15px, 3vw, 30px); width: 100%;
-        }
+#modal-new-products .np-header-line {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 30px;
+    color: var(--np-ink);
+    font-size: 1rem;
+    opacity: .5;
+}
 
-        #modal-new-products .np-image-card {
-            position: relative; min-width: 0; overflow: hidden; padding: 0;
-            border: 1px solid rgba(255,255,255,0.8); border-radius: 20px;
-            background: #ffffff;
-            box-shadow: 0 10px 25px rgba(11, 36, 71, 0.05);
-            opacity: 0; animation: npImageAppear .75s cubic-bezier(.2,.75,.25,1) forwards;
-            animation-delay: var(--delay,0ms);
-            cursor: zoom-in; text-align: left; -webkit-tap-highlight-color: transparent;
-            transform-style: preserve-3d;
-            transition: border-color .3s ease, box-shadow .35s ease, transform .3s ease;
-        }
+#modal-new-products .np-header-line span {
+    width: 60px;
+    height: 2px;
+    border-radius: 2px;
+    background: linear-gradient(90deg,transparent,var(--np-ink));
+}
 
-        #modal-new-products .np-image-card:hover {
-            border-color: var(--np-ink);
-            box-shadow: 0 20px 40px rgba(11, 36, 71, 0.12);
-            transform: translateY(-5px);
-            z-index: 2;
-        }
+#modal-new-products .np-header-line span:last-child {
+    transform: rotate(180deg);
+}
 
-        #modal-new-products .np-image-card:focus-visible {
-            outline: 3px solid var(--np-accent); outline-offset: 4px;
-        }
+/* Product grid */
 
-        /* ==========================================
-           PORTRAIT IMAGE — 1023 × 1280
-        ========================================== */
-        #modal-new-products .np-image-frame {
-            position: relative; width: 100%; aspect-ratio: 1023 / 1280;
-            overflow: hidden; background: #fff; isolation: isolate;
-        }
+#modal-new-products .np-grid {
+    display: grid;
+    grid-template-columns: repeat(2,minmax(0,1fr));
+    align-items: start;
+    gap: clamp(15px,3vw,30px);
+    width: 100%;
+}
 
-        #modal-new-products .np-image-frame img {
-            display: block; position: relative; z-index: 0; width: 100%; height: 100%;
-            object-fit: contain; object-position: center; background: #fff;
-            transition: transform .6s cubic-bezier(.2,.7,.2,1), filter .4s ease;
-        }
+#modal-new-products .np-image-card {
+    display: block;
+    position: relative;
+    min-width: 0;
+    width: 100%;
+    padding: 0;
+    overflow: hidden;
+    border: 1px solid rgba(255,255,255,.9);
+    border-radius: 20px;
+    background: #fff;
+    box-shadow: 0 10px 25px rgba(11,36,71,.05);
+    opacity: 0;
+    cursor: zoom-in;
+    text-align: left;
+    -webkit-tap-highlight-color: transparent;
+    animation: npImageAppear .75s cubic-bezier(.2,.75,.25,1) forwards;
+    animation-delay: var(--delay,0ms);
+    transition: border-color .3s ease, box-shadow .35s ease,
+                transform .3s ease;
+}
 
-        #modal-new-products .np-image-card:hover .np-image-frame img {
-            transform: scale(1.035); filter: saturate(1.04);
-        }
+#modal-new-products .np-image-card:hover {
+    border-color: var(--np-accent);
+    box-shadow: 0 20px 40px rgba(11,36,71,.12);
+    transform: translateY(-5px);
+    z-index: 2;
+}
 
-        /* Image shine */
-        #modal-new-products .np-image-frame::after {
-            content: ""; position: absolute; inset: -30% -100%; z-index: 1; pointer-events: none; opacity: 0;
-            background: linear-gradient(110deg, transparent 38%, rgba(255,255,255,.42) 49%, rgba(255,255,255,.08) 54%, transparent 65%);
-            transform: translateX(-65%) rotate(12deg);
-        }
+#modal-new-products .np-image-card:focus-visible {
+    outline: 3px solid var(--np-accent);
+    outline-offset: 4px;
+}
 
-        #modal-new-products .np-image-card:hover .np-image-frame::after {
-            opacity: 1; animation: npImageShine .85s ease forwards;
-        }
+/* Image frames: portrait is the default.
+   JavaScript switches landscape images to 4:3. */
 
-        /* Loading shimmer */
-        #modal-new-products .np-image-frame.is-loading::before {
-            content: ""; position: absolute; inset: 0; z-index: 0;
-            background: linear-gradient(100deg,#f8fafc 20%,#f1f5f9 40%,#f8fafc 60%);
-            background-size: 200% 100%; animation: npImageLoading 1.4s linear infinite;
-        }
+#modal-new-products .np-image-frame {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 1023 / 1280;
+    overflow: hidden;
+    background: #fff;
+    isolation: isolate;
+    transition: aspect-ratio .25s ease;
+}
 
-        /* Empty state */
-        #modal-new-products .np-empty {
-            padding: 50px 20px; text-align: center; color: var(--np-muted);
-            background: rgba(255,255,255,0.6); border-radius: 20px; border: 1px dashed var(--np-ink);
-        }
+#modal-new-products .np-image-frame.np-landscape {
+    aspect-ratio: 4 / 3;
+}
 
-        #modal-new-products .np-empty[hidden] { display: none !important; }
-        #modal-new-products .np-empty i { display: block; margin-bottom: 15px; color: var(--np-ink); font-size: 32px; }
-        #modal-new-products .np-empty p { margin: 0; font-size: 1.1rem; font-weight: 500;}
+#modal-new-products .np-image-frame img {
+    display: block;
+    position: relative;
+    z-index: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    object-position: center;
+    background: #fff;
+    transition: transform .6s cubic-bezier(.2,.7,.2,1),
+                filter .4s ease;
+}
 
-        /* ==========================================
-           FULL-SCREEN IMAGE VIEWER
-        ========================================== */
-        #np-lightbox {
-            position: fixed; inset: 0; z-index: 2147483000;
-            display: flex; align-items: center; justify-content: center;
-            padding: 58px 70px 64px; background: rgba(11, 36, 71, 0.96); /* Dark Navy Backdrop */
-            opacity: 0; visibility: hidden; pointer-events: none;
-            transition: opacity .25s ease, visibility .25s ease;
-            overscroll-behavior: contain; -webkit-tap-highlight-color: transparent;
-        }
+#modal-new-products .np-image-card:hover .np-image-frame img {
+    transform: scale(1.025);
+    filter: saturate(1.04);
+}
 
-        #np-lightbox.np-lightbox-open { opacity: 1; visibility: visible; pointer-events: auto; }
+/* Moving image shine */
 
-        #np-lightbox .np-lightbox-stage {
-            display: flex; align-items: center; justify-content: center;
-            width: 100%; height: 100%; min-width: 0; min-height: 0; overflow: hidden;
-        }
+#modal-new-products .np-image-frame::after {
+    content: "";
+    position: absolute;
+    inset: -30% -100%;
+    z-index: 1;
+    pointer-events: none;
+    opacity: 0;
+    background: linear-gradient(
+        110deg,
+        transparent 38%,
+        rgba(255,255,255,.42) 49%,
+        rgba(255,255,255,.08) 54%,
+        transparent 65%
+    );
+    transform: translateX(-65%) rotate(12deg);
+}
 
-        #np-lightbox #np-lightbox-image {
-            display: block; max-width: 100%; max-height: 100%; width: auto; height: auto;
-            object-fit: contain; object-position: center; border-radius: 8px;
-            box-shadow: 0 12px 60px rgba(0,0,0,.3);
-            opacity: 0; transform: scale(.96);
-            transition: opacity .25s ease, transform .3s cubic-bezier(.2,.75,.25,1);
-            user-select: none; -webkit-user-drag: none;
-        }
+#modal-new-products .np-image-card:hover .np-image-frame::after {
+    opacity: 1;
+    animation: npImageShine .85s ease forwards;
+}
 
-        #np-lightbox.np-lightbox-open #np-lightbox-image.np-lightbox-image-ready {
-            opacity: 1; transform: scale(1);
-        }
+/* Image loading shimmer */
 
-        /* Close & Nav buttons */
-        #np-lightbox .np-lightbox-close,
-        #np-lightbox .np-lightbox-nav {
-            position: absolute; z-index: 5; display: grid; place-items: center;
-            width: 50px; height: 50px; padding: 0;
-            border: 1px solid rgba(255,255,255,.3); border-radius: 50%;
-            background: rgba(255,255,255,.1); color: white;
-            cursor: pointer; backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
-            transition: background .2s ease, transform .2s ease, border-color .2s ease;
-        }
+#modal-new-products .np-image-frame.is-loading::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    background: linear-gradient(
+        100deg,#f8fafc 20%,#eaf1f8 40%,#f8fafc 60%
+    );
+    background-size: 200% 100%;
+    animation: npImageLoading 1.4s linear infinite;
+}
 
-        #np-lightbox .np-lightbox-close { top: 20px; right: 20px; font-size: 30px; line-height: 1; }
-        #np-lightbox .np-lightbox-close:hover { background: rgba(255,255,255,.2); transform: rotate(90deg); border-color: var(--np-accent); color: var(--np-accent);}
+/* Empty state */
 
-        #np-lightbox .np-lightbox-nav { top: 50%; transform: translateY(-50%); font-size: 18px; }
-        #np-lightbox .np-lightbox-nav:hover { background: rgba(255,255,255,.2); border-color: var(--np-accent); color: var(--np-accent);}
-        #np-lightbox .np-lightbox-prev { left: 20px; }
-        #np-lightbox .np-lightbox-next { right: 20px; }
-        #np-lightbox .np-lightbox-prev:hover { transform: translate(-4px,-50%); }
-        #np-lightbox .np-lightbox-next:hover { transform: translate(4px,-50%); }
+#modal-new-products .np-empty {
+    padding: 50px 20px;
+    text-align: center;
+    color: var(--np-muted);
+    background: rgba(255,255,255,.6);
+    border-radius: 20px;
+    border: 1px dashed var(--np-ink);
+}
 
-        /* Image counter */
-        #np-lightbox .np-lightbox-counter {
-            position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%);
-            padding: 8px 16px; border: 1px solid rgba(255,255,255,.2); border-radius: 30px;
-            background: rgba(255,255,255,.1); color: #ffffff;
-            font-size: 13px; font-weight: 700; font-variant-numeric: tabular-nums;
-        }
+#modal-new-products .np-empty[hidden] {
+    display: none !important;
+}
 
-        #np-lightbox .np-lightbox-hint {
-            position: absolute; right: 25px; bottom: 25px; color: rgba(255,255,255,.5);
-            font-size: 12px; letter-spacing: 1px; text-transform: uppercase; font-weight: 600;
-        }
+#modal-new-products .np-empty i {
+    display: block;
+    margin-bottom: 15px;
+    color: var(--np-ink);
+    font-size: 32px;
+}
 
-        /* ==========================================
-           ANIMATIONS
-        ========================================== */
-        @keyframes npHeaderReveal { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: translateY(0); } }
-        @keyframes npImageAppear { from { opacity: 0; transform: translateY(24px) scale(.97); filter: blur(4px); } to { opacity: 1; transform: translateY(0) scale(1); filter: blur(0); } }
-        @keyframes npImageShine { from { transform: translateX(-65%) rotate(12deg); } to { transform: translateX(65%) rotate(12deg); } }
-        @keyframes npImageLoading { from { background-position: 100% 0; } to { background-position: -100% 0; } }
-        @keyframes npPulse { 0%,100% { box-shadow: 0 0 0 4px rgba(0,210,133,.2); } 50% { box-shadow: 0 0 0 8px rgba(0,210,133,.05); } }
+#modal-new-products .np-empty p {
+    margin: 0;
+    font-size: 1.1rem;
+    font-weight: 500;
+}
 
-        /* ==========================================
-           MOBILE
-        ========================================== */
-        @media (max-width: 768px) {
-            .np-modal-wrapper { padding: 80px 16px 60px; }
-            #modal-new-products .np-header { margin-bottom: 30px; }
-            #modal-new-products .np-header h2 { font-size: clamp(28px,7vw,36px); }
-            #modal-new-products .np-subtitle { font-size: 1rem; }
-            
-            #modal-new-products .np-grid { grid-template-columns: minmax(0,1fr); gap: 20px; }
-            #modal-new-products .np-image-card { border-radius: 16px; }
+/* =====================================================
+   FULL-SCREEN IMAGE VIEWER
+===================================================== */
 
-            #np-lightbox { padding: 55px 8px 65px; }
-            #np-lightbox .np-lightbox-close { top: 12px; right: 12px; width: 44px; height: 44px; font-size: 26px;}
-            #np-lightbox .np-lightbox-prev { left: 10px; }
-            #np-lightbox .np-lightbox-next { right: 10px; }
-            #np-lightbox .np-lightbox-nav { width: 40px; height: 40px; background: rgba(11,36,71,.8); border-color: rgba(255,255,255,.1);}
-            #np-lightbox .np-lightbox-hint { display: none; }
-        }
+#np-lightbox {
+    position: fixed;
+    inset: 0;
+    z-index: 2147483000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 58px 70px 64px;
+    background: rgba(11,36,71,.97);
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: opacity .25s ease, visibility .25s ease;
+    overscroll-behavior: contain;
+    -webkit-tap-highlight-color: transparent;
+}
 
-        @media (prefers-reduced-motion: reduce) {
-            #modal-new-products *, #modal-new-products *::before, #modal-new-products *::after,
-            #np-lightbox, #np-lightbox * { animation-duration: .01ms !important; transition-duration: .01ms !important; }
-            #modal-new-products .np-image-card { opacity: 1; filter: none; }
-            #modal-new-products .np-image-frame::after { display: none; }
-        }
-    </style>
+#np-lightbox.np-lightbox-open {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+}
 
-    <div id="modal-new-products" class="modal-view-section">
-        <div class="np-modal-wrapper">
-            <div class="np-shell">
+#np-lightbox .np-lightbox-stage {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    min-width: 0;
+    min-height: 0;
+    overflow: hidden;
+}
 
-                <!-- HEADER -->
-                <header class="np-header">
-                    <div class="np-kicker">
-                        <span class="np-live-dot"></span>
-                        OUR LATEST ADDITIONS
-                    </div>
+#np-lightbox #np-lightbox-image {
+    display: block;
+    max-width: 100%;
+    max-height: 100%;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    object-position: center;
+    border-radius: 8px;
+    box-shadow: 0 12px 60px rgba(0,0,0,.3);
+    opacity: 0;
+    transform: scale(.96);
+    transition: opacity .25s ease, transform .3s cubic-bezier(.2,.75,.25,1);
+    user-select: none;
+    -webkit-user-drag: none;
+}
 
-                    <h2>Newly Added to Our <span>Portfolio</span></h2>
+#np-lightbox.np-lightbox-open #np-lightbox-image.np-lightbox-image-ready {
+    opacity: 1;
+    transform: scale(1);
+}
 
-                    <p class="np-subtitle">
-                        Discover the latest additions to our pharmaceutical portfolio. High-resolution product images are available below.
-                    </p>
+/* Viewer controls */
 
-                    <div class="np-header-line">
-                        <span></span>
-                        <i class="fas fa-capsules"></i>
-                        <span></span>
-                    </div>
-                </header>
+#np-lightbox .np-lightbox-close,
+#np-lightbox .np-lightbox-nav {
+    position: absolute;
+    z-index: 5;
+    display: grid;
+    place-items: center;
+    width: 50px;
+    height: 50px;
+    padding: 0;
+    border: 1px solid rgba(255,255,255,.3);
+    border-radius: 50%;
+    background: rgba(255,255,255,.1);
+    color: #fff;
+    cursor: pointer;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    transition: background .2s ease, transform .2s ease,
+                border-color .2s ease, color .2s ease;
+}
 
-                <!-- IMAGE GRID -->
-                <main id="np-product-grid" class="np-grid" aria-label="Newly added product images"></main>
+#np-lightbox .np-lightbox-close {
+    top: 20px;
+    right: 20px;
+    font-size: 30px;
+    line-height: 1;
+}
 
-                <!-- EMPTY STATE -->
-                <div class="np-empty" id="np-empty" hidden>
-                    <i class="fas fa-box-open"></i>
-                    <p>New product images will appear here soon.</p>
+#np-lightbox .np-lightbox-close:hover {
+    background: rgba(255,255,255,.2);
+    transform: rotate(90deg);
+    border-color: var(--np-accent);
+    color: var(--np-accent);
+}
+
+#np-lightbox .np-lightbox-nav {
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 18px;
+}
+
+#np-lightbox .np-lightbox-nav:hover {
+    background: rgba(255,255,255,.2);
+    border-color: var(--np-accent);
+    color: var(--np-accent);
+}
+
+#np-lightbox .np-lightbox-prev {
+    left: 20px;
+}
+
+#np-lightbox .np-lightbox-next {
+    right: 20px;
+}
+
+#np-lightbox .np-lightbox-prev:hover {
+    transform: translate(-4px,-50%);
+}
+
+#np-lightbox .np-lightbox-next:hover {
+    transform: translate(4px,-50%);
+}
+
+#np-lightbox .np-lightbox-counter {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 8px 16px;
+    border: 1px solid rgba(255,255,255,.2);
+    border-radius: 30px;
+    background: rgba(255,255,255,.1);
+    color: #fff;
+    font-size: 13px;
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+}
+
+#np-lightbox .np-lightbox-hint {
+    position: absolute;
+    right: 25px;
+    bottom: 25px;
+    color: rgba(255,255,255,.5);
+    font-size: 12px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    font-weight: 600;
+}
+
+#np-lightbox [hidden] {
+    display: none !important;
+}
+
+/* Animations */
+
+@keyframes npFadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes npHeaderReveal {
+    from { opacity: 0; transform: translateY(18px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes npImageAppear {
+    from {
+        opacity: 0;
+        transform: translateY(24px) scale(.97);
+        filter: blur(4px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+        filter: blur(0);
+    }
+}
+
+@keyframes npImageShine {
+    from { transform: translateX(-65%) rotate(12deg); }
+    to { transform: translateX(65%) rotate(12deg); }
+}
+
+@keyframes npImageLoading {
+    from { background-position: 100% 0; }
+    to { background-position: -100% 0; }
+}
+
+@keyframes npPulse {
+    0%,100% { box-shadow: 0 0 0 4px rgba(0,210,133,.2); }
+    50% { box-shadow: 0 0 0 8px rgba(0,210,133,.05); }
+}
+
+/* Mobile */
+
+@media (max-width: 768px) {
+    #modal-new-products .np-modal-wrapper {
+        padding: 80px 16px 60px;
+    }
+
+    #modal-new-products .np-header {
+        margin-bottom: 30px;
+    }
+
+    #modal-new-products .np-header h2 {
+        font-size: clamp(28px,7vw,36px);
+    }
+
+    #modal-new-products .np-subtitle {
+        font-size: 1rem;
+    }
+
+    #modal-new-products .np-grid {
+        grid-template-columns: minmax(0,1fr);
+        gap: 20px;
+    }
+
+    #modal-new-products .np-image-card {
+        border-radius: 16px;
+    }
+
+    #np-lightbox {
+        padding: 55px 8px 65px;
+    }
+
+    #np-lightbox .np-lightbox-close {
+        top: 12px;
+        right: 12px;
+        width: 44px;
+        height: 44px;
+        font-size: 26px;
+    }
+
+    #np-lightbox .np-lightbox-prev {
+        left: 10px;
+    }
+
+    #np-lightbox .np-lightbox-next {
+        right: 10px;
+    }
+
+    #np-lightbox .np-lightbox-nav {
+        width: 40px;
+        height: 40px;
+        background: rgba(11,36,71,.8);
+        border-color: rgba(255,255,255,.1);
+    }
+
+    #np-lightbox .np-lightbox-hint {
+        display: none;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    #modal-new-products *,
+    #modal-new-products *::before,
+    #modal-new-products *::after,
+    #np-lightbox,
+    #np-lightbox * {
+        animation-duration: .01ms !important;
+        transition-duration: .01ms !important;
+    }
+
+    #modal-new-products .np-image-card {
+        opacity: 1;
+        filter: none;
+    }
+
+    #modal-new-products .np-image-frame::after {
+        display: none;
+    }
+}
+</style>
+
+<!-- ===================================================
+     NEW PRODUCTS MODAL HTML
+=================================================== -->
+
+<div id="modal-new-products" class="modal-view-section">
+    <div class="np-modal-wrapper">
+        <div class="np-shell">
+
+            <header class="np-header">
+                <div class="np-kicker">
+                    <span class="np-live-dot"></span>
+                    OUR LATEST ADDITIONS
                 </div>
 
+                <h2>Newly Added to Our <span>Portfolio</span></h2>
+
+                <p class="np-subtitle">
+                    Discover the latest additions to our pharmaceutical
+                    portfolio. High-resolution product images are available below.
+                </p>
+
+                <div class="np-header-line">
+                    <span></span>
+                    <i class="fas fa-capsules" aria-hidden="true"></i>
+                    <span></span>
+                </div>
+            </header>
+
+            <main
+                id="np-product-grid"
+                class="np-grid"
+                aria-label="Newly added product images">
+            </main>
+
+            <div class="np-empty" id="np-empty" hidden>
+                <i class="fas fa-box-open" aria-hidden="true"></i>
+                <p>New product images will appear here soon.</p>
             </div>
+
         </div>
+    </div>
+</div>
 
-        <!-- FULL-SCREEN IMAGE VIEWER -->
-        <div id="np-lightbox" class="np-lightbox" role="dialog" aria-modal="true" aria-label="Full-screen product image" aria-hidden="true" tabindex="-1">
-            <button type="button" class="np-lightbox-close" id="np-lightbox-close" aria-label="Close full-screen image">
-                <span aria-hidden="true">&times;</span>
-            </button>
-            <button type="button" class="np-lightbox-nav np-lightbox-prev" id="np-lightbox-prev" aria-label="Previous image">
-                <i class="fas fa-chevron-left"></i>
-            </button>
-            <div class="np-lightbox-stage" id="np-lightbox-stage">
-                <img id="np-lightbox-image" src="" alt="Full-screen product image">
-            </div>
-            <button type="button" class="np-lightbox-nav np-lightbox-next" id="np-lightbox-next" aria-label="Next image">
-                <i class="fas fa-chevron-right"></i>
-            </button>
-            <div class="np-lightbox-counter" id="np-lightbox-counter"></div>
-            <div class="np-lightbox-hint">ESC to close</div>
-        </div>
+<!-- Full-screen viewer is outside the modal to overlay the whole page -->
+<div
+    id="np-lightbox"
+    role="dialog"
+    aria-modal="true"
+    aria-label="Full-screen product image"
+    aria-hidden="true"
+    tabindex="-1">
 
-        <!-- Embedded Interactive Script -->
-        <script>
-        (function () {
-            "use strict";
+    <button
+        type="button"
+        class="np-lightbox-close"
+        id="np-lightbox-close"
+        aria-label="Close full-screen image">
+        <span aria-hidden="true">&times;</span>
+    </button>
 
-            const modal = document.getElementById("modal-new-products");
-            if (!modal || modal.dataset.npInitialized === "true") return;
-            modal.dataset.npInitialized = "true";
+    <button
+        type="button"
+        class="np-lightbox-nav np-lightbox-prev"
+        id="np-lightbox-prev"
+        aria-label="Previous image">
+        <i class="fas fa-chevron-left" aria-hidden="true"></i>
+    </button>
 
-            const grid = modal.querySelector("#np-product-grid");
-            const emptyState = modal.querySelector("#np-empty");
-            const lightbox = modal.querySelector("#np-lightbox");
-            const lightboxImage = modal.querySelector("#np-lightbox-image");
-            const lightboxClose = modal.querySelector("#np-lightbox-close");
-            const lightboxPrev = modal.querySelector("#np-lightbox-prev");
-            const lightboxNext = modal.querySelector("#np-lightbox-next");
-            const lightboxStage = modal.querySelector("#np-lightbox-stage");
-            const lightboxCounter = modal.querySelector("#np-lightbox-counter");
+    <div class="np-lightbox-stage" id="np-lightbox-stage">
+        <img
+            id="np-lightbox-image"
+            src=""
+            alt="Full-screen product image">
+    </div>
 
-            if (!grid || !lightbox || !lightboxImage) return;
+    <button
+        type="button"
+        class="np-lightbox-nav np-lightbox-next"
+        id="np-lightbox-next"
+        aria-label="Next image">
+        <i class="fas fa-chevron-right" aria-hidden="true"></i>
+    </button>
 
-            /* Extract lightbox to body so it overlays everything */
-            if (lightbox.parentElement !== document.body) {
-                document.body.appendChild(lightbox);
-            }
+    <div class="np-lightbox-counter" id="np-lightbox-counter"></div>
+    <div class="np-lightbox-hint">ESC TO CLOSE</div>
+</div>
 
-            const newProductsData = [
-  { "image": "https://lh3.googleusercontent.com/d/1CKm5ttGLrhb-XK33Yda8XuUUXrbXfFNi" },
-  { "image": "https://lh3.googleusercontent.com/d/192Jesh4fmWBI1QcUV0CNvKoXbDlJt3b5" },
-  { "image": "https://lh3.googleusercontent.com/d/1lJzg6HuVe5u2ydJfXULTthaZdiR8vPeL" },
-  { "image": "https://lh3.googleusercontent.com/d/1kCS5RWaCbPi639KoELQo1prO8GqOPajK" },
-  { "image": "https://lh3.googleusercontent.com/d/1pnwIkwoOcya4oXOt4bzqxUYNMhaeQ63U" },
-  { "image": "https://lh3.googleusercontent.com/d/1EAje6VAoKtSRvddXoogan61fGtzcQO-C" },
-  { "image": "https://lh3.googleusercontent.com/d/1tjiAxlmSTAX_g8ew1th3PpoYA5rAan6F" },
-  { "image": "https://lh3.googleusercontent.com/d/1KfiaDiP33xxmYRt_LtMjmcQ4_TnLYaWA" },
-  { "image": "https://lh3.googleusercontent.com/d/1GC9_1hVyNNd_tWGzawhckWgrv0Ul2y4C" },
-  { "image": "https://lh3.googleusercontent.com/d/1PrAIKgUt8y82OdavxDTNEx2M9dFxwsRn" },
-  { "image": "https://lh3.googleusercontent.com/d/15pB2mj5MSi7Y1QbdjKLZ-JbBJRpGP7QF" },
-  { "image": "https://lh3.googleusercontent.com/d/15TyibXOI2ZEoCF1WGzv0kbvWvzY_PkHB" },
-  { "image": "https://lh3.googleusercontent.com/d/1oylw6Nq_AWku43e8ORS6U_-tDkkZF4pO" }              
+<script>
+(function () {
+    "use strict";
+
+    const modal = document.getElementById("modal-new-products");
+
+    if (!modal || modal.dataset.npInitialized === "true") return;
+    modal.dataset.npInitialized = "true";
+
+    const grid = modal.querySelector("#np-product-grid");
+    const emptyState = modal.querySelector("#np-empty");
+
+    const lightbox = document.getElementById("np-lightbox");
+    const lightboxImage = document.getElementById("np-lightbox-image");
+    const lightboxClose = document.getElementById("np-lightbox-close");
+    const lightboxPrev = document.getElementById("np-lightbox-prev");
+    const lightboxNext = document.getElementById("np-lightbox-next");
+    const lightboxStage = document.getElementById("np-lightbox-stage");
+    const lightboxCounter = document.getElementById("np-lightbox-counter");
+
+    if (
+        !grid || !emptyState || !lightbox || !lightboxImage ||
+        !lightboxClose || !lightboxPrev || !lightboxNext ||
+        !lightboxStage || !lightboxCounter
+    ) return;
+
+    /*
+      ADD OR REMOVE PRODUCT IMAGES HERE.
+
+      Each image is an object with an "image" URL.
+      The layout automatically detects portrait vs landscape dimensions.
+    */
+
+const newProductsData = [
+    { "image": "https://lh3.googleusercontent.com/d/1oylw6Nq_AWku43e8ORS6U_-tDkkZF4pO" },
+    { "image": "https://lh3.googleusercontent.com/d/1-CrNcTd-uOTLPy_jnsbd6ckf3xdivGGP" },
+    { "image": "https://lh3.googleusercontent.com/d/1PUz9TQTpZV2wm-NQRSbvyhfgn9QELAhS" },
+    { "image": "https://lh3.googleusercontent.com/d/14pQeWtBPoMRxZd-hx22H4PP08sKEorxx" },
+    { "image": "https://lh3.googleusercontent.com/d/1VClBweJqTmcgZCGl_rUYNVSy-8-x9jey" },
+    { "image": "https://lh3.googleusercontent.com/d/1jYWhaiWXVB4T5c0tSJV3jRwh36OTnnmV" },
+    { "image": "https://lh3.googleusercontent.com/d/14HL03zQFmj3Wf50nwiY9F7-uOTqQC4YD" },
+    { "image": "https://lh3.googleusercontent.com/d/1RF2u_OSZCehropeHSZ-mKP0DL_7zAec_" },
+    { "image": "https://lh3.googleusercontent.com/d/18nujh1ZJXxdakbfEWTvhWwpX6l4i9kXZ" },
+    { "image": "https://lh3.googleusercontent.com/d/1J_gVtyRYbceSsyqGa1EBkTgJ_arNVlEa" },
+    { "image": "https://lh3.googleusercontent.com/d/14k1Rjv0jTZrX87thLey0Kegs0k9tJaih" },
+    { "image": "https://lh3.googleusercontent.com/d/1kx_nekO4LT5DSNGCHYharS0wRggZ5DA0" },
+    { "image": "https://lh3.googleusercontent.com/d/1ftEfux1lYxTcnGqxUfBpNl2MkP4Vx4Q-" },
+    { "image": "https://lh3.googleusercontent.com/d/1GHCpRYNh_KkDNEUUh7nXshF9S6bMl5TK" },
+    { "image": "https://lh3.googleusercontent.com/d/12rGoMJFQELsk0uw6jCI3e5lFuzdwWPAz" },
+    { "image": "https://lh3.googleusercontent.com/d/1dZVrgyH1_QPFBzGFnq--a7Bw_3HUp6mz" },
+    { "image": "https://lh3.googleusercontent.com/d/1fslWI01Y5rrbG6CD596xM3VKbJLwS86H" },
+    { "image": "https://lh3.googleusercontent.com/d/1_rH-oqTiYNkYNJ7yuSZX8bftOmF-7g7c" },
+    { "image": "https://lh3.googleusercontent.com/d/1fJsxcIBaObcfce9M1aGEEqbPhKoLQAf7" },
+    { "image": "https://lh3.googleusercontent.com/d/1gnnFl1DjmzPL58WjK9cA-SbpwxqOmxI6" },
+    { "image": "https://lh3.googleusercontent.com/d/1LLfSFFLT0qwyc5gUwOFVxRLByYCQTzNZ" },
+    { "image": "https://lh3.googleusercontent.com/d/1zAEvXu3I68FSFnpjZw7CyFxrQGzotb7x" },
+    { "image": "https://lh3.googleusercontent.com/d/1NBdKYFp77JT9Ja3nie8xj5vbIAXwWXl2" },
+    { "image": "https://lh3.googleusercontent.com/d/1mWfNntLXY6KVvr_TUlxo0N3n_WSwQzcu" },
+    { "image": "https://lh3.googleusercontent.com/d/1V4nry44tCVi4N6l-ldMZr3sWDU6XFUqR" },
+    { "image": "https://lh3.googleusercontent.com/d/1rrAKnkyTvrKa4RF3hvEAgWC-L63SFET3" },
+    { "image": "https://lh3.googleusercontent.com/d/1eBVyDQqbSR8bDyueklq5qWvJOFri05tA" },
+    { "image": "https://lh3.googleusercontent.com/d/1-LHBeS-f8gAGzashMkPqCpSjKyLwXFD0" },
+    { "image": "https://lh3.googleusercontent.com/d/1xwhkrZ5zrSsb6QEsOSY0LfyTxidC_37p" },
+    { "image": "https://lh3.googleusercontent.com/d/1YqVRDZz8-M80NpqDRRhaByRyjPu1nYVb" },
+    { "image": "https://lh3.googleusercontent.com/d/1IExa7qVmiZd7EuMfFXJgId6b0D1-rSbw" },
+    { "image": "https://lh3.googleusercontent.com/d/1byzLwhFY1KR2Sga5knUGj4cCyw86ScNY" },
+    { "image": "https://lh3.googleusercontent.com/d/1v3BaWYXFa90A_oaQnTRwW2OXs5DJjQuz" },
+    { "image": "https://lh3.googleusercontent.com/d/1t2Ntnnxy7hSWc_BrXmiWfG4tv9Ugi-g7" },
+    { "image": "https://lh3.googleusercontent.com/d/1mzMJhwdiXywTWh2a7KMUeb4wj7h-puR5" },
+    { "image": "https://lh3.googleusercontent.com/d/1uxpS7DsnnkWE4G0_Iiet7rRkN0utadV-" },
+    { "image": "https://lh3.googleusercontent.com/d/1Po6JwHnuSWBGj2qX91kxqgWqTGAZ63xp" },
+    { "image": "https://lh3.googleusercontent.com/d/1dw8YY-Fit8W6WDdlYfuAWZb-oTtc1XXc" },
+    { "image": "https://lh3.googleusercontent.com/d/1LhIPyWWq52jL5Qk-NU5KARkSxjn-LF3G" },
+    { "image": "https://lh3.googleusercontent.com/d/1Ft2c5pVtBcHQ1wfze2bw5Fc_to1ngVYP" },
+    { "image": "https://lh3.googleusercontent.com/d/1ww0fJkGxRFz-c7EZ4Lv-H4U0F6gEFeDn" },
+    { "image": "https://lh3.googleusercontent.com/d/13oVBGD4NpRlFYUJU5cpNzBKAy24oes6Z" },
+    { "image": "https://lh3.googleusercontent.com/d/1yuO4k1EeQPZnnslIU7NulLQgmnxlhyt1" },
+    { "image": "https://lh3.googleusercontent.com/d/1pUQ0ey5g5sbIXCQkC13H4-9ZuAiM0G6O" },
+    { "image": "https://lh3.googleusercontent.com/d/1G5BZGTUOPawigX-HDEHc6yX635x6Vvd2" },
+    { "image": "https://lh3.googleusercontent.com/d/1y2lrrvowqT5QnrSXESYqZDSjL9DspBXy" },
+    { "image": "https://lh3.googleusercontent.com/d/1v7sqmSpXD6DOQE8wM0IDLy2xPgzpkttD" },
+    { "image": "https://lh3.googleusercontent.com/d/1jLgg4GAEXEz6J34W8uD63I5hn9mZfwRL" },
+    { "image": "https://lh3.googleusercontent.com/d/1twpyBLteAVyNCHdQeLkDYDsyzUILLBB7" },
+    { "image": "https://lh3.googleusercontent.com/d/1YvUCvOyEoMEOCOSE4sjIwUj0dxG3mxJK" },
+    { "image": "https://lh3.googleusercontent.com/d/162q7MwoiRNshFl8CQDYGgvS7wDyM78jx" },
+    { "image": "https://lh3.googleusercontent.com/d/1t26RTRxHDBt93naFQxrZNVdVDkWgTeZB" },
+    { "image": "https://lh3.googleusercontent.com/d/1gGKdInD2F9bi1z_p6eA7oWUyOcLWjNWJ" },
+    { "image": "https://lh3.googleusercontent.com/d/1OPIIaqQ0Y6ftWhzoiZ115SN9Y0my7OQ2" },
+    { "image": "https://lh3.googleusercontent.com/d/1OIzsEgAMxqvUIni8kEomMG2rDRxqxQV_" },
+    { "image": "https://lh3.googleusercontent.com/d/1h4PRq5fSZHkj9kVgQ27lmDxaG6b08-iA" },
+    { "image": "https://lh3.googleusercontent.com/d/1eDXkOsMbULCEapbt40jBTD_iBxq1f2tO" },
+    { "image": "https://lh3.googleusercontent.com/d/1eoNXaUmnLgPGbAUbgiTOXOE1BTK4WKW9" },
+    { "image": "https://lh3.googleusercontent.com/d/13v6n968zTOJmYZfaPGN5T7TzZBr4C7Kr" },
+    { "image": "https://lh3.googleusercontent.com/d/17Z-DBN19wxtqpKpSbgq40a8k7SrmfLM3" },
+    { "image": "https://lh3.googleusercontent.com/d/1gS0H0WtWOawv6JL6g-fANYSDGfQXc5WX" },
+    { "image": "https://lh3.googleusercontent.com/d/1V0uvFG7qt6XZYPEBCF07EReON2S-0hYt" },
+    { "image": "https://lh3.googleusercontent.com/d/1L9LJ7UfNELT9z_vLmdjHmofxJmOsf54y" },
+    { "image": "https://lh3.googleusercontent.com/d/1sUfsp7G41Wm9TB9HmM3ef0mwxTpkOgc8" },
+    { "image": "https://lh3.googleusercontent.com/d/1NuA4tOgEcZZgXBcAPlv09DGhbjVxd_Zb" },
+    { "image": "https://lh3.googleusercontent.com/d/1CKm5ttGLrhb-XK33Yda8XuUUXrbXfFNi" },
+    { "image": "https://lh3.googleusercontent.com/d/192Jesh4fmWBI1QcUV0CNvKoXbDlJt3b5" },
+    { "image": "https://lh3.googleusercontent.com/d/1lJzg6HuVe5u2ydJfXULTthaZdiR8vPeL" },
+    { "image": "https://lh3.googleusercontent.com/d/1kCS5RWaCbPi639KoELQo1prO8GqOPajK" },
+    { "image": "https://lh3.googleusercontent.com/d/1pnwIkwoOcya4oXOt4bzqxUYNMhaeQ63U" },
+    { "image": "https://lh3.googleusercontent.com/d/1EAje6VAoKtSRvddXoogan61fGtzcQO-C" },
+    { "image": "https://lh3.googleusercontent.com/d/1tjiAxlmSTAX_g8ew1th3PpoYA5rAan6F" },
+    { "image": "https://lh3.googleusercontent.com/d/1KfiaDiP33xxmYRt_LtMjmcQ4_TnLYaWA" },
+    { "image": "https://lh3.googleusercontent.com/d/1GC9_1hVyNNd_tWGzawhckWgrv0Ul2y4C" },
+    { "image": "https://lh3.googleusercontent.com/d/1PrAIKgUt8y82OdavxDTNEx2M9dFxwsRn" },
+    { "image": "https://lh3.googleusercontent.com/d/15pB2mj5MSi7Y1QbdjKLZ-JbBJRpGP7QF" },
+    { "image": "https://lh3.googleusercontent.com/d/15TyibXOI2ZEoCF1WGzv0kbvWvzY_PkHB" }
 ];
 
+    const products = newProductsData
+        .filter(item => item && typeof item.image === "string" && item.image.trim())
+        .map(item => ({ image: item.image, failed: false }));
 
-            const products = newProductsData.filter(product => product && typeof product.image === "string");
+    let currentIndex = 0;
+    let previousOverflow = "";
+    let lastFocusedElement = null;
 
-            let currentIndex = 0;
-            let previousOverflow = "";
-            let savedScrollY = 0;
+    /*
+      Extract the viewer to the body so it appears above all
+      other page sections, headers, and modal containers.
+    */
+    if (lightbox.parentElement !== document.body) {
+        document.body.appendChild(lightbox);
+    }
 
-            function renderProducts() {
-                grid.replaceChildren();
-                emptyState.hidden = products.length > 0;
+    function getAvailableProducts() {
+        return products
+            .map((product, index) => ({ product, index }))
+            .filter(item => !item.product.failed);
+    }
 
-                products.forEach((product, index) => {
-                    const card = document.createElement("button");
-                    card.type = "button";
-                    card.className = "np-image-card";
-                    card.setAttribute("aria-label", `View product image ${index + 1} full screen`);
-                    card.style.setProperty("--delay", `${Math.min(index * 90, 700)}ms`);
+    function updateEmptyState() {
+        emptyState.hidden = grid.querySelectorAll(".np-image-card").length > 0;
+    }
 
-                    const frame = document.createElement("div");
-                    frame.className = "np-image-frame is-loading";
+    function renderProducts() {
+        grid.replaceChildren();
+        emptyState.hidden = products.length > 0;
 
-                    const img = document.createElement("img");
-                    img.alt = `Product portfolio image ${index + 1}`;
-                    img.decoding = "async";
-                    img.loading = index < 2 ? "eager" : "lazy";
+        products.forEach((product, index) => {
+            const card = document.createElement("button");
+            card.type = "button";
+            card.className = "np-image-card";
+            card.dataset.productIndex = String(index);
+            card.setAttribute(
+                "aria-label",
+                "View product image " + (index + 1) + " full screen"
+            );
+            card.style.setProperty(
+                "--delay",
+                Math.min(index * 90, 700) + "ms"
+            );
 
-                    img.addEventListener("load", () => { frame.classList.remove("is-loading"); }, { once: true });
-                    img.addEventListener("error", () => {
-                        card.remove();
-                        products[index].failed = true;
-                        if (!grid.querySelector(".np-image-card")) emptyState.hidden = false;
-                    }, { once: true });
+            const frame = document.createElement("div");
+            frame.className = "np-image-frame is-loading";
 
-                    img.src = product.image;
+            const img = document.createElement("img");
+            img.alt = "Product portfolio image " + (index + 1);
+            img.decoding = "async";
+            img.loading = index < 2 ? "eager" : "lazy";
 
-                    frame.appendChild(img);
-                    card.appendChild(frame);
-                    grid.appendChild(card);
-                });
-            }
+            img.addEventListener("load", function () {
+                frame.classList.remove("is-loading");
 
-            function getAvailableProducts() { return products.map((product, index) => ({ product, index })).filter(item => !item.product.failed); }
+                /*
+                  Detect image orientation using the actual dimensions.
+                  Landscape: 4:3, Portrait: 1023:1280.
+                */
+                if (img.naturalWidth > img.naturalHeight) {
+                    frame.classList.add("np-landscape");
+                } else {
+                    frame.classList.remove("np-landscape");
+                }
+            }, { once: true });
 
-            function updateCounter() {
-                const available = getAvailableProducts();
-                const position = available.findIndex(item => item.index === currentIndex);
-                lightboxCounter.textContent = available.length ? `${Math.max(position + 1, 1)} / ${available.length}` : "";
-                const multiple = available.length > 1;
-                lightboxPrev.hidden = !multiple;
-                lightboxNext.hidden = !multiple;
-            }
+            img.addEventListener("error", function () {
+                product.failed = true;
+                card.remove();
+                updateEmptyState();
 
-            function showImage(index) {
-                const available = getAvailableProducts();
-                if (!available.length) return;
-                const chosen = available.find(item => item.index === index) || available[0];
-                currentIndex = chosen.index;
+                if (
+                    lightbox.classList.contains("np-lightbox-open") &&
+                    currentIndex === index
+                ) {
+                    const available = getAvailableProducts();
+                    if (available.length) {
+                        showImage(available[0].index);
+                    } else {
+                        closeLightbox();
+                    }
+                }
+            }, { once: true });
 
-                lightboxImage.classList.remove("np-lightbox-image-ready");
-                lightboxImage.src = chosen.product.image;
-                updateCounter();
-            }
+            img.src = product.image;
 
-            function openLightbox(index) {
-                if (lightbox.classList.contains("np-lightbox-open")) { showImage(index); return; }
-                savedScrollY = window.scrollY;
-                previousOverflow = document.body.style.overflow;
-                document.body.style.overflow = "hidden";
-                lightbox.classList.add("np-lightbox-open");
-                lightbox.setAttribute("aria-hidden", "false");
-                showImage(index);
-            }
+            frame.appendChild(img);
+            card.appendChild(frame);
+            grid.appendChild(card);
+        });
 
-            function closeLightbox() {
-                if (!lightbox.classList.contains("np-lightbox-open")) return;
-                lightbox.classList.remove("np-lightbox-open");
-                lightbox.setAttribute("aria-hidden", "true");
-                document.body.style.overflow = previousOverflow;
-                lightboxImage.classList.remove("np-lightbox-image-ready");
-                lightboxImage.removeAttribute("src");
-            }
+        updateEmptyState();
+    }
 
-            function moveImage(direction) {
-                const available = getAvailableProducts();
-                if (available.length < 2) return;
-                const currentPosition = available.findIndex(item => item.index === currentIndex);
-                const nextPosition = (currentPosition + direction + available.length) % available.length;
-                showImage(available[nextPosition].index);
-            }
+    function updateCounter() {
+        const available = getAvailableProducts();
+        const position = available.findIndex(
+            item => item.index === currentIndex
+        );
 
-            lightboxImage.addEventListener("load", () => { lightboxImage.classList.add("np-lightbox-image-ready"); });
+        lightboxCounter.textContent = available.length
+            ? (Math.max(position + 1, 1) + " / " + available.length)
+            : "";
 
-            grid.addEventListener("click", event => {
-                const card = event.target.closest(".np-image-card");
-                if (!card) return;
-                const cards = Array.from(grid.querySelectorAll(".np-image-card"));
-                const index = cards.indexOf(card);
-                if (index !== -1) openLightbox(index);
-            });
+        const multiple = available.length > 1;
+        lightboxPrev.hidden = !multiple;
+        lightboxNext.hidden = !multiple;
+    }
 
-            lightboxClose.addEventListener("click", closeLightbox);
-            lightboxPrev.addEventListener("click", e => { e.stopPropagation(); moveImage(-1); });
-            lightboxNext.addEventListener("click", e => { e.stopPropagation(); moveImage(1); });
+    function showImage(index) {
+        const available = getAvailableProducts();
+        if (!available.length) return;
 
-            lightbox.addEventListener("click", event => {
-                if (event.target === lightbox || event.target === lightboxStage) closeLightbox();
-            });
+        const chosen = available.find(item => item.index === index)
+            || available[0];
 
-            document.addEventListener("keydown", event => {
-                if (!lightbox.classList.contains("np-lightbox-open")) return;
-                if (event.key === "Escape") { event.preventDefault(); closeLightbox(); }
-                else if (event.key === "ArrowLeft") { event.preventDefault(); moveImage(-1); }
-                else if (event.key === "ArrowRight") { event.preventDefault(); moveImage(1); }
-            });
+        currentIndex = chosen.index;
 
-            renderProducts();
-        })();
-        </script>
+        lightboxImage.classList.remove("np-lightbox-image-ready");
+        lightboxImage.alt = "Product portfolio image " + (currentIndex + 1);
+        lightboxImage.src = chosen.product.image;
+
+        updateCounter();
+    }
+
+    function openLightbox(index) {
+        if (!getAvailableProducts().length) return;
+
+        if (lightbox.classList.contains("np-lightbox-open")) {
+            showImage(index);
+            return;
+        }
+
+        lastFocusedElement = document.activeElement;
+        previousOverflow = document.body.style.overflow;
+
+        document.body.style.overflow = "hidden";
+        lightbox.classList.add("np-lightbox-open");
+        lightbox.setAttribute("aria-hidden", "false");
+
+        showImage(index);
+        lightboxClose.focus({ preventScroll: true });
+    }
+
+    function closeLightbox() {
+        if (!lightbox.classList.contains("np-lightbox-open")) return;
+
+        lightbox.classList.remove("np-lightbox-open");
+        lightbox.setAttribute("aria-hidden", "true");
+
+        document.body.style.overflow = previousOverflow;
+
+        lightboxImage.classList.remove("np-lightbox-image-ready");
+        lightboxImage.removeAttribute("src");
+
+        if (lastFocusedElement && typeof lastFocusedElement.focus === "function") {
+            lastFocusedElement.focus({ preventScroll: true });
+        }
+    }
+
+    function moveImage(direction) {
+        const available = getAvailableProducts();
+        if (available.length < 2) return;
+
+        const currentPosition = available.findIndex(
+            item => item.index === currentIndex
+        );
+
+        const nextPosition =
+            (currentPosition + direction + available.length) % available.length;
+
+        showImage(available[nextPosition].index);
+    }
+
+    lightboxImage.addEventListener("load", function () {
+        lightboxImage.classList.add("np-lightbox-image-ready");
+    });
+
+    grid.addEventListener("click", function (event) {
+        const card = event.target.closest(".np-image-card");
+        if (!card || !grid.contains(card)) return;
+
+        const index = Number(card.dataset.productIndex);
+        if (Number.isInteger(index) && !products[index]?.failed) {
+            openLightbox(index);
+        }
+    });
+
+    lightboxClose.addEventListener("click", closeLightbox);
+
+    lightboxPrev.addEventListener("click", function (event) {
+        event.stopPropagation();
+        moveImage(-1);
+    });
+
+    lightboxNext.addEventListener("click", function (event) {
+        event.stopPropagation();
+        moveImage(1);
+    });
+
+    lightbox.addEventListener("click", function (event) {
+        if (event.target === lightbox || event.target === lightboxStage) {
+            closeLightbox();
+        }
+    });
+
+    document.addEventListener("keydown", function (event) {
+        if (!lightbox.classList.contains("np-lightbox-open")) return;
+
+        if (event.key === "Escape") {
+            event.preventDefault();
+            closeLightbox();
+        } else if (event.key === "ArrowLeft") {
+            event.preventDefault();
+            moveImage(-1);
+        } else if (event.key === "ArrowRight") {
+            event.preventDefault();
+            moveImage(1);
+        }
+    });
+
+    renderProducts();
+})();
+</script>
+
     </div>
 
     <!-- Modal: RMS Facility Gallery -------------------------------------------------------------------------------------------->
