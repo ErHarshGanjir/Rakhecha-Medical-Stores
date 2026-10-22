@@ -3288,14 +3288,588 @@ const newProductsData = [
     </div>
 
     <!-- Modal: RMS Facility Gallery -------------------------------------------------------------------------------------------->
+<!-- Modal: RMS Facility Gallery -->
+    <style>
+        /* =====================================================
+           RMS FACILITY GALLERY — BENTO GRID & SKY BLUE THEME
+           ===================================================== */
+        #modal-gallery {
+            padding: 0 !important;
+            background: transparent;
+            display: none;
+            flex: 1;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            color: var(--text-dark);
+            --accent-sky: #0ea5e9; /* Added Sky Blue Theme Color */
+        }
+
+        #modal-gallery *,
+        #rms-gallery-viewer,
+        #rms-gallery-viewer * {
+            box-sizing: border-box;
+        }
+
+        .gallery-modal-wrapper {
+            position: relative;
+            /* Reduced side padding to allow full-width expansion */
+            padding: 80px 16px 100px;
+            min-height: 100vh;
+            overflow: hidden;
+            background: linear-gradient(135deg, rgba(244, 249, 255, 0.65) 0%, rgba(255, 255, 255, 0.35) 100%), url('https://imgh.in/host/3i11sw');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            display: flex;
+            flex-direction: column;
+            animation: fadeIn 0.4s ease forwards;
+        }
+
+        .rfg-container {
+            position: relative; z-index: 2;
+            /* Expanded to Full Width */
+            width: 100%; max-width: 1600px; margin: 0 auto;
+            /* Glassmorphism Shell */
+            padding: clamp(20px, 3vw, 50px);
+            border: 1px solid rgba(255, 255, 255, 0.7);
+            border-radius: 24px;
+            background: rgba(255, 255, 255, 0.45);
+            box-shadow: 0 8px 32px 0 rgba(11, 36, 71, 0.1), inset 0 0 0 1px rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+        }
+
+        .rfg-container::before {
+            content: ""; position: absolute; top: 0; left: 0; right: 0; height: 4px;
+            background: var(--primary-navy);
+            border-top-left-radius: 24px; border-top-right-radius: 24px;
+        }
+
+        /* Header / Topbar */
+        .rfg-topbar {
+            display: flex; align-items: center; justify-content: center;
+            margin-bottom: 40px;
+        }
+
+        .rfg-brand {
+            display: flex; align-items: center; gap: 15px;
+        }
+
+        .rfg-brand-icon {
+            display: grid; place-items: center; width: 54px; height: 54px;
+            border-radius: 14px; color: #fff;
+            background: var(--primary-navy);
+            box-shadow: 0 8px 20px rgba(11,36,71,.16); font-size: 22px;
+        }
+
+        .rfg-brand-name {
+            color: var(--primary-navy); font-size: 1.1rem; font-weight: 800; letter-spacing: 1px; text-transform: uppercase;
+        }
+
+        /* Premium hero inside shell */
+        .rfg-hero {
+            position: relative; overflow: hidden;
+            padding: clamp(40px, 6vw, 60px) 25px;
+            border: 1px solid rgba(11, 36, 71, 0.1); border-radius: 20px;
+            text-align: center; color: var(--primary-navy);
+            background: rgba(255, 255, 255, 0.6);
+            box-shadow: 0 10px 30px rgba(11,36,71,.05);
+        }
+
+        .rfg-hero-content {
+            position: relative; z-index: 1; animation: rfg-hero-in .9s ease both;
+        }
+
+        .rfg-eyebrow {
+            display: inline-flex; align-items: center; gap: 9px; margin-bottom: 20px;
+            color: var(--primary-navy); font-size: 11px; font-weight: 800;
+            letter-spacing: .2em; text-transform: uppercase;
+        }
+
+        .rfg-eyebrow::before, .rfg-eyebrow::after {
+            content: ""; width: 30px; height: 2px;
+            background: var(--accent-sky); /* Replaced Gold */
+        }
+
+        .rfg-eyebrow::after { transform: rotate(180deg); }
+
+        .rfg-hero h2 {
+            margin: 0; color: var(--primary-navy);
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(38px, 6vw, 60px); font-weight: 800;
+            line-height: 1.1;
+        }
+
+        .rfg-hero h2 span { color: var(--accent-sky); font-style: normal; } /* Replaced Gold */
+
+        .rfg-hero-description {
+            max-width: 650px; margin: 20px auto 0;
+            color: var(--text-muted); font-size: 1.1rem; line-height: 1.7; font-weight: 500;
+        }
+
+        .rfg-sky-line {
+            width: 60px; height: 4px; margin: 30px auto 0; border-radius: 4px;
+            background: var(--accent-sky); /* Replaced Gold */
+        }
+
+        /* Gallery heading */
+        .rfg-section-heading {
+            margin: 50px 0 30px; opacity: 0; transform: translateY(20px);
+            transition: opacity .7s ease, transform .7s ease; text-align: center;
+        }
+
+        .rfg-section-heading.rfg-visible { opacity: 1; transform: translateY(0); }
+
+        .rfg-section-kicker {
+            margin-bottom: 8px; color: var(--accent-sky); /* Replaced Gold */
+            font-size: 11px; font-weight: 800; letter-spacing: .2em; text-transform: uppercase;
+        }
+
+        .rfg-section-heading h3 {
+            margin: 0; color: var(--primary-navy);
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(28px, 4vw, 36px); line-height: 1.25; font-weight: 700;
+        }
+
+        .rfg-section-heading p {
+            margin: 10px 0 0; color: var(--text-muted); font-size: 14px; line-height: 1.7; font-weight: 500;
+        }
+
+        /* =====================================================
+           BENTO GRID LAYOUT
+           ===================================================== */
+        .rfg-grid { 
+            display: grid; 
+            grid-template-columns: repeat(4, 1fr); 
+            grid-auto-rows: 260px; /* Fixed row height for bento structure */
+            gap: 20px; 
+        }
+
+        .rfg-card {
+            position: relative; display: block; width: 100%; height: 100%; padding: 0; overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.9); border-radius: 18px;
+            background: #fff; box-shadow: 0 10px 25px rgba(11,36,71,.05);
+            text-align: left; cursor: zoom-in;
+            opacity: 0; transform: translateY(28px) scale(.985);
+            transition: opacity .65s ease, transform .65s cubic-bezier(.2,.75,.25,1), border-color .35s ease, box-shadow .35s ease;
+        }
+
+        /* Bento Grid Specific Spans */
+        .rfg-card:nth-child(1) { grid-column: span 2; grid-row: span 2; } /* Large Hero Block */
+        .rfg-card:nth-child(2) { grid-column: span 1; grid-row: span 1; } /* Standard Block */
+        .rfg-card:nth-child(3) { grid-column: span 1; grid-row: span 2; } /* Tall Block */
+        .rfg-card:nth-child(4) { grid-column: span 1; grid-row: span 1; } /* Standard Block */
+        .rfg-card:nth-child(5) { grid-column: span 2; grid-row: span 1; } /* Wide Block */
+        .rfg-card:nth-child(6) { grid-column: span 1; grid-row: span 1; } /* Standard Block */
+        .rfg-card:nth-child(7) { grid-column: span 1; grid-row: span 1; } /* Standard Block */
+
+        .rfg-card.rfg-visible { opacity: 1; transform: translateY(0) scale(1); }
+
+        .rfg-card:hover {
+            transform: translateY(-5px) scale(1.01);
+            border-color: var(--accent-sky); /* Replaced Gold */
+            box-shadow: 0 20px 40px rgba(11,36,71,.12);
+        }
+
+        .rfg-photo {
+            position: relative; overflow: hidden; width: 100%; height: 100%;
+            background: linear-gradient(135deg, #f4f9ff, #ffffff);
+        }
+
+        .rfg-photo::before {
+            content: ""; position: absolute; z-index: 0; inset: 0;
+            background: linear-gradient(100deg, #f4f9ff 20%, #ffffff 38%, #f4f9ff 56%);
+            background-size: 220% 100%; animation: rfg-skeleton 1.5s ease-in-out infinite; transition: opacity .3s ease;
+        }
+
+        .rfg-card.rfg-image-ready .rfg-photo::before { opacity: 0; animation: none; }
+
+        .rfg-photo img {
+            position: relative; z-index: 1; display: block; width: 100%; height: 100%;
+            object-fit: cover; object-position: center; opacity: 0; transform: scale(1.035);
+            transition: opacity .55s ease, transform .8s cubic-bezier(.2,.7,.2,1);
+        }
+
+        .rfg-photo img.rfg-loaded { opacity: 1; transform: scale(1); }
+        .rfg-card:hover .rfg-photo img { transform: scale(1.065); }
+
+        .rfg-photo .rfg-fallback {
+            position: absolute; z-index: 2; inset: 0; display: grid; place-items: center;
+            color: var(--primary-navy); font-size: 28px; opacity: 0.3;
+        }
+        .rfg-photo .rfg-fallback[hidden] { display: none; }
+
+        .rfg-hover-overlay {
+            position: absolute; z-index: 3; inset: 0; display: flex; align-items: center; justify-content: center;
+            background: rgba(11, 36, 71, 0.3); opacity: 0; transition: opacity .35s ease; pointer-events: none;
+        }
+
+        .rfg-card:hover .rfg-hover-overlay, .rfg-card:focus-visible .rfg-hover-overlay { opacity: 1; }
+
+        .rfg-zoom {
+            display: grid; place-items: center; width: 50px; height: 50px;
+            border: 1px solid rgba(255,255,255,.65); border-radius: 50%;
+            color: var(--primary-navy); background: rgba(255,255,255,.95);
+            box-shadow: 0 10px 25px rgba(0,0,0,.2);
+            transform: translateY(10px) scale(.9); transition: transform .35s cubic-bezier(.2,.7,.2,1);
+            font-size: 1.2rem;
+        }
+
+        .rfg-card:hover .rfg-zoom, .rfg-card:focus-visible .rfg-zoom { transform: translateY(0) scale(1); }
+
+        /* =====================================================
+           FULL-SCREEN VIEWER
+           ===================================================== */
+        #rms-gallery-viewer {
+            position: fixed; z-index: 2147483000; inset: 0; display: flex; align-items: center; justify-content: center;
+            padding: 75px 78px 60px; background: rgba(11, 36, 71, 0.98);
+            opacity: 0; visibility: hidden; pointer-events: none;
+            transition: opacity .28s ease, visibility .28s ease;
+        }
+
+        #rms-gallery-viewer.rfg-viewer-open { opacity: 1; visibility: visible; pointer-events: auto; }
+
+        .rfg-viewer-top {
+            position: absolute; top: 0; left: 0; right: 0; display: flex; align-items: center; justify-content: flex-end;
+            padding: 20px 30px; border-bottom: 1px solid rgba(255,255,255,.05);
+        }
+
+        .rfg-viewer-close {
+            display: grid; place-items: center; width: 45px; height: 45px;
+            border: 1px solid rgba(255,255,255,.2); border-radius: 50%;
+            color: #fff; background: rgba(255,255,255,.1); font-size: 22px; cursor: pointer;
+            transition: background .2s ease, transform .2s ease, border-color .2s ease;
+        }
+
+        .rfg-viewer-close:hover { background: rgba(255,255,255,.2); border-color: var(--accent-sky); color: var(--accent-sky); transform: rotate(90deg); }
+
+        .rfg-viewer-stage { display: flex; align-items: center; justify-content: center; width: 100%; height: 100%; min-height: 0; }
+
+        .rfg-viewer-image {
+            display: block; max-width: 100%; max-height: 100%; width: auto; height: auto;
+            object-fit: contain; border-radius: 8px; box-shadow: 0 25px 80px rgba(0,0,0,.5);
+            animation: rfg-image-pop .3s ease both;
+        }
+
+        .rfg-viewer-nav {
+            position: absolute; top: 50%; z-index: 2; display: grid; place-items: center;
+            width: 50px; height: 50px; border: 1px solid rgba(255,255,255,.2); border-radius: 50%;
+            color: #fff; background: rgba(255,255,255,.1); font-size: 18px; cursor: pointer;
+            transform: translateY(-50%); transition: background .2s ease, border-color .2s ease, color .2s ease;
+        }
+
+        .rfg-viewer-nav:hover { border-color: var(--accent-sky); color: var(--accent-sky); background: rgba(255,255,255,.2); }
+        .rfg-viewer-prev { left: 30px; }
+        .rfg-viewer-next { right: 30px; }
+
+        .rfg-viewer-bottom {
+            position: absolute; bottom: 0; left: 0; right: 0; display: flex; align-items: center; justify-content: center;
+            gap: 15px; padding: 20px; border-top: 1px solid rgba(255,255,255,.05);
+            color: rgba(255,255,255,.5); font-size: 12px; font-weight: 600; letter-spacing: 1px;
+        }
+
+        .rfg-viewer-counter { color: var(--accent-sky); font-weight: 800; font-variant-numeric: tabular-nums; }
+
+        /* =====================================================
+           RESPONSIVE BENTO GRID
+           ===================================================== */
+        @media (max-width: 900px) {
+            .rfg-container { padding: 30px 20px; }
+            .rfg-grid { 
+                grid-template-columns: repeat(2, 1fr); 
+                grid-auto-rows: 220px; 
+                gap: 16px; 
+            }
+            /* Reflow bento spans for tablet */
+            .rfg-card:nth-child(1) { grid-column: span 2; grid-row: span 2; }
+            .rfg-card:nth-child(2) { grid-column: span 1; grid-row: span 1; }
+            .rfg-card:nth-child(3) { grid-column: span 1; grid-row: span 1; }
+            .rfg-card:nth-child(4) { grid-column: span 2; grid-row: span 1; }
+            .rfg-card:nth-child(5) { grid-column: span 1; grid-row: span 1; }
+            .rfg-card:nth-child(6) { grid-column: span 1; grid-row: span 1; }
+            .rfg-card:nth-child(7) { grid-column: span 2; grid-row: span 1; }
+            
+            #rms-gallery-viewer { padding-right: 60px; padding-left: 60px; }
+        }
+
+        @media (max-width: 600px) {
+            .gallery-modal-wrapper { padding: 80px 16px 60px; }
+            .rfg-container { padding: 25px 15px; border-radius: 20px; }
+            .rfg-hero { padding: 40px 16px; border-radius: 16px; }
+            .rfg-hero h2 { font-size: clamp(32px, 8vw, 40px); }
+            .rfg-hero-description { font-size: 1rem; }
+            .rfg-section-heading { margin: 40px 0 20px; }
+            
+            .rfg-grid { 
+                grid-template-columns: 1fr; 
+                grid-auto-rows: 240px; 
+                gap: 16px; 
+            }
+            /* Reset spans for mobile stack */
+            .rfg-card { grid-column: span 1 !important; grid-row: span 1 !important; border-radius: 16px; }
+            
+            #rms-gallery-viewer { padding: 70px 10px 60px; }
+            .rfg-viewer-top { padding: 15px; }
+            .rfg-viewer-nav { width: 40px; height: 40px; border-radius: 50%; font-size: 14px; background: rgba(11,36,71,0.8);}
+            .rfg-viewer-prev { left: 10px; }
+            .rfg-viewer-next { right: 10px; }
+        }
+
+        @keyframes rfg-hero-in { from { opacity: 0; transform: translateY(17px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes rfg-skeleton { to { background-position-x: -220%; } }
+        @keyframes rfg-image-pop { from { opacity: .4; transform: scale(.985); } to { opacity: 1; transform: scale(1); } }
+
+        @media (prefers-reduced-motion: reduce) {
+            #modal-gallery *, #modal-gallery *::before, #modal-gallery *::after,
+            #rms-gallery-viewer, #rms-gallery-viewer * { animation-duration: .01ms !important; transition-duration: .01ms !important; }
+            .rfg-card { opacity: 1; transform: none; }
+        }
+    </style>
+
     <div id="modal-gallery" class="modal-view-section">
-        <div class="wip-container">
-            <i class="fas fa-images main-icon"></i>
-            <h2>Facility Gallery</h2>
-            <p class="subtitle">High-resolution images of our storage and dispatch facilities are being prepared.</p>
-            <button onclick="showMainView()" class="btn-primary" style="margin-top: 10px;">⬅ Return to Home</button>
+        <div class="gallery-modal-wrapper">
+            <div class="rfg-container">
+
+                <div class="rfg-topbar">
+                    <div class="rfg-brand">
+                        <div class="rfg-brand-icon"><i class="fas fa-images" aria-hidden="true"></i></div>
+                        <div class="rfg-brand-name">RMS Visual Tour</div>
+                    </div>
+                </div>
+
+                <header class="rfg-hero">
+                    <div class="rfg-hero-content">
+                        <div class="rfg-eyebrow">A CLOSER LOOK AT RMS</div>
+                        <h2>Inside Our <span>World</span></h2>
+                        <p class="rfg-hero-description">
+                            Explore the spaces behind our everyday operations and discover more about the Rakhecha Medical Stores environment.
+                        </p>
+                        <div class="rfg-sky-line"></div>
+                    </div>
+                </header>
+
+                <section class="rfg-section-heading">
+                    <div class="rfg-section-kicker">FACILITY SHOWCASE</div>
+                    <h3>Facility Gallery</h3>
+                    <p>Select an image to explore it in full-screen view.</p>
+                </section>
+
+                <!-- BENTO GRID -->
+                <main id="rfg-gallery-grid" class="rfg-grid" aria-label="Facility photographs"></main>
+
+            </div>
         </div>
     </div>
+
+    <!-- FULL-SCREEN IMAGE VIEWER -->
+    <div id="rms-gallery-viewer" role="dialog" aria-modal="true" aria-label="Facility image viewer" aria-hidden="true" tabindex="-1">
+        <div class="rfg-viewer-top">
+            <button type="button" class="rfg-viewer-close" id="rfg-viewer-close" aria-label="Close viewer">
+                <i class="fas fa-times" aria-hidden="true"></i>
+            </button>
+        </div>
+        <button type="button" class="rfg-viewer-nav rfg-viewer-prev" id="rfg-viewer-prev" aria-label="Previous image">
+            <i class="fas fa-chevron-left" aria-hidden="true"></i>
+        </button>
+        <div class="rfg-viewer-stage">
+            <img class="rfg-viewer-image" id="rfg-viewer-image" src="" alt="Facility photograph">
+        </div>
+        <button type="button" class="rfg-viewer-nav rfg-viewer-next" id="rfg-viewer-next" aria-label="Next image">
+            <i class="fas fa-chevron-right" aria-hidden="true"></i>
+        </button>
+        <div class="rfg-viewer-bottom">
+            <span>RMS FACILITY GALLERY</span>
+            <span class="rfg-viewer-counter" id="rfg-viewer-counter">01 / 07</span>
+            <span>· ESC TO CLOSE</span>
+        </div>
+    </div>
+
+    <script>
+    (function () {
+        "use strict";
+
+        const grid = document.getElementById("rfg-gallery-grid");
+        const viewer = document.getElementById("rms-gallery-viewer");
+
+        if (!grid || !viewer || grid.dataset.initialized === "true") return;
+        grid.dataset.initialized = "true";
+
+        /* Move viewer to body so it escapes the modal wrappers */
+        if (viewer.parentElement !== document.body) {
+            document.body.appendChild(viewer);
+        }
+
+        const galleryImages = [
+            "https://lh3.googleusercontent.com/d/1dVuXhTCqwljGEYavtjGtfJXruT2Zdu0C",
+            "https://lh3.googleusercontent.com/d/1iUHUgqOsWGJaA4nHFO0s2k-dOjtmG_yA",
+            "https://lh3.googleusercontent.com/d/1eaXW5_PgM_pNCxkDP5QbN_iJgT4-cowA",
+            "https://lh3.googleusercontent.com/d/14U-TfnhO1qUn5FTvHtgwWb9JBVVVNQIH",
+            "https://lh3.googleusercontent.com/d/1b3dTmnxNn88nGl5x4jtxutXjYsagvAq_",
+            "https://lh3.googleusercontent.com/d/1SgO0ehpNSQfxaoT91tRfnjYcFBDCj0TC",
+            "https://lh3.googleusercontent.com/d/1ANHojUHOTGdHJ_7Jg0vYHd619HpEY_74"
+        ];
+
+        const viewerImage = document.getElementById("rfg-viewer-image");
+        const viewerCounter = document.getElementById("rfg-viewer-counter");
+        const closeButton = document.getElementById("rfg-viewer-close");
+        const previousButton = document.getElementById("rfg-viewer-prev");
+        const nextButton = document.getElementById("rfg-viewer-next");
+        const heading = document.querySelector("#modal-gallery .rfg-section-heading");
+
+        let currentIndex = 0;
+        let previousFocus = null;
+        let isOpen = false;
+        let previousBodyOverflow = "";
+
+        const cards = [];
+
+        galleryImages.forEach(function (url, index) {
+            const card = document.createElement("button");
+            card.type = "button";
+            card.className = "rfg-card";
+            card.setAttribute("aria-label", "Open facility photograph " + (index + 1));
+
+            const photo = document.createElement("div");
+            photo.className = "rfg-photo";
+
+            const fallback = document.createElement("div");
+            fallback.className = "rfg-fallback";
+            fallback.innerHTML = '<i class="fas fa-image" aria-hidden="true"></i>';
+
+            const img = document.createElement("img");
+            img.src = url;
+            img.alt = "Rakhecha Medical Stores facility photograph " + (index + 1);
+            img.loading = "lazy";
+            img.decoding = "async";
+
+            img.addEventListener("load", function () {
+                card.classList.add("rfg-image-ready");
+                img.classList.add("rfg-loaded");
+                fallback.hidden = true;
+            });
+
+            img.addEventListener("error", function () {
+                fallback.hidden = false;
+                img.style.display = "none";
+                card.classList.add("rfg-image-ready");
+                card.disabled = true;
+                card.setAttribute("aria-label", "Photograph unavailable");
+            });
+
+            photo.appendChild(fallback);
+            photo.appendChild(img);
+
+            const overlay = document.createElement("span");
+            overlay.className = "rfg-hover-overlay";
+            overlay.innerHTML = '<span class="rfg-zoom"><i class="fas fa-expand-alt" aria-hidden="true"></i></span>';
+            photo.appendChild(overlay);
+
+            card.appendChild(photo);
+
+            card.addEventListener("click", function () {
+                if (img.style.display === "none") return;
+                openViewer(index);
+            });
+
+            grid.appendChild(card);
+            cards.push({ url: url, img: img, card: card });
+        });
+
+        if ("IntersectionObserver" in window) {
+            const revealObserver = new IntersectionObserver(function (entries, observer) {
+                entries.forEach(function (entry) {
+                    if (!entry.isIntersecting) return;
+                    entry.target.classList.add("rfg-visible");
+                    observer.unobserve(entry.target);
+                });
+            }, { threshold: 0.08, rootMargin: "0px 0px -35px 0px" });
+
+            cards.forEach(function (item) { revealObserver.observe(item.card); });
+            if (heading) revealObserver.observe(heading);
+        } else {
+            cards.forEach(function (item) { item.card.classList.add("rfg-visible"); });
+            if (heading) heading.classList.add("rfg-visible");
+        }
+
+        function updateViewer() {
+            const item = cards[currentIndex];
+            if (!item) return;
+
+            viewerImage.style.animation = "none";
+            void viewerImage.offsetWidth;
+            viewerImage.style.animation = "";
+
+            viewerImage.src = item.url;
+            viewerImage.alt = "Facility photograph " + (currentIndex + 1);
+            viewerCounter.textContent = String(currentIndex + 1).padStart(2, "0") + " / " + String(cards.length).padStart(2, "0");
+        }
+
+        function openViewer(index) {
+            if (!cards.length) return;
+            previousFocus = document.activeElement;
+            currentIndex = index;
+            isOpen = true;
+            previousBodyOverflow = document.body.style.overflow;
+
+            updateViewer();
+            viewer.classList.add("rfg-viewer-open");
+            viewer.setAttribute("aria-hidden", "false");
+            document.body.style.overflow = "hidden";
+            closeButton.focus({ preventScroll: true });
+        }
+
+        function closeViewer() {
+            if (!isOpen) return;
+            isOpen = false;
+            viewer.classList.remove("rfg-viewer-open");
+            viewer.setAttribute("aria-hidden", "true");
+            viewerImage.removeAttribute("src");
+            document.body.style.overflow = previousBodyOverflow;
+
+            if (previousFocus && typeof previousFocus.focus === "function") {
+                previousFocus.focus({ preventScroll: true });
+            }
+        }
+
+        function moveViewer(direction) {
+            if (!cards.length) return;
+            currentIndex = (currentIndex + direction + cards.length) % cards.length;
+            updateViewer();
+        }
+
+        closeButton.addEventListener("click", closeViewer);
+        previousButton.addEventListener("click", function () { moveViewer(-1); });
+        nextButton.addEventListener("click", function () { moveViewer(1); });
+
+        viewer.addEventListener("click", function (event) {
+            if (event.target === viewer) closeViewer();
+        });
+
+        document.addEventListener("keydown", function (event) {
+            if (!isOpen) return;
+            if (event.key === "Escape") { event.preventDefault(); closeViewer(); }
+            else if (event.key === "ArrowLeft") { event.preventDefault(); moveViewer(-1); }
+            else if (event.key === "ArrowRight") { event.preventDefault(); moveViewer(1); }
+        });
+
+        let touchStartX = 0;
+        let touchStartY = 0;
+
+        viewer.addEventListener("touchstart", function (event) {
+            if (!event.touches.length) return;
+            touchStartX = event.touches[0].clientX;
+            touchStartY = event.touches[0].clientY;
+        }, { passive: true });
+
+        viewer.addEventListener("touchend", function (event) {
+            if (!event.changedTouches.length || !isOpen) return;
+            const deltaX = event.changedTouches[0].clientX - touchStartX;
+            const deltaY = event.changedTouches[0].clientY - touchStartY;
+            if (Math.abs(deltaX) > 60 && Math.abs(deltaX) > Math.abs(deltaY)) {
+                moveViewer(deltaX < 0 ? 1 : -1);
+            }
+        }, { passive: true });
+    })();
+    </script>
 
     <!-- Modal: Detailed Process Overview ------------------------------------------------------------------------------------------------->
     <div id="modal-process-details" class="modal-view-section">
