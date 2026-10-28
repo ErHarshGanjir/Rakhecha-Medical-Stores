@@ -1953,6 +1953,67 @@
                 to { opacity: 1; }
             }
 
+
+            /* Pharmaceutical Company Disclaimer */
+            .companies-modal-wrapper .rms-company-disclaimer {
+                position: relative;
+                margin-top: 42px;
+                padding: 22px 26px;
+                border: 1px solid rgba(14, 165, 233, 0.22);
+                border-left: 4px solid #0ea5e9;
+                border-radius: 14px;
+                background: linear-gradient(135deg, rgba(239, 248, 255, 0.95), rgba(255, 255, 255, 0.92));
+                box-shadow: 0 5px 18px rgba(11, 36, 71, 0.045);
+            }
+
+            .companies-modal-wrapper .rms-disclaimer-heading {
+                display: flex;
+                align-items: center;
+                gap: 10px;
+                margin: 0 0 10px;
+                color: #0B2447;
+                font-size: 13px;
+                font-weight: 800;
+                letter-spacing: 0.7px;
+                text-transform: uppercase;
+            }
+
+            .companies-modal-wrapper .rms-disclaimer-icon {
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                width: 30px;
+                height: 30px;
+                flex: 0 0 30px;
+                border-radius: 9px;
+                background: #e0f2fe;
+                color: #0284c7;
+            }
+
+            .companies-modal-wrapper .rms-disclaimer-icon svg {
+                width: 17px;
+                height: 17px;
+                stroke: currentColor;
+                fill: none;
+                stroke-width: 1.8;
+                stroke-linecap: round;
+                stroke-linejoin: round;
+            }
+
+            .companies-modal-wrapper .rms-disclaimer-text {
+                margin: 0;
+                color: #475569;
+                font-size: 12px;
+                font-weight: 500;
+                line-height: 1.85;
+                overflow-wrap: anywhere;
+            }
+
+            .companies-modal-wrapper .rms-disclaimer-text strong {
+                color: #19376D;
+                font-weight: 700;
+            }
+
             /* Tablet */
             @media (max-width: 950px) {
                 .companies-modal-wrapper #rms-company-grid {
@@ -1964,6 +2025,22 @@
             /* Mobile */
             @media (max-width: 600px) {
                 .companies-modal-wrapper { padding: 80px 16px 60px; }
+
+                .companies-modal-wrapper .rms-company-disclaimer {
+                    margin-top: 28px;
+                    padding: 18px 16px;
+                    border-radius: 12px;
+                }
+
+                .companies-modal-wrapper .rms-disclaimer-heading {
+                    font-size: 11px;
+                    gap: 8px;
+                }
+
+                .companies-modal-wrapper .rms-disclaimer-text {
+                    font-size: 11px;
+                    line-height: 1.8;
+                }
                 
                 .companies-modal-wrapper .rms-directory-shell {
                     padding: 25px 16px;
@@ -2043,7 +2120,7 @@
                         Our Pharmaceutical Network
                     </div>
                     <h2 class="rms-directory-title">
-                        Pharmaceutical Companies
+                        Authorized Stockist Brands
                     </h2>
                 </header>
 
@@ -2072,6 +2149,25 @@
                     <h3>No companies found</h3>
                     <p>Try a different search term.</p>
                 </div>
+
+                <!-- Pharmaceutical Company Disclaimer -->
+                <section class="rms-company-disclaimer" aria-labelledby="rms-disclaimer-heading">
+                    <h3 class="rms-disclaimer-heading" id="rms-disclaimer-heading">
+                        <span class="rms-disclaimer-icon" aria-hidden="true">
+                            <svg viewBox="0 0 24 24">
+                                <path d="M12 3 4.5 6v5.5c0 4.5 3.2 7.5 7.5 9.5 4.3-2 7.5-5 7.5-9.5V6L12 3Z"/>
+                                <path d="m9 12 2 2 4-4"/>
+                            </svg>
+                        </span>
+                        Important Declaration
+                    </h3>
+                    <p class="rms-disclaimer-text">
+                        <strong>Rakhecha Medical Stores is a stockist of products manufactured by these pharmaceutical companies.</strong>
+                        All brand names, logos, and trademarks displayed on this website are the property of their respective owners.
+                        Their appearance here does not imply direct corporate affiliation, endorsement, or sponsorship by the trademark holders.
+                    </p>
+                </section>
+
             </div>
 
             <!-- Floating company description tooltip -->
@@ -3262,7 +3358,7 @@ const newProductsData = [
 
     lightbox.addEventListener("click", function (event) {
         if (event.target === lightbox || event.target === lightboxStage) {
-            closeLightbox();
+            closeLightbox(); 
         }
     });
 
@@ -3872,15 +3968,444 @@ const newProductsData = [
     </script>
 
     <!-- Modal: Detailed Process Overview ------------------------------------------------------------------------------------------------->
+<!-- Modal: Detailed Process Overview -->
     <div id="modal-process-details" class="modal-view-section">
-        <div class="wip-container">
-            <i class="fas fa-cogs main-icon"></i>
-            <h2>Detailed Process Overview</h2>
-            <p class="subtitle">Extended documentation on our logistics process will be published here.</p>
-            <button onclick="showMainView()" class="btn-primary" style="margin-top: 10px;">⬅ Return to Home</button>
-        </div>
-    </div>
+        <style>
+            /* =====================================================
+               MODAL: PROCESS OVERVIEW (ADVANCED SCROLL ANIMATIONS)
+               ===================================================== */
+            #modal-process-details {
+                padding: 0 !important;
+                background: transparent;
+                display: none;
+                flex: 1;
+                font-family: 'Plus Jakarta Sans', sans-serif;
+                --primary-navy: #0B2447;
+                --secondary-navy: #19376D;
+                --accent-sky: #0ea5e9;
+                --text-dark: #0f172a;
+                --text-muted: #475569;
+            }
 
+            #modal-process-details *,
+            #modal-process-details *::before,
+            #modal-process-details *::after {
+                box-sizing: border-box;
+            }
+
+            .process-modal-wrapper {
+                position: relative;
+                padding: 80px 24px 100px;
+                min-height: 100vh;
+                overflow: hidden;
+                background: linear-gradient(135deg, rgba(244, 249, 255, 0.65) 0%, rgba(255, 255, 255, 0.35) 100%), url('https://imgh.in/host/3i11sw');
+                background-size: cover;
+                background-position: center;
+                background-attachment: fixed;
+                display: flex;
+                flex-direction: column;
+                animation: fadeIn 0.6s ease forwards;
+            }
+
+            .process-page-container {
+                position: relative; z-index: 2;
+                width: 100%; max-width: 1200px; margin: 0 auto;
+            }
+
+            /* --- Header --- */
+            .process-header {
+                text-align: center;
+                margin-bottom: 80px;
+            }
+
+            .process-kicker {
+                display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+                padding: 8px 20px; border-radius: 50px;
+                background: rgba(255, 255, 255, 0.7);
+                border: 1px solid rgba(11, 36, 71, 0.1);
+                color: var(--primary-navy); font-size: 0.8rem; font-weight: 800;
+                letter-spacing: 2px; text-transform: uppercase;
+                box-shadow: 0 4px 15px rgba(11, 36, 71, 0.05);
+                backdrop-filter: blur(10px);
+                margin-bottom: 20px;
+                animation: slideDownFade 0.8s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
+            }
+            .process-kicker i { color: var(--accent-sky); font-size: 1rem; }
+
+            .process-header h2 {
+                margin: 0 0 15px;
+                font-family: 'Playfair Display', serif;
+                font-size: clamp(32px, 5vw, 48px); font-weight: 800;
+                color: var(--primary-navy); line-height: 1.2;
+                opacity: 0; animation: slideUpFade 0.8s cubic-bezier(0.165, 0.84, 0.44, 1) 0.2s forwards;
+            }
+            .process-header h2 span { color: var(--accent-sky); }
+
+            .process-header p {
+                max-width: 650px; margin: 0 auto;
+                color: var(--text-muted); font-size: 1.1rem; line-height: 1.7; font-weight: 500;
+                opacity: 0; animation: slideUpFade 0.8s cubic-bezier(0.165, 0.84, 0.44, 1) 0.4s forwards;
+            }
+
+            /* --- Timeline Structure --- */
+            .timeline-container {
+                position: relative;
+                max-width: 1000px;
+                margin: 0 auto;
+                padding: 40px 0;
+            }
+
+            /* The Central Background Line */
+            .timeline-container::before {
+                content: '';
+                position: absolute;
+                top: 0; left: 50%;
+                width: 6px; height: 100%;
+                background: rgba(11, 36, 71, 0.08);
+                transform: translateX(-50%);
+                border-radius: 4px;
+            }
+
+            /* The Glowing Animated Fill Line */
+            .timeline-progress {
+                position: absolute;
+                top: 0; left: 50%;
+                width: 6px; height: 0%;
+                background: var(--accent-sky);
+                transform: translateX(-50%);
+                border-radius: 4px;
+                z-index: 1;
+                box-shadow: 0 0 15px var(--accent-sky);
+                /* We will control height via JS on scroll */
+            }
+            
+            /* The traveling dot at the bottom of the progress line */
+            .timeline-progress::after {
+                content: '';
+                position: absolute;
+                bottom: -6px; left: -6px;
+                width: 18px; height: 18px;
+                background: #ffffff;
+                border: 4px solid var(--accent-sky);
+                border-radius: 50%;
+                box-shadow: 0 0 20px var(--accent-sky);
+            }
+
+            /* --- Timeline Items (Cards) --- */
+            .timeline-item {
+                position: relative;
+                width: 100%;
+                margin-bottom: 80px;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                opacity: 0;
+                transition: opacity 0.8s ease, transform 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+            }
+            
+            /* Initial states for lazy load slide-in */
+            .timeline-item:nth-child(even) { transform: translateX(-100px) translateY(30px); }
+            .timeline-item:nth-child(odd) { transform: translateX(100px) translateY(30px); flex-direction: row-reverse; }
+
+            /* State when scrolled into view */
+            .timeline-item.in-view {
+                opacity: 1;
+                transform: translate(0, 0);
+            }
+
+            .timeline-item:last-child { margin-bottom: 0; }
+
+            /* Card Styling */
+            .timeline-content {
+                width: 45%;
+                background: rgba(255, 255, 255, 0.55);
+                border: 1px solid rgba(255, 255, 255, 0.9);
+                border-radius: 20px;
+                padding: 35px 30px;
+                box-shadow: 0 10px 30px rgba(11, 36, 71, 0.05), inset 0 0 0 1px rgba(255, 255, 255, 0.4);
+                backdrop-filter: blur(24px);
+                -webkit-backdrop-filter: blur(24px);
+                position: relative;
+                z-index: 2;
+                transition: transform 0.4s ease, box-shadow 0.4s ease, border-color 0.4s ease;
+            }
+            
+            .timeline-item.in-view .timeline-content:hover {
+                transform: translateY(-8px) scale(1.02);
+                box-shadow: 0 20px 45px rgba(11, 36, 71, 0.12);
+                border-color: var(--accent-sky);
+            }
+
+            /* Number Badge */
+            .timeline-step-num {
+                position: absolute;
+                top: -15px; left: 30px;
+                background: var(--primary-navy);
+                color: #ffffff;
+                font-family: 'Playfair Display', serif;
+                font-size: 1.2rem; font-weight: 800;
+                width: 45px; height: 45px;
+                display: flex; align-items: center; justify-content: center;
+                border-radius: 12px;
+                box-shadow: 0 5px 15px rgba(11, 36, 71, 0.2);
+                transition: background 0.3s ease;
+            }
+            .timeline-item:nth-child(odd) .timeline-step-num { left: auto; right: 30px; }
+            
+            .timeline-item.in-view .timeline-content:hover .timeline-step-num {
+                background: var(--accent-sky);
+            }
+
+            .timeline-content h3 {
+                margin: 15px 0 10px;
+                color: var(--primary-navy);
+                font-size: 1.4rem; font-weight: 800;
+            }
+
+            .timeline-content p {
+                margin: 0;
+                color: var(--text-dark);
+                font-size: 1.05rem; font-weight: 500; line-height: 1.7;
+            }
+
+            /* --- Timeline Icons (Center) --- */
+            .timeline-icon {
+                position: absolute;
+                top: 50%; left: 50%;
+                transform: translate(-50%, -50%);
+                width: 70px; height: 70px;
+                background: #ffffff;
+                border: 4px solid rgba(11, 36, 71, 0.1);
+                border-radius: 50%;
+                display: flex; align-items: center; justify-content: center;
+                z-index: 3;
+                box-shadow: 0 0 0 6px rgba(255, 255, 255, 0.5), 0 5px 15px rgba(11, 36, 71, 0.1);
+                color: var(--primary-navy);
+                font-size: 1.6rem;
+                transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+            }
+            
+            /* Icon activates when scrolled into view */
+            .timeline-item.in-view .timeline-icon {
+                background: var(--accent-sky);
+                color: #ffffff;
+                border-color: #ffffff;
+                box-shadow: 0 0 0 6px rgba(14, 165, 233, 0.2), 0 10px 25px rgba(14, 165, 233, 0.4);
+                transform: translate(-50%, -50%) scale(1.1);
+            }
+
+            /* --- Continuous Icon Animations --- */
+            .timeline-item.in-view:hover .icon-pulse { animation: iconPulse 1s infinite alternate; }
+            .timeline-item.in-view:hover .icon-bounce { animation: iconBounce 1s infinite; }
+            .timeline-item.in-view:hover .icon-spin { animation: iconSpin 3s linear infinite; }
+            .timeline-item.in-view:hover .icon-move { animation: iconMove 1.5s infinite linear; }
+            .timeline-item.in-view:hover .icon-wave { animation: iconWave 1s infinite alternate; }
+
+            @keyframes iconPulse { from { transform: scale(1); } to { transform: scale(1.2); } }
+            @keyframes iconBounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+            @keyframes iconSpin { 100% { transform: rotate(360deg); } }
+            @keyframes iconMove { 0% { transform: translateX(-6px); } 50% { transform: translateX(6px); } 100% { transform: translateX(-6px); } }
+            @keyframes iconWave { 0% { transform: rotate(-20deg); } 100% { transform: rotate(20deg); } }
+            
+            @keyframes slideDownFade { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
+            @keyframes slideUpFade { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+
+            /* --- Responsive Design --- */
+            @media (max-width: 900px) {
+                .timeline-container::before, .timeline-progress { left: 40px; }
+                .timeline-item { flex-direction: column !important; align-items: flex-end; }
+                /* Change slide-in direction for mobile so they all come from the right */
+                .timeline-item:nth-child(even), .timeline-item:nth-child(odd) { transform: translateX(50px) translateY(30px); }
+                .timeline-content { width: calc(100% - 90px); }
+                .timeline-icon { left: 40px; }
+                .timeline-item.in-view .timeline-icon { transform: translate(-50%, -50%) scale(1); }
+                .timeline-step-num { left: 25px !important; right: auto !important; }
+            }
+
+            @media (max-width: 600px) {
+                .process-modal-wrapper { padding: 80px 16px 60px; }
+                .process-header h2 { font-size: clamp(28px, 8vw, 36px); }
+                .timeline-container::before, .timeline-progress { left: 30px; }
+                .timeline-icon { left: 30px; width: 50px; height: 50px; font-size: 1.2rem; }
+                .timeline-content { width: calc(100% - 70px); padding: 25px 20px; }
+                .timeline-content h3 { font-size: 1.2rem; }
+                .timeline-content p { font-size: 0.95rem; }
+            }
+
+            @media (prefers-reduced-motion: reduce) {
+                .timeline-item { transition: none; opacity: 1; transform: none !important; }
+                .timeline-icon i { animation: none !important; }
+                .process-header h2, .process-header p, .process-kicker { animation: none; opacity: 1; }
+            }
+        </style>
+
+        <div class="process-modal-wrapper">
+            <div class="process-page-container">
+
+                <header class="process-header">
+                    <div class="process-kicker">
+                        <i class="fas fa-cogs"></i> Supply Chain Excellence
+                    </div>
+                    <h2>Detailed Process <span>Overview</span></h2>
+                    <p>
+                        A transparent look into our robust end-to-end pharmaceutical distribution workflow. Every step is optimized for accuracy, speed, and clinical safety.
+                    </p>
+                </header>
+
+                <div class="timeline-container" id="process-timeline-container">
+                    <div class="timeline-progress" id="timeline-progress-bar"></div>
+
+                    <!-- Step 01 -->
+                    <div class="timeline-item">
+                        <div class="timeline-content">
+                            <div class="timeline-step-num">01</div>
+                            <h3>Order Reception</h3>
+                            <p>Omnichannel order ingestion. We seamlessly receive purchase orders over direct phone lines, official email, or instantly through the integrated RMS online order placement portal.</p>
+                        </div>
+                        <div class="timeline-icon">
+                            <i class="fas fa-headset icon-pulse"></i>
+                        </div>
+                    </div>
+
+                    <!-- Step 02 -->
+                    <div class="timeline-item">
+                        <div class="timeline-content">
+                            <div class="timeline-step-num">02</div>
+                            <h3>Automated Billing</h3>
+                            <p>Once received, orders are processed through our billing system. Rapid invoice generation ensures all tax and pricing structures are instantly applied with zero manual error.</p>
+                        </div>
+                        <div class="timeline-icon">
+                            <i class="fas fa-file-invoice-dollar icon-bounce"></i>
+                        </div>
+                    </div>
+
+                    <!-- Step 03 -->
+                    <div class="timeline-item">
+                        <div class="timeline-content">
+                            <div class="timeline-step-num">03</div>
+                            <h3>Precision Picking</h3>
+                            <p>Our warehouse team executes accurate inventory picking. Products are pulled from organized stock based on batch numbers and first-in-first-out (FIFO) expiry management.</p>
+                        </div>
+                        <div class="timeline-icon">
+                            <i class="fas fa-dolly icon-move"></i>
+                        </div>
+                    </div>
+
+                    <!-- Step 04 -->
+                    <div class="timeline-item">
+                        <div class="timeline-content">
+                            <div class="timeline-step-num">04</div>
+                            <h3>Quality Verification</h3>
+                            <p>Strict QA protocols. The physical goods are meticulously cross-referenced against the generated invoice to guarantee exactly what was ordered is what leaves the facility.</p>
+                        </div>
+                        <div class="timeline-icon">
+                            <i class="fas fa-clipboard-check icon-pulse"></i>
+                        </div>
+                    </div>
+
+                    <!-- Step 05 -->
+                    <div class="timeline-item">
+                        <div class="timeline-content">
+                            <div class="timeline-step-num">05</div>
+                            <h3>Safe Packaging</h3>
+                            <p>Goods are secured using industry-standard packaging protocols. This protects medicines from physical damage, light exposure, and tampering during the transit phase.</p>
+                        </div>
+                        <div class="timeline-icon">
+                            <i class="fas fa-box-open icon-bounce"></i>
+                        </div>
+                    </div>
+
+                    <!-- Step 06 -->
+                    <div class="timeline-item">
+                        <div class="timeline-content">
+                            <div class="timeline-step-num">06</div>
+                            <h3>Cold-Chain Management</h3>
+                            <p>For temperature-sensitive items like insulin and vaccines, specialized thermal packaging and coolant packs are applied to maintain strict cold-chain integrity.</p>
+                        </div>
+                        <div class="timeline-icon">
+                            <i class="fas fa-snowflake icon-spin"></i>
+                        </div>
+                    </div>
+
+                    <!-- Step 07 -->
+                    <div class="timeline-item">
+                        <div class="timeline-content">
+                            <div class="timeline-step-num">07</div>
+                            <h3>Dispatch Readiness</h3>
+                            <p>Packages are staged at the dispatch bay. They are ready for immediate loading onto delivery vehicles, or staged for direct pickup from the RMS counter.</p>
+                        </div>
+                        <div class="timeline-icon">
+                            <i class="fas fa-flag-checkered icon-wave"></i>
+                        </div>
+                    </div>
+
+                    <!-- Step 08 -->
+                    <div class="timeline-item">
+                        <div class="timeline-content">
+                            <div class="timeline-step-num">08</div>
+                            <h3>Final Delivery</h3>
+                            <p>Safe, protected, and on-time delivery. Dedicated RMS executives handle the last-mile logistics to ensure chemists and hospitals receive their stock without delays.</p>
+                        </div>
+                        <div class="timeline-icon">
+                            <i class="fas fa-truck-fast icon-move"></i>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <!-- Interactive Timeline Script -->
+        <script>
+        (function() {
+            "use strict";
+            const modal = document.getElementById("modal-process-details");
+            if (!modal || modal.dataset.timelineInitialized === "true") return;
+            modal.dataset.timelineInitialized = "true";
+
+            const timelineItems = modal.querySelectorAll(".timeline-item");
+            const progressBar = modal.querySelector("#timeline-progress-bar");
+            const container = modal.querySelector("#process-timeline-container");
+
+            // 1. Scroll Reveal Animation for Cards (Lazy Load Effect)
+            if ("IntersectionObserver" in window) {
+                // We use a negative bottom margin so the card doesn't appear until it's 10% up the screen
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add("in-view");
+                            // Optional: Stop observing once it's visible so it doesn't animate out and in constantly
+                            // observer.unobserve(entry.target); 
+                        }
+                    });
+                }, { threshold: 0.1, rootMargin: "0px 0px -10% 0px" });
+
+                timelineItems.forEach(item => observer.observe(item));
+            } else {
+                timelineItems.forEach(item => item.classList.add("in-view"));
+            }
+
+            // 2. Animated Center Line Fill based on Window Scroll
+            // Since the modal takes up the main view, the 'window' is the scroll container
+            window.addEventListener("scroll", () => {
+                // Only run calculations if this specific modal is visible
+                if (modal.style.display === "none") return;
+
+                const rect = container.getBoundingClientRect();
+                const viewportHeight = window.innerHeight;
+                
+                // Calculate progress: Start filling when the top of the timeline hits the middle of the screen
+                // Fully filled when the bottom of the timeline hits the middle of the screen
+                let progress = (viewportHeight / 2 - rect.top) / rect.height;
+                
+                // Clamp the progress value strictly between 0 and 1
+                progress = Math.max(0, Math.min(1, progress));
+                
+                progressBar.style.height = `${progress * 100}%`;
+            });
+        })();
+        </script>
+    </div>
     <!-- ==========================================
          END SEPARATE MODAL VIEWS
          ========================================== -->
