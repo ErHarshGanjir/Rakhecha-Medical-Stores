@@ -3,511 +3,114 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rakhecha Medical Stores | Premium Pharma Distribution</title>
-    
-    <!-- Fonts and Icons -->
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
-    <!-- App icon -->
-    <link rel="icon" type="image/png" href="favicon.png">
-    
+    <title>GitHub Hosted Video Background</title>
     <style>
-        :root {
-            --brand-blue: #0061ff;
-            --brand-dark: #061731;
-            --medical-green: #00d285;
-            --white: #ffffff;
-            --shadow-sm: 0 4px 15px rgba(0,0,0,0.03);
-            --shadow-lg: 0 20px 40px rgba(0,0,0,0.08);
-            --shadow-glow: 0 20px 40px rgba(0, 97, 255, 0.15);
-            --glass: rgba(255, 255, 255, 0.85);
+        /* Reset margins and hide scrollbars */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body, html {
+            height: 100%;
+            overflow: hidden;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: #fff;
+            background-color: #000;
         }
 
-        * { box-sizing: border-box; margin: 0; padding: 0; }
-
-        html {
-            scroll-behavior: smooth;
+        /* Background video container */
+        .video-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
         }
 
-        body {
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            background-color: #f8fbff;
-            color: var(--brand-dark);
-            line-height: 1.6;
-            overflow-x: hidden;
+        /* Force native HTML5 video to cover the screen perfectly without distortion */
+        .video-background video {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
+            transform: translate(-50%, -50%);
+            object-fit: cover;
         }
 
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
+        /* Matte overlay to preserve high typography contrast and design focus */
+        .video-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.45); 
+            z-index: 0;
+        }
+
+        /* Content layer positioning */
+        .content {
             position: relative;
-            z-index: 10;
-        }
-
-        /* --- Animations (Fintech Style) --- */
-        .reveal {
-            opacity: 0;
-            transform: translateY(40px);
-            transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), 
-                        transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-        .reveal.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-        
-        .delay-1 { transition-delay: 0.1s; }
-        .delay-2 { transition-delay: 0.2s; }
-        .delay-3 { transition-delay: 0.3s; }
-
-        /* --- Floating Contact (Mobile Focus) --- */
-        .floating-contact {
-            position: fixed;
-            bottom: 25px;
-            right: 25px;
-            z-index: 1000;
+            z-index: 1;
             display: flex;
             flex-direction: column;
-            gap: 12px;
-        }
-
-        .float-btn {
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
             justify-content: center;
-            color: white;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-            text-decoration: none;
-            font-size: 24px;
-            transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
-
-        .float-btn:hover { 
-            transform: scale(1.1) translateY(-5px); 
-        }
-        .float-phone { background: var(--brand-blue); }
-        .float-map { background: #ea4335; }
-
-        /* --- Navigation --- */
-        nav {
-            background: var(--glass);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            height: 85px;
-            display: flex;
             align-items: center;
-            position: fixed;
-            width: 100%;
-            top: 0;
-            z-index: 999;
-            border-bottom: 1px solid rgba(255,255,255,0.3);
-            transition: all 0.4s ease;
-        }
-        
-        nav.scrolled {
-            height: 75px;
-            box-shadow: var(--shadow-sm);
-            background: rgba(255, 255, 255, 0.95);
+            height: 100%;
+            text-align: center;
+            padding: 20px;
         }
 
-        .nav-flex {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            width: 100%;
+        h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.5);
         }
 
-        .logo-area { display: flex; align-items: center; gap: 12px; }
-        .logo-img { height: 55px; width: auto; transition: 0.3s; }
-        .brand-text b { color: var(--brand-blue); font-size: 1.2rem; display: block; line-height: 1.1; }
-        .brand-text span { font-size: 0.7rem; letter-spacing: 2px; text-transform: uppercase; color: var(--brand-dark); font-weight: 600; }
-
-        .nav-links a { text-decoration: none; color: var(--brand-dark); font-weight: 700; margin-left: 30px; font-size: 0.95rem; transition: color 0.3s; }
-        .nav-links a:not(.nav-cta):hover { color: var(--brand-blue); }
-        
-        .nav-cta { 
-            background: var(--brand-blue); 
-            color: white !important; 
-            padding: 12px 28px; 
-            border-radius: 50px; 
-            transition: all 0.3s ease;
-            box-shadow: 0 8px 20px rgba(0, 97, 255, 0.2);
-        }
-        .nav-cta:hover { 
-            background: var(--brand-dark); 
-            box-shadow: 0 8px 20px rgba(6, 23, 49, 0.2);
-            transform: translateY(-2px);
-        }
-
-        /* --- Hero Section with Mesh Gradient --- */
-        .hero { 
-            padding: 160px 0 120px; 
-            position: relative;
-            overflow: hidden;
-        }
-        
-        /* Modern Fintech Background Glows */
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: -20%; left: -10%;
-            width: 500px; height: 500px;
-            background: radial-gradient(circle, rgba(0, 97, 255, 0.15) 0%, rgba(255,255,255,0) 70%);
-            z-index: 0;
-            border-radius: 50%;
-        }
-        .hero::after {
-            content: '';
-            position: absolute;
-            bottom: -10%; right: -5%;
-            width: 600px; height: 600px;
-            background: radial-gradient(circle, rgba(0, 210, 133, 0.1) 0%, rgba(255,255,255,0) 70%);
-            z-index: 0;
-            border-radius: 50%;
-        }
-
-        .hero-flex { display: flex; align-items: center; gap: 60px; flex-wrap: wrap; }
-        .hero-content { flex: 1; min-width: 320px; }
-        
-        .badge { 
-            display: inline-block; 
-            padding: 8px 20px; 
-            background: rgba(0, 97, 255, 0.08); 
-            color: var(--brand-blue); 
-            border-radius: 50px; 
-            font-size: 0.85rem; 
-            font-weight: 800; 
-            margin-bottom: 25px; 
-            border: 1px solid rgba(0,97,255,0.15);
-            backdrop-filter: blur(5px);
-        }
-        
-        .hero-content h1 { 
-            font-size: clamp(2.8rem, 5vw, 4.2rem); 
-            line-height: 1.1; 
-            margin-bottom: 25px; 
-            letter-spacing: -1.5px; 
-        }
-        .hero-content h1 span {
-            background: linear-gradient(135deg, var(--brand-blue), #00d285);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-        
-        .hero-content p { font-size: 1.2rem; color: #4a5568; margin-bottom: 40px; max-width: 550px; }
-        .hero-btns { display: flex; gap: 20px; }
-
-        .btn-primary { 
-            background: var(--brand-blue); 
-            color: white; 
-            padding: 16px 36px; 
-            border-radius: 14px; 
-            text-decoration: none; 
-            font-weight: 700; 
-            box-shadow: 0 10px 25px rgba(0,97,255,0.25); 
-            transition: all 0.3s ease; 
-        }
-        .btn-secondary { 
-            background: white; 
-            border: 1px solid #e2e8f0; 
-            color: var(--brand-dark); 
-            padding: 16px 36px; 
-            border-radius: 14px; 
-            text-decoration: none; 
-            font-weight: 700; 
-            transition: all 0.3s ease; 
-            box-shadow: var(--shadow-sm);
-        }
-        .btn-primary:hover { transform: translateY(-3px); box-shadow: var(--shadow-glow); }
-        .btn-secondary:hover { transform: translateY(-3px); border-color: var(--brand-blue); color: var(--brand-blue); }
-
-        .hero-image { flex: 1; min-width: 350px; position: relative; }
-        .hero-image::before {
-            content: '';
-            position: absolute;
-            inset: -20px;
-            background: linear-gradient(135deg, var(--brand-blue), var(--medical-green));
-            border-radius: 40px;
-            z-index: -1;
-            opacity: 0.15;
-            filter: blur(20px);
-        }
-        .hero-image img { 
-            width: 100%; 
-            border-radius: 30px; 
-            box-shadow: var(--shadow-lg); 
-            transform: perspective(1000px) rotateY(-5deg) rotateX(5deg); 
-            transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1); 
-        }
-        .hero-image:hover img { 
-            transform: perspective(1000px) rotateY(0deg) rotateX(0deg); 
-        }
-
-        /* --- Action Cards --- */
-        .action-section { 
-            margin-top: -60px; 
-            display: grid; 
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); 
-            gap: 30px; 
-            padding-bottom: 100px; 
-        }
-        .action-card { 
-            background: rgba(255, 255, 255, 0.7);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            padding: 50px 35px; 
-            border-radius: 28px; 
-            box-shadow: var(--shadow-sm); 
-            text-align: center; 
-            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1); 
-            border: 1px solid rgba(255,255,255,1); 
-        }
-        .action-card:hover { 
-            transform: translateY(-15px); 
-            box-shadow: var(--shadow-glow);
-            border-color: rgba(0,97,255,0.2); 
-            background: white;
-        }
-        .action-card i { 
-            font-size: 3rem; 
-            margin-bottom: 25px; 
-            display: block; 
-            transition: transform 0.3s ease;
-        }
-        .action-card:hover i {
-            transform: scale(1.1);
-        }
-        .icon-blue { color: var(--brand-blue); }
-        .icon-red { color: #ea4335; }
-        .icon-green { color: var(--medical-green); }
-        .card-link { 
-            display: inline-block; 
-            margin-top: 25px; 
-            padding: 14px 28px; 
-            background: #f1f5f9; 
-            color: var(--brand-dark); 
-            text-decoration: none; 
-            border-radius: 12px; 
-            font-weight: 700; 
-            font-size: 0.95rem; 
-            transition: all 0.3s ease; 
-        }
-        .card-link:hover { background: var(--brand-blue); color: white; }
-
-        /* --- Details/Stats --- */
-        .details-section { padding: 60px 0 120px; display: flex; gap: 80px; flex-wrap: wrap; align-items: center; }
-        .details-text { flex: 1.2; min-width: 320px; }
-        .details-text h2 { font-size: 2.8rem; margin-bottom: 20px; letter-spacing: -1px; }
-        .text-blue { color: var(--brand-blue); }
-        .info-grid { flex: 1; display: grid; gap: 25px; }
-        .info-item { 
-            display: flex; 
-            gap: 20px; 
-            background: white; 
-            padding: 30px; 
-            border-radius: 20px; 
-            box-shadow: var(--shadow-sm); 
-            border: 1px solid rgba(0,0,0,0.02);
-            transition: transform 0.3s ease;
-        }
-        .info-item:hover {
-            transform: translateX(10px);
-        }
-        .info-item i { color: var(--medical-green); font-size: 2rem; background: rgba(0,210,133,0.1); padding: 15px; border-radius: 14px; height: max-content;}
-        .info-item h4 { font-size: 1.1rem; margin-bottom: 8px; }
-        .info-item p { font-size: 0.95rem; color: #64748b; line-height: 1.5;}
-
-        /* --- Footer --- */
-        footer { 
-            background: var(--brand-dark); 
-            color: white; 
-            padding: 100px 0 40px; 
-            text-align: center; 
-            position: relative;
-            overflow: hidden;
-        }
-        footer::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; right: 0;
-            height: 1px;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-        }
-        .footer-logo { height: 65px; margin-bottom: 25px; filter: drop-shadow(0 4px 6px rgba(0,0,0,0.3)); }
-        footer h3 { font-size: 1.5rem; margin-bottom: 15px; }
-        footer p { color: #94a3b8; margin-bottom: 8px; }
-        
-        .footer-bottom { 
-            margin-top: 60px; 
-            padding-top: 30px; 
-            border-top: 1px solid rgba(255,255,255,0.08); 
-            font-size: 0.85rem; 
-            color: #64748b; 
-            letter-spacing: 1px; 
-        }
-
-        /* --- Mobile Responsiveness --- */
-        @media (max-width: 768px) {
-            nav { padding: 0 15px; }
-            .nav-links { display: none; }
-            .hero { padding: 130px 0 80px; }
-            .hero-flex { text-align: center; justify-content: center; }
-            .hero-btns { justify-content: center; flex-direction: column; }
-            .hero-content h1 { font-size: 2.5rem; }
-            .action-section { margin-top: -20px; padding-bottom: 60px; }
-            .details-section { text-align: center; gap: 40px; }
-            .info-item { text-align: left; }
+        p {
+            font-size: 1.25rem;
+            max-width: 600px;
+            line-height: 1.6;
+            text-shadow: 0 2px 5px rgba(0,0,0,0.5);
         }
     </style>
 </head>
 <body>
 
-    <div class="floating-contact reveal">
-        <a href="tel:7489574895" class="float-btn float-phone" title="Call Us">
-            <i class="fas fa-phone"></i>
-        </a>
-        <a href="https://www.google.com/maps/search/Rakhecha+Medical+Stores+Dhamtari" target="_blank" class="float-btn float-map" title="Directions">
-            <i class="fas fa-location-arrow"></i>
-        </a>
+    <!-- Native HTML5 Video Layer -->
+    <div class="video-background">
+        <!-- Direct stream configuration from GitHub with autoplay, looping, and silent layout parameters -->
+        <video autoplay loop muted playsinline>
+            <!-- 
+               CHOOSE ONE URL FORMAT BELOW AND REPLACE THE PLACEHOLDER SOURCE PATH:
+               
+               Option A (If using a raw repository link):
+               https://githubusercontent.com
+               
+               Option B (If using GitHub Pages deployment):
+               https://YOUR_GITHUB_USERNAME.github.io/YOUR_REPO_NAME/wwwbag.mp4
+            -->
+            <source src="https://githubusercontent.com" type="video/mp4">
+            Your browser does not support HTML5 video layout systems.
+        </video>
+    </div>
+    
+    <!-- Design Overlay Mask -->
+    <div class="video-overlay"></div>
+
+    <!-- Foreground Interface Content -->
+    <div class="content">
+        <h1>Design Concept</h1>
+        <p>This layout streams your file seamlessly from GitHub's infrastructure, bypassing cross-origin frame limitations entirely.</p>
     </div>
 
-    <nav id="navbar">
-        <div class="container nav-flex">
-            <div class="logo-area">
-                <img src="https://i.ibb.co/HfxTSLb6/RMS-icon-1.png" alt="RMS Logo" class="logo-img">
-                <div class="brand-text">
-                    <b>RAKHECHA</b>
-                    <span>Medical Stores</span>
-                </div>
-            </div>
-            <div class="nav-links">
-                <a href="https://rakhechamedical.in/order/" target="_blank">Inventory</a>
-                <a href="#explore">Find Us</a>
-                <a href="tel:7489574895" class="nav-cta">Call: 74895 74895</a>
-            </div>
-        </div>
-    </nav>
-
-    <header class="hero">
-        <div class="container hero-flex">
-            <div class="hero-content reveal">
-                <div class="badge">Trusted Since 1990</div>
-                <h1>Smart Pharma <br><span>Distribution.</span></h1>
-                <p>Leading wholesale distribution for premium medicines and medical supplies in Chhattisgarh. Speed, care, and quality assured.</p>
-                <div class="hero-btns">
-                    <a href="#explore" class="btn-primary">Our Services</a>
-                    <a href="mailto:rakhechamedical@gmail.com" class="btn-secondary">Send Email</a>
-                </div>
-            </div>
-            <div class="hero-image reveal delay-1">
-                <img src="https://images.unsplash.com/photo-1585435557343-3b092031a831?auto=format&fit=crop&q=80&w=1200" alt="Medicine Logistics">
-            </div>
-        </div>
-    </header>
-
-    <main class="container action-section" id="explore">
-        <div class="action-card reveal delay-1">
-            <i class="fas fa-map-marked-alt icon-red"></i>
-            <h3>Visit Our Store</h3>
-            <p>Sihawa Chowk, Dhamtari. Open 7 days a week for pharmaceutical supplies.</p>
-            <a href="https://www.google.com/maps/search/Rakhecha+Medical+Stores+Dhamtari" target="_blank" class="card-link">Get Directions</a>
-        </div>
-
-        <div class="action-card reveal delay-2">
-            <i class="fas fa-box-open icon-blue"></i>
-            <h3>Digital Inventory</h3>
-            <p>Explore our healthcare portfolio through our live web-based product catalog and place your order online.</p>
-            <a href="https://rakhechamedical.in/product/" target="_blank" class="card-link">View Website</a>
-        </div>
-
-        <div class="action-card reveal delay-3">
-            <i class="fas fa-file-pdf icon-green"></i>
-            <h3>Price List PDF</h3>
-            <p>Download our complete stock list for offline procurement and bulk orders.</p>
-            <a href="https://drive.google.com/file/d/1Kg3TzJdnIHn2B4MQx4DpjVfLof-BAbNW/view?usp=sharing" target="_blank" class="card-link">Download Stock List</a>
-        </div>
-    </main>
-
-    <section class="container details-section">
-        <div class="details-text reveal">
-            <h2>Modernizing <br><span class="text-blue">Bulk Medicine</span></h2>
-            <p>We combine 30+ years of legacy with modern logistics. Our facility manages mass distribution with strict quality controls for branded and generic pharma solutions.</p>
-        </div>
-        <div class="info-grid">
-            <div class="info-item reveal delay-1">
-                <i class="fas fa-clock"></i>
-                <div>
-                    <h4>7 Days Availability</h4>
-                    <p>Open Monday to Sunday for essential medicine supplies.</p>
-                </div>
-            </div>
-            <div class="info-item reveal delay-2">
-                <i class="fas fa-shield-alt"></i>
-                <div>
-                    <h4>Quality Verified</h4>
-                    <p>All bulk deliveries follow standard pharmaceutical safety protocols.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <footer class="reveal">
-        <div class="container">
-            <img src="https://i.ibb.co/HfxTSLb6/RMS-icon-1.png" alt="RMS Logo" class="footer-logo">
-            <h3>Rakhecha Medical Stores</h3>
-            <p>Near Mahavar Dharam Shala, Sihawa Chowk, Dhamtari, CG - 493773</p>
-            <p>GST number : 22ACSPD4513B1Z8</p>
-            <p>FSSAI number :  10521005000181</p>
-            <p>Drug licence number : 20-29783, 20B-29784,  21-29785, 21B-29786</p>
-            <p style="margin-top: 15px; font-weight: 600; color: #60a5fa;">Contact: 74895 74895</p>
-            
-            <div class="footer-bottom">
-                <p>© 2026 Rakhecha Medical Stores. All Rights Reserved.</p>
-                <p style="margin-top: 10px; font-size: 0.75rem;">Authorized Wholesale Medical Distributor</p>
-            </div>
-        </div>
-    </footer>
-
-    <!-- Vanilla JS for Scroll Animations & Navbar shrink -->
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            // Log for initialization tracking
-            console.log("Rakhecha Medical Stores UI loaded and telemetry submited.");
-
-            // 1. Navbar shrink effect on scroll
-            const navbar = document.getElementById('navbar');
-            window.addEventListener('scroll', () => {
-                if (window.scrollY > 50) {
-                    navbar.classList.add('scrolled');
-                } else {
-                    navbar.classList.remove('scrolled');
-                }
-            });
-
-            // 2. Intersection Observer for Scroll Reveal Animations
-            const observerOptions = {
-                root: null,
-                rootMargin: '0px',
-                threshold: 0.15
-            };
-
-            const observer = new IntersectionObserver((entries, observer) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('visible');
-                        observer.unobserve(entry.target); // Run animation only once
-                    }
-                });
-            }, observerOptions);
-
-            const revealElements = document.querySelectorAll('.reveal');
-            revealElements.forEach(el => observer.observe(el));
-        });
-    </script>
 </body>
 </html>
